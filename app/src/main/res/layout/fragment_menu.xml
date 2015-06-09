@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/content"
+        android:clickable="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/navigation_left_background_normal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/editProfile"
+            >
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_baby_picture"
+                android:id="@+id/babyImage"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/babyName"
+                android:text="Customize Profile"
+                android:layout_centerHorizontal="true"
+                android:textColor="@drawable/menu_list_text_color"
+
+                android:layout_below="@id/babyImage"/>
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/babyAge"-->
+                <!--android:text="Add Baby Age"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:textColor="@drawable/menu_list_text_color"-->
+                <!--android:layout_below="@id/babyName"/>-->
+
+
+        </RelativeLayout>
+
+        <!--<TextView-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:id="@+id/menu_header"-->
+            <!--android:padding="@dimen/content_padding_normal"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/app_name"-->
+            <!--style="@style/MenuHeader" />-->
+
+        <ListView
+            android:layout_gravity="start"
+            android:id="@+id/menu_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:divider="@color/navigation_left_divider"
+            android:dividerHeight="1dip"
+            android:choiceMode="singleChoice"
+            android:descendantFocusability="blocksDescendants"
+            android:drawSelectorOnTop="false"
+            android:background="@color/navigation_left_background_normal"/>
+    </LinearLayout>
+    <!--<RelativeLayout android:id="@+id/status"-->
+    <!--android:clickable="true"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent">-->
+    <!--<ProgressBar android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--style="?android:attr/progressBarStyleLarge"/>-->
+    <!--</RelativeLayout>-->
+</FrameLayout>

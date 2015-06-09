@@ -1,0 +1,110 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.1.+'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'hugo'
+
+dependencies {
+    compile 'com.android.support:support-v4:20.0.0'
+    compile 'com.squareup.dagger:dagger:1.2.0'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.0'
+    compile 'com.squareup.okhttp:okhttp:1.3.0'
+    compile 'com.squareup.picasso:picasso:2.1.1'
+    compile 'com.squareup.retrofit:retrofit:1.5.1'
+    debugCompile 'com.squareup.retrofit:retrofit-mock:1.3.0'
+    compile 'com.jakewharton:butterknife:4.0.1'
+    compile 'com.jakewharton.timber:timber:2.1.0'
+    compile 'com.etsy.android.grid:library:1.0.4'
+    compile 'com.squareup:otto:1.3.4'
+    compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+//    compile 'com.google.android.gms:play-services:3.2.+'
+    compile 'com.google.guava:guava:15.0+'
+    compile 'com.android.support:appcompat-v7:19.0.+'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile  'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.j256.ormlite:ormlite-core:4.48'
+    compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
+
+    //sectioned adapters
+    compile 'com.mobsandgeeks:adapter-kit:0.5.3'
+
+    //about library to include licensing and other information
+    compile 'com.tundem.aboutlibraries:library:2.2.0@aar'
+
+    //
+
+    compile 'com.getbase:floatingactionbutton:1.9.0'
+
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
+    compile 'com.android.support:recyclerview-v7:22.1.1'
+    compile 'com.android.support:cardview-v7:22.1.1'
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    compile 'com.github.traex.rippleeffect:library:1.3'
+
+    compile 'com.github.markushi:circlebutton:1.1'
+
+
+    compile 'com.github.amlcurran.showcaseview:library:5.0.0'
+
+
+
+
+
+
+
+}
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 22
+
+    }
+
+
+
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
+
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
+
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/drawer_filter_background"
+    android:orientation="vertical">
+
+
+
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/nursing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/nursing"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nursing"
+        android:id="@+id/nursingText"
+        android:text="NURSING"
+        android:textColor="@color/text_color_main"
+        android:layout_centerHorizontal="true"
+        />
+
+    <View style="@style/ListItemDividerShort"
+        android:layout_below="@+id/nursingText"
+        android:layout_marginTop="5dp">
+
+
+    </View>
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/bottle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/bottle_feed"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/nursingText"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bottle"
+        android:id="@+id/bottleText"
+        android:text="BOTTLE"
+        android:layout_centerHorizontal="true"
+
+        android:textColor="@color/text_color_main"
+        />
+</RelativeLayout>

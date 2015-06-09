@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="menu_drawer_icons">
+        <item>@drawable/menu_item_diaper</item>
+        <item>@drawable/menu_item_feeds</item>
+        <item>@drawable/menu_item_growth</item>
+        <item>@drawable/menu_item_sleep</item>
+        <item>@drawable/menu_item_development</item>
+        <item>@drawable/menu_item_stats</item>
+        <item>@drawable/menu_item_about</item>
+        <item>@drawable/menu_item_about</item>
+        <item>@drawable/menu_item_profile</item>
+
+
+
+    </array>
+
+    <array name="action_fragment_icons">
+        <item>@drawable/ic_diaper</item>
+        <item>@drawable/ic_feed</item>
+        <item>@drawable/ic_growth2</item>
+        <item>@drawable/ic_sleep</item>
+        <item>@drawable/ic_development</item>
+        <item>@drawable/ic_stats</item>
+        <item>@drawable/ic_profile</item>
+
+    </array>
+
+    <string-array name="action_fragment_items">
+        <!--<item>@string/menu_item_schedule</item>-->
+        <!--<item>@string/menu_item_presentations</item>-->
+        <!--<item>@string/menu_item_speakers</item>-->
+        <!--<item>@string/menu_item_map</item>-->
+        <item>@string/menu_item_diaper</item>
+        <item>@string/menu_item_feeds</item>
+        <item>@string/menu_item_growth</item>
+        <item>@string/menu_item_sleep</item>
+        <item>@string/menu_item_development</item>
+        <item>@string/menu_item_stats</item>
+        <item>@string/menu_item_profile</item>
+
+
+    </string-array>
+
+
+    <!--<array name="action_fragment_ids">-->
+        <!--<item>@+id/action_item_</item>-->
+        <!--<item>@+id/menu_item_growth</item>-->
+        <!--<item>@+id/menu_item_messages</item>-->
+        <!--<item>@+id/menu_item_development</item>-->
+        <!--<item>@+id/menu_item_diaper</item>-->
+        <!--<item>@+id/menu_item_about</item>-->
+    <!--</array>-->
+    <!--<array name="menu_drawer_ids">-->
+        <!--<item>@+id/menu_item_schedule</item>-->
+        <!--<item>@+id/menu_item_presentations</item>-->
+        <!--<item>@+id/menu_item_speakers</item>-->
+        <!--<item>@+id/menu_item_map</item>-->
+    <!--</array>-->
+    <array name="menu_drawer_ids">
+        <!--<item>@+id/menu_item_events_nearby</item>-->
+        <!--<item>@+id/menu_item_past_events</item>-->
+        <!--<item>@+id/menu_item_messages</item>-->
+        <!--<item>@+id/menu_item_message_board</item>-->
+        <!--<item>@+id/menu_item_my_profile</item>-->
+        <!--<item>@+id/menu_item_about</item>-->
+    </array>
+    <string-array name="menu_drawer_items">
+        <!--<item>@string/menu_item_schedule</item>-->
+        <!--<item>@string/menu_item_presentations</item>-->
+        <!--<item>@string/menu_item_speakers</item>-->
+        <!--<item>@string/menu_item_map</item>-->
+        <item>@string/menu_item_diaper</item>
+        <item>@string/menu_item_feeds</item>
+        <item>@string/menu_item_growth</item>
+        <item>@string/menu_item_sleep</item>
+        <item>@string/menu_item_development</item>
+        <item>@string/menu_item_stats</item>
+        <item>@string/menu_item_about</item>
+        <item>@string/menu_item_activity_log</item>
+        <item>@string/menu_item_profile</item>
+    </string-array>
+
+    <string-array name="filter_event_types">
+        <item>@string/filter_item_business</item>
+        <item>@string/filter_item_classes</item>
+        <item>@string/filter_item_comedy</item>
+        <item>@string/filter_item_conferences</item>
+        <item>@string/filter_item_endurance</item>
+
+        <item>@string/filter_item_food</item>
+        <item>@string/filter_item_festivals</item>
+        <item>@string/filter_item_fundraisers</item>
+
+        <item>@string/filter_item_movies</item>
+
+
+        <item>@string/filter_item_music</item>
+        <item>@string/filter_item_networking</item>
+
+        <item>@string/filter_item_performing_arts</item>
+        <item>@string/filter_item_other_entertainment</item>
+
+        <item>@string/filter_item_other_events</item>
+        <item>@string/filter_item_religion</item>
+
+        <item>@string/filter_item_social</item>
+        <item>@string/filter_item_sports</item>
+        <item>@string/filter_item_travel</item>
+    </string-array>
+
+    <!--&lt;!&ndash; filter event images - normal &ndash;&gt;-->
+    <!--<array name="filter_event_images">-->
+        <!--<item>@drawable/icon_category_business_normal</item>-->
+        <!--<item>@drawable/icon_category_classes_normal</item>-->
+        <!--<item>@drawable/icon_category_comedy_normal</item>-->
+        <!--<item>@drawable/icon_category_conference_normal</item>-->
+        <!--<item>@drawable/icon_category_endurance_sports_normal</item>-->
+        <!--<item>@drawable/icon_category_food_normal</item>-->
+        <!--<item>@drawable/icon_category_festival_normal</item>-->
+        <!--<item>@drawable/icon_category_fundraiser_normal</item>-->
+        <!--<item>@drawable/icon_category_movie_normal</item>-->
+        <!--<item>@drawable/icon_category_music_normal</item>-->
+        <!--<item>@drawable/icon_category_networking_normal</item>-->
+        <!--<item>@drawable/icon_category_performing_arts_normal</item>-->
+        <!--<item>@drawable/icon_category_other_entertainment_normal</item>-->
+        <!--<item>@drawable/icon_category_other_events_normal</item>-->
+        <!--<item>@drawable/icon_category_religion_normal</item>-->
+        <!--<item>@drawable/icon_category_social_normal</item>-->
+        <!--<item>@drawable/icon_category_sporting_normal</item>-->
+        <!--<item>@drawable/icon_category_travel_normal</item>-->
+    <!--</array>-->
+
+    <!-- filter event images - normal -->
+
+    <string-array name="settings_reminders_labels">
+        <item>@string/settings_reminders_never</item>
+        <item>@string/settings_reminders_5mins</item>
+        <item>@string/settings_reminders_10mins</item>
+        <item>@string/settings_reminders_15mins</item>
+        <item>@string/settings_reminders_30mins</item>
+        <item>@string/settings_reminders_60mins</item>
+    </string-array>
+
+    <string-array name="settings_reminders_values">
+        <item>0</item>
+        <item>300</item>
+        <item>600</item>
+        <item>900</item>
+        <item>1800</item>
+        <item>3600</item>
+    </string-array>
+
+    <string-array name="category_color_values">
+        <item>@color/color_classes</item>
+        <item>@color/color_comedy</item>
+        <item>@color/color_performing_arts</item>
+        <item>@color/color_conferences</item>
+        <item>@color/color_other</item>
+        <item>@color/color_social</item>
+        <item>@color/color_food</item>
+        <item>@color/color_networking</item>
+        <item>@color/color_music</item>
+        <item>@color/color_business</item>
+        <item>@color/color_fundraisers</item>
+        <item>@color/color_festivals</item>
+        <item>@color/color_sports</item>
+        <item>@color/color_religion</item>
+        <item>@color/color_movies</item>
+        <item>@color/color_endurance</item>
+        <item>@color/color_travel</item>
+    </string-array>
+
+
+    <string-array name="type_array">
+        <item>Milk</item>
+        <item>Formula</item>
+        <item>Water</item>
+        <item>Juice</item>
+    </string-array>
+    <string name="menu_item_diaper">Diaper Change</string>
+    <string name="menu_item_feeds">Feeding</string>
+    <string name="menu_item_growth">Growth</string>
+    <string name="menu_item_sleep">Sleep</string>
+    <string name="menu_item_development">Development</string>
+    <string name="menu_item_activity_log">Activity</string>
+    <string name="menu_item_stats">Stats</string>
+    <string name="menu_item_profile">Profile</string>
+
+    <!-- items -->
+    <string-array name="items">
+        <item>Diaper Change</item>
+        <item>Feeding</item>
+        <item>Growth</item>
+        <item>Milestones</item>
+        <item>Sleep</item>
+    </string-array>
+
+    <!-- items logos -->
+    <array name="itemIcons">
+        <item>@drawable/ic_diaper</item>
+        <item>@drawable/ic_feed</item>
+        <item>@drawable/ic_growth2</item>
+        <item>@drawable/ic_development</item>
+        <item>@drawable/ic_sleep</item>
+    </array>
+
+    <!-- items states -->
+    <integer-array name="itemStates">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+
+</resources>

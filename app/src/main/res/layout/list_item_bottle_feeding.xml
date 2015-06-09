@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/leftPanel">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/bottle_feed"
+            android:id="@+id/bottle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bottle"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/diaperChangeTime"
+            android:text="hello"
+            android:textSize="10sp"
+            android:textColor="@color/gray_cloud"
+            android:textStyle="italic"
+
+            />
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/leftPanel"
+        android:textColor="@color/black"
+        android:id="@+id/txtType"/>
+
+
+
+</RelativeLayout>

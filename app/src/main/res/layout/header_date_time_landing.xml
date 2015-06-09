@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/header">
+
+    <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:id="@+id/sectionHeader"-->
+    <!--style="@style/ListItemHeader"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="DIAPER CHANGE"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:textColor="@color/actionbar_background" />-->
+
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/currentDate"
+        android:text="Date"
+        android:textColor="@color/primary_dark"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+
+        />
+
+
+
+
+
+
+
+
+</RelativeLayout>

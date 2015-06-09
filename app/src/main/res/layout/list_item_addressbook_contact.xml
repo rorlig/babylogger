@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/calllog_row_container">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp">
+        <ImageView
+            android:id="@+id/contact_picture"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/default_margin"/>
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/contact_picture"
+            android:layout_alignTop="@+id/contact_picture"
+            android:layout_marginLeft="12dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/text_color_main"
+            tools:text="Trevor Elkins"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/contact_number_calls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contact_name"
+            android:layout_alignLeft="@id/contact_name"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/text_color_main"
+            tools:text="100 Calls"/>
+        <TextView
+            android:id="@+id/contact_last_called"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contact_number_calls"
+            android:layout_alignLeft="@id/contact_number_calls"
+            android:textColor="@color/text_color_main"
+            tools:text="12:15p Sunday"/>
+
+    </RelativeLayout>
+    <!--<com.vzw.sideshare.widget.offline.ContactEntryActionRow-->
+    <!--android:layout_width="310dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/contact_action_row"-->
+    <!--android:layout_marginLeft="@dimen/default_margin"-->
+    <!--android:layout_marginBottom="@dimen/default_margin"-->
+    <!--android:visibility="gone"/>-->
+</LinearLayout>

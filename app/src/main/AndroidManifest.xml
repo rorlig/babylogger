@@ -1,0 +1,110 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.rorlig.babylog">
+
+    <uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
+    <application android:allowBackup="true"
+        android:label="@string/app_name"
+        android:name=".BabyLoggerApplication"
+        android:theme="@style/AppTheme"
+        >
+
+        <activity
+            android:name=".ui.activity.LandingActivity"
+            android:label="BabyLogger"
+            android:title="@string/app_name"
+            android:launchMode="singleTop"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".ui.activity.HomeActivity">
+        </activity>
+        <activity android:name=".ui.activity.DiaperChangeListActivity2"
+            android:parentActivityName=".ui.activity.HomeActivity"></activity>
+
+        <activity android:name=".ui.fragment.diaper.DiaperChangeActivity2"></activity>
+        <activity
+            android:name=".ui.activity.BabyLogActivity"
+            android:label="BabyLogger"
+            android:theme="@style/Theme.Scheduler.Home"
+            android:title="@string/app_name"
+            android:launchMode="singleTop"
+            >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.DiaperChangeActivity"
+            android:label="Diaper Change"
+            android:title="@string/diaper_change_title"
+            android:parentActivityName=".ui.activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.BabyLogActivity" />
+         </activity>
+
+
+        <activity
+            android:name=".ui.activity.FeedingActivity"
+            android:label="Feeding"
+            android:title="@string/diaper_change_title"
+            android:parentActivityName=".ui.activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.BabyLogActivity" />
+        </activity>
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+
+
+        <activity
+            android:name=".ui.activity.NursingFeedActivity"
+            android:label="Nursing Feed"
+            android:theme="@style/Theme.Scheduler.Home"
+            android:title="@string/diaper_change_title"
+            android:parentActivityName=".ui.activity.BabyLogActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.BabyLogActivity" />
+        </activity>
+
+
+        <activity
+            android:name=".ui.activity.BottleFeedingActivity"
+            android:label="Bottle Feed"
+            android:theme="@style/Theme.Scheduler.Home"
+            android:title="@string/diaper_change_title"
+            android:parentActivityName=".ui.activity.BabyLogActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.BabyLogActivity" />
+        </activity>
+
+
+        <activity
+            android:name=".ui.activity.GrowthActivity"
+            android:label="Growth"
+            android:title="@string/growth_title"
+            android:parentActivityName=".ui.activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.BabyLogActivity" >
+         </meta-data>
+        </activity>
+        <service android:name=".service.StopWatchService"></service>
+
+
+
+
+    </application>
+
+</manifest>

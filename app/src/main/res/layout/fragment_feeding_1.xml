@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/drawer_filter_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:orientation="vertical">-->
+    <fragment
+        android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header">
+
+    </fragment>
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="25dp"-->
+    <!--android:id="@+id/dateTimeBar"-->
+    <!--android:layout_below="@+id/divider"-->
+    <!--android:background="@color/light_gray">-->
+
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/currentTime"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Time"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="@color/text_color_main"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginLeft="5dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textSize="12sp"/>&ndash;&gt;-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/currentDay"-->
+    <!--android:text="Date"-->
+    <!--android:textColor="@color/text_color_main"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginRight="5dp"-->
+    <!--android:textSize="12sp"/>-->
+
+    <!--</RelativeLayout>-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/time_header"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--style="@style/ListItemHeader"-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:text="Time"-->
+    <!--android:textColor="@color/actionbar_background"-->
+    <!--android:textAllCaps="true"-->
+    <!--/>-->
+
+
+
+    <!--<View-->
+    <!--style="@style/ListItemDivider"-->
+    <!--/>-->
+
+
+    <!--<RadioGroup-->
+    <!--style="@style/RadioGroup"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:id="@+id/time_radio_group">-->
+
+    <!--<RadioButton android:id="@+id/time_first"-->
+    <!--style="@style/RadioButton"-->
+    <!--android:background="@drawable/radio_button_center"-->
+    <!--android:checked="true"-->
+    <!--android:text="Time"-->
+    <!--android:textColor="@drawable/radio_text_color"-->
+    <!--/>-->
+    <!--<RadioButton android:id="@+id/time_third"-->
+    <!--style="@style/RadioButton"-->
+    <!--android:background="@drawable/radio_button_center"-->
+    <!--android:text="Date"-->
+    <!--android:textColor="@drawable/radio_text_color"-->
+
+    <!--/>-->
+    <!--</RadioGroup>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_gravity="end"-->
+    <!--android:id="@+id/content"-->
+    <!--android:clickable="true"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent">-->
+
+    <!--</RelativeLayout>-->
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/typeHeader"
+        style="@style/ListItemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BREAST"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+
+        android:layout_below="@+id/header"
+        android:textColor="@color/actionbar_background" />
+
+
+    <RadioGroup
+        style="@style/RadioGroup"
+        android:id="@+id/breast_select_type"
+        android:layout_below="@+id/typeHeader">
+
+        <RadioButton android:id="@+id/breast_left"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:checked="true"
+            android:text="Left"
+            android:textSize="14sp"
+
+            />
+        <RadioButton android:id="@+id/breast_right"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:text="Right"
+            android:layout_marginLeft="-1dp"
+            android:textSize="14sp"
+            />
+    </RadioGroup>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/breast_select_type"
+        android:id="@+id/timer"
+        android:layout_marginTop="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hour"
+            android:text="00"
+            android:textSize="70sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hourdivider"
+            android:text=":"
+            android:textSize="70sp"
+            android:layout_toRightOf="@+id/hour"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/minute"
+            android:text="00"
+            android:textSize="70sp"
+            android:layout_toRightOf="@+id/hourdivider"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/minutedivider"
+            android:text=":"
+            android:textSize="70sp"
+            android:layout_toRightOf="@+id/minute"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/second"
+            android:text="00"
+            android:textSize="70sp"
+            android:layout_toRightOf="@+id/minutedivider"
+
+            />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/timer"
+        android:layout_marginTop="10dp"
+        android:id="@+id/stopresume"
+        >
+        <Button
+            android:layout_marginTop="15dp"
+            android:id="@+id/resume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0C4C7C"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:text="@string/stopwatch_start_text"></Button>
+
+        <Button
+            android:layout_marginTop="15dp"
+            android:id="@+id/stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0C4C7C"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/resume"
+            android:text="@string/stopwatch_reset_text"></Button>
+
+
+    </LinearLayout>
+
+
+
+
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:background="#0C4C7C"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+    <!--<RelativeLayout android:id="@+id/status"-->
+    <!--android:clickable="true" android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent">-->
+    <!--<ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true" style="?android:attr/progressBarStyleLarge"/>-->
+    <!--</RelativeLayout>-->
+</RelativeLayout>

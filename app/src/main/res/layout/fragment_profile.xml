@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/drawer_filter_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:orientation="vertical">-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header">
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/sectionHeader"
+            style="@style/ListItemHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BASIC INFORMATION"
+            android:textAllCaps="true"
+            android:textColor="@color/actionbar_background" />
+
+
+        <View
+            style="@style/ListItemDivider"
+            android:layout_below="@id/sectionHeader"
+            android:id="@+id/divider"/>
+
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/header"
+        android:id="@+id/basicInfoBlock"
+        >
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:id="@+id/babyPic"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/boy_normal"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:id="@+id/babyName"
+                android:hint="Baby Name"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <RadioGroup
+                style="@style/RadioGroup"
+                android:id="@+id/baby_sex"
+                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:layout_below="@+id/babyName"
+                android:layout_alignLeft="@+id/babyName"
+                android:layout_alignStart="@+id/babyName"
+                android:layout_marginLeft="10dp">
+
+                <RadioButton android:id="@+id/babyBoy"
+                    style="@style/RadioButton"
+                    android:background="@drawable/radio_button_male_baby"
+                    android:checked="true"
+
+                    />
+                <RadioButton android:id="@+id/babyGirl"
+                    style="@style/RadioButton"
+                    android:background="@drawable/radio_buttom_girl"
+                    android:checked="false"
+                    />
+
+
+            </RadioGroup>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/birthdayHeader"
+        style="@style/ListItemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BIRTHDAY"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+
+        android:layout_below="@+id/basicInfoBlock"
+        android:textColor="@color/actionbar_background"
+        />
+
+
+    <View
+        style="@style/ListItemDivider"
+        android:layout_below="@id/birthdayHeader"
+        android:id="@+id/birthdayDivider"
+        />
+
+
+
+        <DatePicker
+            android:id="@+id/dpResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/birthdayDivider"
+            android:layout_marginTop="10dp"
+            />
+
+
+
+
+
+
+    <!--<RadioGroup-->
+    <!--style="@style/RadioGroup"-->
+    <!--android:id="@+id/diaper_change_type"-->
+    <!--android:layout_below="@+id/typeHeader">-->
+
+    <!--<RadioButton android:id="@+id/diaper_dry"-->
+    <!--style="@style/RadioButton"-->
+    <!--android:background="@drawable/radio_button_center"-->
+    <!--android:checked="true"-->
+    <!--android:text="Dry"-->
+    <!--/>-->
+    <!--<RadioButton android:id="@+id/diaper_wet"-->
+    <!--style="@style/RadioButton"-->
+    <!--android:background="@drawable/radio_button_center"-->
+    <!--android:text="Wet"-->
+    <!--android:layout_marginLeft="-1dp"-->
+    <!--/>-->
+    <!--<RadioButton android:id="@+id/diaper_both"-->
+    <!--style="@style/RadioButton"-->
+    <!--android:background="@drawable/radio_button_center"-->
+    <!--android:text="Both"-->
+    <!--android:layout_marginLeft="-1dp"-->
+
+    <!--/>-->
+    <!--</RadioGroup>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/skipBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:background="#0C4C7C"
+            android:layout_weight="1"
+            />
+        <View
+            style="@style/ListItemHorizontalDivider"
+            />
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:background="#0C4C7C"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+
+
+
+    <!--<RelativeLayout android:id="@+id/status"-->
+    <!--android:clickable="true" android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent">-->
+    <!--<ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true" style="?android:attr/progressBarStyleLarge"/>-->
+    <!--</RelativeLayout>-->
+</RelativeLayout>

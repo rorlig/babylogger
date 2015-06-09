@@ -1,0 +1,41 @@
+
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="180dp"
+    android:layout_height="180dp"
+    android:gravity="center"
+    android:background="@drawable/round_button"
+
+
+
+    >
+    <TextView
+        android:id="@+id/startText"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/stopwatch_start_text">
+    </TextView>
+
+    <include layout = "@layout/time_view"
+        android:id="@+id/left_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/startText">
+
+    </include>
+    <!--<TextView-->
+    <!--android:textColor="@color/white"-->
+
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_below="@+id/startText"-->
+    <!--android:layout_marginTop="10dp"/>-->
+</RelativeLayout>

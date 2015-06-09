@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/drawer_filter_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:orientation="vertical">-->
+    <fragment
+        android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header">
+
+    </fragment>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_quantity"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/quantityLayout"
+        android:textColor="@color/text_color_main"/>
+
+       <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantityLayout"
+        android:id="@+id/quantitytLayout"
+
+        >
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="00.00"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:numeric="decimal"
+            android:maxLength="5"
+            android:id="@+id/quantity"
+            android:textColor="@color/text_color_main"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="oz"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/quantity"
+            android:id="@+id/quantityLabel"
+            android:layout_centerVertical="true"
+            android:layout_alignBottom="@+id/quantity"
+            android:textColor="@color/text_color_main"/>
+
+       <Spinner
+           style="@style/Spinnerbaby"
+           android:id="@+id/type_spinner"
+           android:layout_toRightOf="@+id/quantityLabel"
+           android:layout_centerVertical="true"
+           android:layout_alignParentRight="true"
+           android:layout_width="wrap_content"
+           android:layout_marginRight="20dp"
+           android:layout_marginLeft="20dp"
+           android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:background="#1E88E5"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+</RelativeLayout>

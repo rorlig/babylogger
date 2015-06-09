@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@drawable/circle_drawable"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:id="@+id/timer">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hour"
+            android:text="00"
+            android:textSize="25sp"
+            android:layout_centerInParent="true"
+
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hourdivider"
+            android:text=":"
+            android:textSize="25sp"
+            android:layout_toRightOf="@+id/hour"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/minute"
+            android:text="00"
+            android:textSize="25sp"
+            android:layout_toRightOf="@+id/hourdivider"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/minutedivider"
+            android:text=":"
+            android:textSize="25sp"
+            android:layout_toRightOf="@+id/minute"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/second"
+            android:text="00"
+            android:textSize="25sp"
+            android:layout_toRightOf="@+id/minutedivider"
+
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_below="@+id/timer"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/playButton"
+            android:background="@drawable/play"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pauseButton"
+            android:layout_toRightOf="@+id/playButton"
+            android:background="@drawable/pause"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

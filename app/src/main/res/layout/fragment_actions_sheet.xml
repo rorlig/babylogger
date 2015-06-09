@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/drawer_filter_background"
+    android:orientation="vertical">
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/time_header"
+        style="@style/ListItemHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="SELECT ACTIVITY"
+        android:textAllCaps="true"
+        android:textColor="@color/actionbar_background" />
+
+
+    <View
+        style="@style/ListItemDivider"
+        android:layout_below="@id/time_header"
+        android:id="@+id/divider"/>
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:numColumns="2"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="20dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:layout_below="@+id/divider"
+
+        android:layout_margin="10dp"
+        android:listSelector="@android:color/transparent"
+        />
+</RelativeLayout>

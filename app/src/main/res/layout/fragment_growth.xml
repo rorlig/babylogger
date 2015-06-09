@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/drawer_filter_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:orientation="vertical">-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header">
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/sectionHeader"
+            style="@style/ListItemHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GROWTH"
+            android:textAllCaps="true"
+            android:textColor="@color/actionbar_background" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentTime"
+            android:text="Time"
+            android:textColor="@color/text_color_main"
+            android:textSize="12sp"
+            android:layout_marginRight="32dp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/divider"
+            android:layout_alignEnd="@+id/divider" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentDate"
+            android:text="Date"
+            android:textColor="@color/text_color_main"
+            android:textSize="12sp"
+            android:layout_marginRight="32dp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/currentTime"
+            android:layout_alignEnd="@+id/currentTime" />
+
+
+
+        <View
+            style="@style/ListItemDivider"
+            android:layout_below="@id/sectionHeader"
+            android:id="@+id/divider"/>
+
+
+
+    </RelativeLayout>
+
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="25dp"-->
+            <!--android:id="@+id/dateTimeBar"-->
+            <!--android:layout_below="@+id/divider"-->
+            <!--android:background="@color/light_gray">-->
+
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/currentTime"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="Time"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textColor="@color/text_color_main"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_marginLeft="5dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textSize="12sp"/>&ndash;&gt;-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/currentDay"-->
+                <!--android:text="Date"-->
+                <!--android:textColor="@color/text_color_main"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:textSize="12sp"/>-->
+
+         <!--</RelativeLayout>-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/time_header"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--style="@style/ListItemHeader"-->
+            <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:text="Time"-->
+            <!--android:textColor="@color/actionbar_background"-->
+            <!--android:textAllCaps="true"-->
+            <!--/>-->
+
+
+
+        <!--<View-->
+            <!--style="@style/ListItemDivider"-->
+            <!--/>-->
+
+
+        <!--<RadioGroup-->
+            <!--style="@style/RadioGroup"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:id="@+id/time_radio_group">-->
+
+            <!--<RadioButton android:id="@+id/time_first"-->
+                <!--style="@style/RadioButton"-->
+                <!--android:background="@drawable/radio_button_center"-->
+                <!--android:checked="true"-->
+                <!--android:text="Time"-->
+                <!--android:textColor="@drawable/radio_text_color"-->
+                <!--/>-->
+                  <!--<RadioButton android:id="@+id/time_third"-->
+                <!--style="@style/RadioButton"-->
+                <!--android:background="@drawable/radio_button_center"-->
+                <!--android:text="Date"-->
+                <!--android:textColor="@drawable/radio_text_color"-->
+
+                <!--/>-->
+        <!--</RadioGroup>-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_gravity="end"-->
+            <!--android:id="@+id/content"-->
+            <!--android:clickable="true"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent">-->
+
+        <!--</RelativeLayout>-->
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/typeHeader"
+        style="@style/ListItemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TYPE"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+
+        android:layout_below="@+id/header"
+        android:textColor="@color/actionbar_background" />
+
+
+    <RadioGroup
+            style="@style/RadioGroup"
+            android:id="@+id/diaper_change_type"
+            android:layout_below="@+id/typeHeader">
+
+            <RadioButton android:id="@+id/diaper_pop"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_center"
+                android:checked="true"
+                android:text="Dry"
+                android:textSize="14sp"
+
+                />
+            <RadioButton android:id="@+id/diaper_wet"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_center"
+                android:text="Wet"
+                android:layout_marginLeft="-1dp"
+                android:textSize="14sp"
+
+                />
+            <RadioButton android:id="@+id/diaper_both"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_center"
+                android:text="Both"
+                android:layout_marginLeft="-1dp"
+                android:textSize="14sp"
+
+
+
+                />
+        </RadioGroup>
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/accidentHeader"
+        style="@style/ListItemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INCIDENT"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        android:layout_below="@+id/diaper_change_type"
+        android:textColor="@color/actionbar_background" />
+
+    <!--<RadioGroup-->
+        <!--style="@style/RadioGroup"-->
+        <!--android:id="@+id/diaper_change_type"-->
+        <!--android:layout_below="@+id/typeHeader">-->
+
+        <!--<RadioButton android:id="@+id/diaper_dry"-->
+            <!--style="@style/RadioButton"-->
+            <!--android:background="@drawable/radio_button_center"-->
+            <!--android:checked="true"-->
+            <!--android:text="Dry"-->
+            <!--/>-->
+        <!--<RadioButton android:id="@+id/diaper_wet"-->
+            <!--style="@style/RadioButton"-->
+            <!--android:background="@drawable/radio_button_center"-->
+            <!--android:text="Wet"-->
+            <!--android:layout_marginLeft="-1dp"-->
+            <!--/>-->
+        <!--<RadioButton android:id="@+id/diaper_both"-->
+            <!--style="@style/RadioButton"-->
+            <!--android:background="@drawable/radio_button_center"-->
+            <!--android:text="Both"-->
+            <!--android:layout_marginLeft="-1dp"-->
+
+            <!--/>-->
+    <!--</RadioGroup>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/accidentLayoutWrapper"
+        android:layout_below="@+id/accidentHeader">
+
+        <CheckBox
+            android:id="@+id/checkNoDiaper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Diaper"
+            android:textColor="@color/text_color_main"
+            style="@style/CheckBoxDefaultItem"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"/>
+
+        <CheckBox
+            android:id="@+id/checkDiaperLeak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diaper Leak"
+            android:textSize="14sp"
+
+            android:textColor="@color/text_color_main"
+            android:layout_gravity="center"
+            style="@style/CheckBoxDefaultItem"
+            android:layout_marginLeft="10dp"
+
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/notesHeader"
+        style="@style/ListItemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTES"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        android:layout_below="@+id/accidentLayoutWrapper"
+        android:textColor="@color/actionbar_background" />
+
+    <EditText xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+        android:hint="Notes"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        android:layout_below="@+id/notesHeader"
+        android:layout_margin="15dp"
+        android:background="@drawable/notes_background"
+        android:padding="5dp"
+        android:gravity="top"
+        />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:background="#0C4C7C"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+        <!--<RelativeLayout android:id="@+id/status"-->
+        <!--android:clickable="true" android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent">-->
+        <!--<ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true" style="?android:attr/progressBarStyleLarge"/>-->
+        <!--</RelativeLayout>-->
+  </RelativeLayout>

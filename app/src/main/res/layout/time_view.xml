@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_marginTop="10dp">
+
+
+
+        <TextView
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hour"
+            android:text="00"
+            android:textSize="30sp"
+            />
+        <TextView
+            android:textColor="@color/white"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hourdivider"
+            android:text=":"
+            android:textSize="30sp"
+            android:layout_toRightOf="@+id/hour"
+            />
+        <TextView
+            android:textColor="@color/white"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/minute"
+            android:text="00"
+            android:textSize="30sp"
+            android:layout_toRightOf="@+id/hourdivider"
+
+            />
+        <TextView
+            android:textColor="@color/white"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/minutedivider"
+            android:text=":"
+            android:textSize="30sp"
+            android:layout_toRightOf="@+id/minute"
+            />
+
+        <TextView
+            android:textColor="@color/white"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/second"
+            android:text="00"
+            android:textSize="30sp"
+            android:layout_toRightOf="@+id/minutedivider"
+
+            />
+
+
+
+</RelativeLayout>

@@ -1,0 +1,64 @@
+[{
+  "name": "Nelson Braganca",
+  "location": "San Francisco",
+  "linkedin": true,
+  "facebook": true,
+  "image": "avatar01"
+},
+{
+  "name": "Chris Brooke",
+  "location": "London",
+  "googleplus": true,
+  "image": "avatar02"
+},
+{
+  "name": "Geoff Brown",
+  "location": "New York",
+  "linkedin": true,
+  "facebook": true,
+  "image": "avatar03"
+
+},
+
+{
+  "name": "Matt Brown",
+  "location": "Manilla",
+  "linkedin": true,
+  "dribbble": true,
+  "image": "avatar04"
+
+},
+{
+  "name": "Jon Burgess",
+  "location": "Texas",
+  "facebook": true,
+  "dribbble": true,
+  "twitter": true,
+  "image": "avatar05"
+
+},
+{
+  "name": "Jeremey Charge",
+  "location": "Los Angeles",
+  "dribbble": true,
+  "image": "avatar06"
+
+},
+{
+  "name": "Angie Crawford",
+  "location": "Singapore",
+  "facebook": true,
+  "twitter": true,
+  "image": "avatar07"
+
+},
+{
+  "name": "Angel Cindy",
+  "location": "Delhi",
+  "facebook": true,
+  "twitter": true,
+  "image": "avatar08"
+
+}
+
+]

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/drawer_filter_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:orientation="vertical">-->
+    <fragment
+        android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header">
+
+    </fragment>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WEIGHT"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/weightLabel"
+        android:textColor="@color/text_color_main"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weightLabel"
+        android:id="@+id/weightLayout"
+
+        >
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="--"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:inputType="number"
+            android:maxLength="2"
+            android:id="@+id/weightPounds"
+            android:textColor="@color/text_color_main"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lbs"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/weightPounds"
+            android:id="@+id/weightPoundLabel"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color_main"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="--"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:inputType="number"
+            android:maxLength="2"
+            android:id="@+id/weightOunces"
+            android:layout_toRightOf="@+id/weightPoundLabel"
+            android:textColor="@color/text_color_main"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="oz"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/weightOunces"
+            android:id="@+id/weightOuncesLabel"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color_main"/>
+
+     </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HEIGHT"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/heightLabel"
+        android:layout_below="@+id/weightLayout"
+        android:textColor="@color/text_color_main"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heightLabel"
+        android:id="@+id/heightLayout"
+        >
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/txt_hint_decimal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:inputType="number"
+            android:maxLength="5"
+            android:id="@+id/heightInches"
+            android:textColor="@color/text_color_main"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="inches"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/heightInches"
+            android:id="@+id/heightInchesLabel"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color_main"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HEAD MEASUREMENT"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/headLabel"
+        android:layout_below="@+id/heightLayout"
+        android:textColor="@color/text_color_main"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headLabel"
+        >
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/txt_hint_decimal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:inputType="number"
+            android:maxLength="5"
+            android:id="@+id/headInches"
+            android:textColor="@color/text_color_main"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_inches"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/headInches"
+            android:id="@+id/headInchesLabel"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color_main"/>
+
+    </RelativeLayout>
+
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_save"
+        android:background="#1E88E5"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

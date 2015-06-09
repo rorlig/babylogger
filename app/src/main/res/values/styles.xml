@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+
+
+    <style name="ActionBar.OverFlow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_overflow</item>
+    </style>
+    <!--<style name="ActionBar.Solid.Scheduler" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">-->
+        <!--<item name="android:progressBarStyle">@style/ProgressBar.Scheduler</item>-->
+        <!--<item name="android:background">@drawable/ab_solid_scheduler</item>-->
+        <!--<item name="android:displayOptions">showHome|homeAsUp|showTitle</item>-->
+        <!--&lt;!&ndash;<item name="android:titleTextStyle">@style/ActionBar.TitleText</item>&ndash;&gt;-->
+        <!--<item name="android:backgroundStacked">@drawable/ab_stacked_solid_scheduler</item>-->
+        <!--<item name="android:backgroundSplit">@drawable/ab_bottom_solid_scheduler</item>-->
+    <!--</style>-->
+    <!--<style name="ActionBar.Solid.Scheduler.Home" parent="@style/ActionBar.Solid.Scheduler">-->
+        <!--<item name="android:displayOptions">useLogo|showHome|disableHome</item>-->
+    <!--</style>-->
+    <!--<style name="ActionBar.TitleText" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title.Inverse">-->
+        <!--<item name="android:textColor">@color/actionbar_text_color</item>-->
+        <!--&lt;!&ndash;<item name="android:textSize">32sp</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:fontFamily">sans-serif-light</item>&ndash;&gt;-->
+    <!--</style>-->
+    <style name="ActionBar.Transparent.Scheduler" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:progressBarStyle">@style/ProgressBar.Scheduler</item>
+    </style>
+    <style name="ActionBarTabStyle.Scheduler" parent="@android:style/Widget.Holo.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_scheduler</item>
+    </style>
+    <style name="ActionButton.CloseMode.Scheduler" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_scheduler</item>
+    </style>
+    <style name="AutoCompleteTextViewSchedulerTheme" parent="@android:style/Widget.Holo.Light.AutoCompleteTextView">
+        <item name="android:background">@drawable/edit_text_holo_light</item>
+        <item name="android:dropDownSelector">@drawable/list_selector_holo_light</item>
+    </style>
+    <style name="ButtonSchedulerTheme" parent="@android:style/Widget.Holo.Light.Button">
+        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:background">@drawable/btn_default_normal_holo_light</item>
+    </style>
+    <style name="CheckBoxSchedulerTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/btn_check_holo_light</item>
+    </style>
+    <style name="ComplexListItem" parent="@style/ListItemContainerBase" />
+    <style name="ComplexListItem.Inset" parent="@style/ComplexListItem">
+        <item name="android:paddingLeft">16.0dip</item>
+        <item name="android:paddingRight">16.0dip</item>
+    </style>
+    <style name="ComplexListItem.Inset.Small" parent="@style/ComplexListItem.Inset">
+        <item name="android:minHeight">?android:listPreferredItemHeightSmall</item>
+    </style>
+    <style name="ComplexListItemContent">
+        <item name="android:paddingLeft">?android:listPreferredItemPaddingLeft</item>
+        <item name="android:paddingTop">8.0dip</item>
+        <item name="android:paddingRight">?android:listPreferredItemPaddingRight</item>
+        <item name="android:paddingBottom">8.0dip</item>
+    </style>
+    <style name="ComplexListItemContent.Inset" parent="@style/ComplexListItemContent">
+        <item name="android:paddingLeft">0.0dip</item>
+        <item name="android:paddingRight">0.0dip</item>
+    </style>
+    <style name="ComplexListItemContent.Inset.Small" parent="@style/ComplexListItemContent.Inset">
+        <item name="android:minHeight">?android:listPreferredItemHeightSmall</item>
+    </style>
+    <style name="ComplexListItemContent.Small" parent="@style/ComplexListItemContent">
+        <item name="android:minHeight">?android:listPreferredItemHeightSmall</item>
+    </style>
+    <style name="DropDownListView.Scheduler" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_scheduler</item>
+    </style>
+    <style name="DropDownNav.Scheduler" parent="@android:style/Widget.Holo.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab_scheduler</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_scheduler</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_scheduler</item>
+    </style>
+    <style name="EditTextSchedulerTheme" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">#ff000000</item>
+        <item name="android:background">@drawable/edit_text_holo_light</item>
+    </style>
+    <style name="FilterText" parent="@style/ListItemTitle">
+        <item name="android:textSize">@dimen/text_size_filter</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:gravity">left|center</item>
+    </style>
+    <style name="FrameworkRoot.Base" parent="@android:style/Theme.Holo.Light.DarkActionBar" />
+    <style name="FrameworkRoot.Theme" parent="@style/FrameworkRoot.Base">
+        <item name="listPreferredItemPaddingLeft">?android:listPreferredItemPaddingLeft</item>
+        <item name="listPreferredItemPaddingRight">?android:listPreferredItemPaddingRight</item>
+        <item name="listPreferredItemHeightSmall">?android:listPreferredItemHeightSmall</item>
+    </style>
+    <style name="ImageButtonSchedulerTheme" parent="@android:style/Widget.Holo.Light.ImageButton">
+        <item name="android:background">@drawable/btn_default_holo_light</item>
+    </style>
+    <style name="ListItemContainerBase">
+        <item name="android:background">?activatableItemBackground</item>
+        <item name="android:minHeight">?android:listPreferredItemHeight</item>
+    </style>
+    <style name="ListItemFilter" parent="@style/ComplexListItemContent.Small">
+        <item name="android:paddingLeft">16.0dip</item>
+        <item name="android:paddingRight">16.0dip</item>
+        <item name="android:minHeight">0.0px</item>
+    </style>
+    <style name="ListItemHeader" parent="@style/SimpleListItem.Inset.Small">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@color/text_color_header</item>
+        <item name="android:gravity">left</item>
+        <item name="android:background">@color/white</item>
+        <!--<item name="android:drawableBottom">@color/actionbar_background</item>-->
+        <item name="android:clickable">false</item>
+        <item name="android:minHeight">0.0px</item>
+        <item name="android:paddingBottom">2.0dip</item>
+
+    </style>
+    <style name="ListItemSubTitle">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_color_light</item>
+    </style>
+    <style name="ListItemTitle">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+    </style>
+    <style name="ListViewSchedulerTheme" parent="@android:style/Widget.ListView">
+        <item name="android:listSelector">@drawable/list_selector_holo_light</item>
+        <item name="android:divider">@drawable/divider</item>
+    </style>
+    <style name="ListViewSchedulerTheme.White" parent="@android:style/Widget.ListView.White">
+        <item name="android:listSelector">@drawable/list_selector_holo_light</item>
+        <item name="android:divider">@drawable/divider</item>
+    </style>
+
+    <style name="ListItemEditText" parent="@style/SimpleListItem.Inset.Small">
+        <item name="android:textSize">@dimen/text_size_filter</item>
+        <item name="android:textColor">@color/text_color_filter_edit</item>
+        <item name="android:gravity">left</item>
+        <item name="android:clickable">false</item>
+        <item name="android:minHeight">0.0px</item>
+    </style>
+    <style name="LoginFormContainer">
+        <item name="android:padding">16.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="MenuHeader">
+        <item name="android:textSize">@dimen/text_size_xxlarge</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    <style name="NoteText" parent="@style/EditTextSchedulerTheme">
+        <item name="android:textColor">#ff000000</item>
+        <item name="android:gravity">top</item>
+        <item name="android:background">@null</item>
+        <item name="android:padding">@dimen/content_padding_normal</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:inputType">textMultiLine</item>
+    </style>
+    <style name="PopupMenu.Scheduler" parent="@android:style/Widget.Holo.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_scheduler</item>
+    </style>
+    <style name="PresentationDetailHeader" parent="@style/TextHeaderSub">
+        <item name="android:textColor">@color/text_color_header</item>
+        <item name="android:background">@drawable/header_background</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    <style name="EventDetailSummary" parent="@style/TextBody" />
+    <style name="PresentationDetailTitle" parent="@style/TextHeader">
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="EventDetail" parent="@style/TextHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EventDetail.Title" parent="@style/EventDetail">
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="EventDetail.SubItems" parent="@style/EventDetail">
+        <item name="android:textColor">@color/text_color_event_items_2</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:drawablePadding">@dimen/element_spacing_normal</item>
+        <item name="android:paddingLeft">@dimen/content_padding_normal</item>
+        <item name="android:paddingRight">@dimen/content_padding_normal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+    </style>
+
+    <style name="EventDetail.Button_2" parent="@style/EventDetail">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">10sp</item>
+        <item name="android:textColorHighlight">@color/milk_white</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:drawableLeft">@drawable/user_blue</item>
+        <item name="android:background">@drawable/btn_default</item>
+        <item name="android:textColor">@color/text_color_event_items_3</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="ProgressBar.Scheduler" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_scheduler</item>
+    </style>
+    <style name="ProgressBarSchedulerTheme" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_holo_light</item>
+        <item name="android:progressDrawable">@drawable/progress_horizontal_holo_light</item>
+    </style>
+    <style name="RadioButtonSchedulerTheme" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/baby_btn_radio_holo_light</item>
+    </style>
+    <style name="SimpleDetailHeader">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+    </style>
+    <style name="SimpleDetailHeader.Bold" parent="@style/SimpleDetailHeader">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RadioButton">
+       <item name="android:layout_width">0px</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">40dp</item>
+
+        <item name="android:button">@android:color/transparent</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@drawable/radio_text_color</item>
+
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="RadioGroup">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+
+    </style>
+
+
+
+
+
+    <!--<style name="SimpleListItem" parent="@style/ListItemContainerBase">-->
+        <!--<item name="android:paddingLeft">?listPreferredItemPaddingLeft</item>-->
+        <!--<item name="android:paddingTop">8.0dip</item>-->
+        <!--<item name="android:paddingRight">?listPreferredItemPaddingRight</item>-->
+        <!--<item name="android:paddingBottom">8.0dip</item>-->
+    <!--</style>-->
+    <style name="SimpleListItem" parent="@style/ListItemContainerBase">
+        <item name="android:paddingLeft">8.0dip</item>
+        <item name="android:paddingTop">8.0dip</item>
+        <item name="android:paddingRight">8.0dip</item>
+        <item name="android:paddingBottom">8.0dip</item>
+    </style>
+
+
+    <style name="SimpleListItem.Inset" parent="@style/ListItemContainerBase">
+        <item name="android:paddingLeft">16.0dip</item>
+        <item name="android:paddingTop">8.0dip</item>
+        <item name="android:paddingRight">16.0dip</item>
+        <item name="android:paddingBottom">8.0dip</item>
+    </style>
+    <style name="SimpleListItem.Inset.Small"
+        parent="@style/SimpleListItem.Inset">
+        <item name="android:minHeight">?android:listPreferredItemHeightSmall</item>
+    </style>
+    <style name="SimpleListItem.Small" parent="@style/SimpleListItem">
+        <item name="android:minHeight">?android:listPreferredItemHeightSmall</item>
+    </style>
+    <style name="SpeakerDetailBio" parent="@style/TextBody" />
+    <style name="SpeakerDetailHeader" parent="@style/TextHeaderSub">
+        <item name="android:textColor">@color/text_color_header</item>
+        <item name="android:background">@drawable/header_background</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    <style name="SpeakerDetailSubTitle" parent="@style/TextHeaderSub">
+        <item name="android:textColor">@color/text_color_light</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="SpeakerDetailTitle" parent="@style/TextHeader">
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="SpinnerDropDownItemSchedulerTheme" parent="@android:style/Widget.DropDownItem.Spinner">
+        <item name="android:checkMark">@drawable/btn_radio_holo_light</item>
+    </style>
+    <style name="SpinnerItemSchedulerTheme" parent="@android:style/TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#ff000000</item>
+    </style>
+    <style name="SpinnerSchedulerTheme" parent="@android:style/Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/spinner_background_holo_light</item>
+        <item name="android:dropDownSelector">@drawable/list_selector_holo_light</item>
+    </style>
+    <style name="SpinnerSchedulerTheme.DropDown" parent="@style/SpinnerSchedulerTheme">
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+    <style name="TabSchedulerTheme" parent="@android:style/Widget.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_holo</item>
+        <item name="android:paddingLeft">16.0dip</item>
+        <item name="android:paddingRight">16.0dip</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:minWidth">80.0dip</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+    <style name="TabTextSchedulerTheme">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ff000000</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:maxWidth">180.0dip</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="TabWidgetSchedulerTheme" parent="@android:style/Widget.TabWidget">
+        <item name="android:divider">?android:dividerVertical</item>
+        <item name="android:tabStripLeft">@null</item>
+        <item name="android:tabStripRight">@null</item>
+        <item name="android:tabStripEnabled">false</item>
+        <item name="android:measureWithLargestChild">true</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:dividerPadding">8.0dip</item>
+        <item name="tabLayout">@drawable/tab_indicator_holo</item>
+    </style>
+    <style name="TextAbout">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+        <item name="android:textColor">@color/text_color_white</item>
+    </style>
+    <style name="TextAppearance.TabPageIndicator" parent="@style/Widget">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/vpi__background_holo_dark</item>
+    </style>
+    <style name="TextBody">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+    <style name="TextHeader">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">?textHeaderMaxLines</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+    <style name="TextHeaderSub">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textStyle">normal</item>ButtonDefault
+        <item name="android:textIsSelectable">true</item>
+    </style>
+    <!--<style name="Theme.PageIndicatorDefaults" parent="@android:style/Theme">-->
+        <!--<item name="android:vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>-->
+        <!--<item name="android:vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>-->
+    <!--</style>-->
+    <style name="Theme.Scheduler" parent="@style/FrameworkRoot.Theme">
+        <item name="android:buttonStyle">@style/ButtonSchedulerTheme</item>
+        <item name="android:buttonStyleToggle">@style/ToggleSchedulerTheme</item>
+        <item name="android:windowBackground">@color/window_background_color</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewSchedulerTheme</item>
+        <item name="android:checkboxStyle">@style/CheckBoxSchedulerTheme</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Scheduler</item>
+        <item name="android:editTextStyle">@style/EditTextSchedulerTheme</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonSchedulerTheme</item>
+        <item name="android:listViewStyle">@style/ListViewSchedulerTheme</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewSchedulerTheme.White</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarSchedulerTheme</item>
+        <item name="android:radioButtonStyle">@style/RadioButtonSchedulerTheme</item>
+        <item name="android:spinnerStyle">@style/SpinnerSchedulerTheme</item>
+        <item name="android:tabWidgetStyle">@style/TabWidgetSchedulerTheme</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemSchedulerTheme</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemSchedulerTheme</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/baby_btn_radio_holo_light</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/baby_btn_radio_holo_light</item>
+        <!--<item name="android:actionBarStyle">@style/ActionBar.Solid.Scheduler</item>-->
+        <item name="android:dropDownSpinnerStyle">@style/SpinnerSchedulerTheme</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Scheduler</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_scheduler</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_holo_light</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Scheduler</item>
+        <item name="android:actionOverflowButtonStyle">@style/ActionBar.OverFlow</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Scheduler</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background_holo_light</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Scheduler</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_holo</item>
+        <item name="android:editTextBackground">@drawable/edit_text_holo_light</item>
+        <item name="android:actionBarWidgetTheme">@style/Theme.Scheduler.Widget</item>
+        <item name="android:actionBarItemBackground">@android:color/transparent</item>
+        <item name="android:actionModeSplitBackground">@android:color/transparent</item>
+        <item name="textHeaderMaxLines">@integer/text_header_max_lines</item>
+        <item name="activatableItemBackground">@drawable/list_selector_holo_light</item>
+    </style>
+    <style name="Theme.Scheduler.About" parent="@style/Theme.Scheduler">
+        <item name="android:windowBackground">@drawable/about_background</item>
+    </style>
+    <style name="Theme.Scheduler.Home" parent="@style/Theme.Scheduler">
+        <!--<item name="android:actionBarStyle">@style/ActionBar.Solid.Scheduler.Home</item>-->
+    </style>
+    <style name="Theme.Scheduler.Settings" parent="@style/Theme.Scheduler" />
+    <style name="Theme.Scheduler.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Scheduler</item>
+        <item name="android:textColorHint">@color/actionbar_text_color</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Scheduler</item>
+    </style>
+    <style name="ToggleSchedulerTheme" parent="@android:style/Widget.Holo.Light.Button.Toggle">
+        <item name="android:background">@drawable/btn_toggle_holo_light</item>
+    </style>
+    <style name="Widget" />
+    <style name="Widget.IconPageIndicator" parent="@style/Widget">
+        <item name="android:layout_marginLeft">6.0dip</item>
+        <item name="android:layout_marginRight">6.0dip</item>
+    </style>
+    <style name="Widget.TabPageIndicator" parent="@style/Widget">
+        <item name="android:textAppearance">@style/TextAppearance.TabPageIndicator</item>
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/vpi__tab_indicator</item>
+        <item name="android:paddingLeft">22.0dip</item>
+        <item name="android:paddingTop">12.0dip</item>
+        <item name="android:paddingRight">22.0dip</item>
+        <item name="android:paddingBottom">12.0dip</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="ListItemDivider">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/actionbar_background</item>
+
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+
+    </style>
+
+    <style name="ListItemDividerShort">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/actionbar_background</item>
+
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+
+    </style>
+
+    <style name="ListItemHorizontalDivider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/actionbar_background</item>
+
+
+    </style>
+
+    <style name="ListItemSwipe">/home/rorlig/Documents/work/personal/babylog2/BabyLog/app/src/main/res
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="ListItemSwipe.Image">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="ListItemSwipe.Text" parent="ListItemSwipe.Image">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Holo.Light" >
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+
+    <style name="ButtonDefault" parent="android:Widget.Holo.Light.Button">
+        <item name="android:background">@drawable/baby_btn_default_holo_light</item>
+    </style>
+
+    <style name="ImageButtonDefault" parent="android:Widget.Holo.Light.ImageButton">
+        <item name="android:background">@drawable/baby_btn_default_holo_light</item>
+    </style>
+
+    <style name="CheckBoxDefaultItem" parent="android:Theme.Holo.Light">
+
+        <item name="android:listChoiceIndicatorMultiple">@drawable/baby_btn_check_holo_light</item>
+
+    </style>
+
+    <style name="Spinnerbaby" parent="android:Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/baby_spinner_background_holo_light</item>
+        <item name="android:dropDownSelector">@drawable/baby_list_selector_holo_light</item>
+    </style>
+
+    <style name="ButtonBaby" parent="android:Widget.Holo.Light.Button">
+        <item name="android:background">@drawable/baby_btn_default_focused_holo_light</item>
+    </style>
+
+    <style name="ImageButtonBaby" parent="android:Widget.Holo.Light.ImageButton">
+        <item name="android:background">@drawable/baby_btn_default_holo_light</item>
+    </style>
+
+
+    <style name="PagerTabStripText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_color_main</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+
+    <style name="ActionBarTabStyle.Babyapp" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_babyapp</item>
+    </style>
+
+    <style name="menu_labels_style">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="HeaderLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/primary_dark</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+
+
+
+
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style></resources>

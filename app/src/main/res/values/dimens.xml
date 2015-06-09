@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16.0dip</dimen>
+    <dimen name="activity_vertical_margin">16.0dip</dimen>
+    <dimen name="badge_height">16.0dip</dimen>
+    <dimen name="badge_width">27.0dip</dimen>
+    <dimen name="content_padding_normal">16.0dip</dimen>
+    <dimen name="default_circle_indicator_gap">0.0dip</dimen>
+    <dimen name="default_circle_indicator_radius">3.0dip</dimen>
+    <dimen name="default_circle_indicator_stroke_width">1.0dip</dimen>
+    <dimen name="default_line_indicator_gap_width">4.0dip</dimen>
+    <dimen name="default_line_indicator_line_width">12.0dip</dimen>
+    <dimen name="default_line_indicator_stroke_width">1.0dip</dimen>
+    <dimen name="default_title_indicator_clip_padding">4.0dip</dimen>
+    <dimen name="default_title_indicator_footer_indicator_height">4.0dip</dimen>
+    <dimen name="default_title_indicator_footer_indicator_underline_padding">20.0dip</dimen>
+    <dimen name="default_title_indicator_footer_line_height">2.0dip</dimen>
+    <dimen name="default_title_indicator_footer_padding">7.0dip</dimen>
+    <dimen name="default_title_indicator_text_size">15.0dip</dimen>
+    <dimen name="default_title_indicator_title_padding">5.0dip</dimen>
+    <dimen name="default_title_indicator_top_padding">7.0dip</dimen>
+    <dimen name="divider_height">1.0dip</dimen>
+    <dimen name="element_spacing_normal">4.0dip</dimen>
+    <dimen name="filter_image_size">24.0dip</dimen>
+    <dimen name="presentation_detail_tag_padding_horz">8.0dip</dimen>
+    <dimen name="presentation_detail_tag_padding_vert">4.0dip</dimen>
+    <dimen name="speaker_image_size_detail">64.0dip</dimen>
+    <dimen name="user_image_size_detail">96.0dip</dimen>
+    <dimen name="speaker_image_size_list">40.0dip</dimen>
+    <dimen name="tab_host_default_height">48.0dip</dimen>
+    <dimen name="text_size_large">18.0sp</dimen>
+    <dimen name="text_size_filter">16.0sp</dimen>
+
+    <dimen name="text_size_medium">14.0sp</dimen>
+    <dimen name="text_size_small">12.0sp</dimen>
+    <dimen name="text_size_xlarge">18.0sp</dimen>
+    <dimen name="text_size_xxlarge">24.0sp</dimen>
+    <dimen name="track_circle_size">40.0dip</dimen>
+    <dimen name="track_image_size_list">40.0dip</dimen>
+    <dimen name="track_simple_size">20.0dip</dimen>
+    <dimen name="default_margin">9dp</dimen>
+
+
+<!-- stop watch stuff -->
+
+        <dimen name="frame_padding">1dip</dimen>
+        <dimen name="small_font">14sp</dimen>
+        <dimen name="med_font">22sp</dimen>
+        <dimen name="large_font">36dp</dimen>
+        <dimen name="counter_font">50sp</dimen>
+        <dimen name="launchtext_size">32sp</dimen>
+        <dimen name="reset_btn_size">72dp</dimen>
+        <dimen name="bottom_bar_portrait_button_font_size">16dp</dimen>
+
+</resources>

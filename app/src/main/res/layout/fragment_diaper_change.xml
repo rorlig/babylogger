@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/drawer_filter_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:orientation="vertical">-->
+   <fragment
+       android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/header">
+
+   </fragment>
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/typeHeader"
+        style="@style/ListItemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TYPE"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+
+        android:layout_below="@+id/header"
+        android:textColor="@color/actionbar_background" />
+
+
+    <RadioGroup
+            style="@style/RadioGroup"
+            android:id="@+id/diaper_change_type"
+            android:layout_below="@+id/typeHeader">
+            <RadioButton android:id="@+id/diaper_wet"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_center"
+                android:text="@string/diaper_change_type_wet"
+                android:checked="true"
+                android:textSize="14sp"
+
+                />
+
+             <RadioButton android:id="@+id/diaper_pop"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_center"
+
+                android:text="@string/diaper_change_type_poop"
+                 android:layout_marginLeft="-1dp"
+                android:textSize="14sp"
+
+                />
+
+            <RadioButton android:id="@+id/diaper_both"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_center"
+                android:text="@string/diaper_change_type_both"
+                android:layout_marginLeft="-1dp"
+                android:textSize="14sp"
+
+
+
+                />
+        </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/poopTypeLayout"
+        android:layout_below="@id/diaper_change_type"
+        android:visibility="gone"
+        >
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/popType"
+            style="@style/ListItemHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/poppy_texture"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:textColor="@color/actionbar_background" />
+
+        <SeekBar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/poopDensity"
+            style="@style/ListItemHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:layout_below="@+id/popType"
+            android:textColor="@color/actionbar_background" />
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/poopTypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loose"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/poopDensity"
+            android:textColor="@color/gray_cloud" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/poopColorLayout"
+        android:layout_below="@+id/poopTypeLayout"
+        android:visibility="gone"
+        >
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/popColorHeader"
+            style="@style/ListItemHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/poppy_color_header"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:textColor="@color/actionbar_background" />
+
+        <RadioGroup
+            style="@style/RadioGroup"
+
+            android:id="@+id/poopColorRadioGroup"
+            android:layout_below="@+id/popColorHeader">
+
+            <RadioButton android:id="@+id/poopcolor1"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_colored_1"
+                android:textSize="14sp"
+
+                />
+            <RadioButton android:id="@+id/poopcolor2"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_colored_2"
+                android:layout_marginLeft="2dp"
+                android:textSize="14sp"
+
+                />
+            <RadioButton android:id="@+id/poopcolor3"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_colored_3"
+                android:layout_marginLeft="2dp"
+                android:textSize="14sp"
+                />
+            <RadioButton android:id="@+id/poopcolor4"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_colored_4"
+                android:layout_marginLeft="2dp"
+                android:textSize="14sp"
+                />
+            <RadioButton android:id="@+id/poopcolor5"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_colored_5"
+                android:layout_marginLeft="2dp"
+                android:textSize="14sp"
+                />
+            <RadioButton android:id="@+id/poopcolor6"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_colored_6"
+                android:layout_marginLeft="2dp"
+                android:textSize="14sp"
+                />
+            <RadioButton android:id="@+id/poopcolor7"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_colored_7"
+                android:layout_marginLeft="2dp"
+                android:textSize="14sp"
+                />
+            <RadioButton android:id="@+id/poopcolor8"
+                style="@style/RadioButton"
+                android:background="@drawable/radio_button_colored_8"
+                android:layout_marginLeft="2dp"
+                android:textSize="14sp"
+                />
+        </RadioGroup>
+
+    </RelativeLayout>
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/accidentHeader"
+        style="@style/ListItemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/diaper_indicident"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        android:layout_below="@+id/poopColorLayout"
+        android:textColor="@color/actionbar_background" />
+
+    <!--<RadioGroup-->
+        <!--style="@style/RadioGroup"-->
+        <!--android:id="@+id/diaper_change_type"-->
+        <!--android:layout_below="@+id/typeHeader">-->
+
+        <!--<RadioButton android:id="@+id/diaper_dry"-->
+            <!--style="@style/RadioButton"-->
+            <!--android:background="@drawable/radio_button_center"-->
+            <!--android:checked="true"-->
+            <!--android:text="Dry"-->
+            <!--/>-->
+        <!--<RadioButton android:id="@+id/diaper_wet"-->
+            <!--style="@style/RadioButton"-->
+            <!--android:background="@drawable/radio_button_center"-->
+            <!--android:text="Wet"-->
+            <!--android:layout_marginLeft="-1dp"-->
+            <!--/>-->
+        <!--<RadioButton android:id="@+id/diaper_both"-->
+            <!--style="@style/RadioButton"-->
+            <!--android:background="@drawable/radio_button_center"-->
+            <!--android:text="Both"-->
+            <!--android:layout_marginLeft="-1dp"-->
+
+            <!--/>-->
+    <!--</RadioGroup>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/accidentLayoutWrapper"
+        android:layout_below="@+id/accidentHeader">
+        <RadioGroup
+            style="@style/RadioGroup"
+            android:id="@+id/diaper_incident_type"
+            android:layout_below="@+id/typeHeader">
+
+            <RadioButton
+                android:id="@+id/checkNoIncident"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diaper_indicident_none"
+                android:textColor="@color/text_color_main"
+                style="@style/CheckBoxDefaultItem"
+                android:layout_marginLeft="10dp"
+                android:textSize="10sp"
+
+                android:layout_weight="1"/>
+
+            <!--30 mall street. - 480 ; 465 ; &#45;&#45; -->
+
+
+            <RadioButton
+            android:id="@+id/checkNoDiaper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/diaper_indicident_no_diaper"
+            android:textColor="@color/text_color_main"
+            style="@style/CheckBoxDefaultItem"
+            android:layout_marginLeft="10dp"
+            android:textSize="10sp"
+            android:layout_weight="1"/>
+
+        <RadioButton
+            android:id="@+id/checkDiaperLeak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/diaper_incident_leak"
+            android:textSize="10sp"
+
+            android:textColor="@color/text_color_main"
+            android:layout_gravity="center"
+            style="@style/CheckBoxDefaultItem"
+            android:layout_marginLeft="10dp"
+
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"/>
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/notesHeader"
+        style="@style/ListItemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTES"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        android:layout_below="@+id/accidentLayoutWrapper"
+        android:textColor="@color/actionbar_background" />
+
+    <EditText xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes"
+        android:textSize="14sp"
+        android:layout_below="@+id/notesHeader"
+        android:layout_margin="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        />
+
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:background="#1E88E5"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+  </RelativeLayout>
