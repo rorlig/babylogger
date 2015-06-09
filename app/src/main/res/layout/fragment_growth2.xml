@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WEIGHT"
+        android:text="@string/txt_weight"
         android:layout_below="@+id/header"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
@@ -30,7 +30,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/weightLabel"
+        android:layout_below="@+id/header"
+        android:layout_toRightOf="@+id/weightLabel"
         android:id="@+id/weightLayout"
 
         >

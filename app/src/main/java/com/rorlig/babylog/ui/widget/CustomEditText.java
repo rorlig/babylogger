@@ -145,7 +145,7 @@ public class CustomEditText extends EditText {
 
                  /*x can be negative if user taps at x co-ordinate just near the width.
                  * e.g views width = 300 and user taps 290. Then as per previous calculation
-                 * 290 + 13 = 303. So subtract X from getWidth() will result in negative value.
+                 * 290 + 13 = 303. So subtract X from getWeight() will result in negative value.
                  * So to avoid this add the value previous added when x goes negative.
                  */
 

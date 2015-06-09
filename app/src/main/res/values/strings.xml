@@ -272,6 +272,8 @@
     <string name="label_inches">inches</string>
     <string name="txt_save">Save</string>
     <string name="txt_hint_decimal">--.--</string>
+    <string name="txt_weight">WEIGHT:</string>
+    <string name="txt_height">HEIGHT:</string>
 
 
 </resources>

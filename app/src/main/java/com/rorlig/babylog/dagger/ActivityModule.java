@@ -41,6 +41,7 @@ import com.rorlig.babylog.ui.activity.NursingFeedActivity;
 import com.rorlig.babylog.ui.adapter.ContactsAdapter;
 import com.rorlig.babylog.ui.adapter.DiaperChangeAdapter;
 import com.rorlig.babylog.ui.adapter.FeedAdapter;
+import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.adapter.LogItemAdapter;
 import com.rorlig.babylog.ui.fragment.about.AboutFragment;
@@ -136,7 +137,8 @@ import dagger.Provides;
             ContactsAdapter.class,
             FeedAdapter.class,
             LogItemAdapter.class,
-            HomeItemAdapter.class
+            HomeItemAdapter.class,
+            GrowthAdapter.class
           },
           library=true, complete = false)
 

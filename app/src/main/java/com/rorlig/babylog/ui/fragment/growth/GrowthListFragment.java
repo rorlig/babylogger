@@ -3,6 +3,8 @@ package com.rorlig.babylog.ui.fragment.growth;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,12 +18,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
+import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
+import com.rorlig.babylog.dao.BaseDao;
+import com.rorlig.babylog.dao.FeedDao;
+import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
+import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
+import com.rorlig.babylog.ui.adapter.FeedAdapter;
+import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+import com.rorlig.babylog.ui.fragment.feed.FeedLoader;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -34,7 +46,7 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of growth items
  */
-public class GrowthListFragment extends InjectableFragment{
+public class GrowthListFragment extends InjectableFragment implements LoaderManager.LoaderCallbacks<List<GrowthDao>>{
 
     @ForActivity
     @Inject
@@ -67,6 +79,10 @@ public class GrowthListFragment extends InjectableFragment{
 
     @InjectView(R.id.add_item)
     Button btnAddItem;
+    private int LOADER_ID = 4;
+    private List<GrowthDao> growthList;
+    private SimpleSectionAdapter<BaseDao> sectionAdapter;
+    private GrowthAdapter growthAdapter;
 
     @OnClick(R.id.add_item)
     public void onDiaperChangeClicked(){
@@ -110,6 +126,8 @@ public class GrowthListFragment extends InjectableFragment{
 
         scopedBus.post(new FragmentCreated("Growth"));
 
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+
 
 //        getActivity().getActionBar().setTitle("Diaper Change List");
 
@@ -143,6 +161,8 @@ public class GrowthListFragment extends InjectableFragment{
         super.onStart();
         Log.d(TAG, "onStart");
         scopedBus.register(eventListener);
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
+
     }
 
     /*
@@ -168,9 +188,45 @@ public class GrowthListFragment extends InjectableFragment{
         }
     }
 
+    @Override
+    public Loader<List<GrowthDao>> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG, "create Loader");
+        return new GrowthLoader(getActivity());
+    }
 
+    @Override
+    public void onLoadFinished(Loader<List<GrowthDao>> loader, List<GrowthDao> data) {
 
+        Log.d(TAG, "number of diaper changes " + data.size());
+        Log.d(TAG, "loader finished");
 
+        if (data.size()>0) {
+            emptyView.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        }
+        growthList = data;
+
+        growthAdapter = new GrowthAdapter(getActivity(), R.layout.list_item_diaper_change, growthList);
+
+//        diaperChangeAdapter.update(diaperChangeDaoList);
+
+        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
+                growthAdapter,
+                R.layout.section_header,
+                R.id.title,
+                new DiaperChangeSectionizer());
+
+        listView.setAdapter(sectionAdapter);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<GrowthDao>> loader) {
+
+    }
 
 
     private class EventListener {

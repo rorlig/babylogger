@@ -9,6 +9,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
+import com.rorlig.babylog.dao.GrowthDao;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -28,6 +29,7 @@ public class BabyLoggerORMUtils {
     private Context context;
     private Dao<DiaperChangeDao, Integer> diaperChangeDao;
     private Dao<FeedDao, Integer> feedDao;
+    private Dao<GrowthDao, Integer> growthDao;
 
     public BabyLoggerORMUtils(Context context) {
         Log.d(TAG, "context is " + context);
@@ -68,6 +70,17 @@ public class BabyLoggerORMUtils {
     }
 
 
+    /*
+   * Returns the analytics data access object
+   */
+    public Dao<GrowthDao, Integer> getGrowthDao() throws SQLException {
+        if (growthDao == null) {
+            growthDao = getHelper().getGrowthDao();
+        }
+        return growthDao;
+    }
+
+
 
 
     public List<DiaperChangeDao> getDiaperChangeList() throws SQLException {
@@ -80,6 +93,13 @@ public class BabyLoggerORMUtils {
 
     public List<FeedDao> getFeedList() throws SQLException {
         QueryBuilder<FeedDao, Integer> queryBuilder = getFeedDao().queryBuilder().orderBy("time", false);
+//        queryBuilder.where().eq("isSend", false);
+        Log.d(TAG, " query size " + queryBuilder.query().size());
+        return queryBuilder.query();
+    }
+
+    public List<GrowthDao> getGrowthList() throws SQLException {
+        QueryBuilder<GrowthDao, Integer> queryBuilder = getGrowthDao().queryBuilder().orderBy("time", false);
 //        queryBuilder.where().eq("isSend", false);
         Log.d(TAG, " query size " + queryBuilder.query().size());
         return queryBuilder.query();

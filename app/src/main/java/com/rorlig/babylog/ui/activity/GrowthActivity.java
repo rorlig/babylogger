@@ -16,10 +16,13 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.FeedItemCreatedEvent;
+import com.rorlig.babylog.otto.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;
+import com.rorlig.babylog.ui.fragment.feed.FeedingListFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.squareup.otto.Subscribe;
@@ -60,7 +63,7 @@ public class GrowthActivity extends InjectableActivity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String TAG  = "BottleFeedingActivity";
+    private String TAG  = "GrowthActivity";
 
     private EventListener eventListener = new EventListener();
 
@@ -229,6 +232,13 @@ public class GrowthActivity extends InjectableActivity {
                     showFragment(GrowthFragment.class, "growth_fragment", false);
                     break;
             }
+        }
+
+        @Subscribe
+        public void onGrowthItemCreated(GrowthItemCreated event) {
+//            Log.d(TAG, "onFeedSavedEvent");
+//            finish();
+            showFragment(GrowthListFragment.class, "growth_list_fragment",false);
         }
 
 

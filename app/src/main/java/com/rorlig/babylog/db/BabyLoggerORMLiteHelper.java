@@ -10,6 +10,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
+import com.rorlig.babylog.dao.GrowthDao;
 
 import java.sql.SQLException;
 
@@ -26,6 +27,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 3;
     private Dao<DiaperChangeDao, Integer> diaperChangeDao;
     private Dao<FeedDao, Integer> feedDao;
+    private Dao<GrowthDao, Integer> growthDao;
 
     //    // the DAO object we use to access the SimpleData table
 //    private Dao<AnalyticsModel, Integer> analyticsDao = null;
@@ -45,6 +47,8 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
             Log.i(BabyLoggerORMLiteHelper.class.getName(), "onCreate");
             TableUtils.createTable(connectionSource, DiaperChangeDao.class);
             TableUtils.createTable(connectionSource, FeedDao.class);
+            TableUtils.createTable(connectionSource, GrowthDao.class);
+
 //
 //            TableUtils.createTable(connectionSource, NotesModel.class);
 //            TableUtils.createTable(connectionSource, MessageDetailsModel.class);
@@ -85,6 +89,13 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
             feedDao = getDao(FeedDao.class);
         }
         return feedDao;
+    }
+
+    public Dao<GrowthDao, Integer> getGrowthDao() throws SQLException {
+        if (growthDao==null) {
+            growthDao = getDao(GrowthDao.class);
+        }
+        return growthDao;
     }
     /**
      * Close the database connections and clear any cached DAOs.
