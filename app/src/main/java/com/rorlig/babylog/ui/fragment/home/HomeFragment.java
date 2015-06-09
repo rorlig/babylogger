@@ -158,11 +158,16 @@ public class HomeFragment extends InjectableFragment {
 
     @OnClick(R.id.action_milestones)
     public void actionMilestones() {
+
         Log.d(TAG, "action milestones");
     }
 
     @OnClick(R.id.action_growth)
     public void actionGrowth(){
+
+        Intent intent = new Intent(getActivity(), GrowthActivity.class);
+        intent.putExtra("intent", "growth_activity");
+        startActivity(intent);
 
     }
 

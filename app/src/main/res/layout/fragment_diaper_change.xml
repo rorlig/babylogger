@@ -267,11 +267,9 @@
             android:textSize="10sp"
 
             android:textColor="@color/text_color_main"
-            android:layout_gravity="center"
             style="@style/CheckBoxDefaultItem"
             android:layout_marginLeft="10dp"
 
-            android:layout_marginRight="10dp"
             android:layout_weight="1"/>
         </RadioGroup>
 
@@ -298,7 +296,6 @@
         android:layout_margin="15dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingBottom="5dp"
         />
 
     <com.gc.materialdesign.views.ButtonRectangle

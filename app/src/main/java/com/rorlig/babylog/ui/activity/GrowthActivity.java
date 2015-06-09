@@ -21,6 +21,7 @@ import com.rorlig.babylog.otto.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
+import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeListFragment;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedingListFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
@@ -126,7 +127,20 @@ public class GrowthActivity extends InjectableActivity {
 //        actionBar.setHomeButtonEnabled(true);
 //        actionBar.setDisplayShowHomeEnabled(false);
 
-        showFragment(GrowthListFragment.class, "growth_fragment", false);
+
+        String intentString = getIntent().getStringExtra("intent");
+
+        Log.d(TAG, " " +  intentString);
+
+        if (intentString!=null && intentString.equals("growth_activity")){
+            showFragment(GrowthFragment.class, "growth_fragment", false);
+
+        } else  {
+            showFragment(GrowthListFragment.class, "growth_list_fragment", false);
+
+        }
+
+//        showFragment(GrowthListFragment.class, "growth_fragment", false);
 //        } else {
 //
 //        }
