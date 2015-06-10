@@ -93,13 +93,13 @@ public class LandingActivity extends InjectableActivity {
         setContentView(R.layout.activity_landing_page);
 
         String logItems = preferences.getString("logItems", "");
-        if (logItems.equals("")){
-            showFragment(LaunchFragment.class, "launch_fragment", false);
+//        if (logItems.equals("")){
+//            showFragment(LaunchFragment.class, "launch_fragment", false);
 
-        } else {
+//        } else {
             showFragment(HomeFragment.class, "home_fragment", false);
 
-        }
+//        }
 
     }
 

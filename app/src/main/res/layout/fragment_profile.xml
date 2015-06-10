@@ -124,6 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:calendarViewShown="false"
+            android:datePickerMode="spinner"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/birthdayDivider"
             android:layout_marginTop="10dp"
@@ -166,23 +167,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
-        <Button
+        <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/skipBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Skip"
-            android:background="#0C4C7C"
+            android:background="#1E88E5"
             android:layout_weight="1"
             />
-        <View
-            style="@style/ListItemHorizontalDivider"
-            />
-        <Button
+
+        <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/saveBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:background="#0C4C7C"
+            android:background="#1E88E5"
             android:layout_weight="1"
             />
 

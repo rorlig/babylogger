@@ -35,7 +35,7 @@ public class ProfileFragment extends InjectableFragment {
 
     Typeface typeface;
 
-    private String TAG = "DiaperChangeFragment";
+    private String TAG = "ProfileFragment";
 
     private EventListener eventListener = new EventListener();
 

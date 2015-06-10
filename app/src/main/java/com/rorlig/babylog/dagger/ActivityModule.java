@@ -38,6 +38,7 @@ import com.rorlig.babylog.ui.activity.GrowthActivity;
 import com.rorlig.babylog.ui.activity.HomeActivity;
 import com.rorlig.babylog.ui.activity.LandingActivity;
 import com.rorlig.babylog.ui.activity.NursingFeedActivity;
+import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.adapter.ContactsAdapter;
 import com.rorlig.babylog.ui.adapter.DiaperChangeAdapter;
 import com.rorlig.babylog.ui.adapter.FeedAdapter;
@@ -103,6 +104,7 @@ import dagger.Provides;
             BottleFeedingActivity.class,
             GrowthActivity.class,
             FeedingActivity.class,
+            ProfileActivity.class,
     //            SearchActivity.class,
 //            MessageBoardListActivity.class,
 //            MessagesActivity.class,

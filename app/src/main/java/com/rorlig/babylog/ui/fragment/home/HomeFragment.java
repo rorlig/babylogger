@@ -5,11 +5,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -19,6 +24,7 @@ import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
+import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.activity.DiaperChangeListActivity2;
@@ -50,12 +56,19 @@ public class HomeFragment extends InjectableFragment {
     @InjectView(R.id.homeList)
     ListView listView;
 
+    @InjectView(R.id.basicInfoBlock)
+    RelativeLayout basicInfoBlockLayout;
+
+    @InjectView(R.id.babyImage)
+    ImageView babyImageView;
+
     @InjectView(R.id.action_sleep)
     FloatingActionButton floatingActionButtonSleep;
 
     private ArrayList<ItemModel> logs;
     private HomeItemAdapter homeAdapter;
     private ArrayList<ItemModel> filteredLogs;
+    private String[] itemNames;
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -65,15 +78,25 @@ public class HomeFragment extends InjectableFragment {
 
         String logItems = preferences.getString("logItems", "");
 
+
+        itemNames = getResources().getStringArray(R.array.items);
+
+        ArrayList<ItemModel> itemModelArrayList = new ArrayList<ItemModel>();
+
+        for (String item: itemNames) {
+            itemModelArrayList.add(new ItemModel(item, true));
+        }
+
+
         Log.d(TAG, logItems);
-        if (!logItems.equals("")) {
+//        if (!logItems.equals("")) {
+//
+//            logs = gson.fromJson(logItems, new TypeToken<List<ItemModel>>(){}.getType());
+//            Log.d(TAG, "logs " + logs);
+//
+//            filteredLogs = filter(logs);
 
-            logs = gson.fromJson(logItems, new TypeToken<List<ItemModel>>(){}.getType());
-            Log.d(TAG, "logs " + logs);
-
-            filteredLogs = filter(logs);
-
-            homeAdapter = new HomeItemAdapter(getActivity(),R.layout.list_item_home, filteredLogs);
+            homeAdapter = new HomeItemAdapter(getActivity(),R.layout.list_item_home, itemModelArrayList);
             listView.setAdapter(homeAdapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,6 +104,7 @@ public class HomeFragment extends InjectableFragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     Log.d(TAG, "onItemClick ");
+                    CharSequence charSequence = "Todo";
 
                     switch (position) {
                         case 0:
@@ -92,6 +116,9 @@ public class HomeFragment extends InjectableFragment {
 
                         case 2:
                             startActivity(new Intent(getActivity(), GrowthActivity.class));
+                            break;
+                        default:
+                            Toast.makeText(getActivity(), "TODO" , Toast.LENGTH_SHORT).show();
                             break;
 //                        case 3:
 //                            startActivity(new Intent(getActivity(), ));
@@ -108,13 +135,14 @@ public class HomeFragment extends InjectableFragment {
 
                 }
             });
+
+            basicInfoBlockLayout.getBackground().setAlpha(100);
         }
 
 
 
 
 
-    }
 
     private ArrayList<ItemModel> filter(ArrayList<ItemModel> logs) {
         ArrayList<ItemModel> filteredLogs = new ArrayList<ItemModel>();
@@ -176,6 +204,27 @@ public class HomeFragment extends InjectableFragment {
         Intent intent = new Intent(getActivity(), DiaperChangeActivity.class);
         intent.putExtra("intent", "diaper_change");
         startActivity(intent);
+
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.home_menu, menu);
+    }
+
+    @OnClick(R.id.babyImage)
+    public void babyImageClicked(){
+        startActivity(new Intent(getActivity(), ProfileActivity.class));
 
     }
 }

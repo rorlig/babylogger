@@ -274,6 +274,8 @@
     <string name="txt_hint_decimal">--.--</string>
     <string name="txt_weight">WEIGHT:</string>
     <string name="txt_height">HEIGHT:</string>
+    <string name="edit_profile">Edit</string>
+    <string name="action_stats">Statistics</string>
 
 
 </resources>

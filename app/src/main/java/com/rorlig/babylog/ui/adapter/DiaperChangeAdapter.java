@@ -97,10 +97,18 @@ public class DiaperChangeAdapter extends ArrayAdapter<DiaperChangeDao> {
         setDiaperColor(diaperChangeDao,viewHolder);
         setDiaperIncidentType(diaperChangeDao, viewHolder);
 
+        setPoopTexture(diaperChangeDao, viewHolder);
+
         viewHolder.notesContent.setText(diaperChangeDao.getDiaperChangeNotes());
 
 //        viewHolder.poopColor.setImageDrawable(co);
         return view;
+    }
+
+    private void setPoopTexture(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
+        if (diaperChangeDao.getPoopTexture()!=null) {
+            viewHolder.textViewPoopTexture.setText(diaperChangeDao.getPoopTexture().toString());
+        }
     }
 
     private void setDiaperIncidentType(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
@@ -198,6 +206,9 @@ public class DiaperChangeAdapter extends ArrayAdapter<DiaperChangeDao> {
 
         @InjectView(R.id.poopColor)
         ImageView poopColor;
+
+        @InjectView(R.id.poopTexture)
+        TextView textViewPoopTexture;
 
         @InjectView(R.id.notesContent)
         TextView notesContent;
