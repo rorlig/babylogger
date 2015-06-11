@@ -24,6 +24,7 @@ import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
+import com.rorlig.babylog.ui.activity.MilestonesActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
@@ -117,11 +118,13 @@ public class HomeFragment extends InjectableFragment {
                         case 2:
                             startActivity(new Intent(getActivity(), GrowthActivity.class));
                             break;
+
+                        case 3:
+                            startActivity(new Intent(getActivity(), MilestonesActivity.class));
+                            break;
                         default:
                             Toast.makeText(getActivity(), "TODO" , Toast.LENGTH_SHORT).show();
                             break;
-//                        case 3:
-//                            startActivity(new Intent(getActivity(), ));
 
 
                     }

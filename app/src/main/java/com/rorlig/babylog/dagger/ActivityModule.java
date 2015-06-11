@@ -37,6 +37,7 @@ import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
 import com.rorlig.babylog.ui.activity.HomeActivity;
 import com.rorlig.babylog.ui.activity.LandingActivity;
+import com.rorlig.babylog.ui.activity.MilestonesActivity;
 import com.rorlig.babylog.ui.activity.NursingFeedActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.adapter.ContactsAdapter;
@@ -45,6 +46,7 @@ import com.rorlig.babylog.ui.adapter.FeedAdapter;
 import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.adapter.LogItemAdapter;
+import com.rorlig.babylog.ui.adapter.MilestonesItemAdapter;
 import com.rorlig.babylog.ui.fragment.about.AboutFragment;
 import com.rorlig.babylog.ui.fragment.action.ActionsSelectFragment;
 import com.rorlig.babylog.ui.fragment.contact.ContactSelectFragment;
@@ -71,6 +73,8 @@ import com.rorlig.babylog.ui.fragment.MenuFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.rorlig.babylog.ui.fragment.home.LaunchFragment;
+import com.rorlig.babylog.ui.fragment.milestones.MilestoneListFragment;
+import com.rorlig.babylog.ui.fragment.milestones.MilestonesCompletedFragment;
 import com.rorlig.babylog.ui.fragment.profile.ProfileFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
@@ -105,6 +109,7 @@ import dagger.Provides;
             GrowthActivity.class,
             FeedingActivity.class,
             ProfileActivity.class,
+            MilestonesActivity.class,
     //            SearchActivity.class,
 //            MessageBoardListActivity.class,
 //            MessagesActivity.class,
@@ -129,6 +134,7 @@ import dagger.Provides;
             DiaperChangeListFragment.class,
             FeedingListFragment.class,
             GrowthListFragment.class,
+            MilestoneListFragment.class,
             DiaperChangeAdapter.class,
             ContactsFragment.class,
             ContactsPagerListFragment.class,
@@ -140,7 +146,10 @@ import dagger.Provides;
             FeedAdapter.class,
             LogItemAdapter.class,
             HomeItemAdapter.class,
-            GrowthAdapter.class
+            GrowthAdapter.class,
+            MilestonesItemAdapter.class,
+            MilestonesCompletedFragment.class
+
           },
           library=true, complete = false)
 

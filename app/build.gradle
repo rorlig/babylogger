@@ -70,6 +70,7 @@ dependencies {
 
 
 
+    compile 'com.avast:android-styled-dialogs:2.2.0'
 
 
 

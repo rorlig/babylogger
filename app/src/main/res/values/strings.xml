@@ -276,6 +276,7 @@
     <string name="txt_height">HEIGHT:</string>
     <string name="edit_profile">Edit</string>
     <string name="action_stats">Statistics</string>
+    <string name="txt_not_completed">Not Completed</string>
 
 
 </resources>

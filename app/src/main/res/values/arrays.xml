@@ -214,4 +214,28 @@
         <item>0</item>
     </integer-array>
 
+    <!-- milestones -->
+    <string-array name="milestones">
+        <item>Responds to voice</item>
+        <item>Smiles to parents</item>
+        <item>Lifts his head</item>
+        <item>Follows objects with eyes</item>
+        <item>Tries to touch objects</item>
+        <item>Starts to babble</item>
+        <item>Plays with Object</item>
+        <item>Sits with support</item>
+        <item>Sits without support</item>
+        <item>Searches for objects</item>
+        <item>Repeats Mama and dada</item>
+        <item>Responds to name</item>
+        <item>Stands with support</item>
+        <item>Stands without support</item>
+        <item>Eats puree</item>
+        <item>Eats solids</item>
+        <item>Points to body parts</item>
+        <item>Walks</item>
+        <item>First tooth</item>
+        <item>Points to body parts</item>
+    </string-array>
+
 </resources>

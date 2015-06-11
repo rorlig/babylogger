@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="80dp"
+    android:orientation="vertical" >
+
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/txt_dia"
+        style="@style/ListItemHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Milestone Date"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:textColor="@color/actionbar_background" />
+
+
+    <View
+        style="@style/ListItemDivider"
+        android:id="@+id/divider"
+        android:layout_marginTop="5dp"/>
+
+
+
+    <DatePicker
+        android:id="@+id/dpResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal" >
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_yes"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:text="Save"
+            android:textStyle="bold" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_no"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:clickable="true"
+            android:text="Cancel"
+            android:textStyle="bold" />
+
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_reset"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:text="Reset"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
