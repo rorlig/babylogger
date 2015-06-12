@@ -3,6 +3,7 @@ package com.rorlig.babylog.ui.fragment.milestones;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +28,9 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.GrowthDao;
+import com.rorlig.babylog.otto.MilestoneCancelEvent;
+import com.rorlig.babylog.otto.MilestoneResetEvent;
+import com.rorlig.babylog.otto.MilestoneSaveEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
@@ -39,7 +44,9 @@ import com.rorlig.babylog.ui.adapter.MilestonesItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedSelectFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthLoader;
+import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -80,6 +87,8 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     private String[] itemNames;
     private MilestonesItemAdapter milestonesAdapter;
 
+    ArrayList<Milestones> milestonesArrayList = new ArrayList<Milestones>();
+
     @OnClick(R.id.add_item)
     public void onDiaperChangeClicked(){
 //        scopedBus.post(new AddDiaperChangeEvent());
@@ -113,7 +122,12 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         itemNames = getResources().getStringArray(R.array.milestones);
 
-         milestonesAdapter = new MilestonesItemAdapter(getActivity(), 1, itemNames);
+        for (String item: itemNames) {
+            Milestones milestones = new Milestones(item, false);
+            milestonesArrayList.add(milestones);
+        }
+
+         milestonesAdapter = new MilestonesItemAdapter(getActivity(), 1, milestonesArrayList);
 
 
         typeface=Typeface.createFromAsset(getActivity().getAssets(),
@@ -152,7 +166,10 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     }
 
     private void itemClicked(AdapterView<?> parent, View view, int position, long id) {
-        MilestonesCompletedFragment milestonesCompletedFragment = new MilestonesCompletedFragment();
+        MilestonesCompletedFragment milestonesCompletedFragment = MilestonesCompletedFragment.newInstance(position);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("position", position);
+//        milestonesCompletedFragment.setArguments(bundle);
         milestonesCompletedFragment.show(getFragmentManager(),"milestone_completed");
 //        showFeedSelectFragment(new MilestonesCompletedFragment(), "milestone_complet/ed");
 
@@ -258,6 +275,25 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     private class EventListener {
         public EventListener() {
 
+        }
+
+        @Subscribe
+        public void onMileStoneSaved(MilestoneSaveEvent event){
+            Log.d(TAG, "onMileStoneSaved " + event.getPosition());
+
+            milestonesArrayList.get(event.getPosition()).setCompleted(true);
+            milestonesAdapter.notifyDataSetChanged();
+
+        }
+
+        @Subscribe
+        public void onMileStoneCancel(MilestoneCancelEvent event){
+            Log.d(TAG, "onMileStoneCancel");
+        }
+
+        @Subscribe
+        public void onMileStoneReset(MilestoneResetEvent event) {
+            Log.d(TAG, "onMileStoneReset" + event.getPosition());
         }
 
 

@@ -3,6 +3,7 @@ package com.rorlig.babylog.ui.activity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.GrowthItemCreated;
+import com.rorlig.babylog.otto.SavedProfileEvent;
+import com.rorlig.babylog.otto.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
@@ -61,73 +64,14 @@ public class ProfileActivity extends InjectableActivity {
     private EventListener eventListener = new EventListener();
 
 
-    /*
-   * Define a request code to send to Google Play services
-   * This code is returned in Activity.onActivityResult
-   */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private Typeface typeface;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diaper_change_list);
-//        mTitle = mDrawerTitle = getTitle();
-//        actionBar.setTitle(mTitle);
-//        int titleId = getResources().getIdentifier("action_bar_title", "id",
-//                "android");
-//
-//
-//        actionBar.setDisplayShowCustomEnabled(true);
-//        actionBar.setDisplayShowTitleEnabled(false);
-
-//        LayoutInflater inflator = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View v = inflator.inflate(R.layout.action_bar_main, null);
-//        System.out.println("titleId " + titleId);
-//
-//        TextView textView = (TextView) v.findViewById(R.id.actionBarTitle);
-//        textView.setText(mTitle);
-////        ((TextView)v.findViewById(R.id.actionBarTitle)).setText("greet");
-//        //doesn't work :(
-//
-//        typeface = typeFaceManager.getTypeFace(getString(R.string.font_bree_light));
-//        typeface= Typeface.createFromAsset(getAssets(),
-//                "fonts/bree_light.ttf");
-
-//        textView.setTypeface(typeface);
-
-//        TextView titleTextView = (TextView) getWindow().findViewById(titleId);
-//        titleTextView.setTextColor(getResources().getColor(R.color.black));
-//
-//        titleTextView.setTypeface(typeface);
-//        titleTextView.setText("greet");
-//        getActionBar().setCustomView(v);
-
-//        s = new SpannableString("greet");//todo put in resources
-//        s.setSpan(typeface, 0, s.length(),
-//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-////        Log.d(TAG, "s " + s);
-////        actionBar.set
-//        actionBar.setTitle(s);
-//
-//
-////        drawerLayout.setDrawerListener(drawerToggle);
-////        drawerLayout.openDrawer(1);
-////        drawerLayout.setDrawerLockMode(1);
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setDisplayShowHomeEnabled(false);
-
-
-
-
-
         showFragment(ProfileFragment.class, "profile_fragment", false);
-//        } else {
-//
-//        }
-
     }
 
 
@@ -223,7 +167,15 @@ public class ProfileActivity extends InjectableActivity {
 
 
 
+        @Subscribe
+        public void onSaveProfileEvent(SavedProfileEvent event) {
+            finish();
+        }
 
+        @Subscribe
+        public void onSkipProfileEvent(SkipProfileEvent event){
+            finish();
+        }
 
     }
 

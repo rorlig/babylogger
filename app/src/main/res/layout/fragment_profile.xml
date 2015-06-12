@@ -120,7 +120,7 @@
 
 
         <DatePicker
-            android:id="@+id/dpResult"
+            android:id="@+id/date_picker_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:calendarViewShown="false"

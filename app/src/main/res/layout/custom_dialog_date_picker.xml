@@ -26,7 +26,7 @@
 
 
     <DatePicker
-        android:id="@+id/dpResult"
+        android:id="@+id/datepicker_milestone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:calendarViewShown="false"
@@ -43,7 +43,7 @@
         android:orientation="horizontal" >
 
         <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btn_yes"
+            android:id="@+id/btn_save"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:clickable="true"
@@ -51,7 +51,7 @@
             android:textStyle="bold" />
 
         <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btn_no"
+            android:id="@+id/btn_cancel"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
+import com.rorlig.babylog.ui.fragment.milestones.Milestones;
 import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
     private final TypedArray iconArr;
     private final Activity context;
     //    private final int[] itemStates;
-    private ArrayList<String> logListItem;
+    private ArrayList<Milestones> logListItem;
 //    private String[] itemNames = {};
 
 
@@ -41,14 +42,14 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
 
     /**
      * Constructor
-     *  @param context  The current context.
+     * @param context  The current context.
      * @param resource The resource ID for a layout file containing a TextView to use when
      * @param logListItem
      */
-    public MilestonesItemAdapter(Activity context, int resource, String[] logListItem) {
+    public MilestonesItemAdapter(Activity context, int resource, ArrayList<Milestones> logListItem) {
     super(context, R.layout.list_item_home);
         this.context = context;
-        this.logListItem = new ArrayList<String>(Arrays.asList(logListItem));
+        this.logListItem = logListItem;
 
         iconArr = context.getResources().obtainTypedArray(R.array.itemIcons);
 
@@ -95,7 +96,7 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        final String item = logListItem.get(position);
+        final Milestones item = logListItem.get(position);
 
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -104,7 +105,8 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
             viewHolder = new ViewHolder(convertView);
             viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.logItemLabel);
             viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.iconImage);
-            viewHolder.logItemLabel.setText(item);
+            viewHolder.logItemLabel.setText(item.getMileStoneTitle());
+
 
 //            viewHolder.itemImage.setImageDrawable(context.getResources().getDrawable(iconArr.getResourceId(position,0)));
 
@@ -123,6 +125,12 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        if (item.isCompleted()) {
+            viewHolder.itemImage.setImageResource(R.drawable.ic_mood_blue);
+        } else  {
+            viewHolder.itemImage.setImageResource(R.drawable.ic_mood_black);
         }
         // Populate the data into the template view using the data object
 
