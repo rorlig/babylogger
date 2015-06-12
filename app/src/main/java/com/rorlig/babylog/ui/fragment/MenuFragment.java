@@ -7,8 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -48,7 +46,7 @@ import butterknife.InjectView;
     @InjectView(R.id.content)
     View status;
 
-    @InjectView(R.id.babyName)
+    @InjectView(R.id.baby_name)
     TextView babyName;
 
 //    @InjectView(R.id.babyAge)

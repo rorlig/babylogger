@@ -13,36 +13,57 @@
             android:clickable="true"
             android:id="@+id/basicInfoBlock"
             android:background="@color/black"
-
             android:layout_height="160dp">
 
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:background="@drawable/button_rect_list_normal"
+                android:layout_centerInParent="true"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="fill_parent">
+
+            <TextView
+                android:id="@+id/baby_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:clickable="false"
+                android:layout_below="@+id/baby_image"
+                android:text="@string/edit_profile"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible"
+                />
+
             <ImageView
-                android:id="@+id/babyImage"
+                android:id="@+id/baby_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:textColor="@color/primary"
                 android:clickable="false"
                 android:layout_centerInParent="true"
-                android:background="@drawable/button_rect_list_normal"
                 android:src="@drawable/btn_radio_boy"
+
                 android:contentDescription="Profile Image" />
 
-
             <TextView
-                android:id="@+id/babyName"
+                android:id="@+id/baby_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:textColor="@color/blue"
                 android:clickable="false"
-                android:layout_below="@+id/babyImage"
-                android:text="@string/edit_profile"
+                android:layout_above="@+id/baby_image"
                 android:layout_centerHorizontal="true"
-
-                android:visibility="visible"
+                android:visibility="gone"
                 />
 
+
+
+            </RelativeLayout>
 
 
 

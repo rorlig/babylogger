@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:id="@+id/babyName"
+                android:id="@+id/baby_name"
                 android:hint="Baby Name"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
@@ -69,9 +69,9 @@
                 android:id="@+id/baby_sex"
                 android:layout_height="100dp"
                 android:layout_width="100dp"
-                android:layout_below="@+id/babyName"
-                android:layout_alignLeft="@+id/babyName"
-                android:layout_alignStart="@+id/babyName"
+                android:layout_below="@+id/baby_name"
+                android:layout_alignLeft="@+id/baby_name"
+                android:layout_alignStart="@+id/baby_name"
                 android:layout_marginLeft="10dp">
 
                 <RadioButton android:id="@+id/babyBoy"

@@ -3,7 +3,6 @@ package com.rorlig.babylog.ui.fragment.profile;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +19,8 @@ import com.rorlig.babylog.otto.SavedProfileEvent;
 import com.rorlig.babylog.otto.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -40,7 +41,7 @@ public class ProfileFragment extends InjectableFragment {
     @Inject
     SharedPreferences preferences;
 
-    @InjectView(R.id.babyName)
+    @InjectView(R.id.baby_name)
     TextView babyNameTextView;
 
     @InjectView(R.id.baby_sex)
@@ -88,9 +89,7 @@ public class ProfileFragment extends InjectableFragment {
         } else {
             babyGirlButton.setChecked(true);
         }
-
-        String dob = preferences.getString("dob","");
-        Log.d(TAG, dob);
+        String dob = preferences.getString("dob", "");
         if (!dob.equals("")){
             String[] dateElements = dob.split(",");
             Log.d(TAG,"" + dateElements.length);
@@ -100,7 +99,11 @@ public class ProfileFragment extends InjectableFragment {
             int day = Integer.parseInt(dateElements[2]);
             Log.d(TAG, " year "  + year + " month " + month + " day " + day);
             datePickerBirthday.updateDate(year, month, day);
+
+
         }
+
+
         //todo dob...
 
     }
@@ -138,10 +141,28 @@ public class ProfileFragment extends InjectableFragment {
 
 
         int year = datePickerBirthday.getYear();
-        int month = datePickerBirthday.getMonth() + 1;
+        int month = datePickerBirthday.getMonth();
         int day = datePickerBirthday.getDayOfMonth();
 
         String dob = year  + "," + month + "," + day;
+
+//        Log.d(TAG, dob);
+//        if (!dob.equals("")){
+//            String[] dateElements = dob.split(",");
+//            Log.d(TAG,"" + dateElements.length);
+//            Log.d(TAG, dateElements[0]);
+//            int year = Integer.parseInt(dateElements[0]);
+//            int month = Integer.parseInt(dateElements[1]);
+//            int day = Integer.parseInt(dateElements[2]);
+//            Log.d(TAG, " year "  + year + " month " + month + " day " + day);
+//            datePickerBirthday.updateDate(year, month, day);
+//            Calendar c = Calendar.getInstance();
+//            c.set(year,month,day);
+//            Log.d(TAG, "time " + c.getTimeInMillis());
+//            long diff = System.currentTimeMillis() - c.getTimeInMillis();
+//            long days = diff/(86400*1000);
+//            Log.d(TAG, "days old " + days);
+//        }
 
         preferences.edit().putString("dob", dob).apply();
         scopedBus.post(new SavedProfileEvent());

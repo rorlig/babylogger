@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
@@ -28,10 +27,9 @@ import com.rorlig.babylog.ui.activity.MilestonesActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.activity.DiaperChangeListActivity2;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -44,8 +42,11 @@ import butterknife.OnClick;
  */
 public class HomeFragment extends InjectableFragment {
 
-    @InjectView(R.id.babyName)
-    TextView babyName;
+    @InjectView(R.id.baby_name)
+    TextView babyNameTextView;
+
+    @InjectView(R.id.baby_age)
+    TextView babyAgeTextView;
 
     @Inject
     SharedPreferences preferences;
@@ -60,7 +61,7 @@ public class HomeFragment extends InjectableFragment {
     @InjectView(R.id.basicInfoBlock)
     RelativeLayout basicInfoBlockLayout;
 
-    @InjectView(R.id.babyImage)
+    @InjectView(R.id.baby_image)
     ImageView babyImageView;
 
     @InjectView(R.id.action_sleep)
@@ -75,7 +76,6 @@ public class HomeFragment extends InjectableFragment {
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-        babyName.setText(preferences.getString("name", ""));
 
         String logItems = preferences.getString("logItems", "");
 
@@ -128,13 +128,7 @@ public class HomeFragment extends InjectableFragment {
 
 
                     }
-//                ItemModel itemModel = (ItemModel) parent.getItemAtPosition(position);
-//                itemModel.setItemChecked(!itemModel.isItemChecked());
-//                CheckBox checkBox = (CheckBox) view;
-//                checkBox.setChecked(!checkBox.isCheck());
-//                Toast.makeText(getApplicationContext(),
-//                        "Clicked on Row: " + position,
-//                        Toast.LENGTH_LONG).show();
+//
 
                 }
             });
@@ -143,9 +137,46 @@ public class HomeFragment extends InjectableFragment {
         }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+        String name = preferences.getString("name", "");
+        if (name.equals("")){
+            babyAgeTextView.setVisibility(View.GONE);
+        } else {
+            babyNameTextView.setText("Welcome " + preferences.getString("name", ""));
+            String dob = preferences.getString("dob", "");
+            if (!dob.equals("")){
+                String[] dateElements = dob.split(",");
+                Log.d(TAG,"" + dateElements.length);
+                Log.d(TAG, dateElements[0]);
+                int year = Integer.parseInt(dateElements[0]);
+                int month = Integer.parseInt(dateElements[1]);
+                int day = Integer.parseInt(dateElements[2]);
+                Log.d(TAG, " year "  + year + " month " + month + " day " + day);
+                Calendar c = Calendar.getInstance();
+                c.set(year,month,day);
+                Log.d(TAG, "time " + c.getTimeInMillis());
+                long diff = System.currentTimeMillis() - c.getTimeInMillis();
+                long days = diff/(86400*1000);
+                Log.d(TAG, "days old " + days);
+                babyAgeTextView.setVisibility(View.VISIBLE);
+                babyAgeTextView.setText(days + " days old");
 
 
+            }
 
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+
+    }
 
     private ArrayList<ItemModel> filter(ArrayList<ItemModel> logs) {
         ArrayList<ItemModel> filteredLogs = new ArrayList<ItemModel>();
@@ -225,7 +256,7 @@ public class HomeFragment extends InjectableFragment {
         inflater.inflate(R.menu.home_menu, menu);
     }
 
-    @OnClick(R.id.babyImage)
+    @OnClick(R.id.baby_image)
     public void babyImageClicked(){
         startActivity(new Intent(getActivity(), ProfileActivity.class));
 

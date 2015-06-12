@@ -23,17 +23,17 @@
                 android:layout_height="60dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_baby_picture"
-                android:id="@+id/babyImage"/>
+                android:id="@+id/baby_image"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/babyName"
+                android:id="@+id/baby_name"
                 android:text="Customize Profile"
                 android:layout_centerHorizontal="true"
                 android:textColor="@drawable/menu_list_text_color"
 
-                android:layout_below="@id/babyImage"/>
+                android:layout_below="@id/baby_image"/>
 
             <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->

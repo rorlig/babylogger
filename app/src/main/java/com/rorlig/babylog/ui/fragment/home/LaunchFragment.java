@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,7 +24,6 @@ import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.ItemCheckChangeEvent;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
-import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.activity.BabySex;
 import com.rorlig.babylog.ui.adapter.LogItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
@@ -35,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
 
 import javax.inject.Inject;
 
@@ -66,7 +63,7 @@ public class LaunchFragment extends InjectableFragment implements DatePickerDial
     private LogItemAdapter logItemsAdapter;
     private TextView currentDate;
 
-    @InjectView(R.id.babyName)
+    @InjectView(R.id.baby_name)
     EditText babyNameText;
 
     @InjectView(R.id.babySex)
