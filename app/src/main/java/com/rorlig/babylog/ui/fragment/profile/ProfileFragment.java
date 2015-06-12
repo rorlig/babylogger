@@ -88,6 +88,19 @@ public class ProfileFragment extends InjectableFragment {
         } else {
             babyGirlButton.setChecked(true);
         }
+
+        String dob = preferences.getString("dob","");
+        Log.d(TAG, dob);
+        if (!dob.equals("")){
+            String[] dateElements = dob.split(",");
+            Log.d(TAG,"" + dateElements.length);
+            Log.d(TAG, dateElements[0]);
+            int year = Integer.parseInt(dateElements[0]);
+            int month = Integer.parseInt(dateElements[1]);
+            int day = Integer.parseInt(dateElements[2]);
+            Log.d(TAG, " year "  + year + " month " + month + " day " + day);
+            datePickerBirthday.updateDate(year, month, day);
+        }
         //todo dob...
 
     }
@@ -116,13 +129,21 @@ public class ProfileFragment extends InjectableFragment {
     public void saveBtnClicked() {
         Log.d(TAG, "saveBtnClicked()");
         String babyName = babyNameTextView.getText().toString();
-        preferences.edit().putString("name", babyName).commit();
+        preferences.edit().putString("name", babyName).apply();
         if (babySexRadioGroup.getCheckedRadioButtonId()==R.id.babyBoy) {
-            preferences.edit().putString("baby_sex", "male").commit();
+            preferences.edit().putString("baby_sex", "male").apply();
         } else  {
-            preferences.edit().putString("baby_sex", "female").commit();
+            preferences.edit().putString("baby_sex", "female").apply();
         }
 
+
+        int year = datePickerBirthday.getYear();
+        int month = datePickerBirthday.getMonth() + 1;
+        int day = datePickerBirthday.getDayOfMonth();
+
+        String dob = year  + "," + month + "," + day;
+
+        preferences.edit().putString("dob", dob).apply();
         scopedBus.post(new SavedProfileEvent());
 
 
