@@ -25,14 +25,14 @@
         android:layout_below="@+id/header"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/weightLabel"
+        android:id="@+id/weight_label"
         android:textColor="@color/text_color_main"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header"
-        android:layout_toRightOf="@+id/weightLabel"
-        android:id="@+id/weightLayout"
+        android:layout_toRightOf="@+id/weight_label"
+        android:id="@+id/weight_layout"
 
         >
         <EditText
@@ -43,7 +43,7 @@
             android:layout_marginLeft="10dp"
             android:inputType="number"
             android:maxLength="2"
-            android:id="@+id/weightPounds"
+            android:id="@+id/weight_pounds"
             android:textColor="@color/text_color_main"/>
         <TextView
             android:layout_width="wrap_content"
@@ -51,8 +51,8 @@
             android:text="lbs"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/weightPounds"
-            android:id="@+id/weightPoundLabel"
+            android:layout_toRightOf="@+id/weight_pounds"
+            android:id="@+id/weight_pound_label"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color_main"/>
 
@@ -64,8 +64,8 @@
             android:layout_marginLeft="10dp"
             android:inputType="number"
             android:maxLength="2"
-            android:id="@+id/weightOunces"
-            android:layout_toRightOf="@+id/weightPoundLabel"
+            android:id="@+id/weight_ounces"
+            android:layout_toRightOf="@+id/weight_pound_label"
             android:textColor="@color/text_color_main"/>
 
         <TextView
@@ -74,8 +74,8 @@
             android:text="oz"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/weightOunces"
-            android:id="@+id/weightOuncesLabel"
+            android:layout_toRightOf="@+id/weight_ounces"
+            android:id="@+id/weight_ounces_label"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color_main"/>
 
@@ -88,15 +88,15 @@
         android:text="HEIGHT"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/heightLabel"
-        android:layout_below="@+id/weightLayout"
+        android:id="@+id/height_label"
+        android:layout_below="@+id/weight_layout"
         android:textColor="@color/text_color_main"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/heightLabel"
-        android:id="@+id/heightLayout"
+        android:layout_below="@+id/height_label"
+        android:id="@+id/height_layout"
         >
         <EditText
             android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
             android:layout_marginLeft="10dp"
             android:inputType="number"
             android:maxLength="5"
-            android:id="@+id/heightInches"
+            android:id="@+id/height_inches"
             android:textColor="@color/text_color_main"/>
         <TextView
             android:layout_width="wrap_content"
@@ -114,8 +114,8 @@
             android:text="inches"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/heightInches"
-            android:id="@+id/heightInchesLabel"
+            android:layout_toRightOf="@+id/height_inches"
+            android:id="@+id/height_inches_label"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color_main"/>
 
@@ -127,14 +127,14 @@
         android:text="HEAD MEASUREMENT"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/headLabel"
-        android:layout_below="@+id/heightLayout"
+        android:id="@+id/head_label"
+        android:layout_below="@+id/height_layout"
         android:textColor="@color/text_color_main"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/headLabel"
+        android:layout_below="@+id/head_label"
         >
         <EditText
             android:layout_width="wrap_content"
@@ -144,7 +144,7 @@
             android:layout_marginLeft="10dp"
             android:inputType="number"
             android:maxLength="5"
-            android:id="@+id/headInches"
+            android:id="@+id/head_inches"
             android:textColor="@color/text_color_main"/>
         <TextView
             android:layout_width="wrap_content"
@@ -152,15 +152,15 @@
             android:text="@string/label_inches"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/headInches"
-            android:id="@+id/headInchesLabel"
+            android:layout_toRightOf="@+id/head_inches"
+            android:id="@+id/head_inches_label"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color_main"/>
 
     </RelativeLayout>
 
     <com.gc.materialdesign.views.ButtonRectangle
-        android:id="@+id/saveBtn"
+        android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txt_save"

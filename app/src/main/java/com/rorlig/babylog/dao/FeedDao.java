@@ -37,21 +37,22 @@ public class FeedDao extends BaseDao {
     @DatabaseField
     Long rightBreastTime;
 
+    @DatabaseField
+    String notes;
 
 
     public FeedDao() {
     }
 
-    public FeedDao(FeedType feedType, String feedItem, Double quantity, Long leftBreastTime, Long rightBreastTime, Long time) {
+    public FeedDao(FeedType feedType, String feedItem, Double quantity, Long leftBreastTime, Long rightBreastTime, String notes, Long time) {
         this.feedType = feedType;
         this.feedItem = feedItem;
         this.quantity = quantity;
         this.leftBreastTime = leftBreastTime;
         this.rightBreastTime = rightBreastTime;
         this.time = time;
+        this.notes = notes;
     }
-
-
 
 
     @Override
@@ -59,14 +60,13 @@ public class FeedDao extends BaseDao {
         return "FeedDao{" +
                 "id=" + id +
                 ", feedType=" + feedType +
-                ", feedItem=" + feedItem +
+                ", feedItem='" + feedItem + '\'' +
                 ", quantity=" + quantity +
                 ", leftBreastTime=" + leftBreastTime +
                 ", rightBreastTime=" + rightBreastTime +
-                ", time=" + time +
+                ", notes='" + notes + '\'' +
                 '}';
     }
-
 
     public FeedType getFeedType() {
         return feedType;
@@ -88,6 +88,7 @@ public class FeedDao extends BaseDao {
         return rightBreastTime;
     }
 
-
-
+    public String getNotes() {
+        return notes;
+    }
 }

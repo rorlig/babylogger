@@ -72,7 +72,7 @@ public class LaunchFragment extends InjectableFragment implements DatePickerDial
     @InjectView(R.id.babyPic)
     ImageView babyPic;
 
-    @InjectView(R.id.saveBtn)
+    @InjectView(R.id.save_btn)
     Button saveBtn;
 
     BabySex babySex = BabySex.BOY;
@@ -291,7 +291,7 @@ public class LaunchFragment extends InjectableFragment implements DatePickerDial
         scopedBus.register(this);
     }
 
-    @OnClick(R.id.saveBtn)
+    @OnClick(R.id.save_btn)
     public void onSaveBtnClicked() {
         scopedBus.post(new ItemsSelectedEvent(logItemsAdapter.getLogListItem(), babyNameText.getText().toString(), currentDate.getText().toString()));
     }

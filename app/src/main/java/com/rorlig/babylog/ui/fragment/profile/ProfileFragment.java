@@ -20,8 +20,6 @@ import com.rorlig.babylog.otto.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 
-import java.util.Calendar;
-
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -128,7 +126,7 @@ public class ProfileFragment extends InjectableFragment {
         }
     }
 
-    @OnClick(R.id.saveBtn)
+    @OnClick(R.id.save_btn)
     public void saveBtnClicked() {
         Log.d(TAG, "saveBtnClicked()");
         String babyName = babyNameTextView.getText().toString();

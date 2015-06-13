@@ -7,15 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
-import com.rorlig.babylog.model.diaper.DiaperChangeEnum;
 import com.rorlig.babylog.model.feed.FeedType;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
 import com.squareup.picasso.Picasso;
@@ -28,9 +24,6 @@ import java.util.List;
 import java.util.TimeZone;
 
 import javax.inject.Inject;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by admin on 4/22/14.
@@ -129,6 +122,8 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
                 vh.left = (TextView) convertView.findViewById(R.id.txtLeft);
                 vh.right = (TextView) convertView.findViewById(R.id.txtRight);
                 vh.textViewTime = (TextView) convertView.findViewById(R.id.diaperChangeTime);
+                vh.notesTextView = (TextView) convertView.findViewById(R.id.notes_content);
+
                 convertView.setTag(vh);
             }
         }
@@ -142,6 +137,8 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
         vh.left.setText("Left Breast: " +  feedDao.getLeftBreastTime() + " seconds ");
         vh.right.setText("Left Breast: " +  feedDao.getRightBreastTime() + " seconds ");
         vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getTime())));
+        vh.notesTextView.setText(feedDao.getNotes());
+
 
         return convertView;
     }
@@ -152,8 +149,9 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
             convertView = mInflater.inflate(R.layout.list_item_bottle_feeding, parent, false);
             if(convertView != null) {
                 vh = new BottleFeedViewHolder();
-                vh.txtType = (TextView) convertView.findViewById(R.id.txtType);
+                vh.txtType = (TextView) convertView.findViewById(R.id.txt_type);
                 vh.textViewTime = (TextView) convertView.findViewById(R.id.diaperChangeTime);
+                vh.notesTextView = (TextView) convertView.findViewById(R.id.notes_content);
 
                 convertView.setTag(vh);
             }
@@ -165,6 +163,7 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
 
         vh.txtType.setText(feedDao.getFeedItem() + " " + feedDao.getQuantity());
         vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getTime())));
+        vh.notesTextView.setText(feedDao.getNotes());
 
         return convertView;
     }
@@ -187,6 +186,8 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
         TextView left;
         TextView right;
         TextView textViewTime;
+        TextView notesTextView;
+
 
 
     }
@@ -194,6 +195,7 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
     public static class BottleFeedViewHolder extends  ViewHolder{
         TextView txtType;
         TextView textViewTime;
+        TextView notesTextView;
 
 
     }

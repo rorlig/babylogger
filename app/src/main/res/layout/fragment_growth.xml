@@ -18,14 +18,25 @@
 
     </fragment>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_growth"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="5dp"
+        android:textSize="18sp"
+        android:id="@+id/growth_header_title"
+        android:textColor="@color/actionbar_background"
+       />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:id="@+id/weightLayout"
+        android:layout_below="@+id/growth_header_title"
+        android:id="@+id/weight_layout"
         android:orientation="horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
 
 
         >
@@ -34,7 +45,7 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_weight"
             android:layout_marginLeft="10dp"
-            android:id="@+id/weightLabel"
+            android:id="@+id/weight_label"
             android:textColor="@color/text_color_main"/>
         <EditText
             android:layout_width="wrap_content"
@@ -43,14 +54,14 @@
             android:layout_marginLeft="10dp"
             android:inputType="number"
             android:maxLength="2"
-            android:id="@+id/weightPounds"
+            android:id="@+id/weight_pounds"
             android:textColor="@color/text_color_main"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="lbs"
             android:layout_marginLeft="10dp"
-            android:id="@+id/weightPoundLabel"
+            android:id="@+id/weight_pound_label"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color_main"/>
 
@@ -61,7 +72,7 @@
             android:layout_marginLeft="10dp"
             android:inputType="number"
             android:maxLength="2"
-            android:id="@+id/weightOunces"
+            android:id="@+id/weight_ounces"
             android:textColor="@color/text_color_main"/>
 
         <TextView
@@ -69,7 +80,7 @@
             android:layout_height="wrap_content"
             android:text="oz"
             android:layout_marginLeft="10dp"
-            android:id="@+id/weightOuncesLabel"
+            android:id="@+id/weight_ounces_label"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color_main"/>
 
@@ -81,8 +92,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/weightLayout"
-        android:id="@+id/heightLayout"
+        android:layout_below="@+id/weight_layout"
+        android:id="@+id/height_layout"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -90,7 +101,7 @@
             android:text="@string/txt_height"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:id="@+id/heightLabel"
+            android:id="@+id/height_label"
             android:textColor="@color/text_color_main"/>
         <EditText
             android:layout_width="wrap_content"
@@ -100,7 +111,7 @@
             android:layout_marginLeft="10dp"
             android:numeric="decimal"
             android:maxLength="5"
-            android:id="@+id/heightInches"
+            android:id="@+id/height_inches"
             android:textColor="@color/text_color_main"/>
         <TextView
             android:layout_width="wrap_content"
@@ -108,8 +119,8 @@
             android:text="inches"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/heightInches"
-            android:id="@+id/heightInchesLabel"
+            android:layout_toRightOf="@+id/height_inches"
+            android:id="@+id/height_inches_label"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color_main"/>
 
@@ -120,15 +131,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/heightLayout"
+        android:layout_below="@+id/height_layout"
+        android:id="@+id/measure_layout"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HEAD MEASUREMENT"
+            android:text="@string/head_measurement_title"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:id="@+id/headLabel"
+            android:id="@+id/head_label"
             android:textColor="@color/text_color_main"/>
         <EditText
             android:layout_width="wrap_content"
@@ -138,7 +150,7 @@
             android:layout_marginLeft="10dp"
             android:numeric="decimal"
             android:maxLength="5"
-            android:id="@+id/headInches"
+            android:id="@+id/head_inches"
             android:textColor="@color/text_color_main"/>
         <TextView
             android:layout_width="wrap_content"
@@ -146,14 +158,39 @@
             android:text="@string/label_inches"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:id="@+id/headInchesLabel"
+            android:id="@+id/head_inches_label"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color_main"/>
 
     </LinearLayout>
 
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/notes_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTES"
+        android:textAllCaps="true"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/measure_layout"
+        android:textColor="@color/actionbar_background" />
+
+    <EditText xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes"
+        android:textSize="14sp"
+        android:layout_below="@+id/notes_header"
+        android:layout_margin="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        />
+
+
     <com.gc.materialdesign.views.ButtonRectangle
-        android:id="@+id/saveBtn"
+        android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txt_save"

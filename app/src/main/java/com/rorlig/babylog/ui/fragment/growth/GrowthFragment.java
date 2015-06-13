@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.fragment.growth;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,11 +16,8 @@ import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
-import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
-import com.rorlig.babylog.model.feed.FeedType;
-import com.rorlig.babylog.otto.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
@@ -45,20 +41,22 @@ public class GrowthFragment extends InjectableFragment {
     @Inject
     Context context;
 
+    @InjectView(R.id.notes)
+    EditText notesContentTextView;
 
-    @InjectView(R.id.saveBtn)
+    @InjectView(R.id.save_btn)
     Button saveBtn;
 
-    @InjectView(R.id.weightPounds)
+    @InjectView(R.id.weight_pounds)
     EditText weightPoundsEditText;
 
-    @InjectView(R.id.weightOunces)
+    @InjectView(R.id.weight_ounces)
     EditText weightOuncesEditText;
 
-    @InjectView(R.id.heightInches)
+    @InjectView(R.id.height_inches)
     EditText heightInchesEditText;
 
-    @InjectView(R.id.headInches)
+    @InjectView(R.id.head_inches)
     EditText headInchesEditText;
 
     @Inject
@@ -254,7 +252,7 @@ public class GrowthFragment extends InjectableFragment {
         }
     }
 
-    @OnClick(R.id.saveBtn)
+    @OnClick(R.id.save_btn)
     public void saveBtnClicked() {
         Dao<GrowthDao, Integer> growthDao;
         GrowthDao daoObject;
@@ -276,7 +274,7 @@ public class GrowthFragment extends InjectableFragment {
             growthDao = babyLoggerORMLiteHelper.getGrowthDao();
 
 
-            daoObject  = new GrowthDao(totalWeight, height, headMeasure, time);
+            daoObject  = new GrowthDao(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), time);
             growthDao.create(daoObject);
 //            feedDao.create(daoObject);
             Log.d(TAG, "created objected " + daoObject);

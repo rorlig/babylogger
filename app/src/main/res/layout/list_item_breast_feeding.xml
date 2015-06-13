@@ -8,7 +8,7 @@
         android:layout_height="120dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/leftPanel">
+        android:id="@+id/left_panel">
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="120dp"
 
-        android:layout_toRightOf="@+id/leftPanel"
+        android:layout_toRightOf="@+id/left_panel"
 
         android:id="@+id/rightPanel">
 
@@ -55,8 +55,34 @@
 
             android:id="@+id/txtRight"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:id="@+id/notes_layout"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/txtRight">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notes_label"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/text_color_main"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/notes_content"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/text_color_main"
+                />
+
+        </LinearLayout>
+
 
     </RelativeLayout>
+
+
 
 
 

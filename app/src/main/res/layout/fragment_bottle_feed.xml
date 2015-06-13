@@ -26,14 +26,14 @@
         android:layout_below="@+id/header"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/quantityLayout"
+        android:id="@+id/quantity_text_header"
         android:textColor="@color/text_color_main"/>
 
        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/quantityLayout"
-        android:id="@+id/quantitytLayout"
+        android:layout_below="@+id/quantity_text_header"
+        android:id="@+id/quantity_layout"
 
         >
         <EditText
@@ -71,8 +71,33 @@
     </RelativeLayout>
 
 
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/notes_header"
+        style="@style/ListItemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTES"
+        android:textAllCaps="true"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:layout_below="@+id/quantity_layout"
+        android:textColor="@color/actionbar_background" />
+
+    <EditText xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes"
+        android:textSize="14sp"
+        android:layout_below="@+id/notes_header"
+        android:layout_margin="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        />
+
+
     <com.gc.materialdesign.views.ButtonRectangle
-        android:id="@+id/saveBtn"
+        android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"

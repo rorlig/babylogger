@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/leftPanel">
+        android:id="@+id/left_panel">
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -34,18 +34,18 @@
         android:layout_height="wrap_content"
         android:text="Weight:"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/leftPanel"
+        android:layout_toRightOf="@+id/left_panel"
         android:textColor="@color/black"
-        android:id="@+id/weightLabel"/>
+        android:id="@+id/weight_label"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Weight"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/weightLabel"
+        android:layout_toRightOf="@+id/weight_label"
         android:textColor="@color/black"
-        android:id="@+id/weightValue"/>
+        android:id="@+id/weight_value"/>
 
 
     <TextView
@@ -53,20 +53,20 @@
         android:layout_height="wrap_content"
         android:text="Height:"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/leftPanel"
-        android:layout_below="@+id/weightLabel"
+        android:layout_toRightOf="@+id/left_panel"
+        android:layout_below="@+id/weight_label"
         android:textColor="@color/black"
-        android:id="@+id/heightLabel"/>
+        android:id="@+id/height_label"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Height"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/heightLabel"
-        android:layout_below="@+id/weightValue"
+        android:layout_toRightOf="@+id/height_label"
+        android:layout_below="@+id/weight_value"
         android:textColor="@color/black"
-        android:id="@+id/heightValue"/>
+        android:id="@+id/height_value"/>
 
 
 
@@ -75,20 +75,45 @@
         android:layout_height="wrap_content"
         android:text="Head Measurement:"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/leftPanel"
-        android:layout_below="@+id/heightLabel"
+        android:layout_toRightOf="@+id/left_panel"
+        android:layout_below="@+id/height_label"
         android:textColor="@color/black"
-        android:id="@+id/headLabel"/>
+        android:id="@+id/head_label"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Head"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/headLabel"
-        android:layout_below="@+id/heightValue"
+        android:layout_toRightOf="@+id/head_label"
+        android:layout_below="@+id/height_value"
         android:textColor="@color/black"
         android:id="@+id/headValue"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notes_label"
+        android:layout_below="@+id/head_label"
+        android:layout_toRightOf="@+id/left_panel"
+        android:textColor="@color/text_color_main"
+        android:layout_marginTop="10dp"
+        android:id="@+id/notes_label"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notes_content"
+        android:layout_marginLeft="3dp"
+        android:textColor="@color/text_color_main"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/notes_label"
+        android:layout_below="@+id/head_label"
+        android:text ="test"
+        />
+
 
 
 

@@ -67,7 +67,7 @@ public class DiaperChangeFragment extends InjectableFragment {
 //    @InjectView(R.id.currentTime)
 //    TextView currentTime;
 
-    @InjectView(R.id.saveBtn)
+    @InjectView(R.id.save_btn)
     Button saveBtn;
 
     @InjectView(R.id.notes)
@@ -76,22 +76,22 @@ public class DiaperChangeFragment extends InjectableFragment {
     @InjectView(R.id.diaper_incident_type)
     RadioGroup diaperIncidentType;
 
-    @InjectView(R.id.checkDiaperLeak)
+    @InjectView(R.id.check_diaper_leak)
     RadioButton checkDiaperLeak;
 
-    @InjectView(R.id.checkNoDiaper)
+    @InjectView(R.id.check_no_diaper)
     RadioButton checkNoDiaper;
 
-    @InjectView(R.id.poopTypeLayout)
+    @InjectView(R.id.poop_type_layout)
     RelativeLayout poopTypeLayout;
 
-    @InjectView(R.id.poopColorLayout)
+    @InjectView(R.id.poop_color_layout)
     RelativeLayout poopColorLayout;
 
-    @InjectView(R.id.poopDensity)
+    @InjectView(R.id.poop_density)
     SeekBar poopDensitySeekBar;
 
-    @InjectView(R.id.poopTypeLabel)
+    @InjectView(R.id.poop_type_label)
     TextView poopTypeLabel;
 
 
@@ -235,7 +235,7 @@ public class DiaperChangeFragment extends InjectableFragment {
         showDatePickerDialog();
     }
 
-    @OnClick(R.id.saveBtn)
+    @OnClick(R.id.save_btn)
     public void onSaveBtnClicked(){
         Log.d(TAG, "save btn clicked");
         Dao<DiaperChangeDao, Integer> diaperChangeDao;
@@ -304,10 +304,10 @@ public class DiaperChangeFragment extends InjectableFragment {
 
     private DiaperIncident getDiaperIncident() {
         switch (diaperIncidentType.getCheckedRadioButtonId()) {
-            case R.id.checkDiaperLeak:
+            case R.id.check_diaper_leak:
                 return DiaperIncident.DIAPER_LEAK;
 
-            case R.id.checkNoDiaper:
+            case R.id.check_no_diaper:
                 return DiaperIncident.NO_DIAPER;
 
             default:

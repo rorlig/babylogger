@@ -99,7 +99,7 @@
     <!--</RelativeLayout>-->
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/typeHeader"
+        android:id="@+id/type_header"
         style="@style/ListItemHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
     <RadioGroup
         style="@style/RadioGroup"
         android:id="@+id/breast_select_type"
-        android:layout_below="@+id/typeHeader">
+        android:layout_below="@+id/type_header">
 
         <RadioButton android:id="@+id/breast_left"
             style="@style/RadioButton"
@@ -192,7 +192,7 @@
         android:gravity="center"
         android:layout_below="@+id/timer"
         android:layout_marginTop="10dp"
-        android:id="@+id/stopresume"
+        android:id="@+id/timers"
         >
         <Button
             android:layout_marginTop="15dp"
@@ -229,7 +229,7 @@
 
 
     <Button
-        android:id="@+id/saveBtn"
+        android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"

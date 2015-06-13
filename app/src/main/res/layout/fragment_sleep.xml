@@ -145,7 +145,7 @@
         <!--</RelativeLayout>-->
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/typeHeader"
+        android:id="@+id/type_header"
         style="@style/ListItemHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
     <RadioGroup
             style="@style/RadioGroup"
             android:id="@+id/diaper_change_type"
-            android:layout_below="@+id/typeHeader">
+            android:layout_below="@+id/type_header">
 
             <RadioButton android:id="@+id/diaper_pop"
                 style="@style/RadioButton"
@@ -192,7 +192,7 @@
 
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/accidentHeader"
+        android:id="@+id/accident_header"
         style="@style/ListItemHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -231,10 +231,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/accidentLayoutWrapper"
-        android:layout_below="@+id/accidentHeader">
+        android:layout_below="@+id/accident_header">
 
         <CheckBox
-            android:id="@+id/checkNoDiaper"
+            android:id="@+id/check_no_diaper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No Diaper"
@@ -244,7 +244,7 @@
             android:layout_weight="1"/>
 
         <CheckBox
-            android:id="@+id/checkDiaperLeak"
+            android:id="@+id/check_diaper_leak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Diaper Leak"
@@ -262,7 +262,7 @@
     </LinearLayout>
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/notesHeader"
+        android:id="@+id/notes_header"
         style="@style/ListItemHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -280,7 +280,7 @@
         android:hint="Notes"
         android:textAllCaps="true"
         android:textSize="14sp"
-        android:layout_below="@+id/notesHeader"
+        android:layout_below="@+id/notes_header"
         android:layout_margin="15dp"
         android:background="@drawable/notes_background"
         android:padding="5dp"
@@ -288,7 +288,7 @@
         />
 
     <Button
-        android:id="@+id/saveBtn"
+        android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"

@@ -14,6 +14,8 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,10 +70,11 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
             convertView = mInflater.inflate(R.layout.list_item_growth, parent, false);
             if(convertView != null) {
                 vh = new ViewHolder();
-                vh.weightTextView = (TextView) convertView.findViewById(R.id.weightValue);
-                vh.heightTextView = (TextView) convertView.findViewById(R.id.heightValue);
+                vh.weightTextView = (TextView) convertView.findViewById(R.id.weight_value);
+                vh.heightTextView = (TextView) convertView.findViewById(R.id.height_value);
                 vh.headTextView = (TextView) convertView.findViewById(R.id.headValue);
                 vh.textViewTime = (TextView) convertView.findViewById(R.id.diaperChangeTime);
+                vh.notesContentTextView = (TextView) convertView.findViewById(R.id.notes_content);
 
 
                 convertView.setTag(vh);
@@ -90,6 +93,8 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
         vh.weightTextView.setText(growthDao.getWeight() + " pounds");
 
         vh.textViewTime.setText(simpleDateFormat.format(new Date(growthDao.getTime())));
+
+        vh.notesContentTextView.setText(growthDao.getNotes());
 
 
 
@@ -123,6 +128,7 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
         TextView heightTextView;
         TextView headTextView;
         TextView textViewTime;
+        TextView notesContentTextView;
     }
 
 

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 //import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -61,6 +62,10 @@ public class NursingFeedFragment extends InjectableFragment {
 
     @InjectView(R.id.right)
     RelativeLayout rightButton;
+
+
+    @InjectView(R.id.notes)
+    EditText notes;
 
 
 //    @InjectView(R.id.minute)
@@ -380,7 +385,7 @@ public class NursingFeedFragment extends InjectableFragment {
     private Long elapsedTimeL, elapsedTimeR;
 
 
-    @OnClick(R.id.saveBtn)
+    @OnClick(R.id.save_btn)
     public void onSaveBtnClicked() {
         Log.d(TAG, "save btn clicked");
         Dao<FeedDao, Integer> feedDao;
@@ -407,7 +412,7 @@ public class NursingFeedFragment extends InjectableFragment {
             daoObject  = new FeedDao(FeedType.BREAST,
                     "" , -1.0,
                     deltaL,
-                    deltaR,
+                    deltaR, notes.getText().toString(),
                     time);
 //            switch (diaperChangeType.getCheckedRadioButtonId()) {
 //                case R.id.diaper_wet:

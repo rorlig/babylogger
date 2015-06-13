@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/leftPanel">
+        android:id="@+id/left_panel">
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -34,9 +34,35 @@
         android:layout_height="wrap_content"
         android:text="Test"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/leftPanel"
+        android:layout_toRightOf="@+id/left_panel"
         android:textColor="@color/black"
-        android:id="@+id/txtType"/>
+        android:id="@+id/txt_type"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:id="@+id/notes_layout"
+        android:layout_toRightOf="@+id/left_panel"
+        android:layout_below="@+id/txt_type"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notes_label"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/text_color_main"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notes_content"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/text_color_main"
+            />
+
+    </LinearLayout>
 
 
 

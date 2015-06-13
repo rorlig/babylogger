@@ -54,9 +54,12 @@ public class BottleFeedFragment extends InjectableFragment
     @InjectView(R.id.quantity)
     EditText quantityTextView;
 
-    @InjectView(R.id.saveBtn)
+    @InjectView(R.id.save_btn)
     Button saveBtn;
 
+
+    @InjectView(R.id.notes)
+    EditText notes;
 
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
@@ -168,7 +171,7 @@ public class BottleFeedFragment extends InjectableFragment
     }
 
 
-    @OnClick(R.id.saveBtn)
+    @OnClick(R.id.save_btn)
     public void onSaveBtnClicked(){
         Log.d(TAG, "save btn clicked");
         Log.d(TAG, "value of quantity " + quantityTextView.getText().toString());
@@ -185,7 +188,7 @@ public class BottleFeedFragment extends InjectableFragment
                     feedTypeSpinner.getSelectedItem().toString() ,
                     Double.parseDouble(quantityTextView.getText().toString()),
                     -1L,
-                    -1L,
+                    -1L, notes.getText().toString(),
                     time);
 //            switch (diaperChangeType.getCheckedRadioButtonId()) {
 //                case R.id.diaper_wet:

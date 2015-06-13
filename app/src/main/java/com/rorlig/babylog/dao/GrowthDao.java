@@ -10,6 +10,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class GrowthDao extends BaseDao {
 
 
+
     @DatabaseField(generatedId = true)
     int id;
 
@@ -22,15 +23,20 @@ public class GrowthDao extends BaseDao {
     @DatabaseField
     Double height;
 
+    @DatabaseField
+    String notes;
+
     public GrowthDao() {
     }
 
-    public GrowthDao(Double weight, Double headMeasurement, Double height, Long time) {
+    public GrowthDao(Double weight, Double headMeasurement, Double height, String notes, Long time) {
         this.weight = weight;
         this.headMeasurement = headMeasurement;
         this.height = height;
         this.time = time;
+        this.notes = notes;
     }
+
 
     @Override
     public String toString() {
@@ -39,6 +45,7 @@ public class GrowthDao extends BaseDao {
                 ", weight=" + weight +
                 ", headMeasurement=" + headMeasurement +
                 ", height=" + height +
+                ", notes='" + notes + '\'' +
                 '}';
     }
 
@@ -52,5 +59,9 @@ public class GrowthDao extends BaseDao {
 
     public Double getHeight() {
         return height;
+    }
+
+    public String getNotes() {
+        return notes;
     }
 }
