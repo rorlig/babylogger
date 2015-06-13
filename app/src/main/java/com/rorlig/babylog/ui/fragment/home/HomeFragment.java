@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,6 +21,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
+import com.rorlig.babylog.ui.activity.BarchartActivity;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
@@ -254,6 +256,19 @@ public class HomeFragment extends InjectableFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.home_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected");
+
+        switch (item.getItemId()) {
+            case R.id.action_stats:
+                startActivity(new Intent(getActivity(), BarchartActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     @OnClick(R.id.baby_image)

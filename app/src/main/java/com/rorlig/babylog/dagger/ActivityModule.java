@@ -14,6 +14,7 @@ import com.rorlig.babylog.ui.activity.BabyLogActivity;
 //import com.rorlig.babylog.ui.activity.CheckInActivity;
 //import com.rorlig.babylog.ui.activity.ConnectionDetailActivity;
 //import com.rorlig.babylog.ui.activity.EventDetailActivity;
+import com.rorlig.babylog.ui.activity.BarchartActivity;
 import com.rorlig.babylog.ui.activity.BottleFeedingActivity;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 //import com.rorlig.babylog.ui.activity.MapActivity;
@@ -110,6 +111,7 @@ import dagger.Provides;
             FeedingActivity.class,
             ProfileActivity.class,
             MilestonesActivity.class,
+            BarchartActivity.class,
     //            SearchActivity.class,
 //            MessageBoardListActivity.class,
 //            MessagesActivity.class,
