@@ -1,4 +1,4 @@
-# babylogger: Android Application to log information about the daily activities of your baby.
+# Babylogger: Android Application to log information about the daily activities of your baby.
 
 So far you can track 
 1. Diaper Changes.
