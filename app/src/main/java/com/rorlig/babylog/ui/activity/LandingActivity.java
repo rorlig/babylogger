@@ -90,16 +90,14 @@ public class LandingActivity extends InjectableActivity {
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_landing_page);
 
-        String logItems = preferences.getString("logItems", "");
-//        if (logItems.equals("")){
-//            showFragment(LaunchFragment.class, "launch_fragment", false);
+        boolean tutorial_shown = preferences.getBoolean("tutorial_shown", false);
 
-//        } else {
-            showFragment(HomeFragment.class, "home_fragment", false);
-
-//        }
+        if (tutorial_shown) {
+            startActivity(new Intent(this, HomeActivity.class));
+        } else {
+            startActivity(new Intent(this, TutorialActivity.class));
+        }
 
     }
 

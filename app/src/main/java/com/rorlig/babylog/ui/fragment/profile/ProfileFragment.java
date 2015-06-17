@@ -144,6 +144,8 @@ public class ProfileFragment extends InjectableFragment {
 
         String dob = year  + "," + month + "," + day;
 
+        Log.d(TAG, "dob: " + dob);
+
 //        Log.d(TAG, dob);
 //        if (!dob.equals("")){
 //            String[] dateElements = dob.split(",");

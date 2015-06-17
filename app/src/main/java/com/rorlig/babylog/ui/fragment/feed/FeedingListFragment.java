@@ -197,10 +197,10 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
 
     @Override
     public void onLoadFinished(Loader<List<FeedDao>> loader, List<FeedDao> data) {
-        Log.d(TAG, "number of diaper changes " + data.size());
+//        Log.d(TAG, "number of diaper changes " + data.size());
         Log.d(TAG, "loader finished");
 
-        if (data.size()>0) {
+        if (data!=null && data.size()>0) {
             emptyView.setVisibility(View.GONE);
             feedListView.setVisibility(View.VISIBLE);
         } else {
