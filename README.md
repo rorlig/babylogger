@@ -13,6 +13,7 @@
 + Exporting Data via Email
 + Profile Management 
 + Milestones
++ Tutorial screen
 
 ## Stretch Goals 
 + Adding Multiple Baby Tracking.
