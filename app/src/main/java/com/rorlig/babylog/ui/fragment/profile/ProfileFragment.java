@@ -19,11 +19,13 @@ import android.widget.TextView;
 import com.gc.materialdesign.views.Button;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
+import com.rorlig.babylog.otto.PictureSelectEvent;
 import com.rorlig.babylog.otto.SavedProfileEvent;
 import com.rorlig.babylog.otto.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedSelectFragment;
+import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -77,10 +79,15 @@ public class ProfileFragment extends InjectableFragment {
     private String TAG = "ProfileFragment";
 
     private EventListener eventListener = new EventListener();
+    private PictureSourceSelectFragment pictureSourceSelectFragment;
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
+
+
+        Log.d(TAG, "onActivityCreated");
+
 
         typeface=Typeface.createFromAsset(getActivity().getAssets(),
                 "fonts/proximanova_light.ttf");
@@ -93,6 +100,9 @@ public class ProfileFragment extends InjectableFragment {
         }
         babyNameTextView.setText(babyName);
 
+        if (pictureSourceSelectFragment!=null && pictureSourceSelectFragment.isVisible()){
+            pictureSourceSelectFragment.dismiss();
+        }
 
         babyNameTextView.addTextChangedListener(new TextWatcher() {
 //            int len = 0;
@@ -161,12 +171,15 @@ public class ProfileFragment extends InjectableFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        Log.d(TAG, "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
+
         View view =  inflater.inflate(R.layout.fragment_profile, null);
         ButterKnife.inject(this, view);
         return view;
@@ -177,11 +190,17 @@ public class ProfileFragment extends InjectableFragment {
         public EventListener() {
 
         }
+
+        @Subscribe
+        public void pictureSelectedEvent(PictureSelectEvent event) {
+            Log.d(TAG, "pictureSelectEvent");
+            babyPicImageView.setImageURI(event.getImageUri());
+        }
     }
 
     @OnClick(R.id.baby_pic)
     public void setBabyPicImageViewClicked(){
-        PictureSourceSelectFragment pictureSourceSelectFragment = new PictureSourceSelectFragment();
+         pictureSourceSelectFragment = new PictureSourceSelectFragment();
         pictureSourceSelectFragment.show(getActivity().getSupportFragmentManager(), "picture_select_fragment");
     }
 
@@ -245,5 +264,25 @@ public class ProfileFragment extends InjectableFragment {
         Log.d(TAG, "skipBtnClicked()");
         scopedBus.post(new SkipProfileEvent());
 //        scopedBus.post(new S);
+    }
+
+    /*
+    * Register to events...
+    */
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart");
+        scopedBus.register(eventListener);
+    }
+
+    /*
+     * Unregister from events ...
+     */
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+
+        scopedBus.unregister(eventListener);
+//        getActivity().stopService(new Intent(getActivity(), BackgroundLocationService.class));
     }
 }

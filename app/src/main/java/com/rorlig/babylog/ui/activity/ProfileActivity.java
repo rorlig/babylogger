@@ -16,7 +16,9 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.CameraStartEvent;
 import com.rorlig.babylog.otto.GrowthItemCreated;
+import com.rorlig.babylog.otto.PictureSelectEvent;
 import com.rorlig.babylog.otto.SavedProfileEvent;
 import com.rorlig.babylog.otto.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
@@ -65,18 +67,18 @@ public class ProfileActivity extends InjectableActivity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String TAG  = "GrowthActivity";
+    private String TAG  = "ProfileActivity";
 
     private EventListener eventListener = new EventListener();
-
-
-
+    private Uri imageUri;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diaper_change_list);
+        Log.d(TAG, "onCreate");
+        setContentView(R.layout.activity_profile);
         showFragment(ProfileFragment.class, "profile_fragment", false);
     }
 
@@ -183,6 +185,13 @@ public class ProfileActivity extends InjectableActivity {
             finish();
         }
 
+        @Subscribe
+        public void onCameraEvent(CameraStartEvent event) {
+            Log.d(TAG, "onCameraEvent");
+
+            imageUri = event.getImageUri();
+        }
+
     }
 
 
@@ -217,24 +226,22 @@ public class ProfileActivity extends InjectableActivity {
 
 
     private void cameraImageCaptured(Intent data) {
-        Uri returnedUri = null;
-        Uri imageUri;
 
-//            InCallAnalyticsData.getInstance().trackAnalyticsData(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA);
+        Log.d(TAG, "cameraImageCaptured : " + data);
+
+        Uri returnedUri = null;
+
         if(data != null) {
             returnedUri = data.getData();
+
+            if(returnedUri != null) {
+                imageUri = returnedUri;
+
+            }
         }
-        if(returnedUri != null) {
-            imageUri = returnedUri;
-            Log.d(TAG, "imageUri " + imageUri);
-        }
-//        File imageFile = new File(imageUri.getPath());
-        /**
-         * Seems by default HTC add taken pics from camera to gallery
-         */
-//        if((!AppUtils.isHtcDevices())&&(!AppUtils.isLgDevices()))
-//            AppUtils.addPicToGallery(this, imageFile);
-//        sendMmsWithAttachment(phoneNumber, imageUri, "image/jpg");
+
+        Log.d(TAG, "imageUri " + imageUri);
+        scopedBus.post(new PictureSelectEvent(imageUri));
     }
 
 

@@ -5,6 +5,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.CameraStartEvent;
 import com.rorlig.babylog.otto.PictureSourceSelectEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
@@ -34,6 +36,7 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
 
     @InjectView(R.id.gallery)
     ImageView galleryImageView;
+    private String TAG = "PictureSourceSelectFragment";
 
     public PictureSourceSelectFragment() {
         // Empty constructor required for DialogFragment
@@ -57,14 +60,19 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
 
     @OnClick(R.id.camera)
     public void onCameraClick() {
+        Log.d(TAG, "onCameraClick");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         long callTime = System.currentTimeMillis();
         String dir = AppUtils.getCameraDirectory();
         File file = new File(dir, callTime + ".jpg");
         Uri imageUri = Uri.fromFile(file);
+        Log.d(TAG, "imageUri " + imageUri);
+        scopedBus.post(new CameraStartEvent(imageUri));
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        dismiss();
+
         getActivity().startActivityForResult(intent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
     }
 
@@ -73,6 +81,8 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        dismiss();
+
         getActivity().startActivityForResult(intent, AppUtils.RESULT_LOAD_IMAGE);
     }
 }
