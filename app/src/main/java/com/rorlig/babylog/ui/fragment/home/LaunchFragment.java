@@ -69,8 +69,8 @@ public class LaunchFragment extends InjectableFragment implements DatePickerDial
     @InjectView(R.id.babySex)
     RadioGroup babySexRadioGroup;
 
-    @InjectView(R.id.babyPic)
-    ImageView babyPic;
+    @InjectView(R.id.baby_pic)
+    ImageView babyPicImageView;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
@@ -182,12 +182,12 @@ public class LaunchFragment extends InjectableFragment implements DatePickerDial
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.babyBoy:
-                        babyPic.setImageDrawable(getResources().getDrawable(R.drawable.btn_radio_boy));
+                        babyPicImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_radio_boy));
                         babySex = BabySex.BOY;
 
                         break;
                     case R.id.babyGirl:
-                        babyPic.setImageDrawable(getResources().getDrawable(R.drawable.btn_radio_girl));
+                        babyPicImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_radio_girl));
                         babySex = BabySex.GIRL;
                         break;
                 }

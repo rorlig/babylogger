@@ -76,6 +76,7 @@ import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.rorlig.babylog.ui.fragment.home.LaunchFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestoneListFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestonesCompletedFragment;
+import com.rorlig.babylog.ui.fragment.profile.PictureSourceSelectFragment;
 import com.rorlig.babylog.ui.fragment.profile.ProfileFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
@@ -150,7 +151,8 @@ import dagger.Provides;
             HomeItemAdapter.class,
             GrowthAdapter.class,
             MilestonesItemAdapter.class,
-            MilestonesCompletedFragment.class
+            MilestonesCompletedFragment.class,
+            PictureSourceSelectFragment.class
 
           },
           library=true, complete = false)

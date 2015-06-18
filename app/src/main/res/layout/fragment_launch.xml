@@ -55,7 +55,7 @@
         <ImageView
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:id="@+id/babyPic"
+            android:id="@+id/baby_pic"
             android:layout_gravity="center_vertical"
             android:src="@drawable/btn_radio_boy"
             android:layout_weight="1"

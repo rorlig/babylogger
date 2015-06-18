@@ -2,9 +2,12 @@ package com.rorlig.babylog.ui.activity;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -21,7 +24,10 @@ import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.profile.ProfileFragment;
+import com.rorlig.babylog.utils.AppUtils;
 import com.squareup.otto.Subscribe;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
@@ -186,6 +192,76 @@ public class ProfileActivity extends InjectableActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(TAG, "saving event list");
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode );
+        //Request was successful
+        if (resultCode == RESULT_OK) {
+//                mBus.post(new ShareRequestEvent(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA));
+
+            switch (requestCode) {
+
+                case AppUtils.RESULT_LOAD_IMAGE:
+                    imagePicked(data);
+
+                    break;
+                case AppUtils.RESULT_CAMERA_IMAGE_CAPTURE:
+                    cameraImageCaptured(data);
+                    break;
+            }
+        }
+    }
+
+
+    private void cameraImageCaptured(Intent data) {
+        Uri returnedUri = null;
+        Uri imageUri;
+
+//            InCallAnalyticsData.getInstance().trackAnalyticsData(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA);
+        if(data != null) {
+            returnedUri = data.getData();
+        }
+        if(returnedUri != null) {
+            imageUri = returnedUri;
+            Log.d(TAG, "imageUri " + imageUri);
+        }
+//        File imageFile = new File(imageUri.getPath());
+        /**
+         * Seems by default HTC add taken pics from camera to gallery
+         */
+//        if((!AppUtils.isHtcDevices())&&(!AppUtils.isLgDevices()))
+//            AppUtils.addPicToGallery(this, imageFile);
+//        sendMmsWithAttachment(phoneNumber, imageUri, "image/jpg");
+    }
+
+
+    private void imagePicked(Intent data) {
+//            InCallAnalyticsData.getInstance().trackAnalyticsData(AnalyticsStatEvent.UIActionShare.SHARE_GALLERY);
+        if(data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = null;
+            try {
+                if(selectedImage != null)
+                    cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                if(cursor != null)
+                    cursor.moveToFirst();
+
+
+
+                Log.d(TAG, "selectedImage " + selectedImage);
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            finally {
+                if(cursor != null)
+                    cursor.close();
+            }
+        }
     }
 
 

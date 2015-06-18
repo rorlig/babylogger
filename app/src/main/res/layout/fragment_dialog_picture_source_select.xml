@@ -3,52 +3,69 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/drawer_filter_background"
-    android:orientation="vertical">
+    >
 
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:textSize="20sp"
+        android:id="@+id/picture_select_header_text"
+        android:text="@string/picture_select_header_text"
+        android:textColor="@color/primary_dark"
+        android:layout_marginTop="10dp"
+        />
+
+    <View style="@style/ListItemDividerShort"
+        android:layout_below="@+id/picture_select_header_text"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"/>
 
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/nursing"
+        android:id="@+id/gallery"
+        android:layout_below="@+id/picture_select_header_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:src="@drawable/nursing"
+        android:src="@drawable/ic_add_picture_gallery_2"
         android:layout_centerHorizontal="true"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nursing"
-        android:id="@+id/nursingText"
-        android:text="NURSING"
+        android:layout_below="@+id/gallery"
+        android:id="@+id/galleryText"
+        android:text="@string/gallery_string_title"
         android:textColor="@color/text_color_main"
         android:layout_centerHorizontal="true"
         />
 
     <View style="@style/ListItemDividerShort"
-        android:layout_below="@+id/nursingText"
+        android:layout_below="@+id/galleryText"
         android:layout_marginTop="5dp">
 
 
     </View>
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/bottle"
+        android:id="@+id/camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:src="@drawable/bottle_feed"
+        android:src="@drawable/ic_add_picture_camera"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/nursingText"
+        android:layout_below="@+id/galleryText"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bottle"
-        android:id="@+id/bottleText"
-        android:text="BOTTLE"
+        android:layout_below="@+id/camera"
+        android:id="@+id/cameraText"
+        android:text="@string/camera_string_title"
         android:layout_centerHorizontal="true"
-
+        android:layout_marginBottom="20dp"
         android:textColor="@color/text_color_main"
         />
 </RelativeLayout>

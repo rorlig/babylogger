@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.rorlig.babylog.otto.SavedProfileEvent;
 import com.rorlig.babylog.otto.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+import com.rorlig.babylog.ui.fragment.feed.FeedSelectFragment;
 
 import javax.inject.Inject;
 
@@ -55,6 +57,8 @@ public class ProfileFragment extends InjectableFragment {
     @InjectView(R.id.date_picker_birthday)
     DatePicker datePickerBirthday;
 
+    @InjectView(R.id.baby_pic)
+    ImageView babyPicImageView;
 //    @InjectView(R.id.gridview)
 //    GridView actionsList;
 
@@ -125,6 +129,13 @@ public class ProfileFragment extends InjectableFragment {
 
         }
     }
+
+    @OnClick(R.id.baby_pic)
+    public void setBabyPicImageViewClicked(){
+        PictureSourceSelectFragment pictureSourceSelectFragment = new PictureSourceSelectFragment();
+        pictureSourceSelectFragment.show(getActivity().getSupportFragmentManager(), "picture_select_fragment");
+    }
+
 
     @OnClick(R.id.save_btn)
     public void saveBtnClicked() {

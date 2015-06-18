@@ -142,19 +142,54 @@
         android:gravity="center"
         android:layout_below="@+id/type_header"
         android:layout_marginTop="10dp"
+        android:id="@+id/breastLabels"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "@string/breast_title_left"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/primary_dark"
+            />
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "@string/breast_title_right"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/primary_dark"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/breastLabels"
+        android:layout_marginTop="10dp"
         android:id="@+id/timers"
         >
-        <RelativeLayout
+        <com.andexert.library.RippleView
+            android:id="@+id/more"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:gravity="center"
-            android:background="@drawable/round_button"
-            android:id="@+id/left"
+            android:layout_margin="5dp"
+            rv_centered="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/round_button"
+                android:id="@+id/left"
 
 
 
-            >
-            <!--<TextView-->
+                >
+                <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:text = "LEFT"-->
@@ -164,27 +199,27 @@
                 <!--android:layout_above="@id/startText"/>-->
 
 
-            <TextView
-                android:id="@+id/startLText"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/stopwatch_start_text">
-            </TextView>
+                <TextView
+                    android:id="@+id/startLText"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="@string/stopwatch_start_text">
+                </TextView>
 
-            <include layout = "@layout/time_view"
-                android:id="@+id/left_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/startLText">
+                <include layout = "@layout/time_view"
+                    android:id="@+id/left_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/startLText">
 
-            </include>
-            <!--<TextView-->
+                </include>
+                <!--<TextView-->
                 <!--android:textColor="@color/white"-->
 
                 <!--android:layout_width="wrap_content"-->
@@ -192,56 +227,64 @@
                 <!--android:layout_centerHorizontal="true"-->
                 <!--android:layout_below="@+id/startText"-->
                 <!--android:layout_marginTop="10dp"/>-->
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <RelativeLayout
+        </com.andexert.library.RippleView>
+
+
+        <com.andexert.library.RippleView
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:gravity="center"
-            android:background="@drawable/round_button"
-            android:id="@+id/right"
+            rv_centered="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/round_button"
+                android:id="@+id/right"
 
 
 
-            >
+                >
 
-            <!--<TextView-->
+
+                <TextView
+                    android:id="@+id/startRText"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="@string/stopwatch_start_text">
+                </TextView>
+
+
+
+                <include layout = "@layout/time_view"
+                    android:id="@+id/right_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/startRText">
+
+                </include>
+                <!--<TextView-->
+                <!--android:textColor="@color/white"-->
+
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
-                <!--android:text = "@string/breast_title_right"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:layout_marginBottom="40dp"-->
                 <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_above="@id/startRightText"/>-->
-            <TextView
-                android:id="@+id/startRText"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/stopwatch_start_text">
-            </TextView>
+                <!--android:layout_below="@+id/startText"-->
+                <!--android:layout_marginTop="10dp"/>-->
+            </RelativeLayout>
 
-            <include layout = "@layout/time_view"
-                android:id="@+id/right_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/startRText">
+            </com.andexert.library.RippleView>
 
-            </include>
-            <!--<TextView-->
-            <!--android:textColor="@color/white"-->
 
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_below="@+id/startText"-->
-            <!--android:layout_marginTop="10dp"/>-->
-        </RelativeLayout>
 
 
 

@@ -1,8 +1,6 @@
 package com.rorlig.babylog.ui.fragment.feed;
 
-import android.media.Image;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +10,6 @@ import android.widget.ImageView;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
-import com.rorlig.babylog.otto.events.ui.BottleEvent;
-import com.rorlig.babylog.otto.events.ui.NursingEvent;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 
 import butterknife.ButterKnife;
