@@ -67,6 +67,10 @@ public class GrowthFragment extends InjectableFragment {
     private String TAG = "GrowthFragment";
 
     private EventListener eventListener = new EventListener();
+    private boolean heightEmpty = true;
+    private boolean weightEmpty = true;
+    private boolean headMeasureEmpty = true;
+
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -77,6 +81,7 @@ public class GrowthFragment extends InjectableFragment {
 
         scopedBus.post(new FragmentCreated("Growth Fragment"));
 
+        saveBtn.setEnabled(false);
 
         heightInchesEditText.addTextChangedListener(new TextWatcher() {
             int len = 0;
@@ -104,11 +109,16 @@ public class GrowthFragment extends InjectableFragment {
                     //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
                 }
 
-//                if (str.length()>0) {
+                if (str.length()>0) {
 //                    saveBtn.setEnabled(true);
-//                } else {
-//                    saveBtn.setEnabled(false);
-//                }
+                    heightEmpty = false;
+                    setSaveEnabled();
+
+                } else {
+                    saveBtn.setEnabled(false);
+                    heightEmpty = true;
+
+                }
             }
 
             @Override
@@ -145,11 +155,15 @@ public class GrowthFragment extends InjectableFragment {
                     //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
                 }
 
-//                if (str.length()>0) {
+                if (str.length()>0) {
+
 //                    saveBtn.setEnabled(true);
-//                } else {
-//                    saveBtn.setEnabled(false);
-//                }
+                    headMeasureEmpty = false;
+                    setSaveEnabled();
+                } else {
+                    saveBtn.setEnabled(false);
+                    headMeasureEmpty = true;
+                }
             }
 
             @Override
@@ -198,6 +212,12 @@ public class GrowthFragment extends InjectableFragment {
 
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+
+    }
+
+    private void setSaveEnabled() {
+        if (!headMeasureEmpty && !heightEmpty)
+            saveBtn.setEnabled(true);
 
     }
 
