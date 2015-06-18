@@ -70,7 +70,7 @@ public class ProfileActivity extends InjectableActivity {
     private String TAG  = "ProfileActivity";
 
     private EventListener eventListener = new EventListener();
-    private Uri imageUri;
+    public static Uri imageUri;
 
 
     @Override
@@ -187,7 +187,7 @@ public class ProfileActivity extends InjectableActivity {
 
         @Subscribe
         public void onCameraEvent(CameraStartEvent event) {
-            Log.d(TAG, "onCameraEvent");
+            Log.d(TAG, "onCameraEvent " + event.getImageUri());
 
             imageUri = event.getImageUri();
         }
@@ -206,7 +206,7 @@ public class ProfileActivity extends InjectableActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode );
+        Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode  + " data " + data );
         //Request was successful
         if (resultCode == RESULT_OK) {
 //                mBus.post(new ShareRequestEvent(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA));
@@ -227,7 +227,7 @@ public class ProfileActivity extends InjectableActivity {
 
     private void cameraImageCaptured(Intent data) {
 
-        Log.d(TAG, "cameraImageCaptured : " + data);
+        Log.d(TAG, "cameraImageCaptured : " + data.getData());
 
         Uri returnedUri = null;
 
@@ -260,6 +260,8 @@ public class ProfileActivity extends InjectableActivity {
 
 
                 Log.d(TAG, "selectedImage " + selectedImage);
+
+                imageUri = selectedImage;
             }
             catch(Exception e) {
                 e.printStackTrace();

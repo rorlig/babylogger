@@ -2,6 +2,7 @@ package com.rorlig.babylog.ui.fragment.profile;
 
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.graphics.SurfaceTexture;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.desmond.squarecamera.CameraActivity;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.CameraStartEvent;
 import com.rorlig.babylog.otto.PictureSourceSelectEvent;
@@ -20,7 +22,11 @@ import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.utils.AppUtils;
 
+import net.bozho.easycamera.DefaultEasyCamera;
+import net.bozho.easycamera.EasyCamera;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -37,6 +43,7 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     @InjectView(R.id.gallery)
     ImageView galleryImageView;
     private String TAG = "PictureSourceSelectFragment";
+    private SurfaceTexture surface;
 
     public PictureSourceSelectFragment() {
         // Empty constructor required for DialogFragment
@@ -45,6 +52,7 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        surface = new SurfaceTexture(1);
     }
 
     @Override
@@ -61,19 +69,37 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     @OnClick(R.id.camera)
     public void onCameraClick() {
         Log.d(TAG, "onCameraClick");
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        EasyCamera camera = DefaultEasyCamera.open();
+//        EasyCamera.CameraActions actions = null;
+//        try {
+//            actions = camera.startPreview(surface);
+//            EasyCamera.PictureCallback callback = new EasyCamera.PictureCallback() {
+//                public void onPictureTaken(byte[] data, EasyCamera.CameraActions actions) {
+//                    // store picture
+//                }
+//            };
+//            actions.takePicture(EasyCamera.Callbacks.create().withJpegCallback(callback));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         long callTime = System.currentTimeMillis();
         String dir = AppUtils.getCameraDirectory();
         File file = new File(dir, callTime + ".jpg");
         Uri imageUri = Uri.fromFile(file);
         Log.d(TAG, "imageUri " + imageUri);
         scopedBus.post(new CameraStartEvent(imageUri));
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
+        startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         dismiss();
+        getActivity().startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        getActivity().startActivityForResult(intent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        dismiss();
+//
+//        getActivity().startActivityForResult(intent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
     }
 
     @OnClick(R.id.gallery)

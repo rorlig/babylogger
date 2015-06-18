@@ -2,11 +2,14 @@ package com.rorlig.babylog.ui.fragment.profile;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +22,18 @@ import android.widget.TextView;
 import com.gc.materialdesign.views.Button;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
+import com.rorlig.babylog.otto.CameraStartEvent;
 import com.rorlig.babylog.otto.PictureSelectEvent;
 import com.rorlig.babylog.otto.SavedProfileEvent;
 import com.rorlig.babylog.otto.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
+import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedSelectFragment;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
@@ -67,6 +75,9 @@ public class ProfileFragment extends InjectableFragment {
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
+
+    @Inject
+    Picasso picasso;
 //    @InjectView(R.id.gridview)
 //    GridView actionsList;
 
@@ -80,6 +91,11 @@ public class ProfileFragment extends InjectableFragment {
 
     private EventListener eventListener = new EventListener();
     private PictureSourceSelectFragment pictureSourceSelectFragment;
+
+
+    private int BITMAP_MAX_HEIGHT = 256;
+    private int BITMAP_MAX_WIDTH = 256;
+    private Uri imageUri;
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -164,6 +180,7 @@ public class ProfileFragment extends InjectableFragment {
 
         }
 
+        scopedBus.register(eventListener);
 
         //todo dob...
 
@@ -195,6 +212,13 @@ public class ProfileFragment extends InjectableFragment {
         public void pictureSelectedEvent(PictureSelectEvent event) {
             Log.d(TAG, "pictureSelectEvent");
             babyPicImageView.setImageURI(event.getImageUri());
+        }
+
+        @Subscribe
+        public void onCameraEvent(CameraStartEvent event) {
+            Log.d(TAG, "onCameraEvent " + event.getImageUri());
+
+            imageUri = event.getImageUri();
         }
     }
 
@@ -272,6 +296,29 @@ public class ProfileFragment extends InjectableFragment {
     public void onStart(){
         super.onStart();
         Log.d(TAG, "onStart");
+        Log.d(TAG, " imageUri " + ProfileActivity.imageUri);
+        if (ProfileActivity.imageUri!=null && !ProfileActivity.imageUri.equals("")) {
+            Pair<Integer, Integer> itemDimensions
+                    = getBitmapBounds(ProfileActivity.imageUri.getPath());
+
+            float aspectRatio = 1f * itemDimensions.first/itemDimensions.second;
+
+            int inSampleSize = calculateInSampleSize(itemDimensions.first,
+                    itemDimensions.second,
+                    BITMAP_MAX_WIDTH,
+                    BITMAP_MAX_HEIGHT);
+
+            Log.d(TAG, "inSampleSize" + inSampleSize);
+
+            picasso.load(new File(ProfileActivity.imageUri.getPath()))
+                    .resize(itemDimensions.first / inSampleSize,
+                            itemDimensions.second / inSampleSize)
+                    .centerInside()
+                    .into(babyPicImageView);
+
+        }
+//            babyPicImageView.setImageURI(ProfileActivity.imageUri);
+
         scopedBus.register(eventListener);
     }
 
@@ -285,4 +332,39 @@ public class ProfileFragment extends InjectableFragment {
         scopedBus.unregister(eventListener);
 //        getActivity().stopService(new Intent(getActivity(), BackgroundLocationService.class));
     }
+
+    private Pair<Integer,Integer> getBitmapBounds(String imagePath){
+        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        bitmapOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(imagePath, bitmapOptions);
+        int imageWidth = bitmapOptions.outWidth;
+        int imageHeight = bitmapOptions.outHeight;
+        Log.d(TAG, " imageWidth " + imageWidth + " imageHeight " + imageHeight);
+        return new Pair<Integer,Integer>(imageWidth, imageHeight);
+    }
+
+
+    public static int calculateInSampleSize(
+            int inputBitmapWidth, int inputBitmapHeight, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = inputBitmapHeight;
+        final int width = inputBitmapWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
 }

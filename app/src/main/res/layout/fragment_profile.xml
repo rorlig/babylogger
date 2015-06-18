@@ -42,12 +42,11 @@
         android:id="@+id/basicInfoBlock"
         >
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/baby_pic"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_add_user"
-            android:padding="15dp"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
             />
