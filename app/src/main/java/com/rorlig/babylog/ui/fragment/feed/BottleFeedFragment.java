@@ -88,6 +88,9 @@ public class BottleFeedFragment extends InjectableFragment
 // Apply the adapter to the spinner
         feedTypeSpinner.setAdapter(feedAdapter);
 
+        saveBtn.setEnabled(false);
+
+
         scopedBus.post(new FragmentCreated("Bottle Feed"));
 
 
@@ -174,22 +177,30 @@ public class BottleFeedFragment extends InjectableFragment
     @OnClick(R.id.save_btn)
     public void onSaveBtnClicked(){
         Log.d(TAG, "save btn clicked");
-        Log.d(TAG, "value of quantity " + quantityTextView.getText().toString());
-        Log.d(TAG, "double value " + Double.parseDouble(quantityTextView.getText().toString()));
-        Dao<FeedDao, Integer> feedDao;
-        FeedDao daoObject;
-        Long time = dateTimeHeader.getEventTime();
-        Log.d(TAG, "feedTypeSpinner " + feedTypeSpinner);
-        try {
-            feedDao = babyLoggerORMLiteHelper.getFeedDao();
+
+        String quantityText = quantityTextView.getText().toString();
+
+        Log.d(TAG, "value of quantity " + quantityText);
 
 
-            daoObject  = new FeedDao(FeedType.BOTTLE,
-                    feedTypeSpinner.getSelectedItem().toString() ,
-                    Double.parseDouble(quantityTextView.getText().toString()),
-                    -1L,
-                    -1L, notes.getText().toString(),
-                    time);
+        if (quantityText.trim().equals("")) {
+            quantityTextView.setError("Quantity cannot be blank");
+        } else {
+            Log.d(TAG, "double value " + Double.parseDouble(quantityTextView.getText().toString()));
+            Dao<FeedDao, Integer> feedDao;
+            FeedDao daoObject;
+            Long time = dateTimeHeader.getEventTime();
+            Log.d(TAG, "feedTypeSpinner " + feedTypeSpinner);
+            try {
+                feedDao = babyLoggerORMLiteHelper.getFeedDao();
+
+
+                daoObject  = new FeedDao(FeedType.BOTTLE,
+                        feedTypeSpinner.getSelectedItem().toString() ,
+                        Double.parseDouble(quantityTextView.getText().toString()),
+                        -1L,
+                        -1L, notes.getText().toString(),
+                        time);
 //            switch (diaperChangeType.getCheckedRadioButtonId()) {
 //                case R.id.diaper_wet:
 //                    daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, diaperIncident, notes.getText().toString(), time );
@@ -207,12 +218,15 @@ public class BottleFeedFragment extends InjectableFragment
 //
 //                    break;
 //            }
-            feedDao.create(daoObject);
-            Log.d(TAG, "created objected " + daoObject);
-            scopedBus.post(new FeedItemCreatedEvent());
-        } catch (SQLException e) {
-            e.printStackTrace();
+                feedDao.create(daoObject);
+                Log.d(TAG, "created objected " + daoObject);
+                scopedBus.post(new FeedItemCreatedEvent());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         }
+
 
     }
 }

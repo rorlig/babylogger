@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gc.materialdesign.views.Button;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.otto.SavedProfileEvent;
@@ -59,6 +62,9 @@ public class ProfileFragment extends InjectableFragment {
 
     @InjectView(R.id.baby_pic)
     ImageView babyPicImageView;
+
+    @InjectView(R.id.save_btn)
+    Button saveBtn;
 //    @InjectView(R.id.gridview)
 //    GridView actionsList;
 
@@ -81,9 +87,46 @@ public class ProfileFragment extends InjectableFragment {
 
         scopedBus.post(new FragmentCreated("Profile "));
 
-
         String babyName = preferences.getString("name","");
+        if (babyName.length()==0) {
+            saveBtn.setEnabled(false);
+        }
         babyNameTextView.setText(babyName);
+
+
+        babyNameTextView.addTextChangedListener(new TextWatcher() {
+//            int len = 0;
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "beforeTextChanged ");
+//                String str = babyNameTextView.getText().toString();
+//                len = str.length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "onTextChanged ");
+
+                String str = babyNameTextView.getText().toString();
+
+//                Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
+
+
+
+                if (str.length()>0) {
+                    saveBtn.setEnabled(true);
+                } else {
+                    saveBtn.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d(TAG, "afterTextChanged ");
+
+            }
+        });
 
         String babySex = preferences.getString("baby_sex","male");
         if (babySex.equals("male")){
@@ -96,11 +139,17 @@ public class ProfileFragment extends InjectableFragment {
             String[] dateElements = dob.split(",");
             Log.d(TAG,"" + dateElements.length);
             Log.d(TAG, dateElements[0]);
-            int year = Integer.parseInt(dateElements[0]);
-            int month = Integer.parseInt(dateElements[1]);
-            int day = Integer.parseInt(dateElements[2]);
-            Log.d(TAG, " year "  + year + " month " + month + " day " + day);
-            datePickerBirthday.updateDate(year, month, day);
+
+            try {
+                int year = Integer.parseInt(dateElements[0]);
+                int month = Integer.parseInt(dateElements[1]);
+                int day = Integer.parseInt(dateElements[2]);
+                Log.d(TAG, " year "  + year + " month " + month + " day " + day);
+                datePickerBirthday.updateDate(year, month, day);
+            } catch (NumberFormatException ex){
+                Log.e(TAG, "NumberFormatException " + ex);
+            }
+
 
 
         }
@@ -141,21 +190,22 @@ public class ProfileFragment extends InjectableFragment {
     public void saveBtnClicked() {
         Log.d(TAG, "saveBtnClicked()");
         String babyName = babyNameTextView.getText().toString();
-        preferences.edit().putString("name", babyName).apply();
-        if (babySexRadioGroup.getCheckedRadioButtonId()==R.id.babyBoy) {
-            preferences.edit().putString("baby_sex", "male").apply();
-        } else  {
-            preferences.edit().putString("baby_sex", "female").apply();
-        }
+        if (babyName.trim().equals("")) {
+            babyNameTextView.setError("Name cannot be blank");
+        } else {
+            preferences.edit().putString("name", babyName).apply();
+            if (babySexRadioGroup.getCheckedRadioButtonId()==R.id.babyBoy) {
+                preferences.edit().putString("baby_sex", "male").apply();
+            } else  {
+                preferences.edit().putString("baby_sex", "female").apply();
+            }
+            int year = datePickerBirthday.getYear();
+            int month = datePickerBirthday.getMonth();
+            int day = datePickerBirthday.getDayOfMonth();
 
+            String dob = year  + "," + month + "," + day;
 
-        int year = datePickerBirthday.getYear();
-        int month = datePickerBirthday.getMonth();
-        int day = datePickerBirthday.getDayOfMonth();
-
-        String dob = year  + "," + month + "," + day;
-
-        Log.d(TAG, "dob: " + dob);
+            Log.d(TAG, "dob: " + dob);
 
 //        Log.d(TAG, dob);
 //        if (!dob.equals("")){
@@ -175,8 +225,15 @@ public class ProfileFragment extends InjectableFragment {
 //            Log.d(TAG, "days old " + days);
 //        }
 
-        preferences.edit().putString("dob", dob).apply();
-        scopedBus.post(new SavedProfileEvent());
+            preferences.edit().putString("dob", dob).apply();
+            scopedBus.post(new SavedProfileEvent());
+
+
+        }
+
+
+
+
 
 
 
