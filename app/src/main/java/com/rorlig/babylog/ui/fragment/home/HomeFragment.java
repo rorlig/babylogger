@@ -2,6 +2,7 @@ package com.rorlig.babylog.ui.fragment.home;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -136,6 +137,10 @@ public class HomeFragment extends InjectableFragment {
             });
 
             basicInfoBlockLayout.getBackground().setAlpha(100);
+            String imageUri = preferences.getString("imageUri", "");
+            if (!imageUri.equals("")){
+                babyImageView.setImageURI(Uri.parse(imageUri));
+            }
         }
 
 
