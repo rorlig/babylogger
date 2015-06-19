@@ -21,6 +21,10 @@ repositories {
     maven {
         url "https://repo.commonsware.com.s3.amazonaws.com"
     }
+
+    maven {
+        url 'http://lorenzo.villani.me/android-cropimage/'
+    }
 }
 
 
@@ -95,7 +99,11 @@ dependencies {
 
     compile 'com.commonsware.cwac:camera:0.6.+'
 
+    compile 'me.villani.lorenzo.android:android-cropimage:1.1.0'
+
     compile project(':squarecamera')
+
+
 
 
 
@@ -110,7 +118,7 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 22
 
     }

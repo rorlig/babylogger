@@ -3,9 +3,7 @@ package com.rorlig.babylog.ui.activity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -14,17 +12,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.camera.CropImageIntentBuilder;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.CameraStartEvent;
-import com.rorlig.babylog.otto.GrowthItemCreated;
 import com.rorlig.babylog.otto.PictureSelectEvent;
 import com.rorlig.babylog.otto.SavedProfileEvent;
 import com.rorlig.babylog.otto.SkipProfileEvent;
-import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
-import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
-import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.profile.ProfileFragment;
 import com.rorlig.babylog.utils.AppUtils;
 import com.squareup.otto.Subscribe;
@@ -49,6 +44,7 @@ import javax.inject.Inject;
  * Created by admin on 12/15/13.
  */
 public class ProfileActivity extends InjectableActivity {
+    private static final int RESULT_CROP_IMAGE = 3;
 
     //todo still figure out left + right toggle speeds...
 
@@ -71,6 +67,8 @@ public class ProfileActivity extends InjectableActivity {
 
     private EventListener eventListener = new EventListener();
     public static Uri imageUri;
+    private File croppedImageFile;
+    private Uri croppedImage;
 
 
     @Override
@@ -220,6 +218,9 @@ public class ProfileActivity extends InjectableActivity {
                 case AppUtils.RESULT_CAMERA_IMAGE_CAPTURE:
                     cameraImageCaptured(data);
                     break;
+                case RESULT_CROP_IMAGE:
+                    imageUri = croppedImage;
+                    break;
             }
         }
     }
@@ -261,7 +262,18 @@ public class ProfileActivity extends InjectableActivity {
 
                 Log.d(TAG, "selectedImage " + selectedImage);
 
-                imageUri = selectedImage;
+                croppedImageFile = new File(getFilesDir(), "test.jpg");
+
+                croppedImage = Uri.fromFile(croppedImageFile);
+
+                CropImageIntentBuilder cropImage = new CropImageIntentBuilder(200, 200, croppedImage);
+                cropImage.setOutlineColor(0xFF03A9F4);
+                cropImage.setSourceImage(selectedImage);
+
+                startActivityForResult(cropImage.getIntent(this), RESULT_CROP_IMAGE);
+
+
+//                imageUri = selectedImage;
             }
             catch(Exception e) {
                 e.printStackTrace();

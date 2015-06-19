@@ -128,6 +128,8 @@
          </meta-data>
         </activity>
         <activity android:name="com.desmond.squarecamera.CameraActivity"></activity>
+        <activity android:name="com.android.camera.CropImage"/>
+
         <service android:name=".service.StopWatchService"></service>
 
 

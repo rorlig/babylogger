@@ -104,6 +104,22 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
 
     @OnClick(R.id.gallery)
     public void onGalleryClick() {
+
+//        Intent intent = new Intent("com.android.camera.action.CROP");
+//        intent.setClassName("com.android.gallery3d", "com.android.camera.CropImage");
+//        long callTime = System.currentTimeMillis();
+//        String dir = AppUtils.getCameraDirectory();
+//        File file = new File(dir, callTime + ".jpg");
+//        Uri uri = Uri.fromFile(file);
+//        intent.setData(uri);
+//        intent.putExtra("crop", "true");
+//        intent.putExtra("aspectX", 1);
+//        intent.putExtra("aspectY", 1);
+//        intent.putExtra("outputX", 96);
+//        intent.putExtra("outputY", 96);
+//        intent.putExtra("noFaceDetection", true);
+//        intent.putExtra("return-data", true);
+//        getActivity().startActivityForResult(intent,AppUtils.RESULT_LOAD_IMAGE);
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
