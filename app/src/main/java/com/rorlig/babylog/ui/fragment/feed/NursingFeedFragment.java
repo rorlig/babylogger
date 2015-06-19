@@ -1,5 +1,6 @@
 package com.rorlig.babylog.ui.fragment.feed;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -32,6 +33,7 @@ import com.rorlig.babylog.service.StopWatchService;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
+import com.rorlig.babylog.utils.SoundManager;
 import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
@@ -130,7 +132,9 @@ public class NursingFeedFragment extends InjectableFragment {
     private PendingIntent pIntent;
     private Notification notification;
     private int notification_id=0;
+    private SoundManager soundMgr;
 
+    @SuppressLint("NewApi")
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
@@ -154,6 +158,10 @@ public class NursingFeedFragment extends InjectableFragment {
                 .setContentIntent(pIntent)
                 .setSmallIcon(R.drawable.ic_launcher)
                 .build();
+
+
+        soundMgr = SoundManager.getInstance(getActivity());
+
 
 
 //        scopedBus.post(new Feed("Bottle Feed"));
@@ -197,6 +205,7 @@ public class NursingFeedFragment extends InjectableFragment {
         @Subscribe
         public void onTimeEvent(TimerEvent timerEvent) {
 //            Log.d(TAG, "onTimeTimeEvent");
+            soundMgr.doTick();
 
             Long currentTime = System.currentTimeMillis();
             int diff;
@@ -283,13 +292,13 @@ public class NursingFeedFragment extends InjectableFragment {
             }
 
 
-
         } else {
             getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
             leftTextView.setText(getResources().getString(R.string.stopwatch_start_text));
 
             deltaL += (System.currentTimeMillis() - elapsedTimeL)/1000;
             leftStarted = false;
+//            soundMgr.stopEndlessAlarm();
 //            showStopButtons();
         }
 
@@ -334,6 +343,7 @@ public class NursingFeedFragment extends InjectableFragment {
 
             }
 
+//            soundMgr.doTick();
 
 
         } else {
@@ -342,6 +352,8 @@ public class NursingFeedFragment extends InjectableFragment {
 
             deltaR += (System.currentTimeMillis() - elapsedTimeR)/1000;
             rightStarted = false;
+
+//            soundMgr.stopEndlessAlarm();
 //            showStopButtons();
         }
 
@@ -436,6 +448,8 @@ public class NursingFeedFragment extends InjectableFragment {
             scopedBus.post(new FeedItemCreatedEvent());
             leftStarted = false;
             rightStarted = false;
+            soundMgr.stopEndlessAlarm();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
