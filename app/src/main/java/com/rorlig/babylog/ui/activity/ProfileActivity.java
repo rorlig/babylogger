@@ -2,6 +2,7 @@ package com.rorlig.babylog.ui.activity;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,6 +58,9 @@ public class ProfileActivity extends InjectableActivity {
 
     @Inject
     TypeFaceManager typeFaceManager;
+
+    @Inject
+    SharedPreferences preferences;
 
 
 
@@ -220,6 +224,7 @@ public class ProfileActivity extends InjectableActivity {
                     break;
                 case RESULT_CROP_IMAGE:
                     imageUri = croppedImage;
+                    preferences.edit().putString("imageUri", imageUri.toString()).apply();
                     break;
             }
         }
@@ -242,6 +247,8 @@ public class ProfileActivity extends InjectableActivity {
         }
 
         Log.d(TAG, "imageUri " + imageUri);
+        preferences.edit().putString("imageUri", imageUri.toString()).apply();
+
         scopedBus.post(new PictureSelectEvent(imageUri));
     }
 

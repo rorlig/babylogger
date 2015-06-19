@@ -180,6 +180,15 @@ public class ProfileFragment extends InjectableFragment {
 
         }
 
+        String imageStr = preferences.getString("imageUri","");
+        if (!imageStr.equals("")){
+            Uri imageUri = Uri.parse(imageStr);
+
+            babyPicImageView.setImageURI(imageUri);
+
+        }
+
+
         scopedBus.register(eventListener);
 
         //todo dob...
