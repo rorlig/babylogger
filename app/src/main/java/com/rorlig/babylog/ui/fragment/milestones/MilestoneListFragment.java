@@ -275,19 +275,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         @Subscribe
         public void onMileStoneSaved(MilestoneSaveEvent event){
-            Log.d(TAG, "onMileStoneSaved " + event.getPosition());
-            MilestonesDao milestoneItem = milestoneData.get(event.getPosition());
-            milestoneItem.setCompleted(true);
-
-
-            try {
-                milestoneDaoHelper = babyLoggerORMLiteHelper.getMilestonesDao();
-                milestoneDaoHelper.update(milestoneItem);
-
-            } catch (SQLException e) {
-                Log.d(TAG, "update item");
-                e.printStackTrace();
-            }
+            setCompleted(event.getPosition(), true);
 
 
 
@@ -304,8 +292,27 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         @Subscribe
         public void onMileStoneReset(MilestoneResetEvent event) {
             Log.d(TAG, "onMileStoneReset" + event.getPosition());
+
+            setCompleted(event.getPosition(), false);
+
         }
 
+
+        private void setCompleted(int position, boolean value) {
+            MilestonesDao milestoneItem = milestoneData.get(position);
+            milestoneItem.setCompleted(value);
+
+
+            try {
+                milestoneDaoHelper = babyLoggerORMLiteHelper.getMilestonesDao();
+                milestoneDaoHelper.update(milestoneItem);
+                milestonesAdapter.notifyDataSetChanged();
+
+            } catch (SQLException e) {
+                Log.d(TAG, "update item");
+                e.printStackTrace();
+            }
+        }
 
     }
 }
