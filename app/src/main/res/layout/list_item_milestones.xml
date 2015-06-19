@@ -41,18 +41,26 @@
         android:textColor="@color/primary_dark_material_dark"
         android:layout_height="wrap_content"
     />
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/logItemLabel"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:id="@+id/textCompletedStatus"
-        android:text="@string/txt_not_completed"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:visibility="gone"
-        android:id="@+id/dateCompleted"
-        android:layout_below="@+id/textCompletedStatus"/>
+        android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textCompletedStatus"
+            android:text="@string/txt_not_completed"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/date_completed"
+            android:layout_below="@+id/textCompletedStatus"
+        />
+
+    </RelativeLayout>
+
 </RelativeLayout>

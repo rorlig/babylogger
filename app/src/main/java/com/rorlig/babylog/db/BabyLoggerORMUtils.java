@@ -7,9 +7,12 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
+import com.rorlig.babylog.dagger.Data;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
+import com.rorlig.babylog.dao.MilestonesDao;
+import com.rorlig.babylog.ui.fragment.milestones.Milestones;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -30,6 +33,7 @@ public class BabyLoggerORMUtils {
     private Dao<DiaperChangeDao, Integer> diaperChangeDao;
     private Dao<FeedDao, Integer> feedDao;
     private Dao<GrowthDao, Integer> growthDao;
+    private Dao<MilestonesDao, Integer> milestonesDao;
 
     public BabyLoggerORMUtils(Context context) {
         Log.d(TAG, "context is " + context);
@@ -49,7 +53,7 @@ public class BabyLoggerORMUtils {
 
 
     /*
-     * Returns the analytics data access object
+     * Returns the diaper data access object
      */
     public Dao<DiaperChangeDao, Integer> getDiaperChangeDao() throws SQLException {
         if (diaperChangeDao == null) {
@@ -60,7 +64,7 @@ public class BabyLoggerORMUtils {
 
 
     /*
-     * Returns the analytics data access object
+     * Returns the feed data access object
      */
     public Dao<FeedDao, Integer> getFeedDao() throws SQLException {
         if (feedDao == null) {
@@ -71,7 +75,7 @@ public class BabyLoggerORMUtils {
 
 
     /*
-   * Returns the analytics data access object
+   * Returns the growth data access object
    */
     public Dao<GrowthDao, Integer> getGrowthDao() throws SQLException {
         if (growthDao == null) {
@@ -82,10 +86,28 @@ public class BabyLoggerORMUtils {
 
 
 
+    /*
+   * Returns the analytics data access object
+   */
+    public Dao<MilestonesDao, Integer> getMilestonesDao() throws SQLException {
+        if (milestonesDao == null) {
+            milestonesDao = getHelper().getMilestonesDao();
+        }
+        return milestonesDao;
+    }
+
+
 
     public List<DiaperChangeDao> getDiaperChangeList() throws SQLException {
         QueryBuilder<DiaperChangeDao, Integer> queryBuilder = getDiaperChangeDao().queryBuilder().orderBy("time", false);
 //        queryBuilder.where().eq("isSend", false);
+        Log.d(TAG, " query size " + queryBuilder.query().size());
+        return queryBuilder.query();
+    }
+
+
+    public List<MilestonesDao> getMilestoneList() throws SQLException {
+        QueryBuilder<MilestonesDao, Integer> queryBuilder = getMilestonesDao().queryBuilder();
         Log.d(TAG, " query size " + queryBuilder.query().size());
         return queryBuilder.query();
     }

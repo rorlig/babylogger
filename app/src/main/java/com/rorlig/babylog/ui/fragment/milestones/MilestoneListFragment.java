@@ -1,9 +1,7 @@
 package com.rorlig.babylog.ui.fragment.milestones;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -15,38 +13,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.gc.materialdesign.views.Button;
+import com.j256.ormlite.dao.Dao;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.GrowthDao;
+import com.rorlig.babylog.dao.MilestonesDao;
+import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.otto.MilestoneCancelEvent;
 import com.rorlig.babylog.otto.MilestoneResetEvent;
 import com.rorlig.babylog.otto.MilestoneSaveEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
-import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
-import com.rorlig.babylog.ui.activity.FeedingActivity;
-import com.rorlig.babylog.ui.activity.GrowthActivity;
-import com.rorlig.babylog.ui.activity.MilestonesActivity;
-import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
 import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.adapter.MilestonesItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.fragment.feed.FeedSelectFragment;
-import com.rorlig.babylog.ui.fragment.growth.GrowthLoader;
 import com.squareup.otto.Subscribe;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -61,7 +52,7 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of growth items
  */
-public class MilestoneListFragment extends InjectableFragment implements LoaderManager.LoaderCallbacks<List<GrowthDao>>{
+public class MilestoneListFragment extends InjectableFragment implements LoaderManager.LoaderCallbacks<List<MilestonesDao>>{
 
     @ForActivity
     @Inject
@@ -87,7 +78,12 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     private String[] itemNames;
     private MilestonesItemAdapter milestonesAdapter;
 
-    ArrayList<Milestones> milestonesArrayList = new ArrayList<Milestones>();
+//    ArrayList<Milestones> milestonesArrayList = new ArrayList<Milestones>();
+    private List<MilestonesDao> milestoneData;
+
+    @Inject
+    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
+    private Dao<MilestonesDao, Integer> milestoneDaoHelper;
 
     @OnClick(R.id.add_item)
     public void onDiaperChangeClicked(){
@@ -122,12 +118,12 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         itemNames = getResources().getStringArray(R.array.milestones);
 
-        for (String item: itemNames) {
-            Milestones milestones = new Milestones(item, false);
-            milestonesArrayList.add(milestones);
-        }
+//        for (String item: itemNames) {
+//            Milestones milestones = new Milestones(item, false);
+//            milestonesArrayList.add(milestones);
+//        }
 
-         milestonesAdapter = new MilestonesItemAdapter(getActivity(), 1, milestonesArrayList);
+//         milestonesAdapter = new MilestonesItemAdapter(getActivity(), 1, milestonesArrayList);
 
 
         typeface=Typeface.createFromAsset(getActivity().getAssets(),
@@ -135,7 +131,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         listView.setEmptyView(emptyView);
 //
-        listView.setAdapter(milestonesAdapter);
+//        listView.setAdapter(milestonesAdapter);
 //        btnAddItem.setTypeface(typeface);
 //
 //        errorText.setTypeface(typeface);
@@ -157,7 +153,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
             }
         });
 
-//        getLoaderManager().initLoader(LOADER_ID, null, this);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
 
 
 //        getActivity().getActionBar().setTitle("Diaper Change List");
@@ -232,13 +228,13 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     }
 
     @Override
-    public Loader<List<GrowthDao>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<MilestonesDao>> onCreateLoader(int id, Bundle args) {
         Log.d(TAG, "create Loader");
-        return new GrowthLoader(getActivity());
+        return new MilestonesLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<List<GrowthDao>> loader, List<GrowthDao> data) {
+    public void onLoadFinished(Loader<List<MilestonesDao>> loader, List<MilestonesDao> data) {
 
         Log.d(TAG, "number of diaper changes " + data.size());
         Log.d(TAG, "loader finished");
@@ -250,24 +246,24 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
             emptyView.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
         }
-        growthList = data;
+        milestoneData = data;
 
-        growthAdapter = new GrowthAdapter(getActivity(), R.layout.list_item_diaper_change, growthList);
+        milestonesAdapter = new MilestonesItemAdapter(getActivity(), R.layout.list_item_diaper_change, milestoneData);
 
 //        diaperChangeAdapter.update(diaperChangeDaoList);
 
-        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-                growthAdapter,
-                R.layout.section_header,
-                R.id.title,
-                new DiaperChangeSectionizer());
+//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
+//                milestonesAdapter,
+//                R.layout.section_header,
+//                R.id.title,
+//                new DiaperChangeSectionizer());
 
-        listView.setAdapter(sectionAdapter);
+        listView.setAdapter(milestonesAdapter);
 
     }
 
     @Override
-    public void onLoaderReset(Loader<List<GrowthDao>> loader) {
+    public void onLoaderReset(Loader<List<MilestonesDao>> loader) {
 
     }
 
@@ -280,9 +276,23 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         @Subscribe
         public void onMileStoneSaved(MilestoneSaveEvent event){
             Log.d(TAG, "onMileStoneSaved " + event.getPosition());
+            MilestonesDao milestoneItem = milestoneData.get(event.getPosition());
+            milestoneItem.setCompleted(true);
 
-            milestonesArrayList.get(event.getPosition()).setCompleted(true);
-            milestonesAdapter.notifyDataSetChanged();
+
+            try {
+                milestoneDaoHelper = babyLoggerORMLiteHelper.getMilestonesDao();
+                milestoneDaoHelper.update(milestoneItem);
+
+            } catch (SQLException e) {
+                Log.d(TAG, "update item");
+                e.printStackTrace();
+            }
+
+
+
+//            milestonesArrayList.get(event.getPosition()).setCompleted(true);
+//            milestonesAdapter.notifyDataSetChanged();
 
         }
 

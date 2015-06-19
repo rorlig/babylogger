@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.dao.MilestonesDao;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
 import com.rorlig.babylog.ui.fragment.milestones.Milestones;
@@ -18,6 +19,7 @@ import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,13 +28,13 @@ import javax.inject.Inject;
 /**
  * Created by rorlig on 5/29/15.
  */
-public class MilestonesItemAdapter extends ArrayAdapter<String> {
+public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
 
     private final String TAG = "LogItemAdapter";
     private final TypedArray iconArr;
     private final Activity context;
     //    private final int[] itemStates;
-    private ArrayList<Milestones> logListItem;
+    private List<MilestonesDao> logListItem;
 //    private String[] itemNames = {};
 
 
@@ -46,7 +48,7 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
      * @param resource The resource ID for a layout file containing a TextView to use when
      * @param logListItem
      */
-    public MilestonesItemAdapter(Activity context, int resource, ArrayList<Milestones> logListItem) {
+    public MilestonesItemAdapter(Activity context, int resource, List<MilestonesDao> logListItem) {
     super(context, R.layout.list_item_home);
         this.context = context;
         this.logListItem = logListItem;
@@ -96,7 +98,7 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        final Milestones item = logListItem.get(position);
+        final MilestonesDao item = logListItem.get(position);
 
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -105,7 +107,8 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
             viewHolder = new ViewHolder(convertView);
             viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.logItemLabel);
             viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.iconImage);
-            viewHolder.logItemLabel.setText(item.getMileStoneTitle());
+            viewHolder.completionText = (TextView) convertView.findViewById(R.id.date_completed);
+
 
 
 //            viewHolder.itemImage.setImageDrawable(context.getResources().getDrawable(iconArr.getResourceId(position,0)));
@@ -132,7 +135,10 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
         } else  {
             viewHolder.itemImage.setImageResource(R.drawable.ic_mood_black);
         }
-        // Populate the data into the template view using the data object
+        viewHolder.logItemLabel.setText(item.getTitle());
+        viewHolder.completionText.setText(item.getCompletionDateRange());
+
+                // Populate the data into the template view using the data object
 
 //        if (item.isItemChecked()) {
 //            viewHolder.logItemCheckBox.setEnabled(false);
@@ -162,6 +168,8 @@ public class MilestonesItemAdapter extends ArrayAdapter<String> {
 
         ImageView itemImage;
 
+
+        TextView completionText;
 
 
 

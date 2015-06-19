@@ -24,7 +24,7 @@ import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.ItemCheckChangeEvent;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
-import com.rorlig.babylog.ui.activity.BabySex;
+import com.rorlig.babylog.model.other.BabySex;
 import com.rorlig.babylog.ui.adapter.LogItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.squareup.otto.Subscribe;

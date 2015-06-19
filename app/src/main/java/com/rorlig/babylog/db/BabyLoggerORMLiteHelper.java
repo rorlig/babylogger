@@ -11,6 +11,7 @@ import com.j256.ormlite.table.TableUtils;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
+import com.rorlig.babylog.dao.MilestonesDao;
 
 import java.sql.SQLException;
 
@@ -28,6 +29,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
     private Dao<DiaperChangeDao, Integer> diaperChangeDao;
     private Dao<FeedDao, Integer> feedDao;
     private Dao<GrowthDao, Integer> growthDao;
+    private Dao<MilestonesDao, Integer> milestonesDao;
 
     //    // the DAO object we use to access the SimpleData table
 //    private Dao<AnalyticsModel, Integer> analyticsDao = null;
@@ -48,6 +50,10 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, DiaperChangeDao.class);
             TableUtils.createTable(connectionSource, FeedDao.class);
             TableUtils.createTable(connectionSource, GrowthDao.class);
+            TableUtils.createTable(connectionSource, MilestonesDao.class);
+
+            populateMilestoneDao();
+
 
 //
 //            TableUtils.createTable(connectionSource, NotesModel.class);
@@ -63,6 +69,26 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
         } catch (SQLException e) {
             Log.e(BabyLoggerORMLiteHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
+        }
+    }
+
+    private void populateMilestoneDao() {
+        MilestonesDao milestonesDao = new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L);
+        try {
+            getMilestonesDao().create(new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L));
+            getMilestonesDao().create(new MilestonesDao("Week 4-8", false, "Smile to Mom", -1L));
+            getMilestonesDao().create(new MilestonesDao("Week 0-8", false, "Lifts Head", -1L));
+            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Follows objects with eyes", -1L));
+            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Reaches for things", -1L));
+            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Starts Babbling", -1L));
+            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Searches for objects", -1L));
+            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Sits without support", -1L));
+            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Responds to name", -1L));
+            getMilestonesDao().create(new MilestonesDao("Month 9-12", false, "Stands up with support", -1L));
+            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Stands up without support", -1L));
+            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Walks", -1L));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -104,9 +130,15 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
     public void close() {
         super.close();
         diaperChangeDao = null;
-
         feedDao = null;
+        growthDao = null;
+        milestonesDao = null;
     }
 
 
+    public Dao<MilestonesDao, Integer> getMilestonesDao() throws SQLException {
+        if (milestonesDao==null) {
+            milestonesDao = getDao(MilestonesDao.class);
+        }
+        return milestonesDao;    }
 }
