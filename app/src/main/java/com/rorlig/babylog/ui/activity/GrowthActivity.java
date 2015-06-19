@@ -198,7 +198,7 @@ public class GrowthActivity extends InjectableActivity {
                     localFragment = (Fragment)paramClass.newInstance();
                     localFragmentManager.beginTransaction()
                             .add(R.id.fragment_container, localFragment)
-                            .addToBackStack("diaper_stack")
+                            .addToBackStack("growth_stack")
                             .commit();
 
                 } else {
@@ -243,7 +243,7 @@ public class GrowthActivity extends InjectableActivity {
             Log.d(TAG, "onItemAddedEvent");
             switch (addItemEvent.getItemType()) {
                 case GROWTH_LOG:
-                    showFragment(GrowthFragment.class, "growth_fragment", false);
+                    showFragment(GrowthFragment.class, "growth_fragment", true);
                     break;
             }
         }
@@ -252,7 +252,7 @@ public class GrowthActivity extends InjectableActivity {
         public void onGrowthItemCreated(GrowthItemCreated event) {
 //            Log.d(TAG, "onFeedSavedEvent");
 //            finish();
-            showFragment(GrowthListFragment.class, "growth_list_fragment",false);
+            showFragment(GrowthListFragment.class, "growth_list_fragment",true);
         }
 
 

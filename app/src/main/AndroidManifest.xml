@@ -46,7 +46,8 @@
 
         <activity android:name=".ui.fragment.diaper.DiaperChangeActivity2"></activity>
         <activity android:name=".ui.activity.ProfileActivity"
-            android:parentActivityName=".ui.activity.HomeActivity"></activity>
+            android:label="@string/profile_title"
+            android:parentActivityName=".ui.activity.HomeActivity"/>
 
         <activity android:name=".ui.activity.BarchartActivity"
             android:parentActivityName=".ui.activity.HomeActivity"></activity>

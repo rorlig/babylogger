@@ -141,7 +141,7 @@ public class FeedingActivity extends InjectableActivity {
                     localFragment = (Fragment)paramClass.newInstance();
                     localFragmentManager.beginTransaction()
                             .add(R.id.fragment_container, localFragment)
-                            .addToBackStack("diaper_stack")
+                            .addToBackStack("feeding_stack")
                             .commit();
 
                 } else {
@@ -203,11 +203,11 @@ public class FeedingActivity extends InjectableActivity {
             Log.d(TAG, "onItemAddedEvent");
             switch (addItemEvent.getItemType()) {
                 case FEED_BOTTLE:
-                    showFragment(BottleFeedFragment.class, "bottle_feed", false);
+                    showFragment(BottleFeedFragment.class, "bottle_feed", true);
 
                     break;
                 case FEED_NURSING:
-                    showFragment(NursingFeedFragment.class, "nursing_feed", false);
+                    showFragment(NursingFeedFragment.class, "nursing_feed", true);
                     break;
             }
         }

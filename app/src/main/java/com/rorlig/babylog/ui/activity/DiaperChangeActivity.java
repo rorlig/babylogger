@@ -257,7 +257,7 @@ public class DiaperChangeActivity extends InjectableActivity {
             Log.d(TAG, "onItemAddedEvent");
             switch (addItemEvent.getItemType()) {
                 case DIAPER_CHANGE:
-                    showFragment(DiaperChangeFragment.class, "diaper_change", false);
+                    showFragment(DiaperChangeFragment.class, "diaper_change", true);
                     break;
             }
         }
