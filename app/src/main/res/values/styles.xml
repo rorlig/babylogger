@@ -419,6 +419,20 @@
         <item name="android:actionModeSplitBackground">@android:color/transparent</item>
         <item name="textHeaderMaxLines">@integer/text_header_max_lines</item>
         <item name="activatableItemBackground">@drawable/list_selector_holo_light</item>
+
+
+        <item name="android:actionBarStyle">@style/ThemeActionBar</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/ThemeActionBar</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="ThemeActionBar"
+        parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@null</item>
+        <!-- Support library compatibility -->
+        <item name="background">@null</item>
     </style>
     <style name="Theme.Scheduler.About" parent="@style/Theme.Scheduler">
         <item name="android:windowBackground">@drawable/about_background</item>

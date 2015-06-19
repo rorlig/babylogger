@@ -40,6 +40,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by rorlig on 7/14/14.
@@ -71,7 +72,7 @@ public class ProfileFragment extends InjectableFragment {
     DatePicker datePickerBirthday;
 
     @InjectView(R.id.baby_pic)
-    ImageView babyPicImageView;
+    CircleImageView babyPicImageView;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
@@ -307,23 +308,28 @@ public class ProfileFragment extends InjectableFragment {
         Log.d(TAG, "onStart");
         Log.d(TAG, " imageUri " + ProfileActivity.imageUri);
         if (ProfileActivity.imageUri!=null && !ProfileActivity.imageUri.equals("")) {
-            Pair<Integer, Integer> itemDimensions
-                    = getBitmapBounds(ProfileActivity.imageUri.getPath());
 
-            float aspectRatio = 1f * itemDimensions.first/itemDimensions.second;
+            File file = new File(ProfileActivity.imageUri.getPath());
+            if (file.exists()) {
+                Pair<Integer, Integer> itemDimensions
+                        = getBitmapBounds(ProfileActivity.imageUri.getPath());
 
-            int inSampleSize = calculateInSampleSize(itemDimensions.first,
-                    itemDimensions.second,
-                    BITMAP_MAX_WIDTH,
-                    BITMAP_MAX_HEIGHT);
+                float aspectRatio = 1f * itemDimensions.first/itemDimensions.second;
 
-            Log.d(TAG, "inSampleSize" + inSampleSize);
+                int inSampleSize = calculateInSampleSize(itemDimensions.first,
+                        itemDimensions.second,
+                        BITMAP_MAX_WIDTH,
+                        BITMAP_MAX_HEIGHT);
 
-            picasso.load(new File(ProfileActivity.imageUri.getPath()))
-                    .resize(itemDimensions.first / inSampleSize,
-                            itemDimensions.second / inSampleSize)
-                    .centerInside()
-                    .into(babyPicImageView);
+                Log.d(TAG, "inSampleSize" + inSampleSize);
+
+                picasso.load(new File(ProfileActivity.imageUri.getPath()))
+                        .resize(itemDimensions.first / inSampleSize,
+                                itemDimensions.second / inSampleSize)
+                        .centerInside()
+                        .into(babyPicImageView);
+            }
+
 
         }
 //            babyPicImageView.setImageURI(ProfileActivity.imageUri);

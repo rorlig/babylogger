@@ -287,6 +287,7 @@
     <string name="picture_select_header_text">SELECT PICTURE FROM</string>
     <string name="list_title_breast_left">Left:</string>
     <string name="list_title_breast_right">Right:</string>
+    <string name="profile_image_content_description">Profile Image</string>
 
 
 </resources>

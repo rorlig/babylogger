@@ -39,6 +39,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by rorlig on 5/31/15.
@@ -48,8 +49,8 @@ public class HomeFragment extends InjectableFragment {
     @InjectView(R.id.baby_name)
     TextView babyNameTextView;
 
-    @InjectView(R.id.baby_age)
-    TextView babyAgeTextView;
+//    @InjectView(R.id.baby_age)
+//    TextView babyAgeTextView;
 
     @Inject
     SharedPreferences preferences;
@@ -65,7 +66,7 @@ public class HomeFragment extends InjectableFragment {
     RelativeLayout basicInfoBlockLayout;
 
     @InjectView(R.id.baby_image)
-    ImageView babyImageView;
+    CircleImageView babyImageView;
 
     @InjectView(R.id.action_sleep)
     FloatingActionButton floatingActionButtonSleep;
@@ -150,7 +151,7 @@ public class HomeFragment extends InjectableFragment {
         Log.d(TAG, "onStart");
         String name = preferences.getString("name", "");
         if (name.equals("")){
-            babyAgeTextView.setVisibility(View.GONE);
+//            babyAgeTextView.setVisibility(View.GONE);
         } else {
             babyNameTextView.setText("Welcome " + preferences.getString("name", ""));
             String dob = preferences.getString("dob", "");
@@ -168,8 +169,8 @@ public class HomeFragment extends InjectableFragment {
                 long diff = System.currentTimeMillis() - c.getTimeInMillis();
                 long days = diff/(86400*1000);
                 Log.d(TAG, "days old " + days);
-                babyAgeTextView.setVisibility(View.VISIBLE);
-                babyAgeTextView.setText(days + " days old");
+//                babyAgeTextView.setVisibility(View.VISIBLE);
+//                babyAgeTextView.setText(days + " days old");
 
 
             }

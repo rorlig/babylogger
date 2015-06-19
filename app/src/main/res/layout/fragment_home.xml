@@ -9,23 +9,55 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_margin="5dp"
             android:clickable="true"
             android:id="@+id/basicInfoBlock"
             android:background="@color/black"
             android:layout_height="160dp">
 
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_margin="5dp"
-                android:clickable="true"
-                android:background="@drawable/button_rect_list_normal"
+            <!--<RelativeLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:clickable="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:paddingRight="20dp"-->
+                <!--android:paddingLeft="20dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_height="fill_parent"-->
+                <!-->-->
+
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+
+                android:id="@+id/baby_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:textColor="@color/primary"
+                android:clickable="false"
                 android:layout_centerInParent="true"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_height="fill_parent">
+                android:src="@drawable/btn_radio_boy"
+                app:border_width="2dp"
+                app:border_color="#FFFFFFFF"
+
+
+                android:contentDescription="@string/profile_image_content_description" />
+
+            <!--<TextView-->
+                <!--android:id="@+id/baby_age"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="18sp"-->
+                <!--android:clickable="false"-->
+                <!--android:layout_above="@+id/baby_image"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:visibility="gone"-->
+                <!--/>-->
+
+
+
+            <!--</RelativeLayout>-->
 
             <TextView
                 android:id="@+id/baby_name"
@@ -36,34 +68,9 @@
                 android:layout_below="@+id/baby_image"
                 android:text="@string/edit_profile"
                 android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
                 android:visibility="visible"
                 />
-
-            <ImageView
-                android:id="@+id/baby_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textColor="@color/primary"
-                android:clickable="false"
-                android:layout_centerInParent="true"
-                android:src="@drawable/btn_radio_boy"
-
-                android:contentDescription="Profile Image" />
-
-            <TextView
-                android:id="@+id/baby_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:clickable="false"
-                android:layout_above="@+id/baby_image"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone"
-                />
-
-
-
-            </RelativeLayout>
 
 
 
@@ -88,12 +95,11 @@
         <ListView
             android:id="@+id/homeList"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:calendarViewShown="false"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/basicInfoBlock"
             android:background="@color/white"
-            android:layout_margin="5dp"
 
 
 
