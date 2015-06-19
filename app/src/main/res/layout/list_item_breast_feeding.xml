@@ -40,18 +40,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Left"
+            android:text="@string/list_title_breast_left"
             android:layout_marginTop="35dp"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_dark"
 
             android:id="@+id/txtLeft"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Right"
+            android:text="@string/list_title_breast_right"
             android:layout_below="@+id/txtLeft"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_dark"
 
             android:id="@+id/txtRight"/>
 
