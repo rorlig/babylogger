@@ -277,7 +277,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         @Subscribe
         public void onMileStoneSaved(MilestoneSaveEvent event){
 
-            Date date = new Date(event.getYear(), event.getMonth()+1, event.getDay());
+            Date date = new Date(event.getYear(), event.getMonth(), event.getDay());
             setCompleted(event.getPosition(), date.getTime(), true);
 
 
