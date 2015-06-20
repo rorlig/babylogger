@@ -38,6 +38,7 @@ import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -275,7 +276,9 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         @Subscribe
         public void onMileStoneSaved(MilestoneSaveEvent event){
-            setCompleted(event.getPosition(), true);
+
+            Date date = new Date(event.getYear(), event.getMonth()+1, event.getDay());
+            setCompleted(event.getPosition(), date.getTime(), true);
 
 
 
@@ -283,6 +286,8 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 //            milestonesAdapter.notifyDataSetChanged();
 
         }
+
+
 
         @Subscribe
         public void onMileStoneCancel(MilestoneCancelEvent event){
@@ -301,6 +306,23 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         private void setCompleted(int position, boolean value) {
             MilestonesDao milestoneItem = milestoneData.get(position);
             milestoneItem.setCompleted(value);
+
+
+            try {
+                milestoneDaoHelper = babyLoggerORMLiteHelper.getMilestonesDao();
+                milestoneDaoHelper.update(milestoneItem);
+                milestonesAdapter.notifyDataSetChanged();
+
+            } catch (SQLException e) {
+                Log.d(TAG, "update item");
+                e.printStackTrace();
+            }
+        }
+
+        private void setCompleted(int position, long time, boolean value) {
+            MilestonesDao milestoneItem = milestoneData.get(position);
+            milestoneItem.setCompleted(value);
+            milestoneItem.setTime(time);
 
 
             try {

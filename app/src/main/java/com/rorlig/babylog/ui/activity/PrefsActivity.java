@@ -5,38 +5,19 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.otto.GrowthItemCreated;
-import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
-import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
-import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.preference.PrefsFragment;
-import com.squareup.otto.Subscribe;
-
 import javax.inject.Inject;
 
-//import com.rorlig.babylog.common.AppConstants;
-//import com.rorlig.babylog.otto.events.filter.DistanceFilterChanged;
-//import com.rorlig.babylog.otto.events.filter.FilterChangedEvent;
-//import com.rorlig.babylog.otto.events.filter.LocationChangedEvent;
-//import com.rorlig.babylog.otto.events.ui.EventSelectedEvent;
-//import com.rorlig.babylog.otto.events.ui.MenuItemSelectedEvent;
-//import com.rorlig.babylog.otto.events.ui.TimeFilterChanged;
-//import com.rorlig.babylog.ui.fragment.ConnectionsFragment;
-//import com.rorlig.babylog.ui.fragment.LoggingFragment;
-//import com.rorlig.babylog.ui.fragment.MessagesFragment;
-//import com.rorlig.babylog.ui.fragment.MyEventsFragment;
+
 
 /**
- * Created by admin on 12/15/13.
+ * Created by admin on.
  */
 public class PrefsActivity extends InjectableActivity {
 
@@ -159,7 +140,6 @@ public class PrefsActivity extends InjectableActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d(TAG, "saving event list");
     }
 
 

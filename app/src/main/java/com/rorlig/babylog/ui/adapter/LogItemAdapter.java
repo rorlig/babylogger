@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -104,9 +103,9 @@ public class LogItemAdapter extends ArrayAdapter<ItemModel> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.list_item_log, parent, false);
             viewHolder = new ViewHolder(convertView);
-            viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.logItemLabel);
+            viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.log_item_label);
             viewHolder.logItemCheckBox = (CheckBox) convertView.findViewById(R.id.checkBox);
-            viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.iconImage);
+            viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.icon_image);
 
             viewHolder.logItemLabel.setText(item.getItemName());
             viewHolder.logItemCheckBox.setChecked(item.isItemChecked());

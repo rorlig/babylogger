@@ -290,6 +290,8 @@
     <string name="profile_image_content_description">Profile Image</string>
     <string name="profile_title">Profile</string>
     <string name="prefs_title">Preferences</string>
+    <string name="txt_completed">Completed</string>
+    <string name="title_activity_milestones">Milestones</string>
 
 
 </resources>

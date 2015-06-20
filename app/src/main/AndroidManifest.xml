@@ -54,7 +54,8 @@
 
 
         <activity android:name=".ui.activity.MilestonesActivity"
-            android:parentActivityName=".ui.activity.HomeActivity"></activity>
+            android:label="@string/title_activity_milestones"
+            android:parentActivityName=".ui.activity.HomeActivity"/>
         <!--<activity-->
             <!--android:name=".ui.activity.BabyLogActivity"-->
             <!--android:label="BabyLogger"-->

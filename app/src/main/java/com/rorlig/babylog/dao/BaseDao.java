@@ -13,4 +13,15 @@ public class BaseDao {
     public Long getTime() {
         return time;
     }
+
+    @Override
+    public String toString() {
+        return "BaseDao{" +
+                "time=" + time +
+                '}';
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
 }

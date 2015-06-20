@@ -25,15 +25,21 @@ public class MilestonesDao extends BaseDao {
     @DatabaseField
     Long completionDate;
 
+
     public MilestonesDao() {
     }
 
 
-    public MilestonesDao(String completionDateRange, boolean completed, String title, Long completionDate) {
+    public MilestonesDao(String completionDateRange,
+                         boolean completed,
+                         String title,
+                         Long completionDate,
+                         Long time) {
         this.completionDateRange = completionDateRange;
         this.completed = completed;
         this.title = title;
         this.completionDate = completionDate;
+        this.time = time;
     }
 
     @Override
@@ -43,8 +49,8 @@ public class MilestonesDao extends BaseDao {
                 ", completionDateRange='" + completionDateRange + '\'' +
                 ", completed=" + completed +
                 ", title='" + title + '\'' +
-                ", notes='" + completionDate + '\'' +
-                '}';
+                ", completionDate=" + completionDate +
+                "} " + super.toString();
     }
 
     public String getCompletionDateRange() {
@@ -66,4 +72,8 @@ public class MilestonesDao extends BaseDao {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
+
+
+
 }

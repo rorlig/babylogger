@@ -26,16 +26,16 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/iconImage"
+        android:id="@+id/icon_image"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_mood_black"
        />
     <TextView
-        android:id="@+id/logItemLabel"
+        android:id="@+id/log_item_label"
         android:layout_width="fill_parent"
         android:textSize="16sp"
         android:text="Test"
-        android:layout_toRightOf="@+id/iconImage"
+        android:layout_toRightOf="@+id/icon_image"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:textColor="@color/primary_dark_material_dark"
@@ -44,7 +44,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/logItemLabel"
+        android:layout_below="@+id/log_item_label"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp">
@@ -52,13 +52,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textCompletedStatus"
+            android:id="@+id/text_completed_status"
             android:text="@string/txt_not_completed"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date_completed"
-            android:layout_below="@+id/textCompletedStatus"
+            android:layout_below="@+id/text_completed_status"
         />
 
     </RelativeLayout>

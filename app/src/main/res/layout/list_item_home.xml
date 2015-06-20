@@ -26,15 +26,15 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/iconImage"
+        android:id="@+id/icon_image"
         android:layout_centerVertical="true"
        />
     <TextView
-        android:id="@+id/logItemLabel"
+        android:id="@+id/log_item_label"
         android:layout_width="fill_parent"
         android:textSize="16sp"
         android:text="Test"
-        android:layout_toRightOf="@+id/iconImage"
+        android:layout_toRightOf="@+id/icon_image"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:textColor="@color/primary_dark_material_dark"

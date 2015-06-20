@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.adapter;
 
 import android.app.Activity;
-import android.content.res.TypedArray;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +11,12 @@ import android.widget.TextView;
 
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dao.MilestonesDao;
-import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
-import com.rorlig.babylog.ui.fragment.milestones.Milestones;
 import com.squareup.otto.Bus;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -31,8 +28,9 @@ import javax.inject.Inject;
 public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
 
     private final String TAG = "LogItemAdapter";
-    private final TypedArray iconArr;
     private final Activity context;
+    private final SimpleDateFormat simpleDateFormat;
+
     //    private final int[] itemStates;
     private List<MilestonesDao> logListItem;
 //    private String[] itemNames = {};
@@ -49,43 +47,19 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
      * @param logListItem
      */
     public MilestonesItemAdapter(Activity context, int resource, List<MilestonesDao> logListItem) {
-    super(context, R.layout.list_item_home);
-        this.context = context;
-        this.logListItem = logListItem;
+        super(context, R.layout.list_item_home);
+            this.context = context;
+            this.logListItem = logListItem;
 
-        iconArr = context.getResources().obtainTypedArray(R.array.itemIcons);
+        simpleDateFormat = new SimpleDateFormat("MMM d");
+        Log.d(TAG, "default time zone 0" + TimeZone.getDefault());
+        simpleDateFormat.setTimeZone(TimeZone.getDefault());
 
-
-
-        Log.d(TAG, ""  + this.logListItem);
-//        itemNames = context.getResources().getStringArray(R.array.items);
-//
-//        itemStates = context.getResources().getIntArray(R.array.itemStates);
-//        int index = 0;
-//        for (; index<itemStates.length; ++index) {
-//            ItemModel itemModel;
-//            Log.d(TAG, "itemState " + itemStates[index] + " item " + itemNames[index]);
-//            if (itemStates[index]==1) {
-//                Log.d(TAG, "1");
-//                 itemModel = new ItemModel(itemNames[index], true);
-//                itemModel.setItemChecked(true);
-//
-//            } else  {
-//                itemModel = new ItemModel(itemNames[index], false);
-//
-//            }
-//
-////            itemModel = new ItemModel(itemNames[index], false);
-//
-//            logListItem.add(itemModel);
-
-            ((InjectableActivity)context).inject(this);
-
-//            ++index;
-        }
+            Log.d(TAG, ""  + this.logListItem);
+                ((InjectableActivity)context).inject(this);
+    }
 
 
-//        Log.d(TAG, "listitem size " + logListItem.length);
 
 
     /**
@@ -105,9 +79,11 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.list_item_milestones, parent, false);
             viewHolder = new ViewHolder(convertView);
-            viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.logItemLabel);
-            viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.iconImage);
-            viewHolder.completionText = (TextView) convertView.findViewById(R.id.date_completed);
+            viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.log_item_label);
+            viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.icon_image);
+            viewHolder.dateCompletionText = (TextView) convertView.findViewById(R.id.date_completed);
+            viewHolder.textCompleted = (TextView) convertView.findViewById(R.id.text_completed_status);
+//            viewHolder.textCompleted.setText();
 
 
 
@@ -132,11 +108,16 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
 
         if (item.isCompleted()) {
             viewHolder.itemImage.setImageResource(R.drawable.ic_mood_blue);
+            viewHolder.textCompleted.setText(R.string.txt_completed);
+            viewHolder.dateCompletionText.setText(simpleDateFormat.format(item.getTime()));
         } else  {
             viewHolder.itemImage.setImageResource(R.drawable.ic_mood_black);
+            viewHolder.textCompleted.setText(R.string.txt_not_completed);
+            viewHolder.dateCompletionText.setText(item.getCompletionDateRange());
+
+
         }
         viewHolder.logItemLabel.setText(item.getTitle());
-        viewHolder.completionText.setText(item.getCompletionDateRange());
 
                 // Populate the data into the template view using the data object
 
@@ -169,8 +150,9 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
         ImageView itemImage;
 
 
-        TextView completionText;
+        TextView dateCompletionText;
 
+        TextView textCompleted;
 
 
         public ViewHolder(View view){

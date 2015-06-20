@@ -7,14 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
-import com.rorlig.babylog.otto.ItemCheckChangeEvent;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
 import com.squareup.otto.Bus;
 
@@ -104,8 +101,8 @@ public class HomeItemAdapter extends ArrayAdapter<ItemModel> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.list_item_home, parent, false);
             viewHolder = new ViewHolder(convertView);
-            viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.logItemLabel);
-            viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.iconImage);
+            viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.log_item_label);
+            viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.icon_image);
 
             viewHolder.logItemLabel.setText(item.getItemName());
 
