@@ -14,6 +14,8 @@
 + Profile Management 
 + Milestones
 + Tutorial screen
++ Profile Screen
+
 
 ## Stretch Goals 
 + Adding Multiple Baby Tracking.
