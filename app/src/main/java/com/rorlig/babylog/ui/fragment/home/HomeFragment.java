@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +29,7 @@ import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
 import com.rorlig.babylog.ui.activity.MilestonesActivity;
+import com.rorlig.babylog.ui.activity.PrefsActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
@@ -271,6 +274,9 @@ public class HomeFragment extends InjectableFragment {
         switch (item.getItemId()) {
             case R.id.action_stats:
                 startActivity(new Intent(getActivity(), BarchartActivity.class));
+                break;
+            case R.id.action_settings:
+                startActivity(new Intent(getActivity(), PrefsActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

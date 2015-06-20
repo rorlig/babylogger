@@ -1,5 +1,6 @@
 package com.rorlig.babylog.ui.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -93,6 +94,11 @@ public class HomeActivity extends InjectableActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            Log.d(TAG, "action_settings");
+            startActivity(new Intent(this, PrefsActivity.class));
+
+
             return true;
         }
 

@@ -289,6 +289,7 @@
     <string name="list_title_breast_right">Right:</string>
     <string name="profile_image_content_description">Profile Image</string>
     <string name="profile_title">Profile</string>
+    <string name="prefs_title">Preferences</string>
 
 
 </resources>

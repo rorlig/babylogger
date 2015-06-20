@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 //import com.rorlig.babylog.retrofit.NetworkEventClient;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.service.StopWatchService;
-import com.rorlig.babylog.ui.activity.BabyLogActivity;
 //import com.rorlig.babylog.ui.activity.CheckInActivity;
 //import com.rorlig.babylog.ui.activity.ConnectionDetailActivity;
 //import com.rorlig.babylog.ui.activity.EventDetailActivity;
@@ -40,6 +39,7 @@ import com.rorlig.babylog.ui.activity.HomeActivity;
 import com.rorlig.babylog.ui.activity.LandingActivity;
 import com.rorlig.babylog.ui.activity.MilestonesActivity;
 import com.rorlig.babylog.ui.activity.NursingFeedActivity;
+import com.rorlig.babylog.ui.activity.PrefsActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.adapter.ContactsAdapter;
 import com.rorlig.babylog.ui.adapter.DiaperChangeAdapter;
@@ -76,6 +76,8 @@ import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.rorlig.babylog.ui.fragment.home.LaunchFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestoneListFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestonesCompletedFragment;
+import com.rorlig.babylog.ui.fragment.preference.InjectablePreferenceFragment;
+import com.rorlig.babylog.ui.fragment.preference.PrefsFragment;
 import com.rorlig.babylog.ui.fragment.profile.PictureSourceSelectFragment;
 import com.rorlig.babylog.ui.fragment.profile.ProfileFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepFragment;
@@ -89,6 +91,7 @@ import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
 //import com.rorlig.babylog.ui.fragment.UserListFragment;
 //import com.rorlig.babylog.ui.fragment.UsersGridFragment;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -102,7 +105,6 @@ import dagger.Provides;
 @Module(injects={
             LandingActivity.class,
             HomeActivity.class,
-            BabyLogActivity.class,
             DiaperChangeActivity.class,
             DiaperChangeActivity2.class,
             DiaperChangeListActivity2.class,
@@ -113,6 +115,7 @@ import dagger.Provides;
             ProfileActivity.class,
             MilestonesActivity.class,
             BarchartActivity.class,
+            PrefsActivity.class,
     //            SearchActivity.class,
 //            MessageBoardListActivity.class,
 //            MessagesActivity.class,
@@ -121,6 +124,7 @@ import dagger.Provides;
             MainFragment.class,
 //            FilterFragment.class,
             InjectableFragment.class,
+            InjectablePreferenceFragment.class,
             ActionsSelectFragment.class,
             DiaperChangeFragment.class,
             ProfileFragment.class,
@@ -152,7 +156,8 @@ import dagger.Provides;
             GrowthAdapter.class,
             MilestonesItemAdapter.class,
             MilestonesCompletedFragment.class,
-            PictureSourceSelectFragment.class
+            PictureSourceSelectFragment.class,
+        PrefsFragment.class
 
           },
           library=true, complete = false)

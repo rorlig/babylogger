@@ -55,30 +55,30 @@
 
         <activity android:name=".ui.activity.MilestonesActivity"
             android:parentActivityName=".ui.activity.HomeActivity"></activity>
-        <activity
-            android:name=".ui.activity.BabyLogActivity"
-            android:label="BabyLogger"
-            android:theme="@style/Theme.Scheduler.Home"
-            android:title="@string/app_name"
-            android:launchMode="singleTop"
-            >
+        <!--<activity-->
+            <!--android:name=".ui.activity.BabyLogActivity"-->
+            <!--android:label="BabyLogger"-->
+            <!--android:theme="@style/Theme.Scheduler.Home"-->
+            <!--android:title="@string/app_name"-->
+            <!--android:launchMode="singleTop"-->
+            <!-->-->
 
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
+                <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
+            <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
 
-        </activity>
+        <!--</activity>-->
 
         <activity
             android:name=".ui.activity.DiaperChangeActivity"
             android:label="Diaper Change"
             android:title="@string/diaper_change_title"
             android:parentActivityName=".ui.activity.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.BabyLogActivity" />
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".ui.activity.BabyLogActivity" />-->
          </activity>
 
 
@@ -87,9 +87,9 @@
             android:label="Feeding"
             android:title="@string/diaper_change_title"
             android:parentActivityName=".ui.activity.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.BabyLogActivity" />
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".ui.activity.BabyLogActivity" />-->
         </activity>
             <!-- Parent activity meta-data to support 4.0 and lower -->
 
@@ -99,10 +99,10 @@
             android:label="Nursing Feed"
             android:theme="@style/Theme.Scheduler.Home"
             android:title="@string/diaper_change_title"
-            android:parentActivityName=".ui.activity.BabyLogActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.BabyLogActivity" />
+            >
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".ui.activity.BabyLogActivity" />-->
         </activity>
 
 
@@ -111,10 +111,10 @@
             android:label="Bottle Feed"
             android:theme="@style/Theme.Scheduler.Home"
             android:title="@string/diaper_change_title"
-            android:parentActivityName=".ui.activity.BabyLogActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.BabyLogActivity" />
+            >
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".ui.activity.BabyLogActivity" />-->
         </activity>
 
 
@@ -122,16 +122,22 @@
             android:name=".ui.activity.GrowthActivity"
             android:label="Growth"
             android:title="@string/growth_title"
-            android:parentActivityName=".ui.activity.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.BabyLogActivity" >
-         </meta-data>
-        </activity>
-        <activity android:name="com.desmond.squarecamera.CameraActivity"></activity>
+            android:parentActivityName=".ui.activity.HomeActivity"/>
+
+
+        <activity
+            android:name=".ui.activity.PrefsActivity"
+            android:label="Growth"
+            android:title="@string/prefs_title"
+            android:parentActivityName=".ui.activity.HomeActivity"/>
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".ui.activity.BabyLogActivity" >-->
+         <!--</meta-data>-->
+        <activity android:name="com.desmond.squarecamera.CameraActivity"/>
         <activity android:name="com.android.camera.CropImage"/>
 
-        <service android:name=".service.StopWatchService"></service>
+        <service android:name=".service.StopWatchService"/>
 
 
 

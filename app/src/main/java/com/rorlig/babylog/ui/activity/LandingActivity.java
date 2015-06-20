@@ -30,6 +30,7 @@ import com.rorlig.babylog.ui.adapter.LogItemAdapter;
 import com.rorlig.babylog.ui.fragment.action.ActionsSelectFragment;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.rorlig.babylog.ui.fragment.home.LaunchFragment;
+import com.rorlig.babylog.ui.fragment.preference.PrefsFragment;
 import com.squareup.otto.Subscribe;
 
 import java.text.SimpleDateFormat;
@@ -141,6 +142,11 @@ public class LandingActivity extends InjectableActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Log.d(TAG, "prefs");
+//            PrefsFragment mPrefsFragment = new PrefsFragment();
+//            showFragment(PrefsFragment.class, "prefs_fragment", true);
+//            mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
+//            mFragmentTransaction.commit();
             return true;
         }
 
