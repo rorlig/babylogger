@@ -291,7 +291,6 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         @Subscribe
         public void onMileStoneReset(MilestoneResetEvent event) {
             Log.d(TAG, "onMileStoneReset" + event.getPosition());
-
             setCompleted(event.getPosition(), false);
 
         }
