@@ -57,7 +57,7 @@ public class PrefsActivity extends InjectableActivity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String TAG  = "GrowthActivity";
+    private String TAG  = "PrefsActivity";
 
     private EventListener eventListener = new EventListener();
 
@@ -73,7 +73,7 @@ public class PrefsActivity extends InjectableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diaper_change_list);
+        setContentView(R.layout.activity_base);
 
         PrefsFragment mPrefsFragment = new PrefsFragment();
 
@@ -124,46 +124,6 @@ public class PrefsActivity extends InjectableActivity {
         // Handle your other action bar items...
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /*
-     * Class to swap fragments in and out
-     */
-
-    private void showFragment(Class<?> paramClass, String paramString, boolean addToBackStack){
-        Log.d(TAG, "showFragment for " + paramClass);
-
-        FragmentManager localFragmentManager = getSupportFragmentManager();
-
-
-
-        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
-
-        if ((localFragment==null)||(!paramClass.isInstance(localFragment))){
-            try {
-                Log.d(TAG, "replacing fragments");
-
-                if (addToBackStack) {
-
-                    localFragment = (Fragment)paramClass.newInstance();
-                    localFragmentManager.beginTransaction()
-                            .add(R.id.fragment_container, localFragment)
-                            .addToBackStack("growth_stack")
-                            .commit();
-
-                } else {
-                    localFragment = (Fragment)paramClass.newInstance();
-                    localFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, localFragment)
-                            .commitAllowingStateLoss();
-                }
-
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 

@@ -127,7 +127,7 @@
 
         <activity
             android:name=".ui.activity.PrefsActivity"
-            android:label="Growth"
+            android:label="@string/prefs_title"
             android:title="@string/prefs_title"
             android:parentActivityName=".ui.activity.HomeActivity"/>
             <!--<meta-data-->
