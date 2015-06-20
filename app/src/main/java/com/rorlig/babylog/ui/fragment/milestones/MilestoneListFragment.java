@@ -279,12 +279,6 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
             Date date = new Date(event.getYear(), event.getMonth(), event.getDay());
             setCompleted(event.getPosition(), date.getTime(), true);
-
-
-
-//            milestonesArrayList.get(event.getPosition()).setCompleted(true);
-//            milestonesAdapter.notifyDataSetChanged();
-
         }
 
 
