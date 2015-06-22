@@ -9,7 +9,7 @@ import com.rorlig.babylog.R;
 import java.util.HashMap;
 
 /**
- * Created by rorlig on 6/19/15.
+ * @author gaurav gupta
  */
 public class SoundManager {
 

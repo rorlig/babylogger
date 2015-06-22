@@ -1,4 +1,4 @@
-package com.rorlig.babylog.otto.events;
+package com.rorlig.babylog.otto.events.datetime;
 
 import java.util.Calendar;
 

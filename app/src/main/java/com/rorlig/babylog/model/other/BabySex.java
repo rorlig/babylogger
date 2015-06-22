@@ -1,7 +1,8 @@
 package com.rorlig.babylog.model.other;
 
 /**
- * Created by rorlig on 5/31/15.
+ * @author gaurav gupta
+ * Enum to hold baby sex value
  */
 public enum BabySex {
     BOY, GIRL

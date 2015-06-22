@@ -7,7 +7,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * table of profile information purchased..
+ * @author gaurav gupta
+ * Profile Dao -- not used -- yet...
  */
 @DatabaseTable
 public class ProfileDao implements Parcelable {

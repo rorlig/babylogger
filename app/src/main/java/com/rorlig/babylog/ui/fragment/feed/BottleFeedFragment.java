@@ -23,7 +23,7 @@ import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.model.feed.FeedType;
-import com.rorlig.babylog.otto.FeedItemCreatedEvent;
+import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;

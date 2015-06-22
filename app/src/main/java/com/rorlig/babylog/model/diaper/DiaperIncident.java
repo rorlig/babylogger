@@ -1,7 +1,8 @@
 package com.rorlig.babylog.model.diaper;
 
 /**
- * Created by gaurav
+ * @author gaurav gupta
+ * Incident Type
  */
 public enum DiaperIncident {
     NONE ("None"), NO_DIAPER("No Diaper"), DIAPER_LEAK ("Diaper Leak");

@@ -11,26 +11,33 @@ import com.rorlig.babylog.model.diaper.DiaperChangeTextureType;
 import com.rorlig.babylog.model.diaper.DiaperIncident;
 
 /**
- * table of the diaper changes
+ * @author gaurav gupta
+ * Diaper Change Dao
  */
 @DatabaseTable
 public class DiaperChangeDao extends BaseDao implements Parcelable {
 
+    //generated id
     @DatabaseField(generatedId = true)
     int id;
 
+    //diaper change event type
     @DatabaseField
     DiaperChangeEnum diaperChangeEventType;
 
+    //diaper change poop texture
     @DatabaseField
     DiaperChangeTextureType poopTexture;
 
+    //diaper change color
     @DatabaseField
     DiaperChangeColorType poopColor;
 
+    //diaper change indicident type
     @DatabaseField
     DiaperIncident diaperChangeIncidentType;
 
+    //diaper change notes
     @DatabaseField
     java.lang.String diaperChangeNotes;
 

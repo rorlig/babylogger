@@ -18,7 +18,7 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
-import com.rorlig.babylog.otto.GrowthItemCreated;
+import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;

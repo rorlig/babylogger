@@ -1,7 +1,8 @@
 package com.rorlig.babylog.model.diaper;
 
 /**
- * Created by rorlig on 8/10/14.
+* @author gaurav gupta
+ * Poop Texture
  */
 public enum DiaperChangeTextureType {
     LOOSE("Loose"), SEEDY("Seedy"), CHUNKY("Chunky"), HARD("Hard");

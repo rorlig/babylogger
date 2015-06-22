@@ -1,4 +1,4 @@
-package com.rorlig.babylog.otto;
+package com.rorlig.babylog.otto.events.camera;
 
 import com.rorlig.babylog.ui.fragment.profile.PictureSourceItem;
 

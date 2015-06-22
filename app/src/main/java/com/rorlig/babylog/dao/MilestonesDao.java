@@ -4,7 +4,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * table of growth measurements purchased..
+ * @author gaurav gupta
+ * Milestone Dao
  */
 @DatabaseTable
 public class MilestonesDao extends BaseDao {
@@ -13,15 +14,22 @@ public class MilestonesDao extends BaseDao {
     @DatabaseField(generatedId = true)
     int id;
 
+
+    //range in which milestone is typically done
     @DatabaseField
     String completionDateRange;
 
+    //is the milestone completed or not..
     @DatabaseField
     boolean completed;
 
+
+    //milestone title
     @DatabaseField
     String title;
 
+
+    //date when milestone was completed...
     @DatabaseField
     Long completionDate;
 

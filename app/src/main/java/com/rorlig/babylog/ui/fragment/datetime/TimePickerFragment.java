@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
-import com.rorlig.babylog.otto.events.TimeSetEvent;
+import com.rorlig.babylog.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 
 import java.util.Calendar;

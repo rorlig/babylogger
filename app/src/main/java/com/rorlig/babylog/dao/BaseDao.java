@@ -3,7 +3,8 @@ package com.rorlig.babylog.dao;
 import com.j256.ormlite.field.DatabaseField;
 
 /**
- * Created by gaurav
+ * @author gaurav gupta
+ * BaseDao class.
  */
 public class BaseDao {
 

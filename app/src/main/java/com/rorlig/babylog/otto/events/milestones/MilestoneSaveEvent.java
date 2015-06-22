@@ -1,16 +1,15 @@
-package com.rorlig.babylog.otto;
+package com.rorlig.babylog.otto.events.milestones;
 
 /**
  * Created by rorlig on 6/11/15.
  */
-public class MilestoneCancelEvent {
+public class MilestoneSaveEvent {
 
     private final int year;
     private final int month;
     private final int day;
     int position;
-
-    public MilestoneCancelEvent(int position, int year, int month, int day) {
+    public MilestoneSaveEvent(int position, int year, int month, int day) {
         this.position = position;
         this.year = year;
         this.month = month;

@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
-import com.rorlig.babylog.otto.events.DateSetEvent;
-import com.rorlig.babylog.otto.events.TimeSetEvent;
+import com.rorlig.babylog.otto.events.datetime.DateSetEvent;
+import com.rorlig.babylog.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;

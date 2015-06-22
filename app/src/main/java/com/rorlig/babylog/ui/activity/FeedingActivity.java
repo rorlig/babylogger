@@ -18,7 +18,7 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.otto.FeedItemCreatedEvent;
+import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;

@@ -7,7 +7,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * table of sleep purchased..
+ * @author gaurav gupta
+ * Sleep  Dao
  */
 @DatabaseTable
 public class SleepDao implements Parcelable {

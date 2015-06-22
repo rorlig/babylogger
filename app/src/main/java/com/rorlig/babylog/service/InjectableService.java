@@ -13,7 +13,8 @@ import javax.inject.Inject;
 import dagger.ObjectGraph;
 
 /**
- * Created by Gaurav on 5/25/14.
+ *  @author gaurav gupta
+ *  Base Service Injected into the ObjectGraph
  */
 public class InjectableService extends Service implements ObjectGraphService {
 

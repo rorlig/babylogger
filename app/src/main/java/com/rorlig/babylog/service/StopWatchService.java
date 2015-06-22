@@ -5,13 +5,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.rorlig.babylog.otto.TimerEvent;
+import com.rorlig.babylog.otto.events.timer.TimerEvent;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by gaurav on 6/3/15.
+ *  @author gaurav gupta
+ *  StopWatchService
  */
 public class StopWatchService extends InjectableService {
 

@@ -40,13 +40,6 @@ import retrofit.android.MainThreadExecutor;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
-//import com.path.android.jobqueue.JobManager;
-//import com.rorlig.babylog.common.AppConstants;
-//import com.rorlig.babylog.retrofit.AccountService;
-//import com.rorlig.babylog.retrofit.EventClient;
-//import com.rorlig.babylog.retrofit.GreetService;
-//import com.rorlig.babylog.retrofit.NetworkEventClient;
-//import com.rorlig.babylog.service.BackgroundLocationService;
 
 /**
  */
@@ -57,7 +50,6 @@ import retrofit.converter.GsonConverter;
             }, library=true)
 public class ApplicationModule
 {
-    private static final int HTTP_CACHE_SIZE = 52428800;
 
     private final BabyLoggerApplication application;
 
@@ -68,31 +60,11 @@ public class ApplicationModule
 
 
 
-    @Provides
-    @Singleton
-    public RestAdapter getRestAdapter(OkHttpClient paramOkHttpClient, GsonConverter paramGsonConverter)
-    {
-        String TAG = "ApplicationModule";
-        Log.d(TAG, "getRestAdapter");
-//        final String userId = PreferenceManager.getDefaultSharedPreferences(application).getString(AppConstants.USER_ID,"");
-        return new RestAdapter.Builder()
-                .setServer(new Server("http://cloud.gowthamj.com:3000/"))
-//                .
-//            setRequestInterceptor(new RequestInterceptor() {
-//                @Override
-//                public void intercept(RequestInterceptor.RequestFacade request) {
-//                    request.addHeader("Accept", "application/json;versions=1");
-//                    if(userId!=null&&!userId.equals("")){
-//                        Log.d(TAG, "adding userId to request " + userId);
-//                        request.addHeader("UserId",userId);
-//                    }
-//                }
-//            })
-                .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setClient(new OkClient(paramOkHttpClient)).setConverter(paramGsonConverter).build();
-    }
 
 
+    /*
+     * @returns alarm manager
+     */
 
     @Provides
     @Singleton
@@ -101,6 +73,10 @@ public class ApplicationModule
         return (AlarmManager)paramContext.getSystemService("alarm");
     }
 
+
+    /*
+     * @returns Application Context
+     */
     @ForApplication
     @Provides
     @Singleton
@@ -109,35 +85,38 @@ public class ApplicationModule
         return this.application;
     }
 
+    /*
+     * @returns otto Bus
+     */
     @Provides
     @Singleton
     Bus provideBus() {
         return BusProvider.getInstance();
     }
 
-    @Cache
-    @Provides
-    File provideCacheDirectory(@ForApplication Context paramContext){
-        return paramContext.getCacheDir();
-    }
+//    @Cache
+//    @Provides
+//    File provideCacheDirectory(@ForApplication Context paramContext){
+//        return paramContext.getCacheDir();
+//    }
 
-    @Provides
-    @Singleton
-    ContentResolver provideContentResolver(){
-        return this.application.getContentResolver();
-    }
+//    @Provides
+//    @Singleton
+//    ContentResolver provideContentResolver(){
+//        return this.application.getContentResolver();
+//    }
 
-    @Data
-    @Provides
-    File provideDataDirectory(@ForApplication Context paramContext){
-        return paramContext.getFilesDir();
-    }
+//    @Data
+//    @Provides
+//    File provideDataDirectory(@ForApplication Context paramContext){
+//        return paramContext.getFilesDir();
+//    }
 
-    @Provides
-    InputMethodManager providesInputMethodManager(@ForApplication Context paramContext){
-        return (InputMethodManager)paramContext.getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-    }
+//    @Provides
+//    InputMethodManager providesInputMethodManager(@ForApplication Context paramContext){
+//        return (InputMethodManager)paramContext.getSystemService(
+//                Context.INPUT_METHOD_SERVICE);
+//    }
 //    @Provides
 //    @Singleton
 //    ScheduleDatabase provideDatabase(@ForApplication Context paramContext, Timber paramTimber){
@@ -178,22 +157,22 @@ public class ApplicationModule
 //        return (AccountService)paramRestAdapter.create(AccountService.class);
 //    }
 
-    @Provides
-    @Singleton
-    Downloader provideDownloader(@ForApplication Context paramContext){
-        return new OkHttpDownloader(paramContext);
-    }
+//    @Provides
+//    @Singleton
+//    Downloader provideDownloader(@ForApplication Context paramContext){
+//        return new OkHttpDownloader(paramContext);
+//    }
 
 //    @Provides
 //    EventInfo provideEventInfo(EventManager paramEventManager){
 //        return paramEventManager.getEventInfo();
 //    }
 
-    @Provides
-    @Singleton
-    ExecutorService provideExecutorService(){
-        return Executors.newCachedThreadPool();//todo
-    }
+//    @Provides
+//    @Singleton
+//    ExecutorService provideExecutorService(){
+//        return Executors.newCachedThreadPool();//todo
+//    }
 
 //    @Provides
 //    @Singleton
@@ -202,53 +181,53 @@ public class ApplicationModule
 //        return GoogleCloudMessaging.getInstance(paramContext);
 //    }
 
-    @Provides
-    @Singleton
-    public GsonConverter provideGsonConverter() {
-        return new GsonConverter(new Gson());
-    }
+//    @Provides
+//    @Singleton
+//    public GsonConverter provideGsonConverter() {
+//        return new GsonConverter(new Gson());
+//    }
 
     @Provides
     public Gson providesGson(){
         return new Gson();
     }
 
-    @Provides
-    @Singleton
-    HttpResponseCache provideHttpResponseCache(@Cache File paramFile)
-    {
-        try
-        {
-            HttpResponseCache localHttpResponseCache = new HttpResponseCache(new File(paramFile, "okhttp"), 52428800L);
-            return localHttpResponseCache;
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    @Provides
+//    @Singleton
+//    HttpResponseCache provideHttpResponseCache(@Cache File paramFile)
+//    {
+//        try
+//        {
+//            HttpResponseCache localHttpResponseCache = new HttpResponseCache(new File(paramFile, "okhttp"), 52428800L);
+//            return localHttpResponseCache;
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
-    @MainThread
-    @Provides
-    @Singleton
-    Executor provideMainThread() {
-        return new MainThreadExecutor();
-    }
+//    @MainThread
+//    @Provides
+//    @Singleton
+//    Executor provideMainThread() {
+//        return new MainThreadExecutor();
+//    }
 
-    @Provides
-    @Singleton
-    NotificationManager provideNotificationManager(@ForApplication Context paramContext) {
-        return (NotificationManager)paramContext.getSystemService("notification");
-    }
+//    @Provides
+//    @Singleton
+//    NotificationManager provideNotificationManager(@ForApplication Context paramContext) {
+//        return (NotificationManager)paramContext.getSystemService("notification");
+//    }
 
-    @Provides
-    @Singleton
-    OkHttpClient provideOkHttpClient(HttpResponseCache paramHttpResponseCache) {
-        OkHttpClient localOkHttpClient = new OkHttpClient();
-        if (paramHttpResponseCache != null)
-            localOkHttpClient.setResponseCache(paramHttpResponseCache);
-        return localOkHttpClient;
-    }
+//    @Provides
+//    @Singleton
+//    OkHttpClient provideOkHttpClient(HttpResponseCache paramHttpResponseCache) {
+//        OkHttpClient localOkHttpClient = new OkHttpClient();
+//        if (paramHttpResponseCache != null)
+//            localOkHttpClient.setResponseCache(paramHttpResponseCache);
+//        return localOkHttpClient;
+//    }
 
     @Provides
     @Singleton

@@ -25,7 +25,7 @@ import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
-import com.rorlig.babylog.otto.DiaperLogCreatedEvent;
+import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;

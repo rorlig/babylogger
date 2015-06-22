@@ -10,9 +10,9 @@ import android.widget.DatePicker;
 
 import com.gc.materialdesign.views.Button;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.otto.MilestoneCancelEvent;
-import com.rorlig.babylog.otto.MilestoneResetEvent;
-import com.rorlig.babylog.otto.MilestoneSaveEvent;
+import com.rorlig.babylog.otto.events.milestones.MilestoneCancelEvent;
+import com.rorlig.babylog.otto.events.milestones.MilestoneResetEvent;
+import com.rorlig.babylog.otto.events.milestones.MilestoneSaveEvent;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 
 import java.util.Calendar;

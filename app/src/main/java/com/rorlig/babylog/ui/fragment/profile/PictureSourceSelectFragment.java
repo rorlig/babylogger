@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 import com.desmond.squarecamera.CameraActivity;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.otto.CameraStartEvent;
+import com.rorlig.babylog.otto.events.camera.CameraStartEvent;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.utils.AppUtils;
 

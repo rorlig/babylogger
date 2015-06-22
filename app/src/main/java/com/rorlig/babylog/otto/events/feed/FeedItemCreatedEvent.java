@@ -1,4 +1,4 @@
-package com.rorlig.babylog.otto;
+package com.rorlig.babylog.otto.events.feed;
 
 /**
  * Created by rorlig on 5/27/15.

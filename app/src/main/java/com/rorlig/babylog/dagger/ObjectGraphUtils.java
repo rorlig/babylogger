@@ -13,7 +13,8 @@ import android.view.View;
 import dagger.ObjectGraph;
 
 /**
- * Created by gaurav
+ * @author gaurav gupta
+ * Utils class to Inject things into the Object Graph.
  */
 public class ObjectGraphUtils {
 

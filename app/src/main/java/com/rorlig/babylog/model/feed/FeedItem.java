@@ -1,7 +1,8 @@
 package com.rorlig.babylog.model.feed;
 
 /**
- * Created by gaurav.
+ * @author gaurav gupta
+ * FeedItem type...
  */
 public enum FeedItem {
 

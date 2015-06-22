@@ -15,6 +15,36 @@
         android:text="@string/growth_stats_title"/>
 
 
+    <RadioGroup
+        style="@style/RadioGroup"
+        android:id="@+id/diaper_change_stats_time"
+        android:layout_below="@+id/growth_stats_title">
+
+        <RadioButton android:id="@+id/growth_stats_weight"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:checked="true"
+            android:text="@string/growth_stats_weight"
+            android:textSize="14sp"
+
+            />
+        <RadioButton android:id="@+id/growth_stats_height"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:text="@string/growth_stats_height"
+            android:layout_marginLeft="-1dp"
+            android:textSize="14sp"
+            />
+
+        <RadioButton android:id="@+id/growth_stats_head_measurement"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:text="@string/growth_stats_head_measurement"
+            android:layout_marginLeft="-1dp"
+            android:textSize="14sp"
+            />
+    </RadioGroup>
+
 
     <!-- multiline chart -->
     <com.github.mikephil.charting.charts.LineChart

@@ -3,7 +3,7 @@ package com.rorlig.babylog.dagger;
 import dagger.ObjectGraph;
 
 /**
- * Created by gaurav
+ * @author gaurav gupta
  */
 public interface ObjectGraphActivity {
     ObjectGraph getActivityGraph();

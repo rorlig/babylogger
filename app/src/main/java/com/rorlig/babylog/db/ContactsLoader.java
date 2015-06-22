@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Gaurav Gupta
  * Loads the contacts and arranges them by frequent and all
- * Reference - https://github.com/alexjlockwood/AppListLoader
+ * Reference - https://github.com/alexjlockwood/AppListLoader -- not used
  */
 public class ContactsLoader extends AsyncTaskLoader<List<ContactItem>> {
 

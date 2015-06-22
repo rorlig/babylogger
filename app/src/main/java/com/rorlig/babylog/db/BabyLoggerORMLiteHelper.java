@@ -51,25 +51,35 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, FeedDao.class);
             TableUtils.createTable(connectionSource, GrowthDao.class);
             TableUtils.createTable(connectionSource, MilestonesDao.class);
-
+            populateDiaperDao();
+            populateFeedDao();
+            populateGrowthDao();
             populateMilestoneDao();
 
 
-//
-//            TableUtils.createTable(connectionSource, NotesModel.class);
-//            TableUtils.createTable(connectionSource, MessageDetailsModel.class);
-//
-//            // here we try inserting data in the on-create as a test
-//            Dao<AnalyticsModel, Integer> dao = getAnalyticsDataDao();
-//            long millis = System.currentTimeMillis();
-//            // create some entries in the onCreate
-//            AnalyticsModel data = new AnalyticsModel();
-//            Log.i(GiftingORMLiteHelper.class.getName(), "created new entries in onCreate: " + millis);
 
         } catch (SQLException e) {
             Log.e(BabyLoggerORMLiteHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
         }
+    }
+
+    private void populateGrowthDao() {
+
+        //todo read from assets json file...
+        try {
+            getGrowthDao().create(new GrowthDao(6.5, 12.5, 17.5,"", -1L ));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void populateFeedDao() {
+
+    }
+
+    private void populateDiaperDao() {
+
     }
 
     private void populateMilestoneDao() {

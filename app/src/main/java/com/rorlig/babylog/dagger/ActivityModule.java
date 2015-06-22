@@ -60,38 +60,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-//import com.rorlig.babylog.jobs.user.GetUserJob;
-//import com.rorlig.babylog.retrofit.NetworkEventClient;
-//import com.rorlig.babylog.ui.activity.CheckInActivity;
-//import com.rorlig.babylog.ui.activity.ConnectionDetailActivity;
-//import com.rorlig.babylog.ui.activity.EventDetailActivity;
-//import com.rorlig.babylog.ui.activity.MapActivity;
-//import com.rorlig.babylog.ui.activity.MessageBoardListActivity;
-//import com.rorlig.babylog.ui.activity.MessageDetailActivity;
-//import com.rorlig.babylog.ui.activity.MessagesActivity;
-//import com.rorlig.babylog.ui.activity.MessagingActivity;
-//import com.rorlig.babylog.ui.activity.SearchActivity;
-//import com.rorlig.babylog.ui.activity.SettingsActivity;
-//import com.rorlig.babylog.ui.activity.UserListActivity;
-//import com.rorlig.babylog.ui.activity.UserProfileActivity;
-//import com.rorlig.babylog.ui.adapter.EventAdapter;
-//import com.rorlig.babylog.ui.adapter.MessageAdapter;
-//import com.rorlig.babylog.ui.fragment.CheckInDialogFragment;
-//import com.rorlig.babylog.ui.fragment.ConnectionDetailFragment;
-//import com.rorlig.babylog.ui.fragment.ConnectionsFragment;
-//import com.rorlig.babylog.ui.fragment.EventDetailFragment;
-//import com.rorlig.babylog.ui.fragment.FilterFragment;
-//import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
-//import com.rorlig.babylog.ui.fragment.InjectablePreferenceFragment;
-//import com.rorlig.babylog.ui.fragment.LoggingFragment;
-//import com.rorlig.babylog.ui.fragment.MessageBoardListFragment;
-//import com.rorlig.babylog.ui.fragment.MessagesDetailFragment;
-//import com.rorlig.babylog.ui.fragment.MessagesFragment;
-//import com.rorlig.babylog.ui.fragment.MyEventsFragment;
-//import com.rorlig.babylog.ui.fragment.PictureDialogFragment;
-//import com.rorlig.babylog.ui.fragment.PrefsFragment;
-//import com.rorlig.babylog.ui.fragment.UserListFragment;
-//import com.rorlig.babylog.ui.fragment.UsersGridFragment;
 
 /**
  *
@@ -109,13 +77,8 @@ import dagger.Provides;
             MilestonesActivity.class,
             BarchartActivity.class,
             PrefsActivity.class,
-    //            SearchActivity.class,
-//            MessageBoardListActivity.class,
-//            MessagesActivity.class,
-//            MapActivity.class,
             MenuFragment.class,
             MainFragment.class,
-//            FilterFragment.class,
             InjectableFragment.class,
             InjectablePreferenceFragment.class,
             ActionsSelectFragment.class,
@@ -150,7 +113,7 @@ import dagger.Provides;
             MilestonesItemAdapter.class,
             MilestonesCompletedFragment.class,
             PictureSourceSelectFragment.class,
-        PrefsFragment.class
+            PrefsFragment.class
 
           },
           library=true, complete = false)
@@ -164,6 +127,9 @@ public class ActivityModule
         this.activity = paramActivity;
     }
 
+    /*
+     * @returns ActionBar
+     */
     @Provides
     @Singleton
     ActionBar provideActionBar() {
@@ -180,12 +146,19 @@ public class ActivityModule
         return this.activity;
     }
 
+
+    /*
+     * @returns LayoutInflater
+     */
     @Provides
     @Singleton
     LayoutInflater provideLayoutInflater(){
         return this.activity.getLayoutInflater();
     }
 
+    /*
+     * @returns FragmentManager
+     */
     @Provides
     @Singleton
     FragmentManager providesFragmentManager() {
@@ -194,7 +167,9 @@ public class ActivityModule
 
 
 
-
+    /*
+    * @returns TypeFaceManager
+    */
     @Provides
     @Singleton
     TypeFaceManager providesTypeFaceManager(@ForApplication Context context){

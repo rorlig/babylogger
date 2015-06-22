@@ -1,8 +1,8 @@
 package com.rorlig.babylog.model.diaper;
 
 /**
- * Created by gaurav.
- * Models the diaper change..
+ * @author gaurav gupta
+ * not used..
  */
 public class DiaperChangeItem {
 

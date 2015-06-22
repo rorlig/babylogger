@@ -301,6 +301,9 @@
     <string name="feed_stats_type_breast_title">Breast</string>
     <string name="growth_stats_title">Growth Stats</string>
     <string name="sleep_stats_title">Sleep Stats</string>
+    <string name="growth_stats_weight">Weight</string>
+    <string name="growth_stats_height">Height</string>
+    <string name="growth_stats_head_measurement">Head Measurement</string>
 
 
 </resources>

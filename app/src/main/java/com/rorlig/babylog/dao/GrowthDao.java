@@ -4,7 +4,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * table of growth measurements purchased..
+ * @author gaurav gupta
+ * Growth Dao
  */
 @DatabaseTable
 public class GrowthDao extends BaseDao {
@@ -14,15 +15,21 @@ public class GrowthDao extends BaseDao {
     @DatabaseField(generatedId = true)
     int id;
 
+    //weight of the baby
     @DatabaseField
     Double weight;
 
+    //head measurement
     @DatabaseField
     Double headMeasurement;
 
+
+    //height measurement
     @DatabaseField
     Double height;
 
+
+    //notes
     @DatabaseField
     String notes;
 

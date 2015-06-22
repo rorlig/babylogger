@@ -6,7 +6,8 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.rorlig.babylog.model.feed.FeedType;
 
 /**
- * table of feeds both bottle and breast feeds
+ * @author gaurav gupta
+ * Feed Dao
  */
 @DatabaseTable
 public class FeedDao extends BaseDao {
@@ -15,21 +16,27 @@ public class FeedDao extends BaseDao {
     @DatabaseField(generatedId = true)
     int id;
 
+    //feed type - breast or bottle
     @DatabaseField
     FeedType feedType;
 
+    //feed item
     @DatabaseField
     String feedItem;
 
+    //quantity
     @DatabaseField
     Double quantity;
 
+    //left breast time
     @DatabaseField
     Long leftBreastTime;
 
+    //right breast time
     @DatabaseField
     Long rightBreastTime;
 
+    //notes about the feed
     @DatabaseField
     String notes;
 
