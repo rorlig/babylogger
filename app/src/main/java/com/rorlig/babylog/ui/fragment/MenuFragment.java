@@ -83,8 +83,8 @@ import butterknife.InjectView;
         drawerList.setAdapter(new MenuAdapter(context));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/proximanova_light.ttf");
+//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
+//                "fonts/proximanova_light.ttf");
 
 //        babyAge.setTypeface(typeface);
 

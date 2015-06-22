@@ -41,8 +41,8 @@ public class AboutFragment extends InjectableFragment {
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/proximanova_light.ttf");
+//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
+//                "fonts/proximanova_light.ttf");
 
         scopedBus.post(new FragmentCreated("About"));
 

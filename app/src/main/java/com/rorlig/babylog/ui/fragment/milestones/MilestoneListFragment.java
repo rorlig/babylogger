@@ -94,7 +94,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     }
 
 
-    Typeface typeface;
+//    Typeface typeface;
 
     private String TAG = "MilestoneListFragment";
 
@@ -127,8 +127,8 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 //         milestonesAdapter = new MilestonesItemAdapter(getActivity(), 1, milestonesArrayList);
 
 
-        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/proximanova_light.ttf");
+//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
+//                "fonts/proximanova_light.ttf");
 
         listView.setEmptyView(emptyView);
 //

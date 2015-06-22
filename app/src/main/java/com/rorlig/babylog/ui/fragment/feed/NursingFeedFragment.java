@@ -114,7 +114,7 @@ public class NursingFeedFragment extends InjectableFragment {
 //    TextView menuHeader;
 
 
-    Typeface typeface;
+//    Typeface typeface;
 
     private String TAG = "NursingFeedFragment";
 
@@ -140,8 +140,8 @@ public class NursingFeedFragment extends InjectableFragment {
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/proximanova_light.ttf");
+//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
+//                "fonts/proximanova_light.ttf");
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
 

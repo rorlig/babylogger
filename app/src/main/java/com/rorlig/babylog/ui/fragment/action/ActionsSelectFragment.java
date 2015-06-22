@@ -60,8 +60,8 @@ public class ActionsSelectFragment extends InjectableFragment {
         actionsList.setAdapter(new ActionsAdapter(context));
         actionsList.setOnItemClickListener(new ActionItemClickListener());
 
-        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/proximanova_light.ttf");
+//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
+//                "fonts/proximanova_light.ttf");
 
         scopedBus.post(new FragmentCreated("Activities"));
 
@@ -138,7 +138,7 @@ public class ActionsSelectFragment extends InjectableFragment {
                 holder = new Holder();
                 holder.actionText = (TextView) view
                         .findViewById(R.id.actionText);
-                holder.actionText.setTypeface(typeface);
+//                holder.actionText.setTypeface(typeface);
                 holder.actionImage = (ImageView) view.findViewById(R.id.actionPicture);
                 view.setTag(holder);
             } else {

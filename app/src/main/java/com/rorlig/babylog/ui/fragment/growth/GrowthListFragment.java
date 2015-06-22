@@ -90,7 +90,7 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
     }
 
 
-    Typeface typeface;
+//    Typeface typeface;
 
     private String TAG = "GrowthListFragment";
 
@@ -113,8 +113,8 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/proximanova_light.ttf");
+//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
+//                "fonts/proximanova_light.ttf");
 
         listView.setEmptyView(emptyView);
 //

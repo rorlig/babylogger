@@ -32,7 +32,7 @@ public class SleepFragment extends InjectableFragment {
 //    TextView menuHeader;
 
 
-    Typeface typeface;
+//    Typeface typeface;
 
     private String TAG = "SleepFragment";
 
@@ -42,8 +42,8 @@ public class SleepFragment extends InjectableFragment {
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/proximanova_light.ttf");
+//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
+//                "fonts/proximanova_light.ttf");
 
         scopedBus.post(new FragmentCreated("Sleep"));
 

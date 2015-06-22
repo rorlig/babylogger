@@ -90,8 +90,8 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/proximanova_light.ttf");
+//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
+//                "fonts/proximanova_light.ttf");
 
         feedListView.setEmptyView(emptyView);
 

@@ -84,7 +84,7 @@ public class ProfileFragment extends InjectableFragment {
 //    TextView menuHeader;
 
 
-    Typeface typeface;
+//    Typeface typeface;
 
     private String TAG = "ProfileFragment";
 
@@ -104,8 +104,8 @@ public class ProfileFragment extends InjectableFragment {
         Log.d(TAG, "onActivityCreated");
 
 
-        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/proximanova_light.ttf");
+//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
+//                "fonts/proximanova_light.ttf");
 
         scopedBus.post(new FragmentCreated("Profile "));
 
