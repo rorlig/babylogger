@@ -21,8 +21,6 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
-import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
-import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeListFragment;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedingListFragment;
 import com.rorlig.babylog.ui.fragment.feed.NursingFeedFragment;

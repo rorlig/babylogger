@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.db.ContactsLoader;
 import com.rorlig.babylog.model.ContactEntry2;

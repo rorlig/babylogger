@@ -1,6 +1,5 @@
 package com.rorlig.babylog.otto;
 
-import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.ui.fragment.profile.PictureSourceItem;
 
 /**

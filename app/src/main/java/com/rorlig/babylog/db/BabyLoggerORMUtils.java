@@ -6,16 +6,12 @@ import android.util.Log;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.Where;
-import com.rorlig.babylog.dagger.Data;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.dao.MilestonesDao;
-import com.rorlig.babylog.ui.fragment.milestones.Milestones;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 /**

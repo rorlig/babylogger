@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
@@ -18,11 +17,8 @@ import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
-
-import butterknife.InjectView;
 
 /**
  * Created by rorlig on 5/31/15.

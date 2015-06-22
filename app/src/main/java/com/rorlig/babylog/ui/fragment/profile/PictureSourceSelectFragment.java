@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.fragment.profile;
 
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.graphics.SurfaceTexture;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,18 +15,10 @@ import android.widget.ImageView;
 import com.desmond.squarecamera.CameraActivity;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.CameraStartEvent;
-import com.rorlig.babylog.otto.PictureSourceSelectEvent;
-import com.rorlig.babylog.otto.events.other.AddItemEvent;
-import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.utils.AppUtils;
 
-import net.bozho.easycamera.DefaultEasyCamera;
-import net.bozho.easycamera.EasyCamera;
-
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

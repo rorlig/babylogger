@@ -6,6 +6,6 @@ import dagger.ObjectGraph;
  * Created by gaurav
  */
 public interface ObjectGraphActivity {
-    public ObjectGraph getActivityGraph();
-    public void inject(Object paramObject);
+    ObjectGraph getActivityGraph();
+    void inject(Object paramObject);
 }

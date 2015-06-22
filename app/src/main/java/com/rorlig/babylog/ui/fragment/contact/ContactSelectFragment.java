@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ContactCategory;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;

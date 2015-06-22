@@ -1,6 +1,5 @@
 package com.rorlig.babylog.ui.fragment.milestones;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +11,8 @@ import android.widget.DatePicker;
 import com.gc.materialdesign.views.Button;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.MilestoneCancelEvent;
-import com.rorlig.babylog.otto.MilestoneSaveEvent;
 import com.rorlig.babylog.otto.MilestoneResetEvent;
+import com.rorlig.babylog.otto.MilestoneSaveEvent;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 
 import java.util.Calendar;

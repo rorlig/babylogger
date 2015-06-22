@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 
 /**
- * Created by rorlig on 7/14/14.
+ *  @author gaurav gupta
  */
 public class AboutFragment extends InjectableFragment {
     @ForActivity

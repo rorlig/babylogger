@@ -1,16 +1,11 @@
 package com.rorlig.babylog.ui.fragment.diaper;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.util.Log;
 
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
-import com.rorlig.babylog.db.ContactsObserver;
-import com.rorlig.babylog.db.ContactsQueryHelper;
-import com.rorlig.babylog.model.ContactItem;
 
 import java.sql.SQLException;
 import java.util.List;

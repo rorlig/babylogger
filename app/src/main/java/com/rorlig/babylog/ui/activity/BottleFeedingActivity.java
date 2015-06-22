@@ -16,26 +16,13 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.otto.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.FeedItemCreatedEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
-import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
-//import com.rorlig.babylog.common.AppConstants;
-//import com.rorlig.babylog.otto.events.filter.DistanceFilterChanged;
-//import com.rorlig.babylog.otto.events.filter.FilterChangedEvent;
-//import com.rorlig.babylog.otto.events.filter.LocationChangedEvent;
-//import com.rorlig.babylog.otto.events.ui.EventSelectedEvent;
-//import com.rorlig.babylog.otto.events.ui.MenuItemSelectedEvent;
-//import com.rorlig.babylog.otto.events.ui.TimeFilterChanged;
-//import com.rorlig.babylog.ui.fragment.ConnectionsFragment;
-//import com.rorlig.babylog.ui.fragment.LoggingFragment;
-//import com.rorlig.babylog.ui.fragment.MessagesFragment;
-//import com.rorlig.babylog.ui.fragment.MyEventsFragment;
 
 /**
  * Created by admin on 12/15/13.

@@ -4,16 +4,10 @@ package com.rorlig.babylog.ui.fragment.preference;
  * Created by Gaurav Gupta on 12/31/13.
  */
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.SwitchPreference;
 import android.util.Log;
-import android.view.Window;
-import android.widget.Toast;
 
 import com.rorlig.babylog.R;
 

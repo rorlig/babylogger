@@ -2,7 +2,6 @@ package com.rorlig.babylog.ui.activity;
 
 import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +13,6 @@ import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
-import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestoneListFragment;

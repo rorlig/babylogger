@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-
 import com.rorlig.babylog.dagger.ObjectGraphService;
 import com.rorlig.babylog.dagger.ObjectGraphUtils;
 import com.rorlig.babylog.otto.ScopedBus;

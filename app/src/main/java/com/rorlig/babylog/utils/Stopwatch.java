@@ -10,7 +10,7 @@ public class Stopwatch {
 	 * Used for testing
 	 */
 	public interface GetTime {
-		public long now();
+		long now();
 	}
 
 	/**
@@ -24,7 +24,7 @@ public class Stopwatch {
 	/**
 	 * What is the stopwatch doing?
 	 */
-	public enum State { PAUSED, RUNNING };
+	public enum State { PAUSED, RUNNING }
 
 	private GetTime m_time;
 	private long m_startTime;

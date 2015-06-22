@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,16 +21,13 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
-import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
-import com.rorlig.babylog.ui.adapter.FeedAdapter;
 import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.fragment.feed.FeedLoader;
 
 import java.util.List;
 
@@ -40,6 +36,8 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
+//import android.widget.Button;
 
 /**
  * Created by rorlig on 7/18/14.

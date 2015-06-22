@@ -2,9 +2,7 @@ package com.rorlig.babylog.ui.fragment;
 
 import android.app.ActionBar;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -21,9 +19,6 @@ import android.widget.ProgressBar;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
-import com.squareup.otto.Subscribe;
-
-import java.util.HashMap;
 
 import javax.inject.Inject;
 

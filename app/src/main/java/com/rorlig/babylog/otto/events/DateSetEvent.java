@@ -1,7 +1,6 @@
 package com.rorlig.babylog.otto.events;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by gaurav

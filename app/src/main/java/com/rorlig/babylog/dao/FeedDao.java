@@ -1,15 +1,8 @@
 package com.rorlig.babylog.dao;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.rorlig.babylog.model.diaper.DiaperChangeColorType;
-import com.rorlig.babylog.model.diaper.DiaperChangeEnum;
-import com.rorlig.babylog.model.diaper.DiaperChangeTextureType;
-import com.rorlig.babylog.model.diaper.DiaperIncident;
-import com.rorlig.babylog.model.feed.FeedItem;
 import com.rorlig.babylog.model.feed.FeedType;
 
 /**

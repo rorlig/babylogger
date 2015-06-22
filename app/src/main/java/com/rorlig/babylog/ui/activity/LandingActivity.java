@@ -1,6 +1,5 @@
 package com.rorlig.babylog.ui.activity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,40 +8,14 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.model.ItemModel;
-import com.rorlig.babylog.otto.ItemCheckChangeEvent;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
-import com.rorlig.babylog.otto.events.ui.MenuItemSelectedEvent;
-import com.rorlig.babylog.ui.adapter.LogItemAdapter;
-import com.rorlig.babylog.ui.fragment.action.ActionsSelectFragment;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment;
-import com.rorlig.babylog.ui.fragment.home.LaunchFragment;
-import com.rorlig.babylog.ui.fragment.preference.PrefsFragment;
 import com.squareup.otto.Subscribe;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-
 import javax.inject.Inject;
-
-import butterknife.InjectView;
-import butterknife.OnClick;
 
 //import com.fourmob.datetimepicker.date.DatePickerDialog;
 

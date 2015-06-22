@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,7 +28,6 @@ import com.rorlig.babylog.otto.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.fragment.feed.FeedSelectFragment;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 

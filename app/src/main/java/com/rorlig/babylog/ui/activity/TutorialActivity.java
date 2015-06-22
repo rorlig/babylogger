@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.github.paolorotolo.appintro.AppIntro;
-import com.rorlig.babylog.ui.fragment.tutorial.FourthSlide;
 import com.rorlig.babylog.ui.fragment.tutorial.FirstSlide;
+import com.rorlig.babylog.ui.fragment.tutorial.FourthSlide;
 import com.rorlig.babylog.ui.fragment.tutorial.SecondSlide;
 import com.rorlig.babylog.ui.fragment.tutorial.ThirdSlide;
 

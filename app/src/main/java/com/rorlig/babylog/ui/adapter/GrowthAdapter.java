@@ -14,8 +14,6 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

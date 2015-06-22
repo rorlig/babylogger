@@ -17,15 +17,16 @@ import android.widget.TextView;
 
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
-//import com.rorlig.babylog.otto.events.ui.EventSelectedEvent;
-//import com.rorlig.babylog.otto.events.ui.MainActivityReadyEvent;
-//import com.rorlig.babylog.otto.events.ui.MenuItemSelectedEvent;
 import com.rorlig.babylog.otto.events.ui.MenuItemSelectedEvent;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+//import com.rorlig.babylog.otto.events.ui.EventSelectedEvent;
+//import com.rorlig.babylog.otto.events.ui.MainActivityReadyEvent;
+//import com.rorlig.babylog.otto.events.ui.MenuItemSelectedEvent;
 
 
 /**

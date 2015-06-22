@@ -6,7 +6,6 @@ import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
 
-
 import com.rorlig.babylog.dagger.ObjectGraphActivity;
 import com.rorlig.babylog.otto.ScopedBus;
 import com.rorlig.babylog.ui.activity.InjectableActivity;

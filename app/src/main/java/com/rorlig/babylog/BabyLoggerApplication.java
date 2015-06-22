@@ -3,9 +3,6 @@ package com.rorlig.babylog;
 import android.app.Application;
 import android.util.Log;
 
-//import com.path.android.jobqueue.JobManager;
-//import com.path.android.jobqueue.config.Configuration;
-//import com.path.android.jobqueue.log.CustomLogger;
 import com.rorlig.babylog.dagger.ApplicationModule;
 import com.rorlig.babylog.dagger.ObjectGraphApplication;
 
@@ -13,6 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import dagger.ObjectGraph;
+
+//import com.path.android.jobqueue.JobManager;
+//import com.path.android.jobqueue.config.Configuration;
+//import com.path.android.jobqueue.log.CustomLogger;
 
 /**
  * Created by gaurav

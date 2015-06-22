@@ -5,9 +5,7 @@ import android.util.Log;
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.rorlig.babylog.dao.BaseDao;
-import com.rorlig.babylog.dao.DiaperChangeDao;
 
-import java.awt.font.TextAttribute;
 import java.util.Date;
 
 /**

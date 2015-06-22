@@ -2,20 +2,14 @@ package com.rorlig.babylog.ui.fragment.datetime;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import com.rorlig.babylog.otto.events.DateSetEvent;
-import com.rorlig.babylog.otto.events.TimeSetEvent;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by rorlig on 7/22/14.

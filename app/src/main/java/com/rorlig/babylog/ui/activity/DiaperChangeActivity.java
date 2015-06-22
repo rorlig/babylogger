@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.activity;
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,16 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.DiaperLogCreatedEvent;
-import com.rorlig.babylog.otto.events.AddDiaperChangeEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;

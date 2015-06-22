@@ -14,13 +14,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-//import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
@@ -45,6 +43,9 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
+//import android.widget.Button;
+//import com.gc.materialdesign.views.Button;
 
 /**
  * Created by rorlig on 7/14/14.

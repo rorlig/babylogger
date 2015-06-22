@@ -1,11 +1,11 @@
 package com.rorlig.babylog.dagger;
 
 import com.rorlig.babylog.BabyLoggerApplication;
-//import com.rorlig.babylog.retrofit.EventClient;
-//import com.rorlig.babylog.retrofit.TestEventClient;
 
 import dagger.Module;
-import dagger.Provides;
+
+//import com.rorlig.babylog.retrofit.EventClient;
+//import com.rorlig.babylog.retrofit.TestEventClient;
 
 /**
  * @author  gaurav gupta

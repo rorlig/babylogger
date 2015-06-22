@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.preference.PrefsFragment;
+
 import javax.inject.Inject;
 
 

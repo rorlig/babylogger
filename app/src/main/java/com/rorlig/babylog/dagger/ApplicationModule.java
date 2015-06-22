@@ -11,18 +11,12 @@ import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
-//import com.path.android.jobqueue.JobManager;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.rorlig.babylog.BabyLoggerApplication;
-//import com.rorlig.babylog.common.AppConstants;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.otto.BusProvider;
 import com.rorlig.babylog.otto.ScopedBus;
-//import com.rorlig.babylog.retrofit.AccountService;
-//import com.rorlig.babylog.retrofit.EventClient;
-//import com.rorlig.babylog.retrofit.GreetService;
-//import com.rorlig.babylog.retrofit.NetworkEventClient;
-//import com.rorlig.babylog.service.BackgroundLocationService;
+import com.rorlig.babylog.service.StopWatchService;
 import com.squareup.okhttp.HttpResponseCache;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.otto.Bus;
@@ -45,7 +39,14 @@ import retrofit.Server;
 import retrofit.android.MainThreadExecutor;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
-import com.rorlig.babylog.service.StopWatchService;
+
+//import com.path.android.jobqueue.JobManager;
+//import com.rorlig.babylog.common.AppConstants;
+//import com.rorlig.babylog.retrofit.AccountService;
+//import com.rorlig.babylog.retrofit.EventClient;
+//import com.rorlig.babylog.retrofit.GreetService;
+//import com.rorlig.babylog.retrofit.NetworkEventClient;
+//import com.rorlig.babylog.service.BackgroundLocationService;
 
 /**
  */

@@ -12,7 +12,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-//import com.gc.materialdesign.views.CheckBox;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.ItemCheckChangeEvent;
@@ -22,6 +21,8 @@ import com.squareup.otto.Bus;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+
+//import com.gc.materialdesign.views.CheckBox;
 
 /**
  * Created by rorlig on 5/29/15.

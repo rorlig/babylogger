@@ -1,8 +1,6 @@
 package com.rorlig.babylog.ui.fragment.feed;
 
 import android.content.Context;
-import android.content.CursorLoader;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -14,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,17 +21,11 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
-import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
-import com.rorlig.babylog.otto.events.AddFeedEvent;
-import com.rorlig.babylog.otto.events.other.AddItemEvent;
-import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
-import com.rorlig.babylog.ui.adapter.DiaperChangeAdapter;
 import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
 import com.rorlig.babylog.ui.adapter.FeedAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.fragment.diaper.DiaperLoader;
 
 import java.util.ArrayList;
 import java.util.List;

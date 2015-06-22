@@ -13,24 +13,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-//import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
-import com.rorlig.babylog.db.ContactsLoader;
-import com.rorlig.babylog.model.ContactItem;
 import com.rorlig.babylog.otto.DiaperLogCreatedEvent;
-import com.rorlig.babylog.otto.events.AddDiaperChangeEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
@@ -48,6 +43,8 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
+//import android.widget.Button;
 
 /**
  * Created by rorlig on 7/18/14.

@@ -1,6 +1,5 @@
 package com.rorlig.babylog.ui.fragment.sleep;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
