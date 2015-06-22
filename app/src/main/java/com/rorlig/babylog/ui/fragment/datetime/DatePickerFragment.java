@@ -3,6 +3,7 @@ package com.rorlig.babylog.ui.fragment.datetime;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.DatePicker;
 
@@ -19,6 +20,7 @@ public class DatePickerFragment extends InjectableDialogFragment
 
     private String TAG = "DatePickerFragment";
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current time as the default values for the picker

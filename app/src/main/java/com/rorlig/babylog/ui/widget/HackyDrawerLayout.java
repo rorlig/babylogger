@@ -1,6 +1,7 @@
 package com.rorlig.babylog.ui.widget;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -33,7 +34,7 @@ public class HackyDrawerLayout extends DrawerLayout {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
         // the incorrect array size will only happen in the multi-touch scenario.
         if (ev.getPointerCount() > 1 && mIsDisallowIntercept) {
             requestDisallowInterceptTouchEvent(false);

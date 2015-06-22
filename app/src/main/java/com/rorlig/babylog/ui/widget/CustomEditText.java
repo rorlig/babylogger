@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.EditText;
@@ -37,7 +38,7 @@ public class CustomEditText extends EditText {
         super(context, attrs, defStyle);
     }
 
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
 
     }
@@ -67,7 +68,7 @@ public class CustomEditText extends EditText {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(@NonNull MotionEvent event) {
         Rect bounds;
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             actionX = (int) event.getX();

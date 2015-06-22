@@ -73,7 +73,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
     }
 
     private void populateMilestoneDao() {
-        MilestonesDao milestonesDao = new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, -1L);
+//        MilestonesDao milestonesDao = new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, -1L);
         try {
             getMilestonesDao().create(new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, -1L));
             getMilestonesDao().create(new MilestonesDao("Week 4-8", false, "Smile to Mom", -1L, -1L));

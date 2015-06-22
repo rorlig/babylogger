@@ -54,7 +54,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
     private String callTextSingular;
     private String lastCallText;
     private float density;
-    private Map<String, Uri> brokenUris;
+//    private Map<String, Uri> brokenUris;
     private DateFormat dateFormatter = DateFormat.getDateInstance();
     private ContactsFilter mFilter = new ContactsFilter();
 
@@ -75,7 +75,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
         supportTypeface = Typeface.create("sans-serif-light", Typeface.NORMAL);
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         density = metrics.density;
-        brokenUris = new HashMap<String, Uri>();
+//        brokenUris = new HashMap<String, Uri>();
         ((InjectableActivity)activity).inject(this);
     }
 
@@ -435,7 +435,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
             final List<ContactItem> nlist = new ArrayList<ContactItem>(count);
 
 
-            if (filterString!=null && !filterString.equals("")) {
+            if (!filterString.equals("")) {
 //                Log.d(TAG, "filter is not blank");
                 for (ContactItem contactItem : items) {
                     Log.d(TAG, " item type " + contactItem.getViewType());

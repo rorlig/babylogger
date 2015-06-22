@@ -305,7 +305,7 @@ public class ProfileFragment extends InjectableFragment {
         super.onStart();
         Log.d(TAG, "onStart");
         Log.d(TAG, " imageUri " + ProfileActivity.imageUri);
-        if (ProfileActivity.imageUri!=null && !ProfileActivity.imageUri.equals("")) {
+        if (ProfileActivity.imageUri!=null && !ProfileActivity.imageUri.toString().equals("")) {
 
             File file = new File(ProfileActivity.imageUri.getPath());
             if (file.exists()) {

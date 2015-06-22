@@ -107,18 +107,6 @@
 
 
         <activity
-            android:name=".ui.activity.BottleFeedingActivity"
-            android:label="Bottle Feed"
-            android:theme="@style/Theme.Scheduler.Home"
-            android:title="@string/diaper_change_title"
-            >
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.activity.BabyLogActivity" />-->
-        </activity>
-
-
-        <activity
             android:name=".ui.activity.GrowthActivity"
             android:label="Growth"
             android:title="@string/growth_title"

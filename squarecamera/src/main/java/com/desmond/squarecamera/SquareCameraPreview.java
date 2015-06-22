@@ -3,6 +3,7 @@ package com.desmond.squarecamera;
 import android.content.Context;
 import android.graphics.Rect;
 import android.hardware.Camera;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -108,7 +109,7 @@ public class SquareCameraPreview extends SurfaceView {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(@NonNull MotionEvent event) {
         mScaleDetector.onTouchEvent(event);
 
         final int action = event.getAction();

@@ -184,7 +184,7 @@ public class StopwatchService extends Service {
 	}
 
 	private String formatDigits(long num) {
-		return (num < 10) ? "0" + num : new Long(num).toString();
+		return (num < 10) ? "0" + num : Long.toString(num);
 	}
 
 

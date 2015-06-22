@@ -150,9 +150,7 @@ public class HomeFragment extends InjectableFragment {
         super.onStart();
         Log.d(TAG, "onStart");
         String name = preferences.getString("name", "");
-        if (name.equals("")){
-//            babyAgeTextView.setVisibility(View.GONE);
-        } else {
+        if (!name.equals("")) {
             babyNameTextView.setText("Welcome " + preferences.getString("name", ""));
             String dob = preferences.getString("dob", "");
             if (!dob.equals("")){
