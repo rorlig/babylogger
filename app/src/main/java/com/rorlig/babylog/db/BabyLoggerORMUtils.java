@@ -92,6 +92,42 @@ public class BabyLoggerORMUtils {
         return milestonesDao;
     }
 
+    /*
+     * Return the diaper changes by month...
+     * jan/feb/march/
+     */
+    public List<DiaperChangeDao> getDiaperChangeByMonth() {
+        return null;
+    }
+
+    /*
+    * Return the diaper changes by month...
+    * week 1/2/3/4
+    */
+    public List<DiaperChangeDao> getDiaperChangeByWeek() {
+        return null;
+    }
+
+    /*
+     * Return the diaper changes by day
+     * sun/mon/....
+     */
+    public List<DiaperChangeDao> getDiaperChangeByDay() {
+        return null;
+    }
+
+    /*
+     * Helper method to get a list of diapers in the selected time range....
+     */
+    public List<DiaperChangeDao> getDiaperChangeList(Long startTime, Long endTime) throws SQLException {
+        QueryBuilder<DiaperChangeDao, Integer> queryBuilder = getDiaperChangeDao().queryBuilder().orderBy("time", false);
+//        queryBuilder.where().eq("isSend", false);
+
+        queryBuilder.where().lt("callStartTime", endTime)
+                .and().gt("callStartTime", startTime);
+//        Log.d(TAG, " query size " + queryBuilder.query().size());
+        return queryBuilder.query();
+    }
 
 
     public List<DiaperChangeDao> getDiaperChangeList() throws SQLException {

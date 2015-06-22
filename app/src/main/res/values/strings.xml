@@ -292,6 +292,13 @@
     <string name="prefs_title">Preferences</string>
     <string name="txt_completed">Completed</string>
     <string name="title_activity_milestones">Milestones</string>
+    <string name="diaper_change_statistics">Diaper Change Statistics</string>
+    <string name="diaper_change_stats_title_day">Day</string>
+    <string name="diaper_change_stats_title_week">Week</string>
+    <string name="diaper_change_stats_title_month">Month</string>
+    <string name="feed_statistics">Feed Statistics</string>
+    <string name="feed_stats_type_bottle_title">Bottle</string>
+    <string name="feed_stats_type_breast_title">Breast</string>
 
 
 </resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/diaper_change_stats_title"
+        style="@style/ListItemHeader"
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/diaper_change_statistics"/>
+
+    <RadioGroup
+        style="@style/RadioGroup"
+        android:id="@+id/diaper_change_stats_time"
+        android:layout_below="@+id/diaper_change_stats_title">
+
+        <RadioButton android:id="@+id/diaper_change_stats_month"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:checked="true"
+            android:text="@string/diaper_change_stats_title_month"
+            android:textSize="14sp"
+
+            />
+        <RadioButton android:id="@+id/diaper_change_stats_week"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:text="@string/diaper_change_stats_title_week"
+            android:layout_marginLeft="-1dp"
+            android:textSize="14sp"
+            />
+
+        <RadioButton android:id="@+id/diaper_change_stats_day"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:text="@string/diaper_change_stats_title_day"
+            android:layout_marginLeft="-1dp"
+            android:textSize="14sp"
+            />
+    </RadioGroup>
+
+
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/diaper_bar_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/diaper_change_stats_title"
+        />
+</RelativeLayout>

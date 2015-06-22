@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/feed_stats_title"
+        style="@style/ListItemHeader"
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/feed_statistics"/>
+
+    <RadioGroup
+        style="@style/RadioGroup"
+        android:id="@+id/feed_stats_type"
+        android:layout_below="@+id/feed_stats_title">
+
+        <RadioButton android:id="@+id/feed_stats_type_bottle"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:checked="true"
+            android:text="@string/feed_stats_type_bottle_title"
+            android:textSize="14sp"
+
+            />
+        <RadioButton android:id="@+id/feed_stats_type_breast"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center"
+            android:text="@string/feed_stats_type_breast_title"
+            android:layout_marginLeft="-1dp"
+            android:textSize="14sp"
+            />
+
+
+    </RadioGroup>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/breast_feed_pie_chart_day"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/feed_stats_title"
+        />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/breast_feed_pie_chart_week"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/breast_feed_pie_chart_day"
+        />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/breast_feed_pie_chart_all_time"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/breast_feed_pie_chart_week"
+        />
+</RelativeLayout>
