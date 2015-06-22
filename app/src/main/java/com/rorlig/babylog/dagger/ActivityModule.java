@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 //import com.rorlig.babylog.jobs.user.GetUserJob;
 //import com.rorlig.babylog.retrofit.NetworkEventClient;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
-import com.rorlig.babylog.service.StopWatchService;
 //import com.rorlig.babylog.ui.activity.CheckInActivity;
 //import com.rorlig.babylog.ui.activity.ConnectionDetailActivity;
 //import com.rorlig.babylog.ui.activity.EventDetailActivity;
@@ -55,8 +54,6 @@ import com.rorlig.babylog.ui.fragment.contact.ContactsFragment;
 import com.rorlig.babylog.ui.fragment.contact.ContactsPagerListFragment;
 import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
-import com.rorlig.babylog.ui.activity.DiaperChangeListActivity2;
-import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeActivity2;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeListFragment;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;
 import com.rorlig.babylog.ui.fragment.development.DevelopmentFragment;
@@ -91,7 +88,6 @@ import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
 //import com.rorlig.babylog.ui.fragment.UserListFragment;
 //import com.rorlig.babylog.ui.fragment.UsersGridFragment;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -106,8 +102,6 @@ import dagger.Provides;
             LandingActivity.class,
             HomeActivity.class,
             DiaperChangeActivity.class,
-            DiaperChangeActivity2.class,
-            DiaperChangeListActivity2.class,
             NursingFeedActivity.class,
             BottleFeedingActivity.class,
             GrowthActivity.class,
