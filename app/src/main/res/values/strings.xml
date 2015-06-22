@@ -299,6 +299,8 @@
     <string name="feed_statistics">Feed Statistics</string>
     <string name="feed_stats_type_bottle_title">Bottle</string>
     <string name="feed_stats_type_breast_title">Breast</string>
+    <string name="growth_stats_title">Growth Stats</string>
+    <string name="sleep_stats_title">Sleep Stats</string>
 
 
 </resources>
