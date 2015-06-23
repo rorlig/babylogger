@@ -39,7 +39,7 @@ public class InjectableFragment extends Fragment {
 //    @Override
 //    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 //        menu.clear();
-//        inflater.inflate(R.menu.add_item, menu);
+//        inflater.inflate(R.menu.menu_add_item, menu);
 //        super.onCreateOptionsMenu(menu, inflater);
 //
 //    }

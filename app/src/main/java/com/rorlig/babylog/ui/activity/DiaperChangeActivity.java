@@ -15,9 +15,12 @@ import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
+import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeListFragment;
+import com.rorlig.babylog.ui.fragment.diaper.DiaperStatsFragment;
+import com.rorlig.babylog.ui.fragment.growth.GrowthStatsFragment;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
@@ -236,6 +239,15 @@ public class DiaperChangeActivity extends InjectableActivity {
             showFragment(DiaperChangeListFragment.class, "diaper_change_list", false);
 
 //            finish();
+        }
+
+        @Subscribe
+        public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
+            switch (statsItemEvent.getStatsItemType()){
+                case STATS: {
+                    showFragment(DiaperStatsFragment.class, "diaper_stats_fragment", false);
+                }
+            }
         }
 
 //        @Subscribe

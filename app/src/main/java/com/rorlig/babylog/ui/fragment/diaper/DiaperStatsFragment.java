@@ -1,75 +1,64 @@
-package com.rorlig.babylog.ui.fragment.growth;
+package com.rorlig.babylog.ui.fragment.diaper;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.gc.materialdesign.views.Button;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.j256.ormlite.dao.Dao;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
-import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
+import com.rorlig.babylog.ui.fragment.growth.GrowthStatTab;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 
 /**
- * Created by gaurav
- * Growth element..
+ * @author gaurav gupta
+ * diaper stats fragment
  */
-public class GrowthStatsFragment extends InjectableFragment implements RadioGroup.OnCheckedChangeListener {
+public class DiaperStatsFragment extends InjectableFragment {
+//        implements RadioGroup.OnCheckedChangeListener {
 
     @ForActivity
     @Inject
     Context context;
 
-    @InjectView(R.id.growth_stats_line_chart)
-    LineChart lineChart;
-
-    @InjectView(R.id.growth_stats_radio_button)
-    RadioGroup growthStatsRadioGroup;
-
-
-    private String TAG = "GrowthStatsFragment";
-
-//    private EventListener eventListener = new EventListener();
-//    private boolean heightEmpty = true;
-//    private boolean weightEmpty = true;
-//    private boolean headMeasureEmpty = true;
+//    @InjectView(R.id.growth_stats_line_chart)
+//    LineChart lineChart;
+//
+//    @InjectView(R.id.growth_stats_radio_button)
+//    RadioGroup growthStatsRadioGroup;
 
 
-//    @Inject
-//    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
+    private String TAG = "DiaperStatsFragment";
+
+
+
+
+    @Inject
+    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
     private BabyLoggerORMUtils babyORMLiteUtils;
     private List<GrowthDao> growthList;
@@ -85,51 +74,43 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         scopedBus.post(new FragmentCreated("Growth Fragment"));
 
 
-        // no description text
-        lineChart.setDescription("");
-        lineChart.setNoDataTextDescription("You need to provide data for the chart.");
-
-        // enable value highlighting
-        lineChart.setHighlightEnabled(true);
-
-        // enable touch gestures
-        lineChart.setTouchEnabled(true);
-
-        // enable scaling and dragging
-        lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(true);
-        // lineChart.setScaleXEnabled(true);
-        // lineChart.setScaleYEnabled(true);
-
-        // if disabled, scaling can be done on x- and y-axis separately
-        lineChart.setPinchZoom(true);
-
-        //set the listener to the radiogroup...
-        growthStatsRadioGroup.setOnCheckedChangeListener(this);
-
-        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
-
-        try {
-           growthList =  babyORMLiteUtils.getGrowthList();
-            //setData
-            setData(growthList, GrowthStatTab.WEIGHT);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
+//        // no description text
+//        lineChart.setDescription("");
+//        lineChart.setNoDataTextDescription("You need to provide data for the chart.");
+//
+//        // enable value highlighting
+//        lineChart.setHighlightEnabled(true);
+//
+//        // enable touch gestures
+//        lineChart.setTouchEnabled(true);
+//
+//        // enable scaling and dragging
+//        lineChart.setDragEnabled(true);
+//        lineChart.setScaleEnabled(true);
+//        // lineChart.setScaleXEnabled(true);
+//        // lineChart.setScaleYEnabled(true);
+//
+//        // if disabled, scaling can be done on x- and y-axis separately
+//        lineChart.setPinchZoom(true);
+//
+//        //set the listener to the radiogroup...
+//        growthStatsRadioGroup.setOnCheckedChangeListener(this);
+//
+//        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
+//
+//        try {
+//           growthList =  babyORMLiteUtils.getGrowthList();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        //setData
+//        setData(growthList, GrowthStatTab.WEIGHT);
 
 
 
 
     }
-
-
-
-
-
-
-
 
 
     @Override
@@ -141,7 +122,7 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_growth_stats, null);
+        View view =  inflater.inflate(R.layout.fragment_diaper_change_stats, null);
         ButterKnife.inject(this, view);
         return view;
     }
@@ -160,21 +141,21 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         inflater.inflate(R.menu.menu_main, menu);
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        Log.d(TAG, "onCheckedChanged");
-        switch (checkedId) {
-            case R.id.growth_stats_height:
-                setData(growthList, GrowthStatTab.HEIGHT);
-                break;
-            case R.id.growth_stats_weight:
-                setData(growthList, GrowthStatTab.WEIGHT);
-                break;
-            case R.id.growth_stats_head_measurement:
-                setData(growthList, GrowthStatTab.HEAD_MEASUREMENT);
-                break;
-        }
-    }
+//    @Override
+//    public void onCheckedChanged(RadioGroup group, int checkedId) {
+//        Log.d(TAG, "onCheckedChanged");
+//        switch (checkedId) {
+//            case R.id.growth_stats_height:
+//                setData(growthList, GrowthStatTab.HEIGHT);
+//                break;
+//            case R.id.growth_stats_weight:
+//                setData(growthList, GrowthStatTab.WEIGHT);
+//                break;
+//            case R.id.growth_stats_head_measurement:
+//                setData(growthList, GrowthStatTab.HEAD_MEASUREMENT);
+//                break;
+//        }
+//    }
 
     private class EventListener {
         public EventListener() {
@@ -253,8 +234,8 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         LineData data = new LineData(xVals, dataSets);
 
         // set data
-        lineChart.setData(data);
-        lineChart.notifyDataSetChanged();
-        lineChart.invalidate();
+//        lineChart.setData(data);
+//        lineChart.notifyDataSetChanged();
+//        lineChart.invalidate();
     }
 }

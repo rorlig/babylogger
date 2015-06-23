@@ -88,7 +88,7 @@ public class ProfileActivity extends InjectableActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //inflate the option menu items..
-//        getMenuInflater().inflate(R.menu.add_item, menu);
+//        getMenuInflater().inflate(R.menu.menu_add_item, menu);
 
         return super.onCreateOptionsMenu(menu);
     }

@@ -259,7 +259,7 @@ public class HomeFragment extends InjectableFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.home_menu, menu);
+        inflater.inflate(R.menu.menu_home, menu);
     }
 
     @Override

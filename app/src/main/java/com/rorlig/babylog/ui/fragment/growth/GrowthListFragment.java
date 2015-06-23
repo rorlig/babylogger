@@ -107,7 +107,7 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.growth_item, menu);
+        inflater.inflate(R.menu.menu_growth, menu);
     }
 
     @Override

@@ -71,7 +71,7 @@ import butterknife.InjectView;
 
 //    @Override
 //    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.add_item, menu);
+//        inflater.inflate(R.menu.menu_add_item, menu);
 //    }
 
 

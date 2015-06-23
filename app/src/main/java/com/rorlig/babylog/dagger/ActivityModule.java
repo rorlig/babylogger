@@ -38,6 +38,7 @@ import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
 import com.rorlig.babylog.ui.fragment.development.DevelopmentFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeListFragment;
+import com.rorlig.babylog.ui.fragment.diaper.DiaperStatsFragment;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedSelectFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedingListFragment;
@@ -105,6 +106,7 @@ import dagger.Provides;
             ContactSelectFragment.class,
             HomeFragment.class,
             GrowthStatsFragment.class,
+            DiaperStatsFragment.class,
             ContactsAdapter.class,
             FeedAdapter.class,
             LogItemAdapter.class,

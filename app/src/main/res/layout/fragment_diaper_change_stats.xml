@@ -35,13 +35,7 @@
             android:textSize="14sp"
             />
 
-        <RadioButton android:id="@+id/diaper_change_stats_day"
-            style="@style/RadioButton"
-            android:background="@drawable/radio_button_center"
-            android:text="@string/diaper_change_stats_title_day"
-            android:layout_marginLeft="-1dp"
-            android:textSize="14sp"
-            />
+
     </RadioGroup>
 
 
@@ -50,6 +44,6 @@
         android:id="@+id/diaper_bar_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/diaper_change_stats_title"
+        android:layout_below="@+id/diaper_change_stats_time"
         />
 </RelativeLayout>

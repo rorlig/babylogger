@@ -28,6 +28,8 @@ import com.rorlig.babylog.db.BabyLoggerORMUtils;
 import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
+import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
+import com.rorlig.babylog.otto.events.stats.StatsItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.adapter.DiaperChangeAdapter;
 import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
@@ -196,7 +198,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.diaper_change_menu, menu);
+        inflater.inflate(R.menu.menu_diaper_change, menu);
     }
 
 
@@ -206,6 +208,9 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
         switch (item.getItemId()) {
             case R.id.action_add:
                 scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
+                return true;
+            case R.id.action_stats:
+                scopedBus.post(new StatsItemEvent(StatsItemTypes.STATS));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

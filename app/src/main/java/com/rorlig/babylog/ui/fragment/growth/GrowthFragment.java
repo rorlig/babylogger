@@ -333,6 +333,7 @@ public class GrowthFragment extends InjectableFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu_main, menu);
     }
 
