@@ -3,6 +3,8 @@ package com.rorlig.babylog.dao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Date;
+
 /**
  * @author gaurav gupta
  * Milestone Dao
@@ -42,12 +44,12 @@ public class MilestonesDao extends BaseDao {
                          boolean completed,
                          String title,
                          Long completionDate,
-                         Long time) {
+                         Date time) {
         this.completionDateRange = completionDateRange;
         this.completed = completed;
         this.title = title;
         this.completionDate = completionDate;
-        this.time = time;
+        this.date = new Date(time.getTime());
     }
 
     @Override

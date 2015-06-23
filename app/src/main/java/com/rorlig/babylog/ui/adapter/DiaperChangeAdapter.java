@@ -90,8 +90,8 @@ public class DiaperChangeAdapter extends ArrayAdapter<DiaperChangeDao> {
         Log.d(TAG, "merchant " + diaperChangeDao);
 
         viewHolder  = (ViewHolder) view.getTag();
-        Log.d(TAG, " date is " + new Date(diaperChangeDao.getTime()).toString());
-        viewHolder.textViewTime.setText(simpleDateFormat.format(new Date(diaperChangeDao.getTime())));
+        Log.d(TAG, " date is " + new Date(diaperChangeDao.getDate().getTime()).toString());
+        viewHolder.textViewTime.setText(simpleDateFormat.format(new Date(diaperChangeDao.getDate().getTime())));
 
         setDiaperChangeType(diaperChangeDao, viewHolder);
         setDiaperColor(diaperChangeDao,viewHolder);

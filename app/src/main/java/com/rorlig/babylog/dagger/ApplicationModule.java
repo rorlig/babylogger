@@ -157,22 +157,22 @@ public class ApplicationModule
 //        return (AccountService)paramRestAdapter.create(AccountService.class);
 //    }
 
-//    @Provides
-//    @Singleton
-//    Downloader provideDownloader(@ForApplication Context paramContext){
-//        return new OkHttpDownloader(paramContext);
-//    }
+    @Provides
+    @Singleton
+    Downloader provideDownloader(@ForApplication Context paramContext){
+        return new OkHttpDownloader(paramContext);
+    }
 
 //    @Provides
 //    EventInfo provideEventInfo(EventManager paramEventManager){
 //        return paramEventManager.getEventInfo();
 //    }
 
-//    @Provides
-//    @Singleton
-//    ExecutorService provideExecutorService(){
-//        return Executors.newCachedThreadPool();//todo
-//    }
+    @Provides
+    @Singleton
+    ExecutorService provideExecutorService(){
+        return Executors.newCachedThreadPool();//todo
+    }
 
 //    @Provides
 //    @Singleton

@@ -42,7 +42,11 @@ public class ProfileDao implements Parcelable {
 
     }
 
-    public ProfileDao(String merchantName, int cardValue, long cardBuyTime, boolean isSend, String contactName, String imageURL) {
+    public ProfileDao(String merchantName,
+                      int cardValue,
+                      long cardBuyTime,
+                      boolean isSend,
+                      String contactName, String imageURL) {
         this.merchantName = merchantName;
         this.cardValue = cardValue;
         this.cardBuyTime  = cardBuyTime;

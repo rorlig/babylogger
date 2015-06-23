@@ -37,6 +37,7 @@ import com.squareup.otto.Subscribe;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -404,7 +405,7 @@ public class NursingFeedFragment extends InjectableFragment {
         Log.d(TAG, "save btn clicked");
         Dao<FeedDao, Integer> feedDao;
         FeedDao daoObject;
-        Long time = dateTimeHeader.getEventTime();
+        Date date = dateTimeHeader.getEventTime();
         //stop the service....
         getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
         if (leftStarted) {
@@ -427,7 +428,7 @@ public class NursingFeedFragment extends InjectableFragment {
                     "" , -1.0,
                     deltaL,
                     deltaR, notes.getText().toString(),
-                    time);
+                    date);
 //            switch (diaperChangeType.getCheckedRadioButtonId()) {
 //                case R.id.diaper_wet:
 //                    daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, diaperIncident, notes.getText().toString(), time );

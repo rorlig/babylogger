@@ -197,7 +197,7 @@ public class DateTimeHeaderFragment extends InjectableFragment {
         }
     }
 
-    public Long getEventTime() {
+    public Date getEventTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy");
 //            currentDateLong = dateSetEvent.getCalendar();
         try {
@@ -213,18 +213,18 @@ public class DateTimeHeaderFragment extends InjectableFragment {
                 offset = offset + z.getDSTSavings();
             }
             Log.d(TAG, "offset " + offset);
-            return new Date(dayInMillis+timeInMillis+offset).getTime();
+            return new Date(dayInMillis+timeInMillis+offset);
 
 //            if (TimeZone.getDefault().inDaylightTime(new Date())){
-//                return new Date(dayInMillis + timeInMillis + curr.get(Calendar.ZONE_OFFSET) + curr.get(Calendar.DST_OFFSET)).getTime();
+//                return new Date(dayInMillis + timeInMillis + curr.get(Calendar.ZONE_OFFSET) + curr.get(Calendar.DST_OFFSET)).getDate();
 //            } else {
-//                return new Date(dayInMillis + timeInMillis + curr.get(Calendar.ZONE_OFFSET)).getTime();
+//                return new Date(dayInMillis + timeInMillis + curr.get(Calendar.ZONE_OFFSET)).getDate();
 //            }
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return -1L;
+        return null;
     }
 
 }

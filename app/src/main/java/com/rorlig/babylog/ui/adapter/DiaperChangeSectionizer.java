@@ -40,11 +40,11 @@ public class DiaperChangeSectionizer implements Sectionizer<BaseDao> {
     @Override
     public String getSectionTitleForItem(BaseDao instance) {
         PrettyTime prettyTime = new PrettyTime();
-        String sectionTitle = prettyTime.format(new Date(instance.getTime()));
+        String sectionTitle = prettyTime.format(new Date(instance.getDate().getTime()));
 
         Long currentTime = System.currentTimeMillis();
-        Log.d(TAG, " currentTime " + currentTime + " diaper change time " + instance.getTime());
-        Long diff = currentTime - instance.getTime();
+        Log.d(TAG, " currentTime " + currentTime + " diaper change time " + instance.getDate());
+        Long diff = currentTime - instance.getDate().getTime();
         Log.d(TAG, "diff " + diff);
         if (diff< LENGTH_DAY) {
             return TODAY;

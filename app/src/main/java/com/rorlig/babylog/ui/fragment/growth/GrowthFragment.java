@@ -24,6 +24,7 @@ import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -276,7 +277,7 @@ public class GrowthFragment extends InjectableFragment {
     public void saveBtnClicked() {
         Dao<GrowthDao, Integer> growthDao;
         GrowthDao daoObject;
-        Long time = dateTimeHeader.getEventTime();
+        Date date = dateTimeHeader.getEventTime();
         Integer weightPounds = Integer.parseInt(weightPoundsEditText.getText().toString());
 
         Integer weightOunces = Integer.parseInt(weightOuncesEditText.getText().toString());
@@ -294,7 +295,7 @@ public class GrowthFragment extends InjectableFragment {
             growthDao = babyLoggerORMLiteHelper.getGrowthDao();
 
 
-            daoObject  = new GrowthDao(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), time);
+            daoObject  = new GrowthDao(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), date);
             growthDao.create(daoObject);
 //            feedDao.create(daoObject);
             Log.d(TAG, "created objected " + daoObject);

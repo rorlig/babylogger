@@ -12,8 +12,17 @@ import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.dao.MilestonesDao;
+import com.rorlig.babylog.utils.FileUtils;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.JavaType;
+
+import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author gaurav gupta
@@ -23,13 +32,15 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
 
 
     // name of the database file for your application -- change to something appropriate for your app
-    private static final String DATABASE_NAME = "gifting.com.rorlig.babylog.db";
+    private static final String DATABASE_NAME = "com.rorlig.babylog.db";
     // any time you make changes to your database objects, you may have to increase the database version
     private static final int DATABASE_VERSION = 3;
+    private final Context context;
     private Dao<DiaperChangeDao, Integer> diaperChangeDao;
     private Dao<FeedDao, Integer> feedDao;
     private Dao<GrowthDao, Integer> growthDao;
     private Dao<MilestonesDao, Integer> milestonesDao;
+    private String TAG = "BabyLoggerORMLiteHelper";
 
     //    // the DAO object we use to access the SimpleData table
 //    private Dao<AnalyticsModel, Integer> analyticsDao = null;
@@ -37,6 +48,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
 //    private Dao<MessageDetailsModel, Integer> messageDetailsDao = null;
     public BabyLoggerORMLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     /**
@@ -66,12 +78,27 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
 
     private void populateGrowthDao() {
 
-        //todo read from assets json file...
-        try {
-            getGrowthDao().create(new GrowthDao(6.5, 12.5, 17.5,"", -1L ));
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Log.d(TAG, "populateGrowthDao");
+        ArrayList<GrowthDao> growthDaoArrayList = new ArrayList<GrowthDao>();
+        final String growthResponse = new FileUtils().loadJSONFromAsset("growth.json", context);
+        if (growthResponse!=null){
+            Log.d(TAG , growthResponse);
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                objectMapper.setDateFormat(df);
+                JavaType type = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, GrowthDao.class);
+                growthDaoArrayList = objectMapper.readValue(growthResponse, type);
+                Log.d(TAG, "growthDaoArrayList(): " + growthDaoArrayList.size());
+            } catch (IOException exception){
+                Log.d(TAG, "exception " + exception);
+            }
+
+
+
         }
+
     }
 
     private void populateFeedDao() {
@@ -85,18 +112,18 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
     private void populateMilestoneDao() {
 //        MilestonesDao milestonesDao = new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, -1L);
         try {
-            getMilestonesDao().create(new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Week 4-8", false, "Smile to Mom", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Week 0-8", false, "Lifts Head", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Follows objects with eyes", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Reaches for things", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Starts Babbling", -1L,-1L));
-            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Searches for objects", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Sits without support", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Responds to name", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Month 9-12", false, "Stands up with support", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Stands up without support", -1L, -1L));
-            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Walks", -1L, -1L));
+            getMilestonesDao().create(new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Week 4-8", false, "Smile to Mom", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Week 0-8", false, "Lifts Head", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Follows objects with eyes", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Reaches for things", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Starts Babbling", -1L,new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Searches for objects", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Sits without support", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Responds to name", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 9-12", false, "Stands up with support", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Stands up without support", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Walks", -1L, new Date(0)));
         } catch (SQLException e) {
             e.printStackTrace();
         }

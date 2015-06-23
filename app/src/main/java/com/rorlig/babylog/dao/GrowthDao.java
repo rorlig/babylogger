@@ -3,6 +3,8 @@ package com.rorlig.babylog.dao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Date;
+
 /**
  * @author gaurav gupta
  * Growth Dao
@@ -36,11 +38,11 @@ public class GrowthDao extends BaseDao {
     public GrowthDao() {
     }
 
-    public GrowthDao(Double weight, Double headMeasurement, Double height, String notes, Long time) {
+    public GrowthDao(Double weight, Double headMeasurement, Double height, String notes, Date time) {
         this.weight = weight;
         this.headMeasurement = headMeasurement;
         this.height = height;
-        this.time = time;
+        this.date = new Date(time.getTime());
         this.notes = notes;
     }
 

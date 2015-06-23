@@ -136,7 +136,7 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
 
         vh.left.setText("Left Breast: " +  feedDao.getLeftBreastTime() + " seconds ");
         vh.right.setText("Left Breast: " +  feedDao.getRightBreastTime() + " seconds ");
-        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getTime())));
+        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getDate().getTime())));
         vh.notesTextView.setText(feedDao.getNotes());
 
 
@@ -162,7 +162,7 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
         final FeedDao feedDao = feedDaoList.get(position);
 
         vh.txtType.setText(feedDao.getFeedItem() + " " + feedDao.getQuantity());
-        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getTime())));
+        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getDate().getTime())));
         vh.notesTextView.setText(feedDao.getNotes());
 
         return convertView;

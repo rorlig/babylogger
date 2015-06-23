@@ -29,6 +29,7 @@ import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -190,7 +191,7 @@ public class BottleFeedFragment extends InjectableFragment
             Log.d(TAG, "double value " + Double.parseDouble(quantityTextView.getText().toString()));
             Dao<FeedDao, Integer> feedDao;
             FeedDao daoObject;
-            Long time = dateTimeHeader.getEventTime();
+            Date date = dateTimeHeader.getEventTime();
             Log.d(TAG, "feedTypeSpinner " + feedTypeSpinner);
             try {
                 feedDao = babyLoggerORMLiteHelper.getFeedDao();
@@ -201,7 +202,7 @@ public class BottleFeedFragment extends InjectableFragment
                         Double.parseDouble(quantityTextView.getText().toString()),
                         -1L,
                         -1L, notes.getText().toString(),
-                        time);
+                        date);
 //            switch (diaperChangeType.getCheckedRadioButtonId()) {
 //                case R.id.diaper_wet:
 //                    daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, diaperIncident, notes.getText().toString(), time );

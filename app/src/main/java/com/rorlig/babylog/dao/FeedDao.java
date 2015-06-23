@@ -5,6 +5,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.rorlig.babylog.model.feed.FeedType;
 
+import java.util.Date;
+
 /**
  * @author gaurav gupta
  * Feed Dao
@@ -28,11 +30,11 @@ public class FeedDao extends BaseDao {
     @DatabaseField
     Double quantity;
 
-    //left breast time
+    //left breast date
     @DatabaseField
     Long leftBreastTime;
 
-    //right breast time
+    //right breast date
     @DatabaseField
     Long rightBreastTime;
 
@@ -44,13 +46,13 @@ public class FeedDao extends BaseDao {
     public FeedDao() {
     }
 
-    public FeedDao(FeedType feedType, String feedItem, Double quantity, Long leftBreastTime, Long rightBreastTime, String notes, Long time) {
+    public FeedDao(FeedType feedType, String feedItem, Double quantity, Long leftBreastTime, Long rightBreastTime, String notes, Date time) {
         this.feedType = feedType;
         this.feedItem = feedItem;
         this.quantity = quantity;
         this.leftBreastTime = leftBreastTime;
         this.rightBreastTime = rightBreastTime;
-        this.time = time;
+        this.date = new Date(time.getTime());
         this.notes = notes;
     }
 

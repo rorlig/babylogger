@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.fragment.milestones;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -278,7 +277,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         public void onMileStoneSaved(MilestoneSaveEvent event){
 
             Date date = new Date(event.getYear(), event.getMonth(), event.getDay());
-            setCompleted(event.getPosition(), date.getTime(), true);
+            setCompleted(event.getPosition(), date, true);
         }
 
 
@@ -312,10 +311,10 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
             }
         }
 
-        private void setCompleted(int position, long time, boolean value) {
+        private void setCompleted(int position, Date date, boolean value) {
             MilestonesDao milestoneItem = milestoneData.get(position);
             milestoneItem.setCompleted(value);
-            milestoneItem.setTime(time);
+            milestoneItem.setDate(date);
 
 
             try {

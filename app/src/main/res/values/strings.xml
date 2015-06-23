@@ -79,12 +79,12 @@
     <string name="only_noted_label">Only noted</string>
     <string name="only_scheduled_label">Only scheduled</string>
     <string name="presentation_finished">Ended</string>
-    <string name="presentation_header_time">Day <g id="day">%1$d</g> | <g id="time">%2$s</g></string>
-    <string name="presentation_live">NOW LIVE <g id="time">%1$s</g> remaining</string>
+    <string name="presentation_header_time">Day <g id="day">%1$d</g> | <g id="date">%2$s</g></string>
+    <string name="presentation_live">NOW LIVE <g id="date">%1$s</g> remaining</string>
     <string name="presentation_live_substring">NOW LIVE</string>
     <string name="presentation_speakers">Speakers</string>
-    <string name="presentation_time">Day <g id="day">%1$d</g> | <g id="time">%2$s</g></string>
-    <string name="presentation_time_no_day"><g id="time">%2$s</g></string>
+    <string name="presentation_time">Day <g id="day">%1$d</g> | <g id="date">%2$s</g></string>
+    <string name="presentation_time_no_day"><g id="date">%2$s</g></string>
     <string name="presentation_topics">Topics</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_first_name">First name</string>
@@ -104,9 +104,9 @@
     <string name="settings_debug">Debug</string>
     <string name="settings_debug_date">Date</string>
     <string name="settings_debug_time">Time</string>
-    <string name="settings_debug_use_mock_time">Use mock time</string>
-    <string name="settings_debug_use_mock_time_off">Not using mock time</string>
-    <string name="settings_debug_use_mock_time_on">Using mock time</string>
+    <string name="settings_debug_use_mock_time">Use mock date</string>
+    <string name="settings_debug_use_mock_time_off">Not using mock date</string>
+    <string name="settings_debug_use_mock_time_on">Using mock date</string>
     <string name="settings_devoxx_account">Devoxx account</string>
     <string name="settings_event">Event</string>
     <string name="settings_event_no_event_selected">No event selected</string>
@@ -135,7 +135,7 @@
     <string name="settings_reminders_never">Never</string>
     <string name="snooze_x_min">Snooze <g id="remaining_time">%1$d</g> min.</string>
     <string name="speaker_presentations">Presentations</string>
-    <string name="time_and_room"><g id="time">%1$s</g> | <g id="room">%2$s</g></string>
+    <string name="time_and_room"><g id="date">%1$s</g> | <g id="room">%2$s</g></string>
     <string name="title_about">About</string>
     <string name="title_edit_note">Edit note</string>
     <string name="title_login">Login</string>
@@ -220,7 +220,7 @@
     <string name="timer_start">OK</string>
     <string name="timer_cancel">Cancel</string>
 
-    <string name="save_time">save time</string>
+    <string name="save_time">save date</string>
     <string name="splittimes">Split Times</string>
     <string name="lap_time_recorded">Lap Time Recorded</string>
     <string name="delete">Delete</string>

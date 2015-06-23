@@ -126,7 +126,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
         try {
-            queryBuilder = babyORMLiteUtils.getDiaperChangeDao().queryBuilder().orderBy("time", false).prepare();
+            queryBuilder = babyORMLiteUtils.getDiaperChangeDao().queryBuilder().orderBy("date", false).prepare();
         } catch (SQLException e) {
             e.printStackTrace();
         }

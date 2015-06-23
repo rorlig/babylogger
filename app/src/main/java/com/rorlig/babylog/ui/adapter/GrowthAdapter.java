@@ -90,7 +90,7 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
 
         vh.weightTextView.setText(growthDao.getWeight() + " pounds");
 
-        vh.textViewTime.setText(simpleDateFormat.format(new Date(growthDao.getTime())));
+        vh.textViewTime.setText(simpleDateFormat.format(new Date(growthDao.getDate().getTime())));
 
         vh.notesContentTextView.setText(growthDao.getNotes());
 
@@ -99,7 +99,7 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
 
 
 //        vh.txtType.setText(feedDao.getFeedItem() + " " + feedDao.getQuantity());
-//        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getTime())));
+//        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getDate())));
 
         return convertView;
     }

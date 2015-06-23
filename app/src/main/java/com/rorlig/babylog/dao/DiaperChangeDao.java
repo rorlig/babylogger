@@ -1,8 +1,5 @@
 package com.rorlig.babylog.dao;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.rorlig.babylog.model.diaper.DiaperChangeColorType;
@@ -10,12 +7,14 @@ import com.rorlig.babylog.model.diaper.DiaperChangeEnum;
 import com.rorlig.babylog.model.diaper.DiaperChangeTextureType;
 import com.rorlig.babylog.model.diaper.DiaperIncident;
 
+import java.util.Date;
+
 /**
  * @author gaurav gupta
  * Diaper Change Dao
  */
 @DatabaseTable
-public class DiaperChangeDao extends BaseDao implements Parcelable {
+public class DiaperChangeDao extends BaseDao  {
 
     //generated id
     @DatabaseField(generatedId = true)
@@ -50,13 +49,13 @@ public class DiaperChangeDao extends BaseDao implements Parcelable {
                            DiaperChangeTextureType poopTexture,
                            DiaperChangeColorType poopColor,
                            DiaperIncident diaperChangeIncidentType,
-                           java.lang.String diaperChangeNotes, Long time) {
+                           java.lang.String diaperChangeNotes, Date time) {
         this.diaperChangeEventType = diaperChangeEventType;
         this.poopTexture = poopTexture;
         this.poopColor = poopColor;
         this.diaperChangeIncidentType = diaperChangeIncidentType;
         this.diaperChangeNotes = diaperChangeNotes;
-        this.time = time;
+        this.date = new Date(time.getTime());
     }
 
     @Override
@@ -68,50 +67,12 @@ public class DiaperChangeDao extends BaseDao implements Parcelable {
                 ", poopColor=" + poopColor +
                 ", diaperChangeIncidentType=" + diaperChangeIncidentType +
                 ", diaperChangeNotes='" + diaperChangeNotes + '\'' +
-                ", time=" + time +
+                ", date=" + date +
                 '}';
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeInt(this.diaperChangeEventType == null ? -1 : this.diaperChangeEventType.ordinal());
-        dest.writeInt(this.poopTexture == null ? -1 : this.poopTexture.ordinal());
-        dest.writeInt(this.poopColor == null ? -1 : this.poopColor.ordinal());
-        dest.writeInt(this.diaperChangeIncidentType == null ? -1 : this.diaperChangeIncidentType.ordinal());
-        dest.writeString(this.diaperChangeNotes);
-        dest.writeValue(this.time);
-    }
-
-    private DiaperChangeDao(Parcel in) {
-        this.id = in.readInt();
-        int tmpDiaperChangeEventType = in.readInt();
-        this.diaperChangeEventType = tmpDiaperChangeEventType == -1 ? null : DiaperChangeEnum.values()[tmpDiaperChangeEventType];
-        int tmpPopTexture = in.readInt();
-        this.poopTexture = tmpPopTexture == -1 ? null : DiaperChangeTextureType.values()[tmpPopTexture];
-        int tmpPopColor = in.readInt();
-        this.poopColor = tmpPopColor == -1 ? null : DiaperChangeColorType.values()[tmpPopColor];
-        int tmpDiaperChangeIncidentType = in.readInt();
-        this.diaperChangeIncidentType = tmpDiaperChangeIncidentType == -1 ? null : DiaperIncident.values()[tmpDiaperChangeIncidentType];
-        this.diaperChangeNotes = in.readString();
-        this.time = (Long) in.readValue(Long.class.getClassLoader());
-    }
-
-    public static final Creator<DiaperChangeDao> CREATOR = new Creator<DiaperChangeDao>() {
-        public DiaperChangeDao createFromParcel(Parcel source) {
-            return new DiaperChangeDao(source);
-        }
-
-        public DiaperChangeDao[] newArray(int size) {
-            return new DiaperChangeDao[size];
-        }
-    };
 
     public DiaperChangeEnum getDiaperChangeEventType() {
         return diaperChangeEventType;
@@ -132,6 +93,7 @@ public class DiaperChangeDao extends BaseDao implements Parcelable {
     public java.lang.String getDiaperChangeNotes() {
         return diaperChangeNotes;
     }
+
 
 
 }

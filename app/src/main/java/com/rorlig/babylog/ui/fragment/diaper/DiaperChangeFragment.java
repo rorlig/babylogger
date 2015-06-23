@@ -40,6 +40,7 @@ import com.squareup.otto.Subscribe;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -243,23 +244,23 @@ public class DiaperChangeFragment extends InjectableFragment {
         DiaperChangeTextureType diaperChangeTexture;
         DiaperIncident diaperIncident = getDiaperIncident();
         DiaperChangeColorType diaperChangeColorType = getDiaperColor();
-        Long time = dateTimeHeader.getEventTime();
+        Date date = dateTimeHeader.getEventTime();
         try {
             diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao();
             switch (diaperChangeType.getCheckedRadioButtonId()) {
                 case R.id.diaper_wet:
-                    daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, diaperIncident, notes.getText().toString(), time );
+                    daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, diaperIncident, notes.getText().toString(), date );
                     break;
                 case R.id.diaper_both:
 
                     diaperChangeTexture = getDiaperChangeTexture();
                     daoObject = new DiaperChangeDao(DiaperChangeEnum.BOTH, diaperChangeTexture, diaperChangeColorType,
-                            diaperIncident, notes.getText().toString(), time );
+                            diaperIncident, notes.getText().toString(), date );
                     break;
                 default:
                     diaperChangeTexture = getDiaperChangeTexture();
                     daoObject = new DiaperChangeDao(DiaperChangeEnum.POOP, diaperChangeTexture, diaperChangeColorType,
-                            diaperIncident, notes.getText().toString(), time );
+                            diaperIncident, notes.getText().toString(), date );
 
                     break;
             }
@@ -365,7 +366,7 @@ public class DiaperChangeFragment extends InjectableFragment {
             Log.d(TAG, "dateSetEvent " + dateSetEvent);
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy");
 //            currentDateLong = dateSetEvent.getCalendar();
-//            currentDate.setText(sdf.format(dateSetEvent.getCalendar().getTime()));
+//            currentDate.setText(sdf.format(dateSetEvent.getCalendar().getDate()));
         }
 
         @Subscribe

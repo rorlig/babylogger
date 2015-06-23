@@ -120,7 +120,7 @@ public class BabyLoggerORMUtils {
      * Helper method to get a list of diapers in the selected time range....
      */
     public List<DiaperChangeDao> getDiaperChangeList(Long startTime, Long endTime) throws SQLException {
-        QueryBuilder<DiaperChangeDao, Integer> queryBuilder = getDiaperChangeDao().queryBuilder().orderBy("time", false);
+        QueryBuilder<DiaperChangeDao, Integer> queryBuilder = getDiaperChangeDao().queryBuilder().orderBy("date", false);
 //        queryBuilder.where().eq("isSend", false);
 
         queryBuilder.where().lt("callStartTime", endTime)
@@ -131,7 +131,7 @@ public class BabyLoggerORMUtils {
 
 
     public List<DiaperChangeDao> getDiaperChangeList() throws SQLException {
-        QueryBuilder<DiaperChangeDao, Integer> queryBuilder = getDiaperChangeDao().queryBuilder().orderBy("time", false);
+        QueryBuilder<DiaperChangeDao, Integer> queryBuilder = getDiaperChangeDao().queryBuilder().orderBy("date", false);
 //        queryBuilder.where().eq("isSend", false);
         Log.d(TAG, " query size " + queryBuilder.query().size());
         return queryBuilder.query();
@@ -146,14 +146,14 @@ public class BabyLoggerORMUtils {
 
 
     public List<FeedDao> getFeedList() throws SQLException {
-        QueryBuilder<FeedDao, Integer> queryBuilder = getFeedDao().queryBuilder().orderBy("time", false);
+        QueryBuilder<FeedDao, Integer> queryBuilder = getFeedDao().queryBuilder().orderBy("date", false);
 //        queryBuilder.where().eq("isSend", false);
         Log.d(TAG, " query size " + queryBuilder.query().size());
         return queryBuilder.query();
     }
 
     public List<GrowthDao> getGrowthList() throws SQLException {
-        QueryBuilder<GrowthDao, Integer> queryBuilder = getGrowthDao().queryBuilder().orderBy("time", false);
+        QueryBuilder<GrowthDao, Integer> queryBuilder = getGrowthDao().queryBuilder().orderBy("date", false);
 //        queryBuilder.where().eq("isSend", false);
         Log.d(TAG, " query size " + queryBuilder.query().size());
         return queryBuilder.query();
