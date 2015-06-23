@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.fragment.growth;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -24,6 +23,8 @@ import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
+import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
+import com.rorlig.babylog.otto.events.stats.StatsItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
 import com.rorlig.babylog.ui.adapter.GrowthAdapter;
@@ -106,7 +107,7 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.add_item, menu);
+        inflater.inflate(R.menu.growth_item, menu);
     }
 
     @Override
@@ -181,6 +182,8 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
             case R.id.action_add:
                 scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
                 return true;
+            case R.id.action_stats:
+                scopedBus.post(new StatsItemEvent(StatsItemTypes.STATS));
             default:
                 return super.onOptionsItemSelected(item);
         }

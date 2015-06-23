@@ -44,6 +44,7 @@ import com.rorlig.babylog.ui.fragment.feed.FeedingListFragment;
 import com.rorlig.babylog.ui.fragment.feed.NursingFeedFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
+import com.rorlig.babylog.ui.fragment.growth.GrowthStatsFragment;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.rorlig.babylog.ui.fragment.home.LaunchFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestoneListFragment;
@@ -105,6 +106,7 @@ import dagger.Provides;
             ContactSelectFragment.class,
             HomeFragment.class,
             LaunchFragment.class,
+            GrowthStatsFragment.class,
             ContactsAdapter.class,
             FeedAdapter.class,
             LogItemAdapter.class,

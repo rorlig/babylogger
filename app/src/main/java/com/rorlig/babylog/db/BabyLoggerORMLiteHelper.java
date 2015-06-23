@@ -91,14 +91,15 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
                 JavaType type = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, GrowthDao.class);
                 growthDaoArrayList = objectMapper.readValue(growthResponse, type);
                 Log.d(TAG, "growthDaoArrayList(): " + growthDaoArrayList.size());
+                for (GrowthDao growthDao: growthDaoArrayList) {
+                    getGrowthDao().create(growthDao);
+                }
             } catch (IOException exception){
                 Log.d(TAG, "exception " + exception);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-
-
         }
-
     }
 
     private void populateFeedDao() {

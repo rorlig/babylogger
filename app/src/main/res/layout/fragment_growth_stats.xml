@@ -17,7 +17,7 @@
 
     <RadioGroup
         style="@style/RadioGroup"
-        android:id="@+id/diaper_change_stats_time"
+        android:id="@+id/growth_stats_radio_button"
         android:layout_below="@+id/growth_stats_title">
 
         <RadioButton android:id="@+id/growth_stats_weight"
@@ -51,6 +51,6 @@
         android:id="@+id/growth_stats_line_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/growth_stats_title"
+        android:layout_below="@+id/growth_stats_radio_button"
         />
 </RelativeLayout>

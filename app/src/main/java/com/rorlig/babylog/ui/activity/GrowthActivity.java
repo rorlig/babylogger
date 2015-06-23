@@ -14,9 +14,11 @@ import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
+import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
+import com.rorlig.babylog.ui.fragment.growth.GrowthStatsFragment;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
@@ -244,6 +246,15 @@ public class GrowthActivity extends InjectableActivity {
 //            Log.d(TAG, "onFeedSavedEvent");
 //            finish();
             showFragment(GrowthListFragment.class, "growth_list_fragment",true);
+        }
+
+        @Subscribe
+        public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
+            switch (statsItemEvent.getStatsItemType()){
+                case STATS: {
+                    showFragment(GrowthStatsFragment.class, "growth_stats_fragment", false);
+                }
+            }
         }
 
 

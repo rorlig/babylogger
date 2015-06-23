@@ -303,7 +303,7 @@
     <string name="sleep_stats_title">Sleep Stats</string>
     <string name="growth_stats_weight">Weight</string>
     <string name="growth_stats_height">Height</string>
-    <string name="growth_stats_head_measurement">Head Measurement</string>
+    <string name="growth_stats_head_measurement">HM</string>
 
 
 </resources>
