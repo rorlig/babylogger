@@ -45,43 +45,13 @@ public class HomeItemAdapter extends ArrayAdapter<ItemModel> {
      * @param logListItem
      */
     public HomeItemAdapter(Activity context, int resource, ArrayList<ItemModel> logListItem) {
-    super(context, R.layout.list_item_home);
+        super(context, R.layout.list_item_home);
         this.context = context;
         this.logListItem = new ArrayList<ItemModel>(logListItem);
-
         iconArr = context.getResources().obtainTypedArray(R.array.itemIcons);
 
-
-
-        Log.d(TAG, ""  + this.logListItem);
-//        itemNames = context.getResources().getStringArray(R.array.items);
-//
-//        itemStates = context.getResources().getIntArray(R.array.itemStates);
-//        int index = 0;
-//        for (; index<itemStates.length; ++index) {
-//            ItemModel itemModel;
-//            Log.d(TAG, "itemState " + itemStates[index] + " item " + itemNames[index]);
-//            if (itemStates[index]==1) {
-//                Log.d(TAG, "1");
-//                 itemModel = new ItemModel(itemNames[index], true);
-//                itemModel.setItemChecked(true);
-//
-//            } else  {
-//                itemModel = new ItemModel(itemNames[index], false);
-//
-//            }
-//
-////            itemModel = new ItemModel(itemNames[index], false);
-//
-//            logListItem.add(itemModel);
-
-            ((InjectableActivity)context).inject(this);
-
-//            ++index;
-        }
-
-
-//        Log.d(TAG, "listitem size " + logListItem.length);
+        ((InjectableActivity) context).inject(this);
+    }
 
 
     /**
