@@ -103,34 +103,16 @@ public class HomeItemAdapter extends ArrayAdapter<ItemModel> {
             viewHolder = new ViewHolder(convertView);
             viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.log_item_label);
             viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.icon_image);
-
-            viewHolder.logItemLabel.setText(item.getItemName());
-
-            viewHolder.itemImage.setImageDrawable(context.getResources().getDrawable(iconArr.getResourceId(position,0)));
-
-
-
-
-
-
-
-//            viewHolder.logItemCheckBox.setEnabled(item.isItemChecked());
-            Log.d(TAG, "position " + position + " item " + item);
-
-//            if (item.isItemChecked()) {
-//                viewHolder.logItemCheckBox.setEnabled(false);
-//             }
+//            Log.d(TAG, "position " + position + " item " + item);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        // Populate the data into the template view using the data object
 
-//        if (item.isItemChecked()) {
-//            viewHolder.logItemCheckBox.setEnabled(false);
-//        }
-//        viewHolder.logItemCheckBox.setText(item);
-        // Return the completed view to render on screen
+        viewHolder.logItemLabel.setText(item.getItemName());
+
+        viewHolder.itemImage.setImageDrawable(context.getResources().getDrawable(iconArr.getResourceId(position,0)));
+
         return convertView;
     }
 
