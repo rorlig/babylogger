@@ -54,7 +54,7 @@ public class GrowthDao extends BaseDao {
                 ", weight=" + weight +
                 ", headMeasurement=" + headMeasurement +
                 ", height=" + height +
-                ", notes='" + notes + '\'' +
+                ", notes='" + notes + '\'' + super.toString() +
                 '}';
     }
 

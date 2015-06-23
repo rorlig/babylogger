@@ -153,7 +153,7 @@ public class BabyLoggerORMUtils {
     }
 
     public List<GrowthDao> getGrowthList() throws SQLException {
-        QueryBuilder<GrowthDao, Integer> queryBuilder = getGrowthDao().queryBuilder().orderBy("date", false);
+        QueryBuilder<GrowthDao, Integer> queryBuilder = getGrowthDao().queryBuilder().orderBy("date", true);
 //        queryBuilder.where().eq("isSend", false);
         Log.d(TAG, " query size " + queryBuilder.query().size());
         return queryBuilder.query();
