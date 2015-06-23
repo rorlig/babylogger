@@ -115,7 +115,7 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
             e.printStackTrace();
         }
         //setData
-        setData(growthList);
+        setData(growthList, GrowthStatTab.WEIGHT);
 
 
 
@@ -162,10 +162,13 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         Log.d(TAG, "onCheckedChanged");
         switch (checkedId) {
             case R.id.growth_stats_height:
+                setData(growthList, GrowthStatTab.HEIGHT);
                 break;
             case R.id.growth_stats_weight:
+                setData(growthList, GrowthStatTab.WEIGHT);
                 break;
             case R.id.growth_stats_head_measurement:
+                setData(growthList, GrowthStatTab.HEAD_MEASUREMENT);
                 break;
         }
     }
@@ -177,7 +180,10 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
     }
 
 
-    private void setData(List<GrowthDao> growthList) {
+    private void setData(List<GrowthDao> growthList, GrowthStatTab growthStatTab) {
+
+        //todo range...
+        //todo shift on basis of height/weight/hm and the labels...
 
         Log.d(TAG, "growthList size " + growthList.size());///
 
@@ -188,9 +194,20 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         for (GrowthDao growthDao: growthList) {
             Log.d(TAG, growthDao.toString());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM ''yy");
-
+            float val;
+            switch (growthStatTab) {
+                case WEIGHT:
+                    val =  (float) growthDao.getWeight().doubleValue();
+                    break;
+                case HEIGHT:
+                    val = (float) growthDao.getHeight().doubleValue();
+                    break;
+                default:
+                    val = (float) growthDao.getHeadMeasurement().doubleValue();
+                    break;
+            }
             xVals.add(simpleDateFormat.format(growthDao.getDate()));
-            float val = (float) growthDao.getWeight().doubleValue();
+//            float val = (float) growthDao.getWeight().doubleValue();
             yVals.add(new Entry(val, i));
             i++;
         }
@@ -212,14 +229,16 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
 
         // set the line to be drawn like this "- - - - - -"
         set1.enableDashedLine(10f, 5f, 0f);
-        set1.setColor(Color.BLACK);
-        set1.setCircleColor(Color.BLACK);
+        set1.setColor(getActivity().getResources().getColor(R.color.primary_dark));
+        set1.setCircleColor(Color.BLUE);
         set1.setLineWidth(1f);
         set1.setCircleSize(3f);
         set1.setDrawCircleHole(false);
         set1.setValueTextSize(9f);
         set1.setFillAlpha(65);
         set1.setFillColor(Color.BLACK);
+        set1.setDrawCubic(true);
+
 //        set1.setDrawFilled(true);
         // set1.setShader(new LinearGradient(0, 0, 0, mChart.getHeight(),
         // Color.BLACK, Color.WHITE, Shader.TileMode.MIRROR));
@@ -232,5 +251,7 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
 
         // set data
         lineChart.setData(data);
+        lineChart.notifyDataSetChanged();
+        lineChart.invalidate();
     }
 }
