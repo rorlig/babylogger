@@ -110,7 +110,7 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
 
         try {
-           growthList =  babyORMLiteUtils.getGrowthList();
+           growthList =  babyORMLiteUtils.getGrowthList(true);
             //setData
             setData(growthList, GrowthStatTab.WEIGHT);
         } catch (SQLException e) {

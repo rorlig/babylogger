@@ -64,7 +64,7 @@ public class GrowthLoader extends AsyncTaskLoader<List<GrowthDao>> {
         Log.d(TAG, " diaperLoader : loadInBackground");
 
         try {
-            return new BabyLoggerORMUtils(context).getGrowthList();
+            return new BabyLoggerORMUtils(context).getGrowthList(false);
         } catch (SQLException e) {
             Log.d(TAG, "sql exception " + e);
             e.printStackTrace();
