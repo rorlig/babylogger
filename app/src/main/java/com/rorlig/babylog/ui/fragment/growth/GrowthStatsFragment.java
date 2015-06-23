@@ -114,6 +114,7 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         //setData
         setData(growthList, GrowthStatTab.WEIGHT);
 
@@ -223,7 +224,7 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
 //        }
 
         // create a dataset and give it a type
-        LineDataSet set1 = new LineDataSet(yVals, "DataSet 1");
+        LineDataSet set1 = new LineDataSet(yVals, growthStatTab.toString());
         // set1.setFillAlpha(110);
         // set1.setFillColor(Color.RED);
 

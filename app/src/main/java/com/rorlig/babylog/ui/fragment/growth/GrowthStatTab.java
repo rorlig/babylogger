@@ -4,5 +4,16 @@ package com.rorlig.babylog.ui.fragment.growth;
  * @author gaurav gupta
  */
 public enum  GrowthStatTab {
-    WEIGHT, HEIGHT, HEAD_MEASUREMENT
+    WEIGHT("Weight"), HEIGHT("Height"), HEAD_MEASUREMENT("Head Measurement");
+
+    private String value;
+
+    GrowthStatTab(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }
