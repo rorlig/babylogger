@@ -168,7 +168,7 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.add_item, menu);
+        inflater.inflate(R.menu.feed_menu, menu);
     }
 
     /**

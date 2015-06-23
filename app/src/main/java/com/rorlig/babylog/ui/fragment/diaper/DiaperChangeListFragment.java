@@ -196,7 +196,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.add_item, menu);
+        inflater.inflate(R.menu.diaper_change_menu, menu);
     }
 
 
