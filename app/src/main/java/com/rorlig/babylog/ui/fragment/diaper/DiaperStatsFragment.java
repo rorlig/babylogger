@@ -29,9 +29,14 @@ import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthStatTab;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,7 +58,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
 
     protected String[] mMonths = new String[] {
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
 
 //    @InjectView(R.id.growth_stats_line_chart)
@@ -178,41 +183,55 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
     }
 
 
+    private String getDateRangeForWeek(int weekNumber){
+        Log.d(TAG, "weekNumber " + weekNumber);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
+        DateTime weekStartDate = new DateTime().withWeekOfWeekyear(weekNumber);
+        DateTime weekEndDate = new DateTime().withWeekOfWeekyear(weekNumber + 1);
+        String returnString = weekStartDate.toString(DateTimeFormat.forPattern("dd MMM")) + " to " + weekEndDate.toString(DateTimeFormat.forPattern("dd MMM"));
+        Log.d(TAG, "returnString : " + returnString);
+//        new DateTime().
+        return returnString;
+
+
+    }
 
     private void setData(List<String[]> diaperChangeDaoList, DiaperChangeStatsType diaperChangeStatsType) {
 
-
-
-//        Log.d(TAG, "diaperChangeDaoList size " + diaperChangeDaoList.size());///
-//
-//        Log.d(TAG, "creating diaper change graph");
-
         ArrayList<String> xVals = new ArrayList<String>();
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
-
         int i = 0;
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM");
-
         for (String[] diaperChangeResult: diaperChangeDaoList) {
             Log.d(TAG, "iterating the result set");
             Log.d(TAG, " i " + i + "  date " + diaperChangeResult[0] + " count " + diaperChangeResult[1]);
+
             Integer value = Integer.parseInt(diaperChangeResult[1]);
-            xVals.add(diaperChangeResult[0]);
+            String xValue = diaperChangeResult[0];
+            switch (diaperChangeStatsType) {
+                case DAY:
+                    break;
+                case WEEK:
+                    xValue = getDateRangeForWeek(Integer.parseInt(diaperChangeResult[0]));
+                    break;
+                case MONTH:
+                    Log.d(TAG, diaperChangeResult[0].substring(5));
+                    xValue = mMonths[Integer.parseInt(diaperChangeResult[0].substring(5))-1];
+
+
+                    break;
+            }
+            xVals.add(xValue);
+
             yVals.add(new BarEntry(value, i));
             i++;
         }
 
         BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
         set1.setBarSpacePercent(35f);
-
         ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
         dataSets.add(set1);
-
         BarData data = new BarData(xVals, dataSets);
-
-
         barChart.setData(data);
-
         barChart.notifyDataSetChanged();
         barChart.invalidate();
     }

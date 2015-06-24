@@ -24,7 +24,6 @@
             android:background="@drawable/radio_button_center"
             android:text="@string/diaper_change_stats_title_day"
             android:checked="true"
-            android:layout_marginLeft="-1dp"
             android:textSize="14sp"
             />
 

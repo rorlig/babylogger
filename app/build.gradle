@@ -92,6 +92,10 @@ dependencies {
 
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.0'
 
+
+    // joda-time
+    compile 'joda-time:joda-time:2.7' // for joda
+
     //tutorial view...
     compile 'com.github.paolorotolo:appintro:1.4.0'
 
@@ -108,6 +112,7 @@ dependencies {
 
 
     compile project(':squarecamera')
+
 
 
 
