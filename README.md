@@ -22,3 +22,5 @@
 + Backing up to cloud via Parse or Personal Server 
 + Web component for the application. 
 + Equivalent IOS Application. 
++ Reminders
++ Milestone Pictures 
