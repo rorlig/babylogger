@@ -98,8 +98,8 @@ public class CustomEditText extends EditText {
 
                 if (!bounds.contains(actionX, actionY)) {
                     /** Gives the +20 area for tapping. */
-                    x = (int) (actionX - extraTapArea);
-                    y = (int) (actionY - extraTapArea);
+                    x = actionX - extraTapArea;
+                    y = actionY - extraTapArea;
 
                     if (x <= 0)
                         x = actionX;
@@ -136,8 +136,8 @@ public class CustomEditText extends EditText {
                  * BOUND. - this process help to increase the tappable area of
                  * the rectangle.
                  */
-                x = (int) (actionX + extraTapArea);
-                y = (int) (actionY - extraTapArea);
+                x = actionX + extraTapArea;
+                y = actionY - extraTapArea;
 
                 /**Since this is right drawable subtract the value of x from the width
                  * of view. so that width - tappedarea will result in x co-ordinate in drawable bound.

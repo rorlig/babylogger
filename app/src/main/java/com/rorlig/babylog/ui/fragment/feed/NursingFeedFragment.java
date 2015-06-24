@@ -148,7 +148,7 @@ public class NursingFeedFragment extends InjectableFragment {
 
 
         notificationManager = (NotificationManager)
-                getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
+                getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
         intent = new Intent(getActivity(), FeedingActivity.class);
         pIntent = PendingIntent.getActivity(getActivity(), 0, intent, 0);

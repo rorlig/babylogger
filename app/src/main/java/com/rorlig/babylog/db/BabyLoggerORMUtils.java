@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
@@ -12,6 +13,9 @@ import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.dao.MilestonesDao;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -96,24 +100,117 @@ public class BabyLoggerORMUtils {
      * Return the diaper changes by month...
      * jan/feb/march/
      */
-    public List<DiaperChangeDao> getDiaperChangeByMonth() {
-        return null;
+    public List<String[]> getDiaperChangeByMonth() throws SQLException {
+
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        c.add(Calendar.DATE, 2);
+        String endTime = sdf.format(c.getTime());
+
+
+        c.add(Calendar.DATE, -(7*52+1));
+
+        String startTime = sdf.format(c.getTime());
+
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+
+        String rawSelectSql = "select strftime('%Y-%m', date), count(*) from diaperchangedao "
+//                + " where date <'" + endTime
+//                + "'and date>'" + startTime
+                + "group by strftime('%Y-%m', date)";
+
+        Log.d(TAG, "rawSelectSql " + rawSelectSql);
+
+        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
+        return result;
+
     }
 
+
     /*
-    * Return the diaper changes by month...
-    * week 1/2/3/4
+    * Return the diaper changes by Week of the Month
+    * @param null
+    * @returns List<String[]>: - result array with week and diaper changes by the week number...
     */
-    public List<DiaperChangeDao> getDiaperChangeByWeek() {
-        return null;
+    public List<String[]> getDiaperChangeByWeek() throws SQLException {
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        c.add(Calendar.DATE, 2);
+        String endTime = sdf.format(c.getTime());
+
+
+        c.add(Calendar.DATE, -(7*4+1));
+
+        String startTime = sdf.format(c.getTime());
+
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+
+        String rawSelectSql = "select strftime('%W', date), count(*) from diaperchangedao "
+//                + " where date <'" + endTime
+//                + "'and date>'" + startTime
+                + "group by strftime('%W', date)";
+
+        Log.d(TAG, "rawSelectSql " + rawSelectSql);
+
+        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
+        return result;
     }
 
     /*
-     * Return the diaper changes by day
-     * sun/mon/....
+     * Return the diaper changes for the day of the week
+     *
      */
-    public List<DiaperChangeDao> getDiaperChangeByDay() {
-        return null;
+    public List<String[]> getDiaperChangeByDay() throws SQLException {
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        c.add(Calendar.DATE, 2);
+        String endTime = sdf.format(c.getTime());
+
+
+        c.add(Calendar.DATE, -8);
+
+        String startTime = sdf.format(c.getTime());
+
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+
+        String rawSelectSql = "select strftime('%Y-%m-%d', date), count(*) from diaperchangedao where date <'" + endTime
+                + "'and date>'" + startTime + "'group by strftime('%Y-%m,-%d', date)";
+
+        Log.d(TAG, "rawSelectSql " + rawSelectSql);
+
+        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
+
+
+////        Log.d(TAG, " result 0 " + );
+//        for (String[] strArr: result)
+//            for (String str: strArr)
+//                Log.d(TAG, "str " + str);
+//        Log.d(TAG , "result " + result);
+
+        return result;
+//        QueryBuilder<DiaperChangeDao, Integer> queryBuilder = getDiaperChangeDao().queryBuilder().orderBy("date", false);
+//        queryBuilder.where().lt("date", endTime)
+//                .and().gt("date", startTime);
+//        return queryBuilder.query();
     }
 
     /*

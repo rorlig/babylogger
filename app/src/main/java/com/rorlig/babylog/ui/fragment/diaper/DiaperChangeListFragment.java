@@ -210,7 +210,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
                 scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
                 return true;
             case R.id.action_stats:
-                scopedBus.post(new StatsItemEvent(StatsItemTypes.STATS));
+                scopedBus.post(new StatsItemEvent());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

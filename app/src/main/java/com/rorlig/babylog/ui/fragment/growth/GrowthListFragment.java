@@ -183,7 +183,7 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
                 scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
                 return true;
             case R.id.action_stats:
-                scopedBus.post(new StatsItemEvent(StatsItemTypes.STATS));
+                scopedBus.post(new StatsItemEvent());
             default:
                 return super.onOptionsItemSelected(item);
         }

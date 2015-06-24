@@ -176,11 +176,11 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         }
     }
 
-    private class EventListener {
-        public EventListener() {
-
-        }
-    }
+//    private class EventListener {
+//        public EventListener() {
+//
+//        }
+//    }
 
 
     private void setData(List<GrowthDao> growthList, GrowthStatTab growthStatTab) {

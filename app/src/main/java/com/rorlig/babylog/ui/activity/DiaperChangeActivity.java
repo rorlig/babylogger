@@ -243,11 +243,7 @@ public class DiaperChangeActivity extends InjectableActivity {
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
-            switch (statsItemEvent.getStatsItemType()){
-                case STATS: {
                     showFragment(DiaperStatsFragment.class, "diaper_stats_fragment", false);
-                }
-            }
         }
 
 //        @Subscribe

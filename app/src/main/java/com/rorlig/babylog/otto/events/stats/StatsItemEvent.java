@@ -5,13 +5,8 @@ package com.rorlig.babylog.otto.events.stats;
  */
 public class StatsItemEvent {
 
-    StatsItemTypes statsItemType;
 
-    public StatsItemEvent(StatsItemTypes statsItemType) {
-        this.statsItemType = statsItemType;
+    public StatsItemEvent() {
     }
 
-    public StatsItemTypes getStatsItemType() {
-        return statsItemType;
-    }
 }

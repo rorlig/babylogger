@@ -250,11 +250,7 @@ public class GrowthActivity extends InjectableActivity {
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
-            switch (statsItemEvent.getStatsItemType()){
-                case STATS: {
                     showFragment(GrowthStatsFragment.class, "growth_stats_fragment", false);
-                }
-            }
         }
 
 
