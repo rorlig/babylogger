@@ -5,50 +5,83 @@
     android:layout_height="match_parent"
     android:background="@color/drawer_filter_background"
     android:orientation="vertical">
-
-
-
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/nursing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/nursing"
-        android:layout_centerHorizontal="true"
-        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nursing"
-        android:id="@+id/nursingText"
-        android:text="NURSING"
+        android:id="@+id/choose_feed_type"
+        android:text="@string/choose_feed_type"
         android:textColor="@color/text_color_main"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
         android:layout_centerHorizontal="true"
         />
 
     <View style="@style/ListItemDividerShort"
-        android:layout_below="@+id/nursingText"
+        android:layout_below="@+id/choose_feed_type"
+        android:layout_marginTop="5dp"
+        android:id="@+id/feed_title_divider"/>
+
+    <com.andexert.library.RippleView
+        android:id="@+id/nursing_ripple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/feed_title_divider"
+        rv_centered="true">
+
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/nursing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/nursing"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nursing"
+            android:id="@+id/nursingText"
+            android:text="NURSING"
+            android:textColor="@color/text_color_main"
+            android:layout_centerHorizontal="true"
+            />
+    </com.andexert.library.RippleView>
+
+    <View style="@style/ListItemDividerShort"
+        android:layout_below="@+id/nursing_ripple"
+        android:id="@+id/nursing_divider"
         android:layout_marginTop="5dp">
 
 
     </View>
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/bottle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/bottle_feed"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/nursingText"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bottle"
-        android:id="@+id/bottleText"
-        android:text="BOTTLE"
-        android:layout_centerHorizontal="true"
 
-        android:textColor="@color/text_color_main"
-        />
+    <com.andexert.library.RippleView
+        android:id="@+id/bottle_ripple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/nursing_divider"
+        rv_centered="true">
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/bottle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/bottle_feed"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bottle"
+            android:id="@+id/bottleText"
+            android:text="BOTTLE"
+            android:layout_centerHorizontal="true"
+
+            android:textColor="@color/text_color_main"
+            />
+    </com.andexert.library.RippleView>
 </RelativeLayout>

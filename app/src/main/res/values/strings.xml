@@ -304,6 +304,7 @@
     <string name="growth_stats_weight">Weight</string>
     <string name="growth_stats_height">Height</string>
     <string name="growth_stats_head_measurement">HM</string>
+    <string name="choose_feed_type">CHOOSE FEED TYPE</string>
 
 
 </resources>

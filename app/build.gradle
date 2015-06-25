@@ -113,6 +113,9 @@ dependencies {
 
     compile project(':squarecamera')
 
+    compile 'com.squareup:android-times-square:1.5.0@aar'
+
+
 
 
 

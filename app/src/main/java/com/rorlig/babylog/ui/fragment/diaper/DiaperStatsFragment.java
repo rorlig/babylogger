@@ -176,12 +176,6 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
     }
 
 
-    private class EventListener {
-        public EventListener() {
-
-        }
-    }
-
 
     private String getDateRangeForWeek(int weekNumber){
         Log.d(TAG, "weekNumber " + weekNumber);
