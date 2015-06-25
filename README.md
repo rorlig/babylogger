@@ -11,7 +11,6 @@
 + Sleep Tracking
 + Graphing 
 + Exporting Data via Email
-+ Profile Management 
 + Milestones
 + Tutorial screen
 + Profile Screen
