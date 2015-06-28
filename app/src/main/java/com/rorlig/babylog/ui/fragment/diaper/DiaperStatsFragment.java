@@ -182,7 +182,9 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
         DateTime weekStartDate = new DateTime().withWeekOfWeekyear(weekNumber);
         DateTime weekEndDate = new DateTime().withWeekOfWeekyear(weekNumber + 1);
-        String returnString = weekStartDate.toString(DateTimeFormat.forPattern("dd MMM")) + " to " + weekEndDate.toString(DateTimeFormat.forPattern("dd MMM"));
+        String returnString = weekStartDate.toString(DateTimeFormat.forPattern("dd MMM"))
+                                + " to "
+                                + weekEndDate.toString(DateTimeFormat.forPattern("dd MMM"));
         Log.d(TAG, "returnString : " + returnString);
 //        new DateTime().
         return returnString;

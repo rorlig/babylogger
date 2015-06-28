@@ -305,6 +305,13 @@
     <string name="growth_stats_height">Height</string>
     <string name="growth_stats_head_measurement">HM</string>
     <string name="choose_feed_type">CHOOSE FEED TYPE</string>
+    <string name="action_export">Export</string>
+    <string name="text_select_date">Select Date</string>
+    <string name="export_header">Export</string>
+    <string name="date_range_start">Date Range Start</string>
+    <string name="date_range_end">Date Range End</string>
+    <string name="choose_activities">Choose Things to export</string>
+    <string name="export">Export</string>
 
 
 </resources>

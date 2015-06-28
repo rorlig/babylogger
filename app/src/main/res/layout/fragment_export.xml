@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:text="@string/export_header"
+        android:id="@+id/export_header"
+        android:textColor="@color/primary_dark"
+        android:textSize="20sp"
+        android:textAllCaps="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        style="@style/ListItemDivider"
+        android:layout_below="@+id/export_header"
+        android:layout_marginTop="2dp"
+        android:id="@+id/export_header_divider"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/date_range_start_layout"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/export_header_divider">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_range_start"
+            android:textColor="@color/primary"
+            android:textSize="18sp"
+            android:id="@+id/date_range_start_label"
+            android:textAllCaps="true"/>
+
+
+        <include layout = "@layout/view_day_blue_small"
+            android:id="@+id/date_range_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            >
+
+        </include>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/date_range_end_layout"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/date_range_start_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_range_end"
+            android:textColor="@color/primary"
+            android:textSize="18sp"
+            android:id="@+id/date_range_end_label"
+            android:textAllCaps="true"/>
+
+
+        <include layout = "@layout/view_day_blue_small"
+            android:id="@+id/date_range_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            >
+
+        </include>
+
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:text="@string/choose_activities"
+        android:layout_below="@+id/date_range_end_layout"
+        android:textColor="@color/primary_dark"
+        android:textSize="20sp"
+        android:textAllCaps="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:id="@+id/choose_activities"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        style="@style/ListItemDivider"
+        android:layout_below="@+id/choose_activities"
+        android:layout_marginTop="2dp"
+        android:id="@+id/choose_activities_divider"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/choose_activities_divider"
+        android:id="@+id/export_activities_list">
+
+    </ListView>
+
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/btn_export"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/export"
+        android:background="#1E88E5"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+
+</RelativeLayout>

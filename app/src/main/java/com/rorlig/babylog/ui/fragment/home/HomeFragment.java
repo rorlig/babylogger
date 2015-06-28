@@ -23,6 +23,7 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.BarchartActivity;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
+import com.rorlig.babylog.ui.activity.ExportActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
 import com.rorlig.babylog.ui.activity.MilestonesActivity;
@@ -272,6 +273,9 @@ public class HomeFragment extends InjectableFragment {
                 break;
             case R.id.action_settings:
                 startActivity(new Intent(getActivity(), PrefsActivity.class));
+                break;
+            case R.id.action_export:
+                startActivity(new Intent(getActivity(), ExportActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

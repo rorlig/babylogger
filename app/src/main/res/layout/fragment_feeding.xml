@@ -210,7 +210,7 @@
                     android:text="@string/stopwatch_start_text">
                 </TextView>
 
-                <include layout = "@layout/time_view"
+                <include layout = "@layout/view_time"
                     android:id="@+id/left_timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -263,7 +263,7 @@
 
 
 
-                <include layout = "@layout/time_view"
+                <include layout = "@layout/view_time"
                     android:id="@+id/right_timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

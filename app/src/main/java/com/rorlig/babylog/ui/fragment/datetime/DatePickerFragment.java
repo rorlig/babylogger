@@ -20,6 +20,8 @@ public class DatePickerFragment extends InjectableDialogFragment
 
     private String TAG = "DatePickerFragment";
 
+    private String label = "";
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class DatePickerFragment extends InjectableDialogFragment
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
+        label = getArguments().getString("label", "");
 
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), this, year, month, day);
@@ -39,7 +42,7 @@ public class DatePickerFragment extends InjectableDialogFragment
         Log.d(TAG, "onDateSet");
         final Calendar c = Calendar.getInstance();
         c.set(year, month, day);
-        scopedBus.post(new DateSetEvent(c));
+        scopedBus.post(new DateSetEvent(c, label));
         //; year, month, day));
     }
 }

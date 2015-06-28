@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.activity.BarchartActivity;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
+import com.rorlig.babylog.ui.activity.ExportActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
 import com.rorlig.babylog.ui.activity.HomeActivity;
@@ -19,6 +20,7 @@ import com.rorlig.babylog.ui.activity.PrefsActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.adapter.ContactsAdapter;
 import com.rorlig.babylog.ui.adapter.DiaperChangeAdapter;
+import com.rorlig.babylog.ui.adapter.ExportItemAdapter;
 import com.rorlig.babylog.ui.adapter.FeedAdapter;
 import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
@@ -39,6 +41,7 @@ import com.rorlig.babylog.ui.fragment.development.DevelopmentFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeListFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperStatsFragment;
+import com.rorlig.babylog.ui.fragment.export.ExportFragment;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedSelectFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedingListFragment;
@@ -78,6 +81,7 @@ import dagger.Provides;
             MilestonesActivity.class,
             BarchartActivity.class,
             PrefsActivity.class,
+            ExportActivity.class,
             MenuFragment.class,
             MainFragment.class,
             InjectableFragment.class,
@@ -101,6 +105,7 @@ import dagger.Provides;
             MilestoneListFragment.class,
             DiaperChangeAdapter.class,
             ContactsFragment.class,
+            ExportItemAdapter.class,
             ContactsPagerListFragment.class,
             DateTimeHeaderFragment.class,
             ContactSelectFragment.class,
@@ -115,7 +120,8 @@ import dagger.Provides;
             MilestonesItemAdapter.class,
             MilestonesCompletedFragment.class,
             PictureSourceSelectFragment.class,
-            PrefsFragment.class
+            PrefsFragment.class,
+            ExportFragment.class
 
           },
           library=true, complete = false)

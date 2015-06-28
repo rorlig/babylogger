@@ -15,6 +15,12 @@
         android:icon="@drawable/ic_stat_action"
         apps:showAsAction="ifRoom" />
     <item
+        android:title="@string/action_export"
+        android:id="@+id/action_export"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_stat_action"
+        apps:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"

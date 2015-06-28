@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
+import com.rorlig.babylog.ui.fragment.export.ExportFragment;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.squareup.otto.Subscribe;
 
@@ -21,13 +22,13 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 /**
- * Created by rorlig on 5/31/15.
+ * @author gaurav gupta
  */
-public class HomeActivity extends InjectableActivity {
+public class ExportActivity extends InjectableActivity {
 
     @Inject
     SharedPreferences preferences;
-    private String TAG = "HomeActivity";
+    private String TAG = "ExportActivity";
     @Inject
     Gson gson;
     private ArrayList<ItemModel> logs;
@@ -39,7 +40,7 @@ public class HomeActivity extends InjectableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        showFragment(HomeFragment.class, "home_fragment", false);
+        showFragment(ExportFragment.class, "export_fragment", false);
     }
 
     @Override
@@ -70,14 +71,13 @@ public class HomeActivity extends InjectableActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
 
-        switch (id) {
-            case R.id.action_settings:
-                startActivity(new Intent(this, PrefsActivity.class));
-                return true;
-            case R.id.action_export:
-                startActivity(new Intent(this, ExportActivity.class));
-                return true;
+            Log.d(TAG, "action_settings");
+            startActivity(new Intent(this, PrefsActivity.class));
+
+
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -124,9 +124,11 @@ public class HomeActivity extends InjectableActivity {
 
         @Subscribe
         public void onItemsSelectedEvent(ItemsSelectedEvent itemSelectedEvent) {
+
             preferences.edit().putString("logItems", gson.toJson(itemSelectedEvent.getLogListItem())).commit();
             preferences.edit().putString("name", itemSelectedEvent.getName()).commit();
             preferences.edit().putString("dob", itemSelectedEvent.getDob()).commit();
+
             showFragment(HomeFragment.class, "home_fragment", false);
         }
 
