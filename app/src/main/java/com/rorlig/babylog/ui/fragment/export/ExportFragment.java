@@ -87,6 +87,14 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     private String[] itemNames;
     private ExportItemAdapter exportListAdapter;
 
+    private static final String EXPORT_LIST = "list";
+    private static final String START_DATE_DAY = "start_day";
+    private static final String START_DATE_MONTH = "start_month";
+    private static final String START_DATE_YEAR = "start_year";
+
+    private static final String END_DATE_DAY = "end_day";
+    private static final String END_DATE_MONTH = "end_month";
+    private static final String END_DATE_YEAR = "end_year";
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -114,14 +122,14 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         Parcelable[] itemList = null;
 
         if (paramBundle!=null) {
-            itemList = paramBundle.getParcelableArray("list");
+            itemList = paramBundle.getParcelableArray(EXPORT_LIST);
             itemModelArrayList = Arrays.asList(itemList);
-            dateStartDayTextView.setText(paramBundle.getString("start_day"));
-            dateStartMonthTextView.setText(paramBundle.getString("start_month"));
-            dateStartYearTextView.setText(paramBundle.getString("start_year"));
-            dateEndDayTextView.setText(paramBundle.getString("end_day"));
-            dateEndMonthTextView.setText(paramBundle.getString("end_month"));
-            dateEndYearTextView.setText(paramBundle.getString("end_year"));
+            dateStartDayTextView.setText(paramBundle.getString(START_DATE_DAY));
+            dateStartMonthTextView.setText(paramBundle.getString(START_DATE_MONTH));
+            dateStartYearTextView.setText(paramBundle.getString(START_DATE_YEAR));
+            dateEndDayTextView.setText(paramBundle.getString(END_DATE_DAY));
+            dateEndMonthTextView.setText(paramBundle.getString(END_DATE_MONTH));
+            dateEndYearTextView.setText(paramBundle.getString(END_DATE_YEAR));
         } else {
             setStartDate();
             setEndDate();
@@ -307,13 +315,12 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArray("list", exportListAdapter.getLogListItem().toArray(new Parcelable[exportListAdapter.getLogListItem().size()]));
-        outState.putString("start_day", dateStartDayTextView.getText().toString());
-        outState.putString("start_month", dateStartMonthTextView.getText().toString());
-        outState.putString("start_year", dateStartYearTextView.getText().toString());
-        outState.putString("end_day", dateEndDayTextView.getText().toString());
-        outState.putString("end_month", dateEndMonthTextView.getText().toString());
-        outState.putString("end_year", dateEndYearTextView.getText().toString());
-
+        outState.putString(START_DATE_DAY, dateStartDayTextView.getText().toString());
+        outState.putString(START_DATE_MONTH, dateStartMonthTextView.getText().toString());
+        outState.putString(START_DATE_YEAR, dateStartYearTextView.getText().toString());
+        outState.putString(END_DATE_DAY, dateEndDayTextView.getText().toString());
+        outState.putString(END_DATE_MONTH, dateEndMonthTextView.getText().toString());
+        outState.putString(END_DATE_YEAR, dateEndYearTextView.getText().toString());
     }
 
 
