@@ -40,7 +40,15 @@ public class ExportActivity extends InjectableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        showFragment(ExportFragment.class, "export_fragment", false);
+        Log.d(TAG, "savedInstance " + savedInstanceState);
+
+        if (savedInstanceState == null) {
+
+            showFragment(ExportFragment.class, "export_fragment", false);
+        } else {
+//            TestFragment test = (TestFragment) getSupportFragmentManager().findFragmentByTag("your_fragment_tag");
+        }
+//        showFragment(ExportFragment.class, "export_fragment", false);
     }
 
     @Override
@@ -121,17 +129,5 @@ public class ExportActivity extends InjectableActivity {
     private class EventListener {
         private EventListener() {
         }
-
-        @Subscribe
-        public void onItemsSelectedEvent(ItemsSelectedEvent itemSelectedEvent) {
-
-            preferences.edit().putString("logItems", gson.toJson(itemSelectedEvent.getLogListItem())).commit();
-            preferences.edit().putString("name", itemSelectedEvent.getName()).commit();
-            preferences.edit().putString("dob", itemSelectedEvent.getDob()).commit();
-
-            showFragment(HomeFragment.class, "home_fragment", false);
-        }
-
-
     }
 }
