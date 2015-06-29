@@ -429,6 +429,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     }
 
     /*
+     * checks if the diaper logs is requested
      * @param null
      * @return boolean :  whether diaperlog is requested.
      */
@@ -439,6 +440,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     }
 
     /*
+     * checks if the feed logs is requested
      * @param null
      * @return boolean :  whether feedlog is requested.
      */
@@ -449,6 +451,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
 
     /*
+     * checks if the growth logs is requested
      * @param null
      * @return boolean :  whether growthlog is requested.
      */
@@ -459,6 +462,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     }
 
        /*
+     * checks if the milestones logs is requested
      * @param null
      * @return boolean :  whether growthlog is requested.
      */
@@ -469,6 +473,11 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     }
 
 
+    /*
+     * creates csv file for diaper change
+     * @param List<DiaperChangeDao> list of diaperchangedao
+     * @return Uri to the file location.
+     */
 
     private Uri createDiaperListToCSV(List<DiaperChangeDao> diaperChangeList) {
         String header =   "\"Date\",\"Diaper Change Event Type\",\"Poop Texture\",\"Poop Color\",\"Diaper Incident\",\"Notes\"\n";
