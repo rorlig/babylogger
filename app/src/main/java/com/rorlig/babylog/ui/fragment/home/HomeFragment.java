@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,7 +33,9 @@ import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -75,6 +78,9 @@ public class HomeFragment extends InjectableFragment {
     private HomeItemAdapter homeAdapter;
     private ArrayList<ItemModel> filteredLogs;
     private String[] itemNames;
+    private Parcelable[] itemList;
+    private static final String HOME_LIST = "list";
+
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -84,22 +90,23 @@ public class HomeFragment extends InjectableFragment {
         String logItems = preferences.getString("logItems", "");
 
 
-        itemNames = getResources().getStringArray(R.array.items);
 
-        ArrayList<ItemModel> itemModelArrayList = new ArrayList<ItemModel>();
+        List<Parcelable> itemModelArrayList = new ArrayList<Parcelable>();
 
-        for (String item: itemNames) {
-            itemModelArrayList.add(new ItemModel(item, true));
+
+        if (paramBundle!=null) {
+//            Log.d(TAG, "reload list from bundle");
+            itemList = paramBundle.getParcelableArray(HOME_LIST);
+            itemModelArrayList = Arrays.asList(itemList);
+        } else {
+
+//            Log.d(TAG, "create list from the string array ");
+            itemNames = getResources().getStringArray(R.array.items);
+            for (String item: itemNames) {
+                itemModelArrayList.add(new ItemModel(item, false));
+            }
         }
 
-
-        Log.d(TAG, logItems);
-//        if (!logItems.equals("")) {
-//
-//            logs = gson.fromJson(logItems, new TypeToken<List<ItemModel>>(){}.getType());
-//            Log.d(TAG, "logs " + logs);
-//
-//            filteredLogs = filter(logs);
 
             homeAdapter = new HomeItemAdapter(getActivity(),R.layout.list_item_home, itemModelArrayList);
             listView.setAdapter(homeAdapter);
@@ -283,5 +290,11 @@ public class HomeFragment extends InjectableFragment {
     public void babyImageClicked(){
         startActivity(new Intent(getActivity(), ProfileActivity.class));
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArray("list", homeAdapter.getLogListItem().toArray(new Parcelable[homeAdapter.getLogListItem().size()]));
     }
 }

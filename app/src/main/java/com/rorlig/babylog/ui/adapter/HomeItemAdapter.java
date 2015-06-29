@@ -2,6 +2,7 @@ package com.rorlig.babylog.ui.adapter;
 
 import android.app.Activity;
 import android.content.res.TypedArray;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.rorlig.babylog.ui.activity.InjectableActivity;
 import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,7 +31,7 @@ public class HomeItemAdapter extends ArrayAdapter<ItemModel> {
     private final TypedArray iconArr;
     private final Activity context;
     //    private final int[] itemStates;
-    private ArrayList<ItemModel> logListItem;
+    private ArrayList<Parcelable> logListItem;
 //    private String[] itemNames = {};
 
 
@@ -39,14 +41,14 @@ public class HomeItemAdapter extends ArrayAdapter<ItemModel> {
 
     /**
      * Constructor
-     *  @param context  The current context.
+     * @param context  The current context.
      * @param resource The resource ID for a layout file containing a TextView to use when
      * @param logListItem
      */
-    public HomeItemAdapter(Activity context, int resource, ArrayList<ItemModel> logListItem) {
+    public HomeItemAdapter(Activity context, int resource, List<Parcelable> logListItem) {
         super(context, R.layout.list_item_home);
         this.context = context;
-        this.logListItem = new ArrayList<ItemModel>(logListItem);
+        this.logListItem = new ArrayList<Parcelable>(logListItem);
         iconArr = context.getResources().obtainTypedArray(R.array.itemIcons);
 
         ((InjectableActivity) context).inject(this);
@@ -63,7 +65,7 @@ public class HomeItemAdapter extends ArrayAdapter<ItemModel> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        final ItemModel item = logListItem.get(position);
+        final ItemModel item = (ItemModel) logListItem.get(position);
 
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -113,7 +115,7 @@ public class HomeItemAdapter extends ArrayAdapter<ItemModel> {
         }
     }
 
-    public ArrayList<ItemModel> getLogListItem() {
+    public ArrayList<Parcelable> getLogListItem() {
         return logListItem;
     }
 
