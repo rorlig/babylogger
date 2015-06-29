@@ -29,6 +29,7 @@ import dagger.Provides;
 
 
 /**
+ * Modules to be injected at the application scope
  */
 
 @Module(injects= {

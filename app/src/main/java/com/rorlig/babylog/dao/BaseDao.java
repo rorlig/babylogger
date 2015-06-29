@@ -6,11 +6,10 @@ import java.util.Date;
 
 /**
  * @author gaurav gupta
- * BaseDao class.
+ * BaseDao class for the objects stored in the database
  */
 public class BaseDao {
 
-//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
     @DatabaseField
     Date date;
 
