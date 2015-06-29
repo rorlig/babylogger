@@ -19,13 +19,11 @@
         <!--android:layout_height="fill_parent" />-->
 
     <ListView
-        xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:id="@+id/list"
         android:listSelector="#00000000"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <RelativeLayout android:id="@+id/emptyView"
         android:layout_width="match_parent"

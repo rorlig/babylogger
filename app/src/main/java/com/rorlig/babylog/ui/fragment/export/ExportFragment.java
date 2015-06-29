@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -34,10 +33,8 @@ import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.events.datetime.DateSetEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.adapter.ExportItemAdapter;
-import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
-import com.rorlig.babylog.ui.fragment.milestones.Milestones;
 import com.squareup.otto.Subscribe;
 
 import java.io.File;
@@ -290,12 +287,17 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         if (!isItemSelected()) {
             Toast.makeText(getActivity(), R.string.text_toast_no_items_selected_for_export, Toast.LENGTH_SHORT).show();
         } else {
+            Uri diaperChangeUri = null;
+            Uri growthUri = null;
+            Uri feedsUri = null;
+            Uri milestonesUri = null;
             if (isDiaperLogSelected()) {
                 try {
                     List<DiaperChangeDao> diaperChangeList = babyORMLiteUtils.getDiaperChangeList(getStartTime(), getEndTime());
                     Log.d(TAG, "number of rows : " +  diaperChangeList.size());
-                    Uri diaperChangeUri  = createDiaperListToCSV(diaperChangeList);
-                    sendEmail(diaperChangeUri, "Diaper Logs");
+                    if (diaperChangeList.size()>0)
+                        diaperChangeUri  = createDiaperListToCSV(diaperChangeList);
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -306,6 +308,8 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 try {
                     List<FeedDao> feedList = babyORMLiteUtils.getFeedList(getStartTime(), getEndTime());
                     Log.d(TAG, "number of rows : " +  feedList.size());
+                    if (feedList.size()>0)
+                        feedsUri  = createFeedListToCSV(feedList);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -315,6 +319,8 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 try {
                     List<GrowthDao> growthList = babyORMLiteUtils.getGrowthList(getStartTime(), getEndTime());
                     Log.d(TAG, "number of rows : " +  growthList.size());
+                    if (growthList.size()>0)
+                        growthUri  = createGrowthListToCSV(growthList);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -324,10 +330,14 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 try {
                     List<MilestonesDao> milestonesList = babyORMLiteUtils.getMilestoneList(getStartTime(), getEndTime());
                     Log.d(TAG, "number of rows : " +  milestonesList.size());
+//                    if (milestonesList.size()>0)
+//                        growthUri  = createGrowthListToCSV(growthList);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
+
+            sendEmail(diaperChangeUri, feedsUri, growthUri, "Diaper Logs");
         }
 
 
@@ -496,10 +506,11 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
         File file   = null;
         File root   = Environment.getExternalStorageDirectory();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
         if (root.canWrite()){
             File dir    =   new File (root.getAbsolutePath() + "/DiaperLogs");
             dir.mkdirs();
-            file   =   new File(dir, System.currentTimeMillis() + ".csv");
+            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_diaper"  + ".csv");
             FileOutputStream out   =   null;
             try {
                 out = new FileOutputStream(file);
@@ -524,21 +535,133 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
     }
 
+
+    /*
+     * creates csv file for feed change
+     * @param List<FeedDao> list of diaperchangedao
+     * @return Uri to the file location.
+     */
+
+    private Uri createFeedListToCSV(List<FeedDao> feedList) {
+        String header =   "\"Date\",\"Type\",\"Item\",\"Quantity\",\"Left Breast Time\",\"Right Breast Time\",\"Notes\"\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (FeedDao feedItem: feedList) {
+            stringBuilder.append("\"" + feedItem.getDate() + "\",\""
+                    + feedItem.getFeedType() + "\",\""
+                    + feedItem.getFeedItem() + "\",\"" + feedItem.getQuantity() + "\",\""
+                    + feedItem.getLeftBreastTime() + "\",\"" + feedItem.getLeftBreastTime()
+                    + "\",\"" + feedItem.getNotes() + "\"\n");
+
+
+        }
+        String combinedString = header + stringBuilder.toString();
+        Log.d(TAG, "combined " + combinedString);
+
+        File file   = null;
+        File root   = Environment.getExternalStorageDirectory();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
+
+        if (root.canWrite()){
+            File dir    =   new File (root.getAbsolutePath() + "/FeedLogs");
+            dir.mkdirs();
+            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_feed"  + ".csv");
+            FileOutputStream out   =   null;
+            try {
+                out = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.write(combinedString.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Uri uri  =   null;
+        uri  =   Uri.fromFile(file);
+
+        return uri;
+
+    }
+
+
+     /*
+     * creates csv file for feed change
+     * @param List<GrowthDao> list of diaperchangedao
+     * @return Uri to the file location.
+     */
+
+    private Uri createGrowthListToCSV(List<GrowthDao> growthList) {
+        String header =   "\"Date\",\"Weight\",\"Height\",\"Head Measurement\",\"Notes\"\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (GrowthDao growthItem: growthList) {
+            stringBuilder.append("\"" + growthItem.getDate() + "\",\""
+                    + growthItem.getWeight() + "\",\""
+                    + growthItem.getHeight() + "\",\"" + growthItem.getHeadMeasurement() + "\",\""
+                    + "\",\"" + growthItem.getNotes() + "\"\n");
+
+
+        }
+        String combinedString = header + stringBuilder.toString();
+        Log.d(TAG, "combined " + combinedString);
+
+        File file   = null;
+        File root   = Environment.getExternalStorageDirectory();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
+
+        if (root.canWrite()){
+            File dir    =   new File (root.getAbsolutePath() + "/GrowthLogs");
+            dir.mkdirs();
+            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_growth"  + ".csv");
+            FileOutputStream out   =   null;
+            try {
+                out = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.write(combinedString.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Uri uri  =   null;
+        uri  =   Uri.fromFile(file);
+
+        return uri;
+
+    }
     /*
      * sendEmail with attachment
      * @param Uri uri : - uri of the file to emailed...
      * @param String subject
      */
-    private void sendEmail(Uri uri, String subject) {
-        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+    private void sendEmail(Uri diaperChangeUri, Uri feedsUri, Uri growthUri, String subject) {
+        ArrayList<Uri> uri = new ArrayList<Uri>();
+
+        if (diaperChangeUri!=null) uri.add(diaperChangeUri);
+        if (feedsUri!=null) uri.add(feedsUri);
+        if (growthUri!=null) uri.add(growthUri);
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uri);
         sendIntent.setType("text/plain");
-//        sendIntent.setType("message/rfc822");
         sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
                 new String[]{"guptgaurav@gmail.com"});
 
         startActivity(Intent.createChooser(sendIntent, "Send Email"));
+        getActivity().finish();
     }
 
 

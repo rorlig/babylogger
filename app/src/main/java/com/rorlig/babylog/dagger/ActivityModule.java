@@ -7,7 +7,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 
 import com.rorlig.babylog.scheduler.TypeFaceManager;
-import com.rorlig.babylog.ui.activity.BarchartActivity;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 import com.rorlig.babylog.ui.activity.ExportActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
@@ -79,7 +78,6 @@ import dagger.Provides;
             FeedingActivity.class,
             ProfileActivity.class,
             MilestonesActivity.class,
-            BarchartActivity.class,
             PrefsActivity.class,
             ExportActivity.class,
             MenuFragment.class,

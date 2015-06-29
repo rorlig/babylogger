@@ -17,7 +17,6 @@ import com.rorlig.babylog.ui.activity.InjectableActivity;
 import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;

@@ -1,14 +1,10 @@
 package com.rorlig.babylog.dagger;
 
 import android.app.AlarmManager;
-import android.app.NotificationManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -17,15 +13,11 @@ import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.otto.BusProvider;
 import com.rorlig.babylog.otto.ScopedBus;
 import com.rorlig.babylog.service.StopWatchService;
-import com.squareup.okhttp.HttpResponseCache;
-import com.squareup.okhttp.OkHttpClient;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Downloader;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,11 +26,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit.RestAdapter;
-import retrofit.Server;
-import retrofit.android.MainThreadExecutor;
-import retrofit.client.OkClient;
-import retrofit.converter.GsonConverter;
 
 
 /**

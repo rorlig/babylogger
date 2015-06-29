@@ -21,7 +21,6 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
-import com.rorlig.babylog.ui.activity.BarchartActivity;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 import com.rorlig.babylog.ui.activity.ExportActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
@@ -268,9 +267,7 @@ public class HomeFragment extends InjectableFragment {
         Log.d(TAG, "onOptionsItemSelected");
 
         switch (item.getItemId()) {
-            case R.id.action_stats:
-                startActivity(new Intent(getActivity(), BarchartActivity.class));
-                break;
+
             case R.id.action_settings:
                 startActivity(new Intent(getActivity(), PrefsActivity.class));
                 break;

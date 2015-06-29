@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.fragment.diaper;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.Time;
@@ -28,9 +27,9 @@ import com.rorlig.babylog.model.diaper.DiaperChangeColorType;
 import com.rorlig.babylog.model.diaper.DiaperChangeEnum;
 import com.rorlig.babylog.model.diaper.DiaperChangeTextureType;
 import com.rorlig.babylog.model.diaper.DiaperIncident;
-import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.datetime.DateSetEvent;
 import com.rorlig.babylog.otto.events.datetime.TimeSetEvent;
+import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;

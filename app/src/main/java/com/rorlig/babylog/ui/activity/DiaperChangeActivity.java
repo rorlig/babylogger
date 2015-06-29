@@ -20,7 +20,6 @@ import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeListFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperStatsFragment;
-import com.rorlig.babylog.ui.fragment.growth.GrowthStatsFragment;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;

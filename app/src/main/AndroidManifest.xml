@@ -39,45 +39,29 @@
 
         <activity android:name=".ui.activity.TutorialActivity"
             android:noHistory="true" >
-
+q
         </activity>
         <activity
             android:name=".ui.activity.HomeActivity">
         </activity>
         <activity android:name=".ui.activity.ExportActivity"
-            android:parentActivityName=".ui.activity.HomeActivity"/>
+            android:parentActivityName=".ui.activity.HomeActivity"
+            android:label="@string/export_header"
+            />
 
         <activity android:name=".ui.activity.ProfileActivity"
             android:label="@string/profile_title"
             android:parentActivityName=".ui.activity.HomeActivity"/>
 
-        <activity android:name=".ui.activity.BarchartActivity"
-            android:parentActivityName=".ui.activity.HomeActivity"></activity>
 
 
         <activity android:name=".ui.activity.MilestonesActivity"
             android:label="@string/title_activity_milestones"
             android:parentActivityName=".ui.activity.HomeActivity"/>
-        <!--<activity-->
-            <!--android:name=".ui.activity.BabyLogActivity"-->
-            <!--android:label="BabyLogger"-->
-            <!--android:theme="@style/Theme.Scheduler.Home"-->
-            <!--android:title="@string/app_name"-->
-            <!--android:launchMode="singleTop"-->
-            <!-->-->
-
-            <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
-                <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
-
-                <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
-            <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
-
-        <!--</activity>-->
 
         <activity
             android:name=".ui.activity.DiaperChangeActivity"
-            android:label="Diaper Change"
-            android:title="@string/diaper_change_title"
+            android:label="@string/diaper_change_title"
             android:parentActivityName=".ui.activity.HomeActivity">
             <!--<meta-data-->
                 <!--android:name="android.support.PARENT_ACTIVITY"-->

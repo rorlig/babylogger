@@ -2,7 +2,6 @@ package com.rorlig.babylog.ui.adapter;
 
 import android.app.Activity;
 import android.content.res.TypedArray;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

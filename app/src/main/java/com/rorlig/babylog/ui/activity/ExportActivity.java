@@ -12,10 +12,7 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
-import com.rorlig.babylog.otto.ItemsSelectedEvent;
 import com.rorlig.babylog.ui.fragment.export.ExportFragment;
-import com.rorlig.babylog.ui.fragment.home.HomeFragment;
-import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 

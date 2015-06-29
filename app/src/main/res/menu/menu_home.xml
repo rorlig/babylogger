@@ -8,12 +8,7 @@
         android:orderInCategory="100"
         android:icon="@drawable/ic_action_profile"
         apps:showAsAction="ifRoom" />
-    <item
-        android:title="@string/action_stats"
-        android:id="@+id/action_stats"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_stat_action"
-        apps:showAsAction="ifRoom" />
+
     <item
         android:title="@string/action_export"
         android:id="@+id/action_export"

@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.fragment.sleep;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
