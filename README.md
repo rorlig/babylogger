@@ -4,16 +4,18 @@
 + Diaper Changes.
 + Weight, Height and Head Measurements.
 + Feeds - Bottle and Breast Feeding.
-+ Moments/Milestones - Requires work. 
++ Exporting Data via Email - Needs to be background processed.
++ Graphing : Feeds Remaining - some issues still
++ Profile Screen: - Image Capture Issues
++ Milestones : - Change UI
++ Tutorial screen : - Change UI
 
 
 ## Todo
 + Sleep Tracking
-+ Graphing 
-+ Exporting Data via Email
-+ Milestones
-+ Tutorial screen
-+ Profile Screen
++ Transparent Toolbar - migrate to toolbar from actionbar
+
+
 
 
 ## Stretch Goals 
