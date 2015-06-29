@@ -1,9 +1,12 @@
 package com.rorlig.babylog.ui.fragment.export;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -37,6 +40,10 @@ import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babylog.ui.fragment.milestones.Milestones;
 import com.squareup.otto.Subscribe;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -287,6 +294,8 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 try {
                     List<DiaperChangeDao> diaperChangeList = babyORMLiteUtils.getDiaperChangeList(getStartTime(), getEndTime());
                     Log.d(TAG, "number of rows : " +  diaperChangeList.size());
+                    Uri diaperChangeUri  = createDiaperListToCSV(diaperChangeList);
+                    sendEmail(diaperChangeUri, "Diaper Logs");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -323,7 +332,6 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
 
     }
-
 
 
 
@@ -459,5 +467,70 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         ItemModel itemModel = (ItemModel)exportListAdapter.getLogListItem().get(3);
         return itemModel.isItemChecked();
     }
+
+
+
+    private Uri createDiaperListToCSV(List<DiaperChangeDao> diaperChangeList) {
+        String header =   "\"Date\",\"Diaper Change Event Type\",\"Poop Texture\",\"Poop Color\",\"Diaper Incident\",\"Notes\"\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (DiaperChangeDao diaperChangeDao: diaperChangeList) {
+            stringBuilder.append("\"" + diaperChangeDao.getDate() + "\",\""
+                    + diaperChangeDao.getDiaperChangeEventType() + "\",\""
+                    + diaperChangeDao.getPoopTexture() + "\",\"" + diaperChangeDao.getPoopTexture() + "\",\""
+                    + diaperChangeDao.getPoopColor() + "\",\"" + diaperChangeDao.getDiaperChangeIncidentType()
+                    + "\",\"" + diaperChangeDao.getDiaperChangeNotes() + "\"\n");
+
+
+        }
+        String combinedString = header + stringBuilder.toString();
+        Log.d(TAG, "combined " + combinedString);
+
+        File file   = null;
+        File root   = Environment.getExternalStorageDirectory();
+        if (root.canWrite()){
+            File dir    =   new File (root.getAbsolutePath() + "/DiaperLogs");
+            dir.mkdirs();
+            file   =   new File(dir, System.currentTimeMillis() + ".csv");
+            FileOutputStream out   =   null;
+            try {
+                out = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.write(combinedString.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Uri uri  =   null;
+        uri  =   Uri.fromFile(file);
+
+        return uri;
+
+    }
+
+    /*
+     * sendEmail with attachment
+     * @param Uri uri : - uri of the file to emailed...
+     * @param String subject
+     */
+    private void sendEmail(Uri uri, String subject) {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        sendIntent.setType("text/plain");
+//        sendIntent.setType("message/rfc822");
+        sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
+                new String[]{"guptgaurav@gmail.com"});
+
+        startActivity(Intent.createChooser(sendIntent, "Send Email"));
+    }
+
 
 }

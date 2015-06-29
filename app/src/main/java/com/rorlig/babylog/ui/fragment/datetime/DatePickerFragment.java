@@ -21,6 +21,8 @@ public class DatePickerFragment extends InjectableDialogFragment
 
     private String TAG = "DatePickerFragment";
     private String label;
+    private long startMaxDate;
+    private long currentDate;
 
 
     @NonNull
@@ -30,23 +32,32 @@ public class DatePickerFragment extends InjectableDialogFragment
 
         final Calendar c = Calendar.getInstance();
 
-        long startMaxDate = getArguments().getLong("max_start_date");
-        long currentDate = getArguments().getLong("current_date");
-
-        c.setTimeInMillis(currentDate);
-
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        label = getArguments().getString("label", "");
 
         // Create a new instance of DatePickerDialog and return it
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
-        if (label.equals("end")) {
-            datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
-        } else {
-            datePickerDialog.getDatePicker().setMaxDate(startMaxDate);
+
+        if (getArguments()!=null) {
+            startMaxDate = getArguments().getLong("max_start_date");
+            currentDate = getArguments().getLong("current_date");
+            c.setTimeInMillis(currentDate);
+            label = getArguments().getString("label", "");
+
+            if (label.equals("end")) {
+                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+            } else if (label.equals("start")) {
+                datePickerDialog.getDatePicker().setMaxDate(startMaxDate);
+            }
+
         }
+
+
+
+
+
+
 
         return  datePickerDialog;
     }
