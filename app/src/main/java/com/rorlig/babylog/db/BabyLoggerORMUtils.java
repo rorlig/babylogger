@@ -216,12 +216,13 @@ public class BabyLoggerORMUtils {
     /*
      * Helper method to get a list of diapers in the selected time range....
      */
-    public List<DiaperChangeDao> getDiaperChangeList(Long startTime, Long endTime) throws SQLException {
+    public List<DiaperChangeDao> getDiaperChangeList(Date startTime, Date endTime) throws SQLException {
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
         QueryBuilder<DiaperChangeDao, Integer> queryBuilder = getDiaperChangeDao().queryBuilder().orderBy("date", false);
 //        queryBuilder.where().eq("isSend", false);
 
-        queryBuilder.where().lt("callStartTime", endTime)
-                .and().gt("callStartTime", startTime);
+        queryBuilder.where().lt("date", endTime)
+                .and().gt("date", startTime);
 //        Log.d(TAG, " query size " + queryBuilder.query().size());
         return queryBuilder.query();
     }
@@ -242,6 +243,13 @@ public class BabyLoggerORMUtils {
     }
 
 
+    /*
+     * Returns a list of feeds sorted by date - descending.
+     * @param none
+     * @return List<FeedDao> List of FeedDao @see com.rorlig.babylog.dao.FeedDao
+     * @throws SQLException
+     */
+
     public List<FeedDao> getFeedList() throws SQLException {
         QueryBuilder<FeedDao, Integer> queryBuilder = getFeedDao().queryBuilder().orderBy("date", false);
 //        queryBuilder.where().eq("isSend", false);
@@ -249,16 +257,64 @@ public class BabyLoggerORMUtils {
         return queryBuilder.query();
     }
 
+
+    /*
+     * Returns a list of feeds sorted by date - descending.
+     * @param Date startTime start time for the query
+     * @param Date endTime end time for the query
+     * @return List<FeedDao> List of FeedDao @see com.rorlig.babylog.dao.FeedDao
+     * @throws SQLException
+     */
+
+    public List<FeedDao> getFeedList(Date startTime, Date endTime) throws SQLException {
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+        QueryBuilder<FeedDao, Integer> queryBuilder = getFeedDao().queryBuilder().orderBy("date", false);
+        queryBuilder.where().lt("date", endTime)
+                .and().gt("date", startTime);
+        return queryBuilder.query();
+    }
+
+
+    /*
+    * Returns a list of growth items
+    * @return List<GrowthDao> List of GrowthDao @see @see com.rorlig.babylog.dao.GrowthDao
+    * @throws SQLException
+    */
     public List<GrowthDao> getGrowthList(boolean order) throws SQLException {
         QueryBuilder<GrowthDao, Integer> queryBuilder = getGrowthDao().queryBuilder().orderBy("date", order);
-//        queryBuilder.where().eq("isSend", false);
         Log.d(TAG, " query size " + queryBuilder.query().size());
         return queryBuilder.query();
     }
 
 
 
+    /*
+     * Returns a list of growth items
+     * @param Date startTime start time for the query
+     * @param Date endTime end time for the query
+     * @return List<GrowthDao> List of GrowthDao @see @see com.rorlig.babylog.dao.GrowthDao
+     * @throws SQLException
+     */
+    public List<GrowthDao> getGrowthList(Date startTime, Date endTime) throws SQLException {
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+        QueryBuilder<GrowthDao, Integer> queryBuilder = getGrowthDao().queryBuilder().orderBy("date", false);
+        queryBuilder.where().lt("date", endTime)
+                .and().gt("date", startTime);
+        return queryBuilder.query();
+    }
 
-
-
+    /*
+   * Returns a list of milestone items
+   * @param Date startTime start time for the query
+   * @param Date endTime end time for the query
+   * @return List<MilestonesDao> List of MilestonesDao @see @see com.rorlig.babylog.dao.GrowthDao
+   * @throws SQLException
+   */
+    public List<MilestonesDao> getMilestoneList(Date startTime, Date endTime) throws SQLException {
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+        QueryBuilder<MilestonesDao, Integer> queryBuilder = getMilestonesDao().queryBuilder().orderBy("date", false);
+        queryBuilder.where().lt("date", endTime)
+                .and().gt("date", startTime);
+        return queryBuilder.query();
+    }
 }

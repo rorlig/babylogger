@@ -147,7 +147,7 @@ public class DiaperChangeActivity extends InjectableActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //inflate the option menu items..
-        getMenuInflater().inflate(R.menu.main, menu);
+//        getMenuInflater().inflate(R.menu.main, menu);
 
         return super.onCreateOptionsMenu(menu);
     }

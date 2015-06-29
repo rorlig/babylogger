@@ -312,6 +312,7 @@
     <string name="date_range_end">Date Range End</string>
     <string name="choose_activities">Choose Things to export</string>
     <string name="export">Export</string>
+    <string name="text_toast_no_items_selected_for_export">Please Select at least one item to export</string>
 
 
 </resources>

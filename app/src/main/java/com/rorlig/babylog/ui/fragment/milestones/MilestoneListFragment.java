@@ -78,7 +78,6 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     private String[] itemNames;
     private MilestonesItemAdapter milestonesAdapter;
 
-//    ArrayList<Milestones> milestonesArrayList = new ArrayList<Milestones>();
     private List<MilestonesDao> milestoneData;
 
     @Inject
@@ -87,13 +86,9 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
     @OnClick(R.id.add_item)
     public void onDiaperChangeClicked(){
-//        scopedBus.post(new AddDiaperChangeEvent());
-
         scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
     }
 
-
-//    Typeface typeface;
 
     private String TAG = "MilestoneListFragment";
 
@@ -118,23 +113,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         itemNames = getResources().getStringArray(R.array.milestones);
 
-//        for (String item: itemNames) {
-//            Milestones milestones = new Milestones(item, false);
-//            milestonesArrayList.add(milestones);
-//        }
-
-//         milestonesAdapter = new MilestonesItemAdapter(getActivity(), 1, milestonesArrayList);
-
-
-//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-//                "fonts/proximanova_light.ttf");
-
         listView.setEmptyView(emptyView);
-//
-//        listView.setAdapter(milestonesAdapter);
-//        btnAddItem.setTypeface(typeface);
-//
-//        errorText.setTypeface(typeface);
 
         scopedBus.post(new FragmentCreated("Milestones"));
 
@@ -219,9 +198,6 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle item selection
         switch (item.getItemId()) {
-//            case R.id.action_add:
-//                scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
-//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -250,13 +226,6 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         milestonesAdapter = new MilestonesItemAdapter(getActivity(), R.layout.list_item_diaper_change, milestoneData);
 
-//        diaperChangeAdapter.update(diaperChangeDaoList);
-
-//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-//                milestonesAdapter,
-//                R.layout.section_header,
-//                R.id.title,
-//                new DiaperChangeSectionizer());
 
         listView.setAdapter(milestonesAdapter);
 
@@ -276,7 +245,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         @Subscribe
         public void onMileStoneSaved(MilestoneSaveEvent event){
 
-            Date date = new Date(event.getYear(), event.getMonth(), event.getDay());
+            Date date = new Date(event.getYear(), event.getMonth()-1, event.getDay());
             setCompleted(event.getPosition(), date, true);
         }
 

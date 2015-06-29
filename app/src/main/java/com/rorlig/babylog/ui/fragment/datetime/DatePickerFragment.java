@@ -29,11 +29,16 @@ public class DatePickerFragment extends InjectableDialogFragment
         // Use the current time as the default values for the picker
 
         final Calendar c = Calendar.getInstance();
+
+        long startMaxDate = getArguments().getLong("max_start_date");
+        long currentDate = getArguments().getLong("current_date");
+
+        c.setTimeInMillis(currentDate);
+
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         label = getArguments().getString("label", "");
-        long startMaxDate = getArguments().getLong("max_start_date");
 
         // Create a new instance of DatePickerDialog and return it
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
