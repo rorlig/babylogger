@@ -39,10 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/date_range_start"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary_dark"
             android:textSize="18sp"
             android:id="@+id/date_range_start_label"
-            android:textAllCaps="true"/>
+           />
 
 
         <include layout = "@layout/view_day_blue_small"
@@ -69,10 +69,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/date_range_end"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary_dark"
             android:textSize="18sp"
             android:id="@+id/date_range_end_label"
-            android:textAllCaps="true"/>
+          />
 
 
         <include layout = "@layout/view_day_blue_small"

@@ -10,6 +10,7 @@ import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.dao.MilestonesDao;
+import com.rorlig.babylog.dao.SleepDao;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ public class BabyLoggerORMUtils {
     private Dao<FeedDao, Integer> feedDao;
     private Dao<GrowthDao, Integer> growthDao;
     private Dao<MilestonesDao, Integer> milestonesDao;
+    private Dao<SleepDao, Integer> sleepDao;
 
     public BabyLoggerORMUtils(Context context) {
         Log.d(TAG, "context is " + context);
@@ -96,6 +98,16 @@ public class BabyLoggerORMUtils {
     }
 
     /*
+     * Returns the analytics data access object
+    */
+    public Dao<SleepDao, Integer> getSleepDao() throws SQLException {
+        if (sleepDao == null) {
+            sleepDao = getHelper().getSleepDao();
+        }
+        return sleepDao;
+    }
+
+    /*
      * Return the diaper changes by month...
      * jan/feb/march/
      */
@@ -111,21 +123,12 @@ public class BabyLoggerORMUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         c.add(Calendar.DATE, 2);
         String endTime = sdf.format(c.getTime());
-
-
         c.add(Calendar.DATE, -(7*52+1));
-
         String startTime = sdf.format(c.getTime());
-
         Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
-
         String rawSelectSql = "select strftime('%Y-%m', date), count(*) from diaperchangedao "
-//                + " where date <'" + endTime
-//                + "'and date>'" + startTime
                 + "group by strftime('%Y-%m', date)";
-
         Log.d(TAG, "rawSelectSql " + rawSelectSql);
-
         final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
         return result;
 
@@ -157,8 +160,6 @@ public class BabyLoggerORMUtils {
         Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
 
         String rawSelectSql = "select strftime('%W', date), count(*) from diaperchangedao "
-//                + " where date <'" + endTime
-//                + "'and date>'" + startTime
                 + "group by strftime('%W', date)";
 
         Log.d(TAG, "rawSelectSql " + rawSelectSql);
@@ -194,22 +195,10 @@ public class BabyLoggerORMUtils {
         String rawSelectSql = "select strftime('%Y-%m-%d', date), count(*) from diaperchangedao where date <'" + endTime
                 + "'and date>'" + startTime + "'group by strftime('%Y-%m,-%d', date)";
 
-        Log.d(TAG, "rawSelectSql " + rawSelectSql);
+//        Log.d(TAG, "rawSelectSql " + rawSelectSql);
 
         final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
-
-
-////        Log.d(TAG, " result 0 " + );
-//        for (String[] strArr: result)
-//            for (String str: strArr)
-//                Log.d(TAG, "str " + str);
-//        Log.d(TAG , "result " + result);
-
         return result;
-//        QueryBuilder<DiaperChangeDao, Integer> queryBuilder = getDiaperChangeDao().queryBuilder().orderBy("date", false);
-//        queryBuilder.where().lt("date", endTime)
-//                .and().gt("date", startTime);
-//        return queryBuilder.query();
     }
 
     /*

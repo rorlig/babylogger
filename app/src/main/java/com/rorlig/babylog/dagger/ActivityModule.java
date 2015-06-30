@@ -14,7 +14,6 @@ import com.rorlig.babylog.ui.activity.GrowthActivity;
 import com.rorlig.babylog.ui.activity.HomeActivity;
 import com.rorlig.babylog.ui.activity.LandingActivity;
 import com.rorlig.babylog.ui.activity.MilestonesActivity;
-import com.rorlig.babylog.ui.activity.NursingFeedActivity;
 import com.rorlig.babylog.ui.activity.PrefsActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.adapter.ContactsAdapter;
@@ -71,7 +70,6 @@ import dagger.Provides;
             LandingActivity.class,
             HomeActivity.class,
             DiaperChangeActivity.class,
-            NursingFeedActivity.class,
             GrowthActivity.class,
             FeedingActivity.class,
             ProfileActivity.class,

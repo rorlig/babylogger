@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,26 +62,16 @@ public class MilestonesActivity extends InjectableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diaper_change_list);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         String intentString = getIntent().getStringExtra("intent");
-
-        Log.d(TAG, " " +  intentString);
-
+//        Log.d(TAG, " " +  intentString);
 
         showFragment(MilestoneListFragment.class, "milestones_fragment", false);
 
-//        if (intentString!=null && intentString.equals("growth_activity")){
-//            showFragment(GrowthFragment.class, "growth_fragment", false);
-//
-//        } else  {
-//            showFragment(GrowthListFragment.class, "growth_list_fragment", false);
-//
-//        }
-
-//        showFragment(GrowthListFragment.class, "growth_fragment", false);
-//        } else {
-//
-//        }
 
     }
 

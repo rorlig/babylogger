@@ -174,10 +174,6 @@ public class HomeFragment extends InjectableFragment {
                 long diff = System.currentTimeMillis() - c.getTimeInMillis();
                 long days = diff/(86400*1000);
                 Log.d(TAG, "days old " + days);
-//                babyAgeTextView.setVisibility(View.VISIBLE);
-//                babyAgeTextView.setText(days + " days old");
-
-
             }
 
         }

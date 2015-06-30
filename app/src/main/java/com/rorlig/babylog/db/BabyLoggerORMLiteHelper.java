@@ -12,6 +12,7 @@ import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.dao.MilestonesDao;
+import com.rorlig.babylog.dao.SleepDao;
 import com.rorlig.babylog.utils.FileUtils;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -40,7 +41,10 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
     private Dao<FeedDao, Integer> feedDao;
     private Dao<GrowthDao, Integer> growthDao;
     private Dao<MilestonesDao, Integer> milestonesDao;
+    private Dao<SleepDao, Integer> sleepDao;
+
     private String TAG = "BabyLoggerORMLiteHelper";
+
 
     //    // the DAO object we use to access the SimpleData table
 //    private Dao<AnalyticsModel, Integer> analyticsDao = null;
@@ -63,6 +67,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, FeedDao.class);
             TableUtils.createTable(connectionSource, GrowthDao.class);
             TableUtils.createTable(connectionSource, MilestonesDao.class);
+            TableUtils.clearTable(connectionSource, SleepDao.class);
             populateDiaperDao();
             populateFeedDao();
             populateGrowthDao();
@@ -178,5 +183,13 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
         if (milestonesDao==null) {
             milestonesDao = getDao(MilestonesDao.class);
         }
-        return milestonesDao;    }
+        return milestonesDao;
+    }
+
+    public Dao<SleepDao, Integer> getSleepDao() throws SQLException {
+        if (sleepDao==null) {
+            sleepDao = getDao(SleepDao.class);
+        }
+        return sleepDao;
+    }
 }

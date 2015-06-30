@@ -24,15 +24,6 @@ public class SleepFragment extends InjectableFragment {
     @Inject
     Context context;
 
-//    @InjectView(R.id.gridview)
-//    GridView actionsList;
-
-//    @InjectView(R.id.menu_header)
-//    TextView menuHeader;
-
-
-//    Typeface typeface;
-
     private String TAG = "SleepFragment";
 
     private EventListener eventListener = new EventListener();

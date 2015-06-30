@@ -39,7 +39,6 @@
 
         <activity android:name=".ui.activity.TutorialActivity"
             android:noHistory="true" >
-q
         </activity>
         <activity
             android:name=".ui.activity.HomeActivity">
@@ -47,25 +46,43 @@ q
         <activity android:name=".ui.activity.ExportActivity"
             android:parentActivityName=".ui.activity.HomeActivity"
             android:label="@string/export_header"
-            />
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.HomeActivity" />
+            >
+
+        </activity>
+
 
         <activity android:name=".ui.activity.ProfileActivity"
             android:label="@string/profile_title"
-            android:parentActivityName=".ui.activity.HomeActivity"/>
+            android:parentActivityName=".ui.activity.HomeActivity"
+            >
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.activity.HomeActivity" />
+            >
+        </activity>
 
 
 
         <activity android:name=".ui.activity.MilestonesActivity"
             android:label="@string/title_activity_milestones"
-            android:parentActivityName=".ui.activity.HomeActivity"/>
+            android:parentActivityName=".ui.activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.HomeActivity" />
+            >
+        </activity>
 
         <activity
             android:name=".ui.activity.DiaperChangeActivity"
             android:label="@string/diaper_change_title"
-            android:parentActivityName=".ui.activity.HomeActivity">
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.activity.BabyLogActivity" />-->
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.HomeActivity" />
          </activity>
 
 
@@ -79,18 +96,6 @@ q
                 <!--android:value=".ui.activity.BabyLogActivity" />-->
         </activity>
             <!-- Parent activity meta-data to support 4.0 and lower -->
-
-
-        <activity
-            android:name=".ui.activity.NursingFeedActivity"
-            android:label="Nursing Feed"
-            android:theme="@style/Theme.Scheduler.Home"
-            android:title="@string/diaper_change_title"
-            >
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.activity.BabyLogActivity" />-->
-        </activity>
 
 
         <activity

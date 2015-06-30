@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -73,52 +74,13 @@ public class GrowthActivity extends InjectableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diaper_change_list);
-//        mTitle = mDrawerTitle = getTitle();
-//        actionBar.setTitle(mTitle);
-//        int titleId = getResources().getIdentifier("action_bar_title", "id",
-//                "android");
-//
-//
-//        actionBar.setDisplayShowCustomEnabled(true);
-//        actionBar.setDisplayShowTitleEnabled(false);
+        setContentView(R.layout.activity_growth);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        LayoutInflater inflator = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View v = inflator.inflate(R.layout.action_bar_main, null);
-//        System.out.println("titleId " + titleId);
-//
-//        TextView textView = (TextView) v.findViewById(R.id.actionBarTitle);
-//        textView.setText(mTitle);
-////        ((TextView)v.findViewById(R.id.actionBarTitle)).setText("greet");
-//        //doesn't work :(
-//
-//        typeface = typeFaceManager.getTypeFace(getString(R.string.font_bree_light));
-//        typeface= Typeface.createFromAsset(getAssets(),
-//                "fonts/bree_light.ttf");
 
-//        textView.setTypeface(typeface);
 
-//        TextView titleTextView = (TextView) getWindow().findViewById(titleId);
-//        titleTextView.setTextColor(getResources().getColor(R.color.black));
-//
-//        titleTextView.setTypeface(typeface);
-//        titleTextView.setText("greet");
-//        getActionBar().setCustomView(v);
-
-//        s = new SpannableString("greet");//todo put in resources
-//        s.setSpan(typeface, 0, s.length(),
-//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-////        Log.d(TAG, "s " + s);
-////        actionBar.set
-//        actionBar.setTitle(s);
-//
-//
-////        drawerLayout.setDrawerListener(drawerToggle);
-////        drawerLayout.openDrawer(1);
-////        drawerLayout.setDrawerLockMode(1);
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setDisplayShowHomeEnabled(false);
 
 
         String intentString = getIntent().getStringExtra("intent");
