@@ -15,6 +15,7 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment;
+import com.rorlig.babylog.ui.fragment.home.HomeFragment2;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class HomeActivity extends InjectableActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        showFragment(HomeFragment.class, "home_fragment", false);
+        showFragment(HomeFragment2.class, "home_fragment", false);
     }
 
     @Override
@@ -130,7 +131,7 @@ public class HomeActivity extends InjectableActivity {
             preferences.edit().putString("logItems", gson.toJson(itemSelectedEvent.getLogListItem())).commit();
             preferences.edit().putString("name", itemSelectedEvent.getName()).commit();
             preferences.edit().putString("dob", itemSelectedEvent.getDob()).commit();
-            showFragment(HomeFragment.class, "home_fragment", false);
+            showFragment(HomeFragment2.class, "home_fragment", false);
         }
 
 

@@ -10,7 +10,7 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:clickable="true"
-            android:id="@+id/basicInfoBlock"
+            android:id="@+id/diaper_block"
             android:background="@color/black"
             android:layout_height="160dp">
 
@@ -98,7 +98,7 @@
             android:layout_height="fill_parent"
             android:calendarViewShown="false"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/basicInfoBlock"
+            android:layout_below="@id/diaper_block"
             android:background="@color/white"
 
 

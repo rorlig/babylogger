@@ -33,9 +33,9 @@
         >
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/ic_growth2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_growth_green"
             android:id="@+id/icon_no_growth"
             android:layout_centerInParent="true"
             />
@@ -52,8 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_growth_btn_text"
-            android:padding="2dp"
-            android:background="#1E88E5"
+            android:padding="5dp"
+            android:background="@color/primary_green"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/errorText"/>

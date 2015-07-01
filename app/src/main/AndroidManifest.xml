@@ -69,7 +69,9 @@
 
         <activity android:name=".ui.activity.MilestonesActivity"
             android:label="@string/title_activity_milestones"
-            android:parentActivityName=".ui.activity.HomeActivity">
+            android:parentActivityName=".ui.activity.HomeActivity"
+            android:theme="@style/AppTheme.Orange"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.HomeActivity" />
@@ -79,6 +81,7 @@
         <activity
             android:name=".ui.activity.DiaperChangeActivity"
             android:label="@string/diaper_change_title"
+            android:theme="@style/AppTheme.Purple"
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -90,6 +93,7 @@
             android:name=".ui.activity.FeedingActivity"
             android:label="Feeding"
             android:title="@string/diaper_change_title"
+            android:theme="@style/AppTheme.Blue"
             android:parentActivityName=".ui.activity.HomeActivity">
             <!--<meta-data-->
                 <!--android:name="android.support.PARENT_ACTIVITY"-->
@@ -102,6 +106,8 @@
             android:name=".ui.activity.GrowthActivity"
             android:label="Growth"
             android:title="@string/growth_title"
+            android:theme="@style/AppTheme.Green"
+
             android:parentActivityName=".ui.activity.HomeActivity"/>
 
 

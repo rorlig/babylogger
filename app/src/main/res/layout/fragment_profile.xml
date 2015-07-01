@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@+id/header"
-        android:id="@+id/basicInfoBlock"
+        android:id="@+id/diaper_block"
         >
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -112,7 +112,7 @@
         android:textAllCaps="true"
         android:textSize="16sp"
 
-        android:layout_below="@+id/basicInfoBlock"
+        android:layout_below="@+id/diaper_block"
         android:textColor="@color/actionbar_background"
         />
 

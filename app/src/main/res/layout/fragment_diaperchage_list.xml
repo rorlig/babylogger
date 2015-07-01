@@ -33,9 +33,9 @@
         >
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/ic_diaper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_diaper_purple"
             android:id="@+id/icon_no_diaper_change"
             android:layout_centerInParent="true"
             />
@@ -54,7 +54,7 @@
             android:text="@string/add_diaperchange_btn_txt"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
-            android:background="#1E88E5"
+            android:background="@color/primary_purple"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/errorText"/>

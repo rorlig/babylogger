@@ -80,8 +80,24 @@
     <color name="event_list_swipe_btn_color_first">#2C6BBD</color>
     <color name="event_list_swipe_btn_color_second">#3991C0</color>
 
+    <!-- intro slides -->
+    <color name="intro_1">#222222</color>
+    <color name="intro_2">#00BCD4</color>
+    <color name="intro_3">#5C6BC0</color>
+    <color name="intro_4">#4CAF50</color>
 
 
+    <color name="primary_purple">#5C6BC0</color>
+    <color name="primary_dark_purple">#3A4378</color>
+
+    <color name="primary_blue">#00BCD4</color>
+    <color name="primary_dark_blue">#005E6A</color>
+
+    <color name="primary_green">#4CAF50</color>
+    <color name="primary_dark_green">#265828</color>
+
+    <color name="primary_orange">#FF9F00</color>
+    <color name="primary_dark_orange">#805000</color>
 
 
 

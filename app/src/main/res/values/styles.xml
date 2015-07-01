@@ -13,6 +13,48 @@
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
     </style>
 
+
+
+    <style name="AppTheme.Purple" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary_purple</item>
+        <item name="colorPrimaryDark">@color/primary_dark_purple</item>
+        <item name="colorAccent">@color/accent</item>
+
+
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+    </style>
+
+    <style name="AppTheme.Blue" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryDark">@color/primary_dark_blue</item>
+        <item name="colorAccent">@color/accent</item>
+
+
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+    </style>
+
+    <style name="AppTheme.Green" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary_green</item>
+        <item name="colorPrimaryDark">@color/primary_dark_green</item>
+        <item name="colorAccent">@color/accent</item>
+
+
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+    </style>
+
+    <style name="AppTheme.Orange" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary_orange</item>
+        <item name="colorPrimaryDark">@color/primary_dark_orange</item>
+        <item name="colorAccent">@color/accent</item>
+
+
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+    </style>
+
     <style name="AppTheme.Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
         <!-- Customize color of navigation drawer icon and back arrow -->
         <item name="colorControlNormal">@color/white</item>
@@ -21,6 +63,8 @@
         <!-- android:textColorSecondary is the color of the menu
              overflow icon (three vertical dots) -->
         <item name="android:actionMenuTextAppearance">@color/white</item>
+
+
 
     </style>
 
@@ -395,54 +439,7 @@
         <item name="android:textStyle">normal</item>ButtonDefault
         <item name="android:textIsSelectable">true</item>
     </style>
-    <!--<style name="Theme.PageIndicatorDefaults" parent="@android:style/Theme">-->
-        <!--<item name="android:vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>-->
-        <!--<item name="android:vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>-->
-    <!--</style>-->
-    <style name="Theme.Scheduler" parent="@style/FrameworkRoot.Theme">
-        <item name="android:buttonStyle">@style/ButtonSchedulerTheme</item>
-        <item name="android:buttonStyleToggle">@style/ToggleSchedulerTheme</item>
-        <item name="android:windowBackground">@color/window_background_color</item>
-        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewSchedulerTheme</item>
-        <item name="android:checkboxStyle">@style/CheckBoxSchedulerTheme</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.Scheduler</item>
-        <item name="android:editTextStyle">@style/EditTextSchedulerTheme</item>
-        <item name="android:imageButtonStyle">@style/ImageButtonSchedulerTheme</item>
-        <item name="android:listViewStyle">@style/ListViewSchedulerTheme</item>
-        <item name="android:listViewWhiteStyle">@style/ListViewSchedulerTheme.White</item>
-        <item name="android:progressBarStyleHorizontal">@style/ProgressBarSchedulerTheme</item>
-        <item name="android:radioButtonStyle">@style/RadioButtonSchedulerTheme</item>
-        <item name="android:spinnerStyle">@style/SpinnerSchedulerTheme</item>
-        <item name="android:tabWidgetStyle">@style/TabWidgetSchedulerTheme</item>
-        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemSchedulerTheme</item>
-        <item name="android:spinnerItemStyle">@style/SpinnerItemSchedulerTheme</item>
-        <item name="android:listChoiceIndicatorSingle">@drawable/baby_btn_radio_holo_light</item>
-        <item name="android:listChoiceIndicatorMultiple">@drawable/baby_btn_radio_holo_light</item>
-        <!--<item name="android:actionBarStyle">@style/ActionBar.Solid.Scheduler</item>-->
-        <item name="android:dropDownSpinnerStyle">@style/SpinnerSchedulerTheme</item>
-        <item name="android:actionDropDownStyle">@style/DropDownNav.Scheduler</item>
-        <item name="android:actionModeBackground">@drawable/cab_background_top_scheduler</item>
-        <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_holo_light</item>
-        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Scheduler</item>
-        <item name="android:actionOverflowButtonStyle">@style/ActionBar.OverFlow</item>
-        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Scheduler</item>
-        <item name="android:activatedBackgroundIndicator">@drawable/activated_background_holo_light</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu.Scheduler</item>
-        <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_holo</item>
-        <item name="android:editTextBackground">@drawable/edit_text_holo_light</item>
-        <item name="android:actionBarWidgetTheme">@style/Theme.Scheduler.Widget</item>
-        <item name="android:actionBarItemBackground">@android:color/transparent</item>
-        <item name="android:actionModeSplitBackground">@android:color/transparent</item>
-        <item name="textHeaderMaxLines">@integer/text_header_max_lines</item>
-        <item name="activatableItemBackground">@drawable/list_selector_holo_light</item>
 
-
-        <item name="android:actionBarStyle">@style/ThemeActionBar</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/ThemeActionBar</item>
-        <item name="windowActionBarOverlay">true</item>
-    </style>
 
     <style name="ThemeActionBar"
         parent="Widget.AppCompat.Light.ActionBar.Solid">
@@ -450,18 +447,7 @@
         <!-- Support library compatibility -->
         <item name="background">@null</item>
     </style>
-    <style name="Theme.Scheduler.About" parent="@style/Theme.Scheduler">
-        <item name="android:windowBackground">@drawable/about_background</item>
-    </style>
-    <style name="Theme.Scheduler.Home" parent="@style/Theme.Scheduler">
-        <!--<item name="android:actionBarStyle">@style/ActionBar.Solid.Scheduler.Home</item>-->
-    </style>
-    <style name="Theme.Scheduler.Settings" parent="@style/Theme.Scheduler" />
-    <style name="Theme.Scheduler.Widget" parent="@android:style/Theme.Holo">
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.Scheduler</item>
-        <item name="android:textColorHint">@color/actionbar_text_color</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu.Scheduler</item>
-    </style>
+
     <style name="ToggleSchedulerTheme" parent="@android:style/Widget.Holo.Light.Button.Toggle">
         <item name="android:background">@drawable/btn_toggle_holo_light</item>
     </style>
@@ -556,10 +542,6 @@
 
     <style name="ButtonBaby" parent="android:Widget.Holo.Light.Button">
         <item name="android:background">@drawable/baby_btn_default_focused_holo_light</item>
-    </style>
-
-    <style name="ImageButtonBaby" parent="android:Widget.Holo.Light.ImageButton">
-        <item name="android:background">@drawable/baby_btn_default_holo_light</item>
     </style>
 
 

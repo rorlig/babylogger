@@ -65,7 +65,7 @@ public class HomeFragment extends InjectableFragment {
     @InjectView(R.id.homeList)
     ListView listView;
 
-    @InjectView(R.id.basicInfoBlock)
+    @InjectView(R.id.diaper_block)
     RelativeLayout basicInfoBlockLayout;
 
     @InjectView(R.id.baby_image)
