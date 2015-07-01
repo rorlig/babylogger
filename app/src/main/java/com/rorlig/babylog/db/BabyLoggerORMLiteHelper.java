@@ -71,7 +71,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
 //            populateDiaperDao();
 //            populateFeedDao();
 //            populateGrowthDao();
-//            populateMilestoneDao();
+            populateMilestoneDao();
 
 
 

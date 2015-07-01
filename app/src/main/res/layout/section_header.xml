@@ -7,7 +7,7 @@
     android:paddingTop="2dip"
     android:paddingBottom="2dip"
     android:paddingLeft="5dip"
-    android:textColor="@color/text_color_main"
+    android:textColor="@color/primary_purple"
     android:textStyle="bold"
     android:text="Hello"
     android:gravity="center"

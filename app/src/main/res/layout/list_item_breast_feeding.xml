@@ -14,7 +14,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/nursing"
+            android:src="@drawable/ic_nursing_blue"
             android:id="@+id/bottle"/>
         <TextView
             android:layout_width="wrap_content"
@@ -32,9 +32,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-
         android:layout_toRightOf="@+id/left_panel"
-
         android:id="@+id/rightPanel">
 
         <TextView
@@ -42,8 +40,7 @@
             android:layout_height="wrap_content"
             android:text="@string/list_title_breast_left"
             android:layout_marginTop="35dp"
-            android:textColor="@color/primary_dark"
-
+            android:textColor="@color/primary_blue"
             android:id="@+id/txtLeft"/>
 
         <TextView
@@ -51,8 +48,7 @@
             android:layout_height="wrap_content"
             android:text="@string/list_title_breast_right"
             android:layout_below="@+id/txtLeft"
-            android:textColor="@color/primary_dark"
-
+            android:textColor="@color/primary_blue"
             android:id="@+id/txtRight"/>
 
         <LinearLayout
@@ -67,14 +63,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/notes_label"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/text_color_main"
+                android:textColor="@color/primary_blue"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/notes_content"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/text_color_main"
+                android:textColor="@color/primary_blue"
                 />
 
         </LinearLayout>

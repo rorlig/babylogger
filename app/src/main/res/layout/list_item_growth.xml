@@ -14,7 +14,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_growth2"
+            android:src="@drawable/ic_growth_green"
             android:id="@+id/growth"/>
         <TextView
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:text="Weight:"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/left_panel"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_green"
         android:id="@+id/weight_label"/>
 
     <TextView
@@ -44,7 +44,7 @@
         android:text="Weight"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/weight_label"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_green"
         android:id="@+id/weight_value"/>
 
 
@@ -55,7 +55,7 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/left_panel"
         android:layout_below="@+id/weight_label"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_green"
         android:id="@+id/height_label"/>
 
     <TextView
@@ -65,7 +65,7 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/height_label"
         android:layout_below="@+id/weight_value"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_green"
         android:id="@+id/height_value"/>
 
 
@@ -77,7 +77,7 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/left_panel"
         android:layout_below="@+id/height_label"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_green"
         android:id="@+id/head_label"/>
 
     <TextView
@@ -87,7 +87,7 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/head_label"
         android:layout_below="@+id/height_value"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_green"
         android:id="@+id/headValue"/>
 
 
@@ -98,7 +98,7 @@
         android:text="@string/notes_label"
         android:layout_below="@+id/head_label"
         android:layout_toRightOf="@+id/left_panel"
-        android:textColor="@color/text_color_main"
+        android:textColor="@color/primary_green"
         android:layout_marginTop="10dp"
         android:id="@+id/notes_label"
         />
@@ -107,7 +107,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/notes_content"
         android:layout_marginLeft="3dp"
-        android:textColor="@color/text_color_main"
+        android:textColor="@color/primary_green"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/notes_label"
         android:layout_below="@+id/head_label"

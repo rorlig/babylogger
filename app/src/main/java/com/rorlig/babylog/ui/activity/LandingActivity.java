@@ -70,7 +70,8 @@ public class LandingActivity extends InjectableActivity {
 
         if (tutorial_shown) {
             startActivity(new Intent(this, HomeActivity.class));
-        } else {
+        }
+        else {
             startActivity(new Intent(this, TutorialActivity.class));
         }
 

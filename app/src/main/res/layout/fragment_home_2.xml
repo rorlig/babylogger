@@ -21,16 +21,6 @@
             android:clickable="true">
 
 
-            <!--<RelativeLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_margin="5dp"-->
-            <!--android:clickable="true"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:paddingRight="20dp"-->
-            <!--android:paddingLeft="20dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_height="fill_parent"-->
-            <!-->-->
 
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -46,19 +36,6 @@
                 app:border_color="#FFFFFFFF"
                 app:border_width="2dp" />
 
-            <!--<TextView-->
-            <!--android:id="@+id/baby_age"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textSize="18sp"-->
-            <!--android:clickable="false"-->
-            <!--android:layout_above="@+id/baby_image"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:visibility="gone"-->
-            <!--/>-->
-
-
-            <!--</RelativeLayout>-->
 
             <TextView
                 android:id="@+id/baby_name"
@@ -76,21 +53,13 @@
         </RelativeLayout>
 
 
-        <com.andexert.library.RippleView
-            android:id="@+id/diaper_block"
-            rv_centered="true"
-            rv_framerate="60"
-            rv_rippleDuration="100"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_block"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="5dp">
 
-            <RelativeLayout
+
+            <com.gc.materialdesign.views.ButtonRectangle
                 android:layout_width="fill_parent"
                 android:layout_height="160dp"
-                android:layout_below="@+id/profileBlock"
+                android:id="@+id/diaper_block"
+                android:layout_below="@+id/profile_block"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
@@ -113,33 +82,26 @@
                     android:layout_toRightOf="@+id/diaper_img"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_diaper_normal"
-                    android:text="Log all the diaper changes."
+                    android:text="@string/diaper_log_description_text"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-            </RelativeLayout>
+            </com.gc.materialdesign.views.ButtonRectangle>
 
 
-        </com.andexert.library.RippleView>
 
-        <com.andexert.library.RippleView
-            android:id="@+id/feed_block"
-            rv_framerate="60"
-            rv_rippleDuration="100"
-            rv_centered="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/diaper_block"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="5dp">
 
-            <RelativeLayout
+
+            <com.gc.materialdesign.views.ButtonRectangle
                 android:layout_width="fill_parent"
                 android:layout_height="160dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/intro_2"
+                android:id="@+id/feed_block"
+                android:layout_below="@+id/diaper_block"
+
                 android:clickable="true">
 
                 <ImageView
@@ -158,28 +120,20 @@
                     android:layout_toRightOf="@+id/feed_img"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_diaper_normal"
-                    android:text="Track both bottle and breast feeds"
+                    android:text="@string/feed_log_description_text"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
+            </com.gc.materialdesign.views.ButtonRectangle>
 
-        <com.andexert.library.RippleView
-            android:id="@+id/growth_block"
-            rv_centered="true"
-            rv_framerate="60"
-            rv_rippleDuration="100"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/feed_block"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="5dp">
 
-            <RelativeLayout
+
+            <com.gc.materialdesign.views.ButtonRectangle
                 android:layout_width="fill_parent"
                 android:layout_height="160dp"
+                android:id="@+id/growth_block"
+
                 android:layout_below="@+id/feed_block"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -204,31 +158,21 @@
                     android:layout_toRightOf="@+id/growth_img"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_diaper_normal"
-                    android:text="Record everything and chart progress on beautiful graphs"
+                    android:text="@string/growth_log_description_text"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
 
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
+            </com.gc.materialdesign.views.ButtonRectangle>
 
-        <com.andexert.library.RippleView
-            android:id="@+id/milestone_block"
-            rv_centered="true"
-            rv_framerate="60"
-            rv_rippleDuration="100"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/growth_block"
-            android:layout_centerHorizontal="true"
 
-            android:layout_margin="5dp">
 
-            <RelativeLayout
+            <com.gc.materialdesign.views.ButtonRectangle
                 android:layout_width="fill_parent"
                 android:layout_height="160dp"
                 android:layout_below="@+id/growth_block"
+                android:id="@+id/milestone_block"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -252,14 +196,13 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/milestones_img"
                     android:scaleType="fitXY"
-                    android:text="Capture each milestone of your child"
+                    android:text="@string/milestone_log_description_text"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
 
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
+            </com.gc.materialdesign.views.ButtonRectangle>
 
     </RelativeLayout>
 

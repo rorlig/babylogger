@@ -21,15 +21,11 @@
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/type_header"
-        style="@style/ListItemHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ListItemHeader.Purple"
         android:text="TYPE"
         android:textAllCaps="true"
-        android:textSize="16sp"
-
         android:layout_below="@+id/header"
-        android:textColor="@color/actionbar_background" />
+        />
 
 
     <RadioGroup
@@ -38,7 +34,7 @@
             android:layout_below="@+id/type_header">
             <RadioButton android:id="@+id/diaper_wet"
                 style="@style/RadioButton"
-                android:background="@drawable/radio_button_center"
+                android:background="@drawable/radio_button_center_purple"
                 android:text="@string/diaper_change_type_wet"
                 android:checked="true"
                 android:textSize="14sp"
@@ -47,7 +43,7 @@
 
              <RadioButton android:id="@+id/diaper_pop"
                 style="@style/RadioButton"
-                android:background="@drawable/radio_button_center"
+                android:background="@drawable/radio_button_center_purple"
 
                 android:text="@string/diaper_change_type_poop"
                  android:layout_marginLeft="-1dp"
@@ -57,7 +53,7 @@
 
             <RadioButton android:id="@+id/diaper_both"
                 style="@style/RadioButton"
-                android:background="@drawable/radio_button_center"
+                android:background="@drawable/radio_button_center_purple"
                 android:text="@string/diaper_change_type_both"
                 android:layout_marginLeft="-1dp"
                 android:textSize="14sp"
@@ -76,13 +72,12 @@
         >
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/poop_type"
-            style="@style/ListItemHeader"
+            style="@style/ListItemHeader.Purple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/poppy_texture"
             android:textAllCaps="true"
-            android:textSize="16sp"
-            android:textColor="@color/actionbar_background" />
+             />
 
         <SeekBar xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/poop_density"
@@ -119,13 +114,12 @@
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/poop_color_header"
-            style="@style/ListItemHeader"
+            style="@style/ListItemHeader.Purple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/poppy_color_header"
             android:textAllCaps="true"
-            android:textSize="16sp"
-            android:textColor="@color/actionbar_background" />
+             />
 
         <RadioGroup
             style="@style/RadioGroup"
@@ -189,40 +183,12 @@
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/accident_header"
-        style="@style/ListItemHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ListItemHeader.Purple"
         android:text="@string/diaper_indicident"
         android:textAllCaps="true"
-        android:textSize="16sp"
         android:layout_below="@+id/poop_color_layout"
-        android:textColor="@color/actionbar_background" />
+         />
 
-    <!--<RadioGroup-->
-        <!--style="@style/RadioGroup"-->
-        <!--android:id="@+id/diaper_change_type"-->
-        <!--android:layout_below="@+id/typeHeader">-->
-
-        <!--<RadioButton android:id="@+id/diaper_dry"-->
-            <!--style="@style/RadioButton"-->
-            <!--android:background="@drawable/radio_button_center"-->
-            <!--android:checked="true"-->
-            <!--android:text="Dry"-->
-            <!--/>-->
-        <!--<RadioButton android:id="@+id/diaper_wet"-->
-            <!--style="@style/RadioButton"-->
-            <!--android:background="@drawable/radio_button_center"-->
-            <!--android:text="Wet"-->
-            <!--android:layout_marginLeft="-1dp"-->
-            <!--/>-->
-        <!--<RadioButton android:id="@+id/diaper_both"-->
-            <!--style="@style/RadioButton"-->
-            <!--android:background="@drawable/radio_button_center"-->
-            <!--android:text="Both"-->
-            <!--android:layout_marginLeft="-1dp"-->
-
-            <!--/>-->
-    <!--</RadioGroup>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -238,26 +204,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/diaper_indicident_none"
-                android:textColor="@color/text_color_main"
+                android:textColor="@color/primary_purple"
                 style="@style/CheckBoxDefaultItem"
                 android:layout_marginLeft="10dp"
                 android:textSize="10sp"
 
                 android:layout_weight="1"/>
 
-            <!--30 mall street. - 480 ; 465 ; &#45;&#45; -->
 
 
             <RadioButton
-            android:id="@+id/check_no_diaper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/diaper_indicident_no_diaper"
-            android:textColor="@color/text_color_main"
-            style="@style/CheckBoxDefaultItem"
-            android:layout_marginLeft="10dp"
-            android:textSize="10sp"
-            android:layout_weight="1"/>
+                android:id="@+id/check_no_diaper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diaper_indicident_no_diaper"
+                android:textColor="@color/primary_purple"
+                style="@style/CheckBoxDefaultItem"
+                android:layout_marginLeft="10dp"
+                android:textSize="10sp"
+                android:layout_weight="1"/>
 
         <RadioButton
             android:id="@+id/check_diaper_leak"
@@ -265,11 +230,9 @@
             android:layout_height="wrap_content"
             android:text="@string/diaper_incident_leak"
             android:textSize="10sp"
-
-            android:textColor="@color/text_color_main"
+            android:textColor="@color/primary_purple"
             style="@style/CheckBoxDefaultItem"
             android:layout_marginLeft="10dp"
-
             android:layout_weight="1"/>
         </RadioGroup>
 
@@ -277,14 +240,11 @@
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/notes_header"
-        style="@style/ListItemHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ListItemHeader.Purple"
         android:text="NOTES"
         android:textAllCaps="true"
-        android:textSize="16sp"
         android:layout_below="@+id/accidentLayoutWrapper"
-        android:textColor="@color/actionbar_background" />
+         />
 
     <EditText xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/notes"
@@ -302,8 +262,8 @@
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:background="#1E88E5"
+        android:text="@string/btn_save_txt"
+        android:background="@color/primary_purple"
         android:layout_alignParentBottom="true"
         />
 

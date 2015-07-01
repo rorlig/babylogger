@@ -101,7 +101,7 @@
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/type_header"
-        style="@style/ListItemHeader"
+        style="@style/ListItemHeader.Blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_breast"
@@ -109,7 +109,7 @@
         android:textSize="18sp"
 
         android:layout_below="@+id/header"
-        android:textColor="@color/actionbar_background" />
+      />
 
 
 
@@ -147,10 +147,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "@string/breast_title_left"
+            android:text="@string/breast_title_left"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/primary_dark"
+            android:textColor="@color/primary_blue"
             />
 
         <TextView
@@ -159,7 +159,7 @@
         android:text = "@string/breast_title_right"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_blue"
         />
     </LinearLayout>
 
@@ -243,9 +243,6 @@
                 android:gravity="center"
                 android:background="@drawable/round_button"
                 android:id="@+id/right"
-
-
-
                 >
 
 
@@ -348,7 +345,7 @@
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/notes_header"
-        style="@style/ListItemHeader"
+        style="@style/ListItemHeader.Blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NOTES"
@@ -356,7 +353,7 @@
         android:layout_marginTop="10dp"
         android:textSize="16sp"
         android:layout_below="@+id/timers"
-        android:textColor="@color/actionbar_background" />
+        android:textColor="@color/primary_blue" />
 
     <EditText xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/notes"
@@ -378,7 +375,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/nursing_save_txt"
-        android:background="#1E88E5"
+        android:background="@color/primary_blue"
         android:layout_alignParentBottom="true"
         />
 

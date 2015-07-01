@@ -14,7 +14,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_diaper"
+            android:src="@drawable/ic_diaper_purple"
             android:id="@+id/diaperImage"/>
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/diaper_wet"
-                android:textColor="@color/text_color_main"
+                android:textColor="@color/primary_purple"
                 android:layout_marginRight="10dp"
 
                 />
@@ -65,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color_main"
+                android:textColor="@color/primary_purple"
                 android:text="@string/diaper_poop"/>
         </LinearLayout>
 
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/diaper_color"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/text_color_main"
+                    android:textColor="@color/primary_purple"
                     />
                 <ImageView
                     android:layout_width="15dp"
@@ -106,13 +106,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/diaper_texture"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/text_color_main"
+                    android:textColor="@color/primary_purple"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/text_color_main"
+                    android:textColor="@color/primary_purple"
                     android:id="@+id/poopTexture"
                     android:text="N/A"
                     />
@@ -131,13 +131,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/diaper_incident"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/text_color_main"
+                android:textColor="@color/primary_purple"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/text_color_main"
+                android:textColor="@color/primary_purple"
                 android:id="@+id/incidentDetails"
                 android:text="@string/incident_none"
                 />
@@ -154,14 +154,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/diaper_notes"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/text_color_main"
+                android:textColor="@color/primary_purple"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/notesContent"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/text_color_main"
+                android:textColor="@color/primary_purple"
                 />
 
         </LinearLayout>

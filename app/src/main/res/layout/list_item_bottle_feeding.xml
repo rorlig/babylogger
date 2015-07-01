@@ -14,7 +14,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/bottle_feed"
+            android:src="@drawable/ic_bottle_feed_blue"
             android:id="@+id/bottle"/>
         <TextView
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:text="Test"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/left_panel"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_blue"
         android:id="@+id/txt_type"/>
 
     <LinearLayout
@@ -52,14 +52,14 @@
             android:layout_height="wrap_content"
             android:text="@string/notes_label"
             android:layout_marginRight="10dp"
-            android:textColor="@color/primary_dark"
+            android:textColor="@color/primary_blue"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/notes_content"
             android:layout_marginRight="10dp"
-            android:textColor="@color/text_color_main"
+            android:textColor="@color/primary_blue"
             />
 
     </LinearLayout>

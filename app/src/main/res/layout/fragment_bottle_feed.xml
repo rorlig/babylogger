@@ -27,7 +27,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/quantity_text_header"
-        android:textColor="@color/text_color_main"/>
+        android:textColor="@color/primary_blue"/>
 
        <RelativeLayout
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
         android:layout_marginTop="10dp"
         android:textSize="16sp"
         android:layout_below="@+id/quantity_layout"
-        android:textColor="@color/actionbar_background" />
+        android:textColor="@color/primary_blue" />
 
     <EditText xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/notes"
@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:background="#1E88E5"
+        android:background="@color/primary_blue"
         android:layout_alignParentBottom="true"
         />
 
