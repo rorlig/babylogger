@@ -1,9 +1,12 @@
 package com.rorlig.babylog.ui.widget;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.Time;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +39,9 @@ import butterknife.OnClick;
  * Created by rorlig on 5/27/15.
  */
 public class DateTimeHeaderFragment extends InjectableFragment {
-
+    public enum DateTimeColor {
+        GREEN, BLUE, PURPLE
+    }
 
 
 
@@ -52,6 +57,8 @@ public class DateTimeHeaderFragment extends InjectableFragment {
     Context context;
 
     private String TAG = "DateTimeHeader";
+
+
 
 
 //    public DateTimeHeader(Context context) {
@@ -97,6 +104,19 @@ public class DateTimeHeaderFragment extends InjectableFragment {
         currentDate.setText(sdf.format(new Date()));
         sdf = new SimpleDateFormat("hh:mm aa");
         currentTime.setText(sdf.format(new Date()));
+
+        TypedArray a  = getParentFragment().getActivity().obtainStyledAttributes(R.styleable.DateTimeHeaderFragment);
+
+        int color = a.getColor(R.styleable.DateTimeHeaderFragment_color_text, getResources().getColor(R.color.text_color_main));
+        int my_integer = a.getColor(R.styleable.DateTimeHeaderFragment_my_int, -1);
+        Log.d(TAG, "My Integer " + my_integer);
+        Log.d(TAG, " color choosen " + color);
+        currentDate.setTextColor(color);
+        currentTime.setTextColor(color);
+
+        a.recycle();
+
+//        getActivity().ge
 
 //        currentTime.setText(today.hour + ":" + today.minute + ":" + today.second);
     }
@@ -176,6 +196,28 @@ public class DateTimeHeaderFragment extends InjectableFragment {
         //; year, month, day));
     }
 
+    public void setColor(DateTimeColor color) {
+//        Log.d(TAG, " color " + Integer.toString(color, 16));
+        switch (color) {
+            case GREEN:
+                currentDate.setTextColor(getResources().getColor(R.color.primary_green));
+                currentTime.setTextColor(getResources().getColor(R.color.primary_green));
+            break;
+            case BLUE:
+                currentDate.setTextColor(getResources().getColor(R.color.primary_blue));
+                currentTime.setTextColor(getResources().getColor(R.color.primary_blue));
+                break;
+
+            case PURPLE:
+                currentDate.setTextColor(getResources().getColor(R.color.primary_purple));
+                currentTime.setTextColor(getResources().getColor(R.color.primary_purple));
+                break;
+
+
+        }
+
+    }
+
 
     private class EventListener {
         public EventListener() {
@@ -225,6 +267,25 @@ public class DateTimeHeaderFragment extends InjectableFragment {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Parse attributes during inflation from a view hierarchy into the
+     * arguments we handle.
+     */
+    @Override
+    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
+        super.onInflate(activity, attrs, savedInstanceState);
+        Log.v(TAG,"onInflate called " + getParentFragment());
+
+//        TypedArray a = getParentFragment().onobtainStyledAttributes(attrs, R.styleable.DateTimeHeaderFragment);
+
+//        int color = a.getColor(R.styleable.DateTimeHeaderFragment_color_text, getResources().getColor(R.color.text_color_main));
+////        Log.d(TAG)
+//        currentDate.setTextColor(color);
+//        currentTime.setTextColor(color);
+//
+//        a.recycle();
     }
 
 }

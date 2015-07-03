@@ -215,7 +215,7 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
 
         sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
                 growthAdapter,
-                R.layout.section_header,
+                R.layout.section_header_green,
                 R.id.title,
                 new DiaperChangeSectionizer());
 

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/drawer_filter_background"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--<LinearLayout-->
@@ -11,10 +14,14 @@
     <!--android:layout_height="fill_parent"-->
     <!--android:orientation="vertical">-->
     <fragment
+
         android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/header">
+        android:id="@+id/header"
+        app:color_text="@color/primary_green"
+        app:my_int="10"
+     >
 
     </fragment>
 

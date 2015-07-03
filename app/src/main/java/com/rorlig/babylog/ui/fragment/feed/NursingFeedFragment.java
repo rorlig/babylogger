@@ -144,6 +144,8 @@ public class NursingFeedFragment extends InjectableFragment {
 //                "fonts/proximanova_light.ttf");
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
+
 
 
         notificationManager = (NotificationManager)

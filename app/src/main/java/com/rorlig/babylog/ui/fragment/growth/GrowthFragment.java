@@ -1,6 +1,7 @@
 package com.rorlig.babylog.ui.fragment.growth;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -173,6 +174,15 @@ public class GrowthFragment extends InjectableFragment {
 
             }
         });
+
+        TypedArray a  = getActivity().obtainStyledAttributes(R.styleable.DateTimeHeaderFragment);
+
+        int color = a.getColor(R.styleable.DateTimeHeaderFragment_color_text, getResources().getColor(R.color.text_color_main));
+        int my_integer = a.getColor(R.styleable.DateTimeHeaderFragment_my_int, -1);
+        Log.d(TAG, "My Integer " + my_integer);
+        Log.d(TAG, " color choosen " + color);
+
+
 //        headInchesEditText.addTextChangedListener(new TextWatcher() {
 //            int len = 0;
 //            @Override
@@ -213,6 +223,8 @@ public class GrowthFragment extends InjectableFragment {
 
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+        Log.d(TAG, " green color " + Integer.toString(R.color.primary_green, 16));
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GREEN);
 
     }
 

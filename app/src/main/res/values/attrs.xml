@@ -214,4 +214,10 @@
         </attr>
         <attr name="gravity" />
     </declare-styleable>
+
+
+    <declare-styleable name="DateTimeHeaderFragment">
+        <attr name="color_text" format="color"/>
+        <attr name="my_int" format="integer"/>
+    </declare-styleable>
 </resources>

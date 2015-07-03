@@ -176,6 +176,7 @@ public class DiaperChangeFragment extends InjectableFragment {
 
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.PURPLE);
 
 
 

@@ -67,10 +67,10 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, FeedDao.class);
             TableUtils.createTable(connectionSource, GrowthDao.class);
             TableUtils.createTable(connectionSource, MilestonesDao.class);
-//            TableUtils.clearTable(connectionSource, SleepDao.class);
+            TableUtils.createTable(connectionSource, SleepDao.class);
 //            populateDiaperDao();
 //            populateFeedDao();
-//            populateGrowthDao();
+            populateGrowthDao();
             populateMilestoneDao();
 
 

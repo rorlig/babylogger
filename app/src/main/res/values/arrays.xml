@@ -16,10 +16,10 @@
     </array>
 
     <array name="action_fragment_icons">
-        <item>@drawable/ic_diaper</item>
-        <item>@drawable/ic_feed</item>
-        <item>@drawable/ic_growth2</item>
-        <item>@drawable/ic_sleep</item>
+        <item>@drawable/ic_diaper_purple</item>
+        <item>@drawable/ic_feed_blue</item>
+        <item>@drawable/ic_growth_green</item>
+        <item>@drawable/ic_development</item>
         <item>@drawable/ic_development</item>
         <item>@drawable/ic_stats</item>
         <item>@drawable/ic_profile</item>
@@ -81,57 +81,8 @@
         <item>@string/menu_item_profile</item>
     </string-array>
 
-    <string-array name="filter_event_types">
-        <item>@string/filter_item_business</item>
-        <item>@string/filter_item_classes</item>
-        <item>@string/filter_item_comedy</item>
-        <item>@string/filter_item_conferences</item>
-        <item>@string/filter_item_endurance</item>
-
-        <item>@string/filter_item_food</item>
-        <item>@string/filter_item_festivals</item>
-        <item>@string/filter_item_fundraisers</item>
-
-        <item>@string/filter_item_movies</item>
 
 
-        <item>@string/filter_item_music</item>
-        <item>@string/filter_item_networking</item>
-
-        <item>@string/filter_item_performing_arts</item>
-        <item>@string/filter_item_other_entertainment</item>
-
-        <item>@string/filter_item_other_events</item>
-        <item>@string/filter_item_religion</item>
-
-        <item>@string/filter_item_social</item>
-        <item>@string/filter_item_sports</item>
-        <item>@string/filter_item_travel</item>
-    </string-array>
-
-    <!--&lt;!&ndash; filter event images - normal &ndash;&gt;-->
-    <!--<array name="filter_event_images">-->
-        <!--<item>@drawable/icon_category_business_normal</item>-->
-        <!--<item>@drawable/icon_category_classes_normal</item>-->
-        <!--<item>@drawable/icon_category_comedy_normal</item>-->
-        <!--<item>@drawable/icon_category_conference_normal</item>-->
-        <!--<item>@drawable/icon_category_endurance_sports_normal</item>-->
-        <!--<item>@drawable/icon_category_food_normal</item>-->
-        <!--<item>@drawable/icon_category_festival_normal</item>-->
-        <!--<item>@drawable/icon_category_fundraiser_normal</item>-->
-        <!--<item>@drawable/icon_category_movie_normal</item>-->
-        <!--<item>@drawable/icon_category_music_normal</item>-->
-        <!--<item>@drawable/icon_category_networking_normal</item>-->
-        <!--<item>@drawable/icon_category_performing_arts_normal</item>-->
-        <!--<item>@drawable/icon_category_other_entertainment_normal</item>-->
-        <!--<item>@drawable/icon_category_other_events_normal</item>-->
-        <!--<item>@drawable/icon_category_religion_normal</item>-->
-        <!--<item>@drawable/icon_category_social_normal</item>-->
-        <!--<item>@drawable/icon_category_sporting_normal</item>-->
-        <!--<item>@drawable/icon_category_travel_normal</item>-->
-    <!--</array>-->
-
-    <!-- filter event images - normal -->
 
     <string-array name="settings_reminders_labels">
         <item>@string/settings_reminders_never</item>
@@ -151,25 +102,6 @@
         <item>3600</item>
     </string-array>
 
-    <string-array name="category_color_values">
-        <item>@color/color_classes</item>
-        <item>@color/color_comedy</item>
-        <item>@color/color_performing_arts</item>
-        <item>@color/color_conferences</item>
-        <item>@color/color_other</item>
-        <item>@color/color_social</item>
-        <item>@color/color_food</item>
-        <item>@color/color_networking</item>
-        <item>@color/color_music</item>
-        <item>@color/color_business</item>
-        <item>@color/color_fundraisers</item>
-        <item>@color/color_festivals</item>
-        <item>@color/color_sports</item>
-        <item>@color/color_religion</item>
-        <item>@color/color_movies</item>
-        <item>@color/color_endurance</item>
-        <item>@color/color_travel</item>
-    </string-array>
 
 
     <string-array name="type_array">
@@ -198,10 +130,10 @@
 
     <!-- items logos -->
     <array name="itemIcons">
-        <item>@drawable/ic_diaper</item>
-        <item>@drawable/ic_feed</item>
-        <item>@drawable/ic_growth2</item>
-        <item>@drawable/ic_development</item>
+        <item>@drawable/ic_diaper_purple</item>
+        <item>@drawable/ic_feed_blue</item>
+        <item>@drawable/ic_growth_green</item>
+        <item>@drawable/ic_milestones</item>
         <item>@drawable/ic_sleep</item>
     </array>
 

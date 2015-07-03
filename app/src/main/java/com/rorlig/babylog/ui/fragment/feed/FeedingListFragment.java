@@ -206,7 +206,7 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
 
         sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
                 feedAdapter,
-                R.layout.section_header,
+                R.layout.section_header_blue,
                 R.id.title,
                 new DiaperChangeSectionizer());
 
