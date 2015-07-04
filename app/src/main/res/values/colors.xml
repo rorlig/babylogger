@@ -99,6 +99,11 @@
     <color name="primary_orange">#FF9F00</color>
     <color name="primary_dark_orange">#805000</color>
 
+    <color name="primary_indigo">#3F51B5</color>
+    <color name="primary_dark_indigo">#1A237E</color>
+
+    <color name="primary_gray">#9E9E9E</color>
+    <color name="primary_gray_dark">#212121</color>
 
 
     <color name="common_action_bar_splitter">#ffd2d2d2</color>

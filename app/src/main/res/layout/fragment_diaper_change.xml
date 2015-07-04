@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--<LinearLayout-->
         <!--android:layout_width="fill_parent"-->
@@ -238,25 +239,36 @@
 
     </LinearLayout>
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/notes_header"
-        style="@style/ListItemHeader.Purple"
-        android:text="NOTES"
-        android:textAllCaps="true"
-        android:layout_below="@+id/accidentLayoutWrapper"
-         />
+    <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/notes_header"-->
+        <!--style="@style/ListItemHeader.Purple"-->
+        <!--android:text="NOTES"-->
+        <!--android:textAllCaps="true"-->
+        <!--android:layout_below="@+id/accidentLayoutWrapper"-->
+         <!--/>-->
 
-    <EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Notes"
-        android:textSize="14sp"
-        android:layout_below="@+id/notes_header"
-        android:layout_margin="15dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:layout_marginRight = "15dp"
+        android:layout_marginLeft = "15dp"
+        android:ems="10"
+        android:layout_below="@+id/accidentLayoutWrapper"
+        android:hint="NOTES"
+        app:met_floatingLabel="normal"
         />
+    <!--<EditText xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/notes"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Notes"-->
+        <!--android:textSize="14sp"-->
+        <!--android:layout_below="@+id/notes_header"-->
+        <!--android:layout_margin="15dp"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp"-->
+        <!--/>-->
 
     <com.gc.materialdesign.views.ButtonRectangle
         android:id="@+id/save_btn"

@@ -112,10 +112,17 @@ dependencies {
 
     compile project(':squarecamera')
 
-    compile 'com.squareup:android-times-square:1.5.0@aar'
 
 
-    compile 'com.flipboard:bottomsheet-core:1.1.0'
+
+
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+
+    compile 'com.prolificinteractive:material-calendarview:0.6.1'
+
+    compile 'com.wdullaer:materialdatetimepicker:1.4.0'
+
+
 
 
 

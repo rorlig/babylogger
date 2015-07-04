@@ -3,7 +3,7 @@
     android:layout_height="fill_parent">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -64,6 +64,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/intro_3"
+                materialdesign:rippleSpeed="75"
+
                 android:clickable="true">
 
                 <ImageView
@@ -101,6 +103,7 @@
                 android:background="@color/intro_2"
                 android:id="@+id/feed_block"
                 android:layout_below="@+id/diaper_block"
+                materialdesign:rippleSpeed="75"
 
                 android:clickable="true">
 
@@ -139,6 +142,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/intro_4"
+                materialdesign:rippleSpeed="75"
+
                 android:clickable="true">
 
 
@@ -161,7 +166,8 @@
                     android:text="@string/growth_log_description_text"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
 
             </com.gc.materialdesign.views.ButtonRectangle>
@@ -178,6 +184,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/orange_peel"
+                materialdesign:rippleSpeed="75"
+
                 android:clickable="true">
 
 
@@ -203,6 +211,45 @@
 
 
             </com.gc.materialdesign.views.ButtonRectangle>
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:layout_width="fill_parent"
+            android:layout_height="160dp"
+            android:layout_below="@+id/milestone_block"
+            android:id="@+id/sleep_block"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/primary_gray_dark"
+            materialdesign:rippleSpeed="75"
+
+            android:clickable="true">
+
+
+            <ImageView
+                android:id="@+id/sleep_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_sleep_normal" />
+
+            <TextView
+                android:id="@+id/sleep_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/sleep_img"
+                android:scaleType="fitXY"
+                android:text="@string/sleep_description_text"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </com.gc.materialdesign.views.ButtonRectangle>
+
 
     </RelativeLayout>
 

@@ -1,27 +1,15 @@
 package com.rorlig.babylog.ui.fragment.home;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.andexert.library.RippleView;
-import com.flipboard.bottomsheet.BottomSheetLayout;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
@@ -35,16 +23,9 @@ import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by rorlig on 5/31/15.
@@ -325,5 +306,15 @@ public class HomeFragment2 extends InjectableFragment {
     @OnClick(R.id.milestone_block)
     public void milestoneClicked(){
         startActivity(new Intent(getActivity(), MilestonesActivity.class));
+    }
+
+    @OnClick(R.id.sleep_block)
+    public void sleepClicked() {
+
+    }
+
+    @OnClick(R.id.baby_image)
+    public void babyImageClicked() {
+        startActivity(new Intent(getActivity(), ProfileActivity.class));
     }
 }

@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
-import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment2;
 import com.squareup.otto.Subscribe;
 

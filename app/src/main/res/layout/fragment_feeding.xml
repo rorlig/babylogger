@@ -5,7 +5,8 @@
     android:layout_height="fill_parent"
     android:clickable="true"
 
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--<LinearLayout-->
     <!--android:layout_width="fill_parent"-->
@@ -343,29 +344,44 @@
     </LinearLayout>
 
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/notes_header"
-        style="@style/ListItemHeader.Blue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NOTES"
-        android:textAllCaps="true"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"
-        android:layout_below="@+id/timers"
-        android:textColor="@color/primary_blue" />
+    <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/notes_header"-->
+        <!--style="@style/ListItemHeader.Blue"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="NOTES"-->
+        <!--android:textAllCaps="true"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:textSize="16sp"-->
+        <!--android:layout_below="@+id/timers"-->
+        <!--android:textColor="@color/primary_blue" />-->
 
-    <EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    <!--<EditText xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/notes"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Notes"-->
+        <!--android:textSize="14sp"-->
+        <!--android:layout_below="@+id/notes_header"-->
+        <!--android:layout_margin="15dp"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp"-->
+        <!--/>-->
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Notes"
-        android:textSize="14sp"
-        android:layout_below="@+id/notes_header"
-        android:layout_margin="15dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:layout_marginRight = "15dp"
+        android:layout_marginLeft = "15dp"
+        android:ems="10"
+        android:layout_below="@+id/timers"
+        android:hint="NOTES"
+
+        app:met_floatingLabel="normal"
         />
+
 
 
 

@@ -3,7 +3,6 @@ package com.rorlig.babylog.dao;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.rorlig.babylog.model.feed.FeedType;
 
 import java.util.Date;
 

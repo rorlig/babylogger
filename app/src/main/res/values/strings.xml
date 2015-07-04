@@ -322,6 +322,7 @@
     <string name="milestone_log_description_text">Capture each milestone of your child</string>
     <string name="diaper_description_title">Log Diaper Changes</string>
     <string name="btn_save_txt">Save</string>
+    <string name="sleep_description_text">Sleep too much or too little? </string>
 
 
 </resources>
