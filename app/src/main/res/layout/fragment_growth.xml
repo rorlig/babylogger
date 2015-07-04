@@ -94,80 +94,111 @@
 
 
 
-    <LinearLayout
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/weight_layout"-->
+        <!--android:id="@+id/height_layout"-->
+        <!-->-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/txt_height"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:id="@+id/height_label"-->
+            <!--android:textColor="@color/primary_green"/>-->
+        <!--<EditText-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/txt_hint_decimal"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:numeric="decimal"-->
+            <!--android:maxLength="5"-->
+            <!--android:id="@+id/height_inches"-->
+            <!--android:textColor="@color/primary_green"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="inches"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_toRightOf="@+id/height_inches"-->
+            <!--android:id="@+id/height_inches_label"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textColor="@color/primary_green"/>-->
+
+    <!--</LinearLayout>-->
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/height_inches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight = "15dp"
+        android:layout_marginLeft = "15dp"
+        android:ems="10"
+        android:hint="@string/height_title"
+        app:met_floatingLabel="normal"
         android:layout_below="@+id/weight_layout"
-        android:id="@+id/height_layout"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_height"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/height_label"
-            android:textColor="@color/primary_green"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/txt_hint_decimal"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:numeric="decimal"
-            android:maxLength="5"
-            android:id="@+id/height_inches"
-            android:textColor="@color/primary_green"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="inches"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/height_inches"
-            android:id="@+id/height_inches_label"
-            android:layout_centerVertical="true"
-            android:textColor="@color/primary_green"/>
+        app:met_minCharacters="5"
+        app:met_maxCharacters="5"
+        android:numeric="decimal"
 
-    </LinearLayout>
+        />
 
-
-
-    <LinearLayout
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/head_inches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/height_layout"
-        android:id="@+id/measure_layout"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/head_measurement_title"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/head_label"
-            android:textColor="@color/primary_green"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/txt_hint_decimal"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:numeric="decimal"
-            android:maxLength="5"
-            android:id="@+id/head_inches"
-            android:textColor="@color/primary_green"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_inches"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/head_inches_label"
-            android:layout_centerVertical="true"
-            android:textColor="@color/primary_green"/>
+        android:layout_marginRight = "15dp"
+        android:layout_marginLeft = "15dp"
+        android:ems="10"
+        android:hint="@string/head_measurement_title"
+        app:met_floatingLabel="normal"
+        android:layout_below="@+id/height_inches"
+        app:met_minCharacters="5"
+        app:met_maxCharacters="5"
+        android:numeric="decimal"
 
-    </LinearLayout>
+        />
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/height_layout"-->
+        <!--android:id="@+id/measure_layout"-->
+        <!-->-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/head_measurement_title"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:id="@+id/head_label"-->
+            <!--android:textColor="@color/primary_green"/>-->
+        <!--<EditText-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/txt_hint_decimal"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:numeric="decimal"-->
+            <!--android:maxLength="5"-->
+            <!--android:id="@+id/head_inches"-->
+            <!--android:textColor="@color/primary_green"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/label_inches"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:id="@+id/head_inches_label"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textColor="@color/primary_green"/>-->
+
+    <!--</LinearLayout>-->
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/notes"
@@ -176,7 +207,7 @@
         android:layout_marginRight = "15dp"
         android:layout_marginLeft = "15dp"
         android:ems="10"
-        android:layout_below="@+id/measure_layout"
+        android:layout_below="@+id/head_inches"
         android:hint="NOTES"
         app:met_floatingLabel="normal"
         />

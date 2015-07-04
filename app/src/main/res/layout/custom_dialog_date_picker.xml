@@ -15,11 +15,11 @@
         android:textAllCaps="true"
         android:gravity="center"
         android:background="@android:color/transparent"
-        android:textColor="@color/actionbar_background" />
+        android:textColor="@color/primary_orange" />
 
 
     <View
-        style="@style/ListItemDivider"
+        style="@style/ListItemDividerShort.Orange"
         android:id="@+id/divider"
         android:layout_marginTop="5dp"/>
 
@@ -33,6 +33,9 @@
         android:datePickerMode="spinner"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+
+
+
         />
 
 
@@ -48,7 +51,8 @@
             android:layout_height="30dp"
             android:clickable="true"
             android:text="Save"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@color/primary_orange"/>
 
         <com.gc.materialdesign.views.ButtonFlat
             android:id="@+id/btn_cancel"
@@ -57,7 +61,8 @@
             android:layout_marginLeft="5dp"
             android:clickable="true"
             android:text="Cancel"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@color/primary_orange"/>
 
 
         <com.gc.materialdesign.views.ButtonFlat
@@ -66,7 +71,8 @@
             android:layout_height="30dp"
             android:clickable="true"
             android:text="Reset"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@color/primary_orange"g/>
     </LinearLayout>
 
 </LinearLayout>

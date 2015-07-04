@@ -177,6 +177,10 @@
         <item name="android:background">@color/primary_blue</item>
     </style>
 
+
+    <style name="ListItemDividerShort.Orange" parent="ListItemDividerShort">
+        <item name="android:background">@color/primary_orange</item>
+    </style>
     <style name="ListItemHorizontalDivider">
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">match_parent</item>

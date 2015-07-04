@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.GrowthDao;
@@ -44,7 +45,7 @@ public class GrowthFragment extends InjectableFragment {
     Context context;
 
     @InjectView(R.id.notes)
-    EditText notesContentTextView;
+    com.rengwuxian.materialedittext.MaterialEditText notesContentTextView;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
@@ -56,10 +57,10 @@ public class GrowthFragment extends InjectableFragment {
     EditText weightOuncesEditText;
 
     @InjectView(R.id.height_inches)
-    EditText heightInchesEditText;
+    MaterialEditText heightInchesEditText;
 
     @InjectView(R.id.head_inches)
-    EditText headInchesEditText;
+    com.rengwuxian.materialedittext.MaterialEditText headInchesEditText;
 
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;

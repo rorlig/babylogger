@@ -280,7 +280,7 @@
     <string name="action_stats">Statistics</string>
     <string name="txt_not_completed">Not Completed</string>
     <string name="title_growth">GROWTH</string>
-    <string name="head_measurement_title">HEAD MEASUREMENT</string>
+    <string name="head_measurement_title">HEAD MEASUREMENT (inches)</string>
     <string name="notes_label">Notes:</string>
     <string name="gallery_string_title">GALLERY</string>
     <string name="camera_string_title">CAMERA</string>
@@ -323,6 +323,7 @@
     <string name="diaper_description_title">Log Diaper Changes</string>
     <string name="btn_save_txt">Save</string>
     <string name="sleep_description_text">Sleep too much or too little? </string>
+    <string name="height_title">Height (Inches)</string>
 
 
 </resources>
