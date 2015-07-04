@@ -91,6 +91,8 @@ public class DiaperChangeFragment extends InjectableFragment {
     @InjectView(R.id.poop_density)
     SeekBar poopDensitySeekBar;
 
+
+
     @InjectView(R.id.poop_type_label)
     TextView poopTypeLabel;
 

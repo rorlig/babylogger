@@ -136,7 +136,7 @@ public class BottleFeedFragment extends InjectableFragment
         });
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
-        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.PURPLE);
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
 
 
 //        feedTypeSpinner.setOnItemClickListener(this);

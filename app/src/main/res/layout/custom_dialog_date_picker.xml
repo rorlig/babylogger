@@ -72,7 +72,7 @@
             android:clickable="true"
             android:text="Reset"
             android:textStyle="bold"
-            android:background="@color/primary_orange"g/>
+            android:background="@color/primary_orange"/>
     </LinearLayout>
 
 </LinearLayout>
