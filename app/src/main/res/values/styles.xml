@@ -171,7 +171,7 @@
 
 
     <style name="ListItemDivider.Gray" parent="ListItemDivider">
-        <item name="android:background">@color/primary_gray_darkgi</item>
+        <item name="android:background">@color/primary_gray_dark</item>
     </style>
 
     <style name="ListItemDividerShort">
