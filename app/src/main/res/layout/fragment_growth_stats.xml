@@ -5,8 +5,7 @@
 
     <TextView
         android:id="@+id/growth_stats_title"
-        style="@style/ListItemHeader"
-        android:textColor="@color/primary"
+        style="@style/ListItemHeader.Green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -22,7 +21,7 @@
 
         <RadioButton android:id="@+id/growth_stats_weight"
             style="@style/RadioButton"
-            android:background="@drawable/radio_button_center"
+            android:background="@drawable/radio_button_center_green"
             android:checked="true"
             android:text="@string/growth_stats_weight"
             android:textSize="14sp"
@@ -30,7 +29,7 @@
             />
         <RadioButton android:id="@+id/growth_stats_height"
             style="@style/RadioButton"
-            android:background="@drawable/radio_button_center"
+            android:background="@drawable/radio_button_center_green"
             android:text="@string/growth_stats_height"
             android:layout_marginLeft="-1dp"
             android:textSize="14sp"
@@ -38,7 +37,7 @@
 
         <RadioButton android:id="@+id/growth_stats_head_measurement"
             style="@style/RadioButton"
-            android:background="@drawable/radio_button_center"
+            android:background="@drawable/radio_button_center_green"
             android:text="@string/growth_stats_head_measurement"
             android:layout_marginLeft="-1dp"
             android:textSize="14sp"

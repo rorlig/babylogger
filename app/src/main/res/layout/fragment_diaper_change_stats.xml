@@ -5,8 +5,7 @@
 
     <TextView
         android:id="@+id/diaper_change_stats_title"
-        style="@style/ListItemHeader"
-        android:textColor="@color/primary"
+        style="@style/ListItemHeader.Purple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -15,13 +14,13 @@
         android:text="@string/diaper_change_statistics"/>
 
     <RadioGroup
-        style="@style/RadioGroup"
+        style="@style/RadioGroup.Purple"
         android:id="@+id/diaper_change_stats_time"
         android:layout_below="@+id/diaper_change_stats_title">
 
         <RadioButton android:id="@+id/diaper_change_stats_day"
             style="@style/RadioButton"
-            android:background="@drawable/radio_button_center"
+            android:background="@drawable/radio_button_center_purple"
             android:text="@string/diaper_change_stats_title_day"
             android:checked="true"
             android:textSize="14sp"
@@ -29,7 +28,7 @@
 
         <RadioButton android:id="@+id/diaper_change_stats_week"
             style="@style/RadioButton"
-            android:background="@drawable/radio_button_center"
+            android:background="@drawable/radio_button_center_purple"
             android:text="@string/diaper_change_stats_title_week"
             android:layout_marginLeft="-1dp"
             android:textSize="14sp"
@@ -37,7 +36,7 @@
 
         <RadioButton android:id="@+id/diaper_change_stats_month"
             style="@style/RadioButton"
-            android:background="@drawable/radio_button_center"
+            android:background="@drawable/radio_button_center_purple"
             android:text="@string/diaper_change_stats_title_month"
             android:textSize="14sp"
 

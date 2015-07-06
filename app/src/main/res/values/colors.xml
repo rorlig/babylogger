@@ -88,7 +88,11 @@
 
 
     <color name="primary_purple">#5C6BC0</color>
+    <color name="primary_purple_transparent">#CC5C6BC0</color>
+
     <color name="primary_dark_purple">#3A4378</color>
+    <color name="primary_dark_purple_transparent">#CC3A4378</color>
+
 
     <color name="primary_blue">#00BCD4</color>
     <color name="primary_dark_blue">#005E6A</color>

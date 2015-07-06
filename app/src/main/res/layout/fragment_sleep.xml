@@ -10,7 +10,7 @@
         android:layout_height="24dp"
         android:text="@string/sleep_header"
         android:id="@+id/sleep_header"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_gray_dark"
         android:textSize="20sp"
         android:textAllCaps="true"
         android:layout_alignParentTop="true"
@@ -22,7 +22,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        style="@style/ListItemDivider"
+        style="@style/ListItemDivider.Gray"
         android:layout_below="@+id/sleep_header"
         android:layout_marginTop="2dp"
         android:id="@+id/sleep_header_divider"/>
@@ -41,13 +41,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sleep_start_time"
-            android:textColor="@color/primary_dark"
+            android:textColor="@color/primary_gray_dark"
             android:textSize="18sp"
             android:id="@+id/date_range_start_label"
             android:textAllCaps="false"/>
 
 
-        <include layout = "@layout/view_time_blue_small"
+        <include layout = "@layout/view_time_gray_small"
             android:id="@+id/sleep_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,13 +71,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sleep_end_time"
-            android:textColor="@color/primary_dark"
+            android:textColor="@color/primary_gray_dark"
             android:textSize="18sp"
             android:id="@+id/date_range_end_label"
             android:textAllCaps="false"/>
 
 
-        <include layout = "@layout/view_time_blue_small"
+        <include layout = "@layout/view_time_gray_small"
             android:id="@+id/sleep_end_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txt_save"
-        android:background="#1E88E5"
+        android:background="@color/primary_gray_dark"
         android:layout_alignParentBottom="true"
         />
 

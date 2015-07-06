@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -92,6 +93,7 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
 
         // if disabled, scaling can be done on x- and y-axis separately
         lineChart.setPinchZoom(true);
+
 
         //set the listener to the radiogroup...
         growthStatsRadioGroup.setOnCheckedChangeListener(this);
@@ -220,9 +222,9 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         // set1.setFillColor(Color.RED);
 
         // set the line to be drawn like this "- - - - - -"
-        set1.enableDashedLine(10f, 5f, 0f);
-        set1.setColor(getActivity().getResources().getColor(R.color.primary_dark));
-        set1.setCircleColor(Color.BLUE);
+//        set1.enableDashedLine(10f, 5f, 0f);
+        set1.setColor(getActivity().getResources().getColor(R.color.primary_green));
+        set1.setCircleColor(getResources().getColor(R.color.primary_dark_green));
         set1.setLineWidth(1f);
         set1.setCircleSize(3f);
         set1.setDrawCircleHole(false);
@@ -230,6 +232,7 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         set1.setFillAlpha(65);
         set1.setFillColor(Color.BLACK);
         set1.setDrawCubic(true);
+//        set1.set
 
 //        set1.setDrawFilled(true);
         // set1.setShader(new LinearGradient(0, 0, 0, mChart.getHeight(),
@@ -238,10 +241,17 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
         dataSets.add(set1); // add the datasets
 
+
+
         // create a data object with the datasets
         LineData data = new LineData(xVals, dataSets);
 
+
         // set data
+        lineChart.animateX(500,  Easing.EasingOption.EaseInCirc);
+
+
+//        lineChart.setColor
         lineChart.setData(data);
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();

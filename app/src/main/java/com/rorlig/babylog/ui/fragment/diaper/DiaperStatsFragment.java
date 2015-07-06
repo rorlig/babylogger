@@ -1,6 +1,7 @@
 package com.rorlig.babylog.ui.fragment.diaper;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
+import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
@@ -25,8 +27,11 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,6 +54,10 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
     protected String[] mMonths = new String[] {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    };
+
+    protected String[] mDays = new String[] {
+            "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
     };
 
 //    @InjectView(R.id.growth_stats_line_chart)
@@ -91,10 +100,21 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
         // if more than 60 entries are displayed in the chart, no values will be
         // drawn
-        barChart.setMaxVisibleValueCount(7);
 
         // scaling can now only be done on x- and y-axis separately
         barChart.setPinchZoom(false);
+
+        barChart.setHorizontalScrollBarEnabled(true);
+
+//        barChart.setBackgroundColor(getResources().getColor(R.color.primary_purple));
+//        barChart.setGridBackgroundColor(getResources().getColor(R.color.primary_purple));
+        barChart.getXAxis().setTextColor(getResources().getColor(R.color.primary_dark_purple));
+//        barChart.().setTextColor(getResources().getColor(R.color.white));
+        barChart.getLegend().setTextColor(getResources().getColor(R.color.primary_dark_purple));
+
+
+
+//        barChart.set();
 
 
         try {
@@ -148,14 +168,22 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
             switch (checkedId) {
                 case R.id.diaper_change_stats_week:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeek();
+                    barChart.setMaxVisibleValueCount(5);
+
                     setData(diaperChangeDaoList, DiaperChangeStatsType.WEEK);
+
                     break;
                 case R.id.diaper_change_stats_month:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonth();
+                    barChart.setMaxVisibleValueCount(12);
+
                     setData(diaperChangeDaoList, DiaperChangeStatsType.MONTH);
+
                     break;
                 default:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDay();
+                    barChart.setMaxVisibleValueCount(7);
+
                     setData(diaperChangeDaoList, DiaperChangeStatsType.DAY);
             }
 
@@ -187,7 +215,9 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         ArrayList<String> xVals = new ArrayList<String>();
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         int i = 0;
-        for (String[] diaperChangeResult: diaperChangeDaoList) {
+        List<String[]> fullList = getFullList(diaperChangeDaoList, diaperChangeStatsType);
+
+        for (String[] diaperChangeResult: fullList) {
             Log.d(TAG, "iterating the result set");
             Log.d(TAG, " i " + i + "  date " + diaperChangeResult[0] + " count " + diaperChangeResult[1]);
 
@@ -197,11 +227,11 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
                 case DAY:
                     break;
                 case WEEK:
-                    xValue = getDateRangeForWeek(Integer.parseInt(diaperChangeResult[0]));
+//                    xValue = diaperChangeResult[0];
                     break;
                 case MONTH:
-                    Log.d(TAG, diaperChangeResult[0].substring(5));
-                    xValue = mMonths[Integer.parseInt(diaperChangeResult[0].substring(5))-1];
+//                    Log.d(TAG, diaperChangeResult[0].substring(5));
+//                    xValue = mMonths[Integer.parseInt(diaperChangeResult[0].substring(5))-1];
 
 
                     break;
@@ -211,14 +241,217 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
             yVals.add(new BarEntry(value, i));
             i++;
         }
-
+        barChart.animateY(1000);
         BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
         set1.setBarSpacePercent(35f);
+        set1.setColor(getResources().getColor(R.color.primary_purple));
+        set1.setValueTextColor(getResources().getColor(R.color.primary_purple));
+        set1.setValueTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+//        set1.setC
+        set1.setHighLightColor(getResources().getColor(R.color.primary_dark_purple));
+
         ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
         dataSets.add(set1);
+
         BarData data = new BarData(xVals, dataSets);
+        data.setValueTextColor(getResources().getColor(R.color.primary_dark_purple));
         barChart.setData(data);
+//        barChart.setZ
         barChart.notifyDataSetChanged();
         barChart.invalidate();
     }
+
+    private List<String[]> getFullList(List<String[]> diaperChangeDaoList, DiaperChangeStatsType diaperChangeStatsType) {
+
+        switch (diaperChangeStatsType) {
+            case DAY:
+                return getFullListDay();
+            case WEEK:
+                return getFullMonthList();
+            case MONTH:
+                return getFullYearList();
+        }
+        return null;
+
+    }
+
+    private List<String[]> getFullYearList() {
+
+        List<String[]> returnList = new ArrayList<String[]>();
+
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, 0);
+        startTime.set(Calendar.MINUTE, 0);
+        startTime.set(Calendar.SECOND, 0);
+        startTime.set(Calendar.MILLISECOND, 0);
+        startTime.add(Calendar.DATE, -(7 * 4 + 1));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(Calendar.HOUR_OF_DAY, 0);
+        endTime.set(Calendar.MINUTE, 0);
+        endTime.set(Calendar.SECOND, 0);
+        endTime.set(Calendar.MILLISECOND, 0);
+        endTime.add(Calendar.DATE, 2);
+
+        for (Date date = startTime.getTime(); startTime.before(endTime);
+             startTime.add(Calendar.MONTH, 1), date = startTime.getTime()) {
+            // Do your job here with `date`.
+            boolean found = false;
+            String[] temp  = new String[2];
+
+            String formattedDate = sdf.format(startTime.getTime());
+
+            for (String[] diaperChangeDao: diaperChangeDaoList) {
+
+                if (diaperChangeDao[0].equals(formattedDate)) {
+                    Log.d(TAG, "found ");
+                    //                        sdf.parse(diaperChangeDao[0]);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    temp[0] = mMonths[Integer.parseInt(diaperChangeDao[0].substring(5))-1];
+
+                    temp[1] = diaperChangeDao[1];
+                    found=true;
+                }
+            }
+            if (!found) {
+//                        sdf.parse(diaperChangeDao[0]);
+                Log.d(TAG, " not found");
+                //                    sdf.parse(sdf.format(date));
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);
+                temp[0] = mMonths[Integer.parseInt(formattedDate.substring(5))-1];
+                temp[1]="0";
+
+            }
+            returnList.add(temp);
+
+
+        }
+        return returnList;
+    }
+
+
+    private List<String[]> getFullMonthList() {
+        List<String[]> returnList = new ArrayList<String[]>();
+
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, 0);
+        startTime.set(Calendar.MINUTE, 0);
+        startTime.set(Calendar.SECOND, 0);
+        startTime.set(Calendar.MILLISECOND, 0);
+        startTime.add(Calendar.DATE, -(7*4+1));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(Calendar.HOUR_OF_DAY, 0);
+        endTime.set(Calendar.MINUTE, 0);
+        endTime.set(Calendar.SECOND, 0);
+        endTime.set(Calendar.MILLISECOND, 0);
+        endTime.add(Calendar.DATE, 2);
+        for (Date date = startTime.getTime(); startTime.before(endTime);
+             startTime.add(Calendar.DATE, 7), date = startTime.getTime()) {
+            // Do your job here with `date`.
+            boolean found = false;
+            String[] temp  = new String[2];
+
+//           Log.d(TAG, "week no" + startTime.get(Calendar.WEEK_OF_YEAR));
+            int weekNo = startTime.get(Calendar.WEEK_OF_YEAR);
+
+            for (String[] diaperChangeDao: diaperChangeDaoList) {
+
+                if (diaperChangeDao[0].equals(String.valueOf(weekNo))) {
+                    Log.d(TAG, "found ");
+                    //                        sdf.parse(diaperChangeDao[0]);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    temp[0] = getDateRangeForWeek(weekNo);
+                    temp[1] = diaperChangeDao[1];
+                    found=true;
+                }
+            }
+            if (!found) {
+//                        sdf.parse(diaperChangeDao[0]);
+                Log.d(TAG, " not found");
+                //                    sdf.parse(sdf.format(date));
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);
+                temp[0] = getDateRangeForWeek(weekNo);
+                temp[1]="0";
+
+            }
+            returnList.add(temp);
+
+//                    Log.d(TAG, " date " + sdf.format(date));
+        }
+
+
+
+        return returnList;
+    }
+
+    private List<String[]> getFullListDay() {
+
+        List<String[]> returnList = new ArrayList<String[]>();
+
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, 0);
+        startTime.set(Calendar.MINUTE, 0);
+        startTime.set(Calendar.SECOND, 0);
+        startTime.set(Calendar.MILLISECOND, 0);
+        startTime.add(Calendar.DATE, -8);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(Calendar.HOUR_OF_DAY, 0);
+        endTime.set(Calendar.MINUTE, 0);
+        endTime.set(Calendar.SECOND, 0);
+        endTime.set(Calendar.MILLISECOND, 0);
+        endTime.add(Calendar.DATE, 2);
+        for (Date date = startTime.getTime(); startTime.before(endTime);
+             startTime.add(Calendar.DATE, 1), date = startTime.getTime()) {
+            // Do your job here with `date`.
+            boolean found = false;
+            String[] temp  = new String[2];
+
+            for (String[] diaperChangeDao: diaperChangeDaoList) {
+
+                if (diaperChangeDao[0].equals(sdf.format(date))) {
+                    Log.d(TAG, "found " + sdf.format(date));
+                    try {
+                        sdf.parse(diaperChangeDao[0]);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(date);
+                        temp[0] = mDays[calendar.get(Calendar.DAY_OF_WEEK)-1];
+                        temp[1] = diaperChangeDao[1];
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+//                    temp = diaperChangeDao;
+                    found=true;
+                }
+            }
+            if (!found) {
+//                        sdf.parse(diaperChangeDao[0]);
+                Log.d(TAG, " not found");
+                try {
+                    sdf.parse(sdf.format(date));
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(date);
+                    temp[0] = mDays[c.get(Calendar.DAY_OF_WEEK)-1];
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                temp[1]="0";
+
+            }
+            returnList.add(temp);
+
+//                    Log.d(TAG, " date " + sdf.format(date));
+        }
+
+
+
+        return returnList;
+
+        }
+
 }

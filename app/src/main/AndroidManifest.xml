@@ -78,6 +78,17 @@
             >
         </activity>
 
+        <activity android:name=".ui.activity.SleepActivity"
+            android:label="@string/title_activity_milestones"
+            android:parentActivityName=".ui.activity.HomeActivity"
+            android:theme="@style/AppTheme.Gray"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.HomeActivity" />
+            >
+        </activity>
+
         <activity
             android:name=".ui.activity.DiaperChangeActivity"
             android:label="@string/diaper_change_title"

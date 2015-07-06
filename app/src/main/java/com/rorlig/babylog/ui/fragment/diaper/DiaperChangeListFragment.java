@@ -5,6 +5,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +21,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
@@ -35,7 +42,11 @@ import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.squareup.otto.Subscribe;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,15 +92,21 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
     @InjectView(R.id.errorText)
     TextView errorText;
 
+    @InjectView(R.id.diaper_bar_chart)
+    BarChart barChart;
+
 
 
     @InjectView(R.id.add_item)
     Button btnDiaperChange;
+
+
     private BabyLoggerORMUtils babyORMLiteUtils;
     private List<DiaperChangeDao> diaperChangeList;
     private DiaperChangeAdapter diaperChangeAdapter;
     private SimpleSectionAdapter<BaseDao> sectionAdapter;
     private int LOADER_ID=2;
+    private List<String[]> diaperChangeDaoList;
 
     @OnClick(R.id.add_item)
     public void onDiaperChangeClicked(){
@@ -142,10 +159,64 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         getLoaderManager().initLoader(LOADER_ID, null, this);
 
+        try {
+            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeek();
+            setData(diaperChangeDaoList, DiaperChangeStatsType.DAY);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//
+//        Explode explode = new Explode();
+//        explode.setDuration(2000);
+//        setExitTransition(explode);
+
+//        Fade fade = new Fade();
+//        setReenterTransition(fade);
+//        setExitTransition(explode);
 //        getActivity().getActionBar().setTitle("Diaper Change List");
 
 
 
+    }
+
+    private void setData(List<String[]> diaperChangeDaoList, DiaperChangeStatsType diaperChangeStatsType) {
+        ArrayList<String> xVals = new ArrayList<String>();
+        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
+        int i = 0;
+        for (String[] diaperChangeResult: diaperChangeDaoList) {
+            Log.d(TAG, "iterating the result set");
+            Log.d(TAG, " i " + i + "  date " + diaperChangeResult[0] + " count " + diaperChangeResult[1]);
+
+            Integer value = Integer.parseInt(diaperChangeResult[1]);
+            String xValue = diaperChangeResult[0];
+            switch (diaperChangeStatsType) {
+                case DAY:
+                    break;
+                case WEEK:
+                    xValue = getDateRangeForWeek(Integer.parseInt(diaperChangeResult[0]));
+                    break;
+
+            }
+            xVals.add(xValue);
+
+            yVals.add(new BarEntry(value, i));
+            i++;
+        }
+
+        BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
+        set1.setBarSpacePercent(35f);
+        set1.setColor(getResources().getColor(R.color.primary_purple));
+        set1.setHighLightColor(getResources().getColor(R.color.primary_dark_purple));
+
+        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
+        dataSets.add(set1);
+
+        BarData data = new BarData(xVals, dataSets);
+//        barChart.setBackgroundColor(getResources().getColor(R.color.primary_purple));
+        barChart.setData(data);
+        barChart.notifyDataSetChanged();
+        barChart.invalidate();
     }
 
 
@@ -236,10 +307,14 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         if (diaperChangeDaoList.size()>0) {
             emptyView.setVisibility(View.GONE);
+            barChart.setVisibility(View.VISIBLE);
+
             diaperChangeListView.setVisibility(View.VISIBLE);
         } else {
             emptyView.setVisibility(View.VISIBLE);
             diaperChangeListView.setVisibility(View.GONE);
+            barChart.setVisibility(View.GONE);
+
         }
         diaperChangeList = diaperChangeDaoList;
 
@@ -276,6 +351,21 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
     }
 
+
+    private String getDateRangeForWeek(int weekNumber){
+        Log.d(TAG, "weekNumber " + weekNumber);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
+        DateTime weekStartDate = new DateTime().withWeekOfWeekyear(weekNumber);
+        DateTime weekEndDate = new DateTime().withWeekOfWeekyear(weekNumber + 1);
+        String returnString = weekStartDate.toString(DateTimeFormat.forPattern("dd MMM"))
+                + " to "
+                + weekEndDate.toString(DateTimeFormat.forPattern("dd MMM"));
+        Log.d(TAG, "returnString : " + returnString);
+//        new DateTime().
+        return returnString;
+
+
+    }
 
     private class EventListener {
         private EventListener(){

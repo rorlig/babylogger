@@ -19,6 +19,7 @@ import com.rorlig.babylog.ui.activity.GrowthActivity;
 import com.rorlig.babylog.ui.activity.MilestonesActivity;
 import com.rorlig.babylog.ui.activity.PrefsActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
+import com.rorlig.babylog.ui.activity.SleepActivity;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 
@@ -308,13 +309,15 @@ public class HomeFragment2 extends InjectableFragment {
         startActivity(new Intent(getActivity(), MilestonesActivity.class));
     }
 
-    @OnClick(R.id.sleep_block)
-    public void sleepClicked() {
 
-    }
 
     @OnClick(R.id.baby_image)
     public void babyImageClicked() {
         startActivity(new Intent(getActivity(), ProfileActivity.class));
+    }
+
+    @OnClick(R.id.sleep_block)
+    public void sleepBlockClicked(){
+        startActivity(new Intent(getActivity(), SleepActivity.class));
     }
 }

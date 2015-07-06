@@ -55,6 +55,17 @@
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
     </style>
 
+    <style name="AppTheme.Gray" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary_gray</item>
+        <item name="colorPrimaryDark">@color/primary_gray_dark</item>
+        <item name="colorAccent">@color/accent</item>
+
+
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+    </style>
+
+
     <style name="AppTheme.Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
         <!-- Customize color of navigation drawer icon and back arrow -->
         <item name="colorControlNormal">@color/white</item>
@@ -158,6 +169,11 @@
 
     </style>
 
+
+    <style name="ListItemDivider.Gray" parent="ListItemDivider">
+        <item name="android:background">@color/primary_gray_darkgi</item>
+    </style>
+
     <style name="ListItemDividerShort">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">1dp</item>
@@ -180,6 +196,10 @@
 
     <style name="ListItemDividerShort.Orange" parent="ListItemDividerShort">
         <item name="android:background">@color/primary_orange</item>
+    </style>
+
+    <style name="ListItemDividerShort.Gray" parent="ListItemDividerShort">
+        <item name="android:background">@color/primary_gray</item>
     </style>
     <style name="ListItemHorizontalDivider">
         <item name="android:layout_width">1dp</item>
@@ -317,6 +337,10 @@
 
     <style name="ListItemHeader.Blue" parent="ListItemHeader">
         <item name="android:textColor">@color/primary_blue</item>
+    </style>
+
+    <style name="ListItemHeader.Green" parent="ListItemHeader">
+        <item name="android:textColor">@color/primary_green</item>
     </style>
 
 

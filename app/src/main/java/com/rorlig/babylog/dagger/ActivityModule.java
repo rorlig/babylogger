@@ -16,6 +16,7 @@ import com.rorlig.babylog.ui.activity.LandingActivity;
 import com.rorlig.babylog.ui.activity.MilestonesActivity;
 import com.rorlig.babylog.ui.activity.PrefsActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
+import com.rorlig.babylog.ui.activity.SleepActivity;
 import com.rorlig.babylog.ui.adapter.ContactsAdapter;
 import com.rorlig.babylog.ui.adapter.DiaperChangeAdapter;
 import com.rorlig.babylog.ui.adapter.ExportItemAdapter;
@@ -104,8 +105,8 @@ import dagger.Provides;
             ContactSelectFragment.class,
             HomeFragment.class,
             HomeFragment2.class,
-
-        GrowthStatsFragment.class,
+            SleepActivity.class,
+            GrowthStatsFragment.class,
             DiaperStatsFragment.class,
             ContactsAdapter.class,
             FeedAdapter.class,
