@@ -3,6 +3,8 @@ package com.rorlig.babylog.ui.fragment.feed;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.util.Log;
@@ -17,11 +19,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.FeedDao;
+import com.rorlig.babylog.otto.events.other.AddItemEvent;
+import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
 import com.rorlig.babylog.ui.adapter.FeedAdapter;
@@ -62,6 +67,12 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
     @InjectView(R.id.add_item)
     Button btnFeedAdd;
 
+    @InjectView(R.id.add_bottle_feed)
+    FloatingActionButton addBottleFeed;
+
+    @InjectView(R.id.add_breast_feed)
+    FloatingActionButton addBreastFeed;
+
 
     private int LOADER_ID=3;
     private List<FeedDao> feedList;
@@ -74,6 +85,16 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
 //        scopedBus.post(new AddFeedEvent());
         showFeedSelectFragment(new FeedSelectFragment(), "feed_select");
 //        scopedBus.post(new AddItemEvent(AddItemTypes.FEED_LOG));
+    }
+
+    @OnClick(R.id.add_breast_feed)
+    public void onAddBreastFeedBtnClicked(){
+        scopedBus.post(new AddItemEvent(AddItemTypes.FEED_NURSING));
+    }
+
+    @OnClick(R.id.add_bottle_feed)
+    public void onAddBottleFeedBtnClicked(){
+        scopedBus.post(new AddItemEvent(AddItemTypes.FEED_BOTTLE));
     }
 
     private void showFeedSelectFragment(FeedSelectFragment feedSelectFragment, String s) {
@@ -156,6 +177,7 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle item selection
         switch (item.getItemId()) {
+
             case R.id.action_add:
                 showFeedSelectFragment(new FeedSelectFragment(), "feed_select");
 
@@ -163,6 +185,14 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void onBackPressed() {
+        Fragment fragment =getFragmentManager().findFragmentByTag("feeding_stack");
+        if(fragment!=null) {
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.remove(fragment).commit();
         }
     }
 

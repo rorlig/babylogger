@@ -80,13 +80,13 @@ public class FeedingActivity extends InjectableActivity {
         String intentString = getIntent().getStringExtra("intent");
 
 
-        if (intentString!=null && intentString.equals("feeding_activity_bottle")){
-            showFragment(BottleFeedFragment.class, "bottle_feed", false);
+//        if (intentString!=null && intentString.equals("feeding_activity_bottle")){
+//            showFragment(BottleFeedFragment.class, "bottle_feed", false);
 
-        } else  {
+//        } else  {
             showFragment(FeedingListFragment.class, "feeding_list_fragment", false);
 
-        }
+//        }
 //        showFragment(FeedingListFragment.class, "feeding_list_fragment", false);
 //        } else {
 //
@@ -243,7 +243,7 @@ public class FeedingActivity extends InjectableActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);

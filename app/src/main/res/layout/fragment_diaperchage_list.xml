@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/diaper_bar_chart"
@@ -64,4 +65,17 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/errorText"/>
     </RelativeLayout>
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_diaper_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_colorNormal="@color/primary_dark_purple"
+        fab:fab_colorPressed="@color/primary_purple"
+        fab:fab_icon="@drawable/ic_add_white"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"/>
 </RelativeLayout>

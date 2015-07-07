@@ -324,6 +324,9 @@
     <string name="btn_save_txt">Save</string>
     <string name="sleep_description_text">Sleep too much or too little? </string>
     <string name="height_title">Height (Inches)</string>
+    <string name="title_activity_sleep">Sleep</string>
+    <string name="fab_title_bottle">Bottle Feed</string>
+    <string name="fab_title_nursing">Nursing Feed</string>
 
 
 </resources>

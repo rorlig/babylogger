@@ -88,13 +88,13 @@ public class DiaperChangeActivity extends InjectableActivity {
 
         Log.d(TAG, " " +  intentString);
 
-        if (intentString!=null && intentString.equals("diaper_change")){
-            showFragment(DiaperChangeFragment.class, "diaper_change_fragment", false);
+//        if (intentString!=null && intentString.equals("diaper_change")){
+//            showFragment(DiaperChangeFragment.class, "diaper_change_fragment", false);
 
-        } else  {
+//        } else  {
             showFragment(DiaperChangeListFragment.class, "diaper_change_list_fragment", false);
 
-        }
+//        }
 //        } else {
 //
 //        }
@@ -201,7 +201,7 @@ public class DiaperChangeActivity extends InjectableActivity {
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
-                    showFragment(DiaperStatsFragment.class, "diaper_stats_fragment", false);
+                    showFragment(DiaperStatsFragment.class, "diaper_stats_fragment", true);
         }
 
 //        @Subscribe
@@ -242,7 +242,8 @@ public class DiaperChangeActivity extends InjectableActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                onBackPressed();
+//                NavUtils.navigateUpFromSameTask(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);

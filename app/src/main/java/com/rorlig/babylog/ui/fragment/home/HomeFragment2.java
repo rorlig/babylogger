@@ -3,6 +3,7 @@ package com.rorlig.babylog.ui.fragment.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.j256.ormlite.table.TableUtils;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
@@ -71,6 +73,7 @@ public class HomeFragment2 extends InjectableFragment {
     private String[] itemNames;
     private Parcelable[] itemList;
     private static final String HOME_LIST = "list";
+    private String TAG = "HomeFragment2";
 
 
     @Override
@@ -318,6 +321,7 @@ public class HomeFragment2 extends InjectableFragment {
 
     @OnClick(R.id.sleep_block)
     public void sleepBlockClicked(){
+        Log.d(TAG, "sleep block clicked");
         startActivity(new Intent(getActivity(), SleepActivity.class));
     }
 }

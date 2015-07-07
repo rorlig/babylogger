@@ -2,6 +2,7 @@ package com.rorlig.babylog.ui.fragment.diaper;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -21,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -100,6 +103,9 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
     @InjectView(R.id.add_item)
     Button btnDiaperChange;
 
+    @InjectView(R.id.add_diaper_item)
+    FloatingActionButton btnAddDiaperChange;
+
 
     private BabyLoggerORMUtils babyORMLiteUtils;
     private List<DiaperChangeDao> diaperChangeList;
@@ -115,6 +121,13 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
         scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
     }
 
+
+    @OnClick(R.id.add_diaper_item)
+    public void onDiaperChangeBtnClicked(){
+//        scopedBus.post(new AddDiaperChangeEvent());
+        Log.d(TAG, "add diaper item clicked");
+        scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
+    }
 
     Typeface typeface;
 
@@ -166,15 +179,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//
-//        Explode explode = new Explode();
-//        explode.setDuration(2000);
-//        setExitTransition(explode);
 
-//        Fade fade = new Fade();
-//        setReenterTransition(fade);
-//        setExitTransition(explode);
-//        getActivity().getActionBar().setTitle("Diaper Change List");
 
 
 
@@ -276,9 +281,9 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle item selection
         switch (item.getItemId()) {
-            case R.id.action_add:
-                scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
-                return true;
+//            case R.id.action_add:
+//                scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
+//                return true;
             case R.id.action_stats:
                 scopedBus.post(new StatsItemEvent());
                 return true;

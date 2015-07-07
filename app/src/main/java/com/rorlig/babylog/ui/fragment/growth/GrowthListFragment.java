@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
@@ -77,6 +78,10 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
 
     @InjectView(R.id.add_item)
     Button btnAddItem;
+
+    @InjectView(R.id.add_growth_item)
+    FloatingActionButton btnAddGrowthItem;
+
     private int LOADER_ID = 4;
     private List<GrowthDao> growthList;
     private SimpleSectionAdapter<BaseDao> sectionAdapter;
@@ -89,6 +94,10 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
         scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
     }
 
+    @OnClick(R.id.add_growth_item)
+    public void onAddGrowthItemClicked(){
+        scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
+    }
 
 //    Typeface typeface;
 

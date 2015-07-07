@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
 
     <!--<ProgressBar-->
@@ -23,13 +24,13 @@
         android:id="@+id/feedListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         />
 
     <RelativeLayout android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         >
 
         <ImageView
@@ -59,4 +60,46 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/errorText"/>
     </RelativeLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/feed_item_types"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_addButtonColorNormal="@color/primary_dark_blue"
+        fab:fab_addButtonColorPressed="@color/primary_blue"
+        fab:fab_addButtonPlusIconColor="@color/white"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp">
+
+
+
+
+
+
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_breast_feed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/primary_blue"
+        fab:fab_title="@string/fab_title_nursing"
+        fab:fab_colorPressed="@color/primary_blue"
+        fab:fab_icon="@drawable/ic_nursing_white"
+        />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_bottle_feed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/primary_blue"
+        fab:fab_title="@string/fab_title_bottle"
+        fab:fab_colorPressed="@color/primary_blue"
+        fab:fab_icon="@drawable/ic_feed_normal"
+        />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </RelativeLayout>

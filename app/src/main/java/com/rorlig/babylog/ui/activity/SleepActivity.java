@@ -59,7 +59,7 @@ public class SleepActivity extends InjectableActivity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String TAG  = "GrowthActivity";
+    private String TAG  = "SleepActivity";
 
     private EventListener eventListener = new EventListener();
 

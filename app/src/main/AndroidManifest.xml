@@ -79,7 +79,7 @@
         </activity>
 
         <activity android:name=".ui.activity.SleepActivity"
-            android:label="@string/title_activity_milestones"
+            android:label="@string/title_activity_sleep"
             android:parentActivityName=".ui.activity.HomeActivity"
             android:theme="@style/AppTheme.Gray"
             >

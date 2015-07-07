@@ -87,13 +87,13 @@ public class GrowthActivity extends InjectableActivity {
 
         Log.d(TAG, " " +  intentString);
 
-        if (intentString!=null && intentString.equals("growth_activity")){
-            showFragment(GrowthFragment.class, "growth_fragment", false);
-
-        } else  {
+//        if (intentString!=null && intentString.equals("growth_activity")){
+//            showFragment(GrowthFragment.class, "growth_fragment", false);
+//
+//        } else  {
             showFragment(GrowthListFragment.class, "growth_list_fragment", false);
 
-        }
+//        }
 
 //        showFragment(GrowthListFragment.class, "growth_fragment", false);
 //        } else {
@@ -212,7 +212,7 @@ public class GrowthActivity extends InjectableActivity {
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
-                    showFragment(GrowthStatsFragment.class, "growth_stats_fragment", false);
+                    showFragment(GrowthStatsFragment.class, "growth_stats_fragment", true);
         }
 
 
