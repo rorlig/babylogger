@@ -14,7 +14,6 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
 
 import java.text.ParseException;

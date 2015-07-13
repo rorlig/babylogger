@@ -205,14 +205,13 @@ public class GrowthActivity extends InjectableActivity {
 
         @Subscribe
         public void onGrowthItemCreated(GrowthItemCreated event) {
-//            Log.d(TAG, "onFeedSavedEvent");
-//            finish();
-            showFragment(GrowthListFragment.class, "growth_list_fragment",true);
+            getSupportFragmentManager().popBackStack();
+//            showFragment(GrowthListFragment.class, "growth_list_fragment",false);
         }
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
-                    showFragment(GrowthStatsFragment.class, "growth_stats_fragment", true);
+            showFragment(GrowthStatsFragment.class, "growth_stats_fragment", false);
         }
 
 

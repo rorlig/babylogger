@@ -2,13 +2,9 @@ package com.rorlig.babylog.ui.fragment.diaper;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,8 +19,6 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -40,8 +34,8 @@ import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
+import com.rorlig.babylog.ui.adapter.DateSectionizer;
 import com.rorlig.babylog.ui.adapter.DiaperChangeAdapter;
-import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.squareup.otto.Subscribe;
 
@@ -95,8 +89,8 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
     @InjectView(R.id.errorText)
     TextView errorText;
 
-    @InjectView(R.id.diaper_bar_chart)
-    BarChart barChart;
+//    @InjectView(R.id.diaper_bar_chart)
+//    BarChart barChart;
 
 
 
@@ -166,7 +160,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
         diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeList);
         sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
                 diaperChangeAdapter, R.layout.section_header, R.id.title,
-                new DiaperChangeSectionizer());
+                new DateSectionizer());
         diaperChangeListView.setAdapter(sectionAdapter);
         diaperChangeListView.setOnItemClickListener(this);
 
@@ -219,9 +213,9 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         BarData data = new BarData(xVals, dataSets);
 //        barChart.setBackgroundColor(getResources().getColor(R.color.primary_purple));
-        barChart.setData(data);
-        barChart.notifyDataSetChanged();
-        barChart.invalidate();
+//        barChart.setData(data);
+//        barChart.notifyDataSetChanged();
+//        barChart.invalidate();
     }
 
 
@@ -312,13 +306,13 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         if (diaperChangeDaoList.size()>0) {
             emptyView.setVisibility(View.GONE);
-            barChart.setVisibility(View.VISIBLE);
+//            barChart.setVisibility(View.VISIBLE);
 
             diaperChangeListView.setVisibility(View.VISIBLE);
         } else {
             emptyView.setVisibility(View.VISIBLE);
             diaperChangeListView.setVisibility(View.GONE);
-            barChart.setVisibility(View.GONE);
+//            barChart.setVisibility(View.GONE);
 
         }
         diaperChangeList = diaperChangeDaoList;
@@ -329,7 +323,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
                 diaperChangeAdapter, R.layout.section_header, R.id.title,
-                new DiaperChangeSectionizer());
+                new DateSectionizer());
 
         diaperChangeListView.setAdapter(sectionAdapter);
         //        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeDaoList);

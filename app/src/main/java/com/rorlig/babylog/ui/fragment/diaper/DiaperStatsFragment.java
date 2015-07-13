@@ -17,7 +17,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
-import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;

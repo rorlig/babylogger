@@ -26,7 +26,7 @@ import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
-import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
+import com.rorlig.babylog.ui.adapter.DateSectionizer;
 import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 
@@ -187,9 +187,9 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle item selection
         switch (item.getItemId()) {
-            case R.id.action_add:
-                scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
-                return true;
+//            case R.id.action_add:
+//                scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
+//                return true;
             case R.id.action_stats:
                 scopedBus.post(new StatsItemEvent());
             default:
@@ -226,7 +226,7 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
                 growthAdapter,
                 R.layout.section_header_green,
                 R.id.title,
-                new DiaperChangeSectionizer());
+                new DateSectionizer());
 
         listView.setAdapter(sectionAdapter);
 

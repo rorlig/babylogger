@@ -13,10 +13,10 @@ import com.ocpsoft.pretty.time.PrettyTime;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
+import com.rorlig.babylog.ui.widget.GrowthView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -39,7 +39,7 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
 
     public GrowthAdapter(Activity activity, int textViewResourceId, List<GrowthDao> growthDao) {
         super(activity.getApplicationContext(), textViewResourceId, growthDao);
-        Log.d(TAG, "constructor FeedAdapter");
+        Log.d(TAG, "constructor GrowthAdapter");
         this.growthDaoList = new ArrayList<GrowthDao>(growthDao);
         this.context = activity.getApplicationContext();
         ((InjectableActivity)activity).inject(this);
@@ -60,40 +60,31 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
 
     @Override
     public View getView( final int position, View convertView, ViewGroup parent ) {
-        View view = null;
-        int type = getItemViewType(position);
 
-        ViewHolder vh = null;
-        if(convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_item_growth, parent, false);
-            if(convertView != null) {
-                vh = new ViewHolder();
-                vh.weightTextView = (TextView) convertView.findViewById(R.id.weight_value);
-                vh.heightTextView = (TextView) convertView.findViewById(R.id.height_value);
-                vh.headTextView = (TextView) convertView.findViewById(R.id.headValue);
-                vh.textViewTime = (TextView) convertView.findViewById(R.id.diaperChangeTime);
-                vh.notesContentTextView = (TextView) convertView.findViewById(R.id.notes_content);
+        GrowthView view = (GrowthView) convertView;
 
 
-                convertView.setTag(vh);
-            }
-        }
-        else {
-            vh = (ViewHolder) convertView.getTag();
-        }
         final GrowthDao growthDao = growthDaoList.get(position);
 
-        vh.headTextView.setText(growthDao.getHeadMeasurement() + " inches");
 
-        vh.heightTextView.setText(growthDao.getHeight() + " inches");
-
-
-        vh.weightTextView.setText(growthDao.getWeight() + " pounds");
-
-        vh.textViewTime.setText(simpleDateFormat.format(new Date(growthDao.getDate().getTime())));
-
-        vh.notesContentTextView.setText(growthDao.getNotes());
-
+        if(view == null) {
+            LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = (GrowthView) inflator.inflate(R.layout.list_item_growth, parent, false);
+            view.setModel(growthDao);
+        }
+//        final GrowthDao growthDao = growthDaoList.get(position);
+//
+//        vh.headTextView.setText(growthDao.getHeadMeasurement() + " inches");
+//
+//        vh.heightTextView.setText(growthDao.getHeight() + " inches");
+//
+//
+//        vh.weightTextView.setText(growthDao.getWeight() + " pounds");
+//
+//        vh.textViewTime.setText(simpleDateFormat.format(new Date(growthDao.getDate().getTime())));
+//
+//        vh.notesContentTextView.setText(growthDao.getNotes());
+//
 
 
 
@@ -101,7 +92,7 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
 //        vh.txtType.setText(feedDao.getFeedItem() + " " + feedDao.getQuantity());
 //        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getDate())));
 
-        return convertView;
+        return view;
     }
 
 

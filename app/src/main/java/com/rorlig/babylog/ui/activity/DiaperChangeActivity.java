@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -152,7 +151,7 @@ public class DiaperChangeActivity extends InjectableActivity {
                     localFragmentManager.beginTransaction()
                             .add(R.id.fragment_container, localFragment)
                             .addToBackStack("diaper_stack")
-                            .commit();
+                            .commitAllowingStateLoss();
 
                 } else {
                     localFragment = (Fragment)paramClass.newInstance();
@@ -195,13 +194,13 @@ public class DiaperChangeActivity extends InjectableActivity {
         public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
             Log.d(TAG, "onDiaperLogCreatedEvent");
             showFragment(DiaperChangeListFragment.class, "diaper_change_list", false);
-
+            getFragmentManager().popBackStackImmediate();
 //            finish();
         }
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
-                    showFragment(DiaperStatsFragment.class, "diaper_stats_fragment", true);
+                    showFragment(DiaperStatsFragment.class, "diaper_stats_fragment", false);
         }
 
 //        @Subscribe

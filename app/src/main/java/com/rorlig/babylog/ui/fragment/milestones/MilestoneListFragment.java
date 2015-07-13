@@ -74,7 +74,6 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     private int LOADER_ID = 4;
     private List<GrowthDao> growthList;
     private SimpleSectionAdapter<BaseDao> sectionAdapter;
-    private GrowthAdapter growthAdapter;
     private String[] itemNames;
     private MilestonesItemAdapter milestonesAdapter;
 
@@ -164,7 +163,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_growth_list, null);
+        View view =  inflater.inflate(R.layout.fragment_milestone_list, null);
         ButterKnife.inject(this, view);
         return view;
     }

@@ -7,11 +7,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto">
 
-    <!--<com.github.mikephil.charting.charts.BarChart-->
-        <!--android:id="@+id/diaper_bar_chart"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="160dp"-->
-        <!--/>-->
+
     <!--<ProgressBar-->
         <!--android:id="@+id/progressBar1"-->
         <!--style="?android:attr/progressBarStyleLarge"-->
@@ -25,10 +21,10 @@
     <!--android:layout_height="fill_parent" />-->
 
     <ListView
-        android:id="@+id/diaperchangelist"
+        android:id="@+id/itemList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         />
 
     <RelativeLayout android:id="@+id/emptyView"
@@ -40,41 +36,42 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_diaper_purple"
-            android:id="@+id/icon_no_diaper_change"
+            android:background="@drawable/ic_growth_green"
+            android:id="@+id/icon_no_growth"
             android:layout_centerInParent="true"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_diaper_change"
+            android:text="@string/no_growth"
             android:id="@+id/errorText"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/icon_no_diaper_change"/>
+            android:layout_below="@+id/icon_no_growth"/>
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/add_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_diaperchange_btn_txt"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:background="@color/primary_purple"
+            android:text="@string/add_growth_btn_text"
+            android:padding="5dp"
+            android:background="@color/primary_green"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/errorText"/>
     </RelativeLayout>
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_diaper_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        fab:fab_colorNormal="@color/primary_dark_purple"
-        fab:fab_colorPressed="@color/primary_purple"
-        fab:fab_icon="@drawable/ic_add_white"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp"/>
+
+    <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
+        <!--android:id="@+id/add_growth_item"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--fab:fab_colorNormal="@color/primary_dark_green"-->
+        <!--fab:fab_colorPressed="@color/primary_green"-->
+        <!--fab:fab_icon="@drawable/ic_add_white"-->
+        <!--android:layout_marginBottom="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_marginEnd="16dp"/>-->
+
 </RelativeLayout>

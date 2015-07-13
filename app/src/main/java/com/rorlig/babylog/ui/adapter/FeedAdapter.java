@@ -7,19 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.model.feed.FeedType;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
+import com.rorlig.babylog.ui.widget.BottleFeedView;
+import com.rorlig.babylog.ui.widget.NursingFeedView;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -39,22 +38,15 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
     private List<FeedDao> feedDaoList;
 
 
-    private static final int TYPE_TEXT = 0;
-    private static final int TYPE_IMAGE = 1;
     private String TAG="FeedAdapter";
 
     private LayoutInflater mInflater;
 
 
-    private float aspectRatio = 1;
-
-    private RequestCreator request;
 
     @Inject
     Picasso picasso;
 
-    private int BITMAP_MAX_HEIGHT = 256;
-    private int BITMAP_MAX_WIDTH = 256;
 
 
 
@@ -94,6 +86,11 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
     @Override
     public View getView( final int position, View convertView, ViewGroup parent ) {
         View view = null;
+
+//        DiaperChangeView view = (DiaperChangeView) convertView;
+//        ViewHolder viewHolder;
+
+
         int type = getItemViewType(position);
 
         if (convertView == null) {
@@ -114,56 +111,74 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
     }
 
     private View getNursingView(int position, View convertView, ViewGroup parent) {
-        NursingFeedViewHolder vh = null;
-        if(convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_item_breast_feeding, parent, false);
-            if(convertView != null) {
-                vh = new NursingFeedViewHolder();
-                vh.left = (TextView) convertView.findViewById(R.id.txtLeft);
-                vh.right = (TextView) convertView.findViewById(R.id.txtRight);
-                vh.textViewTime = (TextView) convertView.findViewById(R.id.diaperChangeTime);
-                vh.notesTextView = (TextView) convertView.findViewById(R.id.notes_content);
 
-                convertView.setTag(vh);
-            }
-        }
-        else {
-            vh = (NursingFeedViewHolder) convertView.getTag();
-        }
         final FeedDao feedDao = feedDaoList.get(position);
 
-        Log.d(TAG, feedDao.toString() + " left " + feedDao.getLeftBreastTime() + " right " + feedDao.getRightBreastTime());
+//        if (convertView == null) {
+        LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflator.inflate(R.layout.list_item_breast_feeding, parent, false);
+        NursingFeedView view = (NursingFeedView) convertView;
+        view.setModel(feedDao);
 
-        vh.left.setText("Left Breast: " +  feedDao.getLeftBreastTime() + " seconds ");
-        vh.right.setText("Left Breast: " +  feedDao.getRightBreastTime() + " seconds ");
-        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getDate().getTime())));
-        vh.notesTextView.setText(feedDao.getNotes());
+
+//        NursingFeedViewHolder vh = null;
+//        if(convertView == null) {
+//            convertView = mInflater.inflate(R.layout.list_item_breast_feeding, parent, false);
+//            if(convertView != null) {
+//                vh = new NursingFeedViewHolder();
+//                vh.left = (TextView) convertView.findViewById(R.id.txtLeft);
+//                vh.right = (TextView) convertView.findViewById(R.id.txtRight);
+//                vh.textViewTime = (TextView) convertView.findViewById(R.id.diaperChangeTime);
+//                vh.notesTextView = (TextView) convertView.findViewById(R.id.notes_content);
+//
+//                convertView.setTag(vh);
+//            }
+//        }
+//        else {
+//            vh = (NursingFeedViewHolder) convertView.getTag();
+//        }
+//        final FeedDao feedDao = feedDaoList.get(position);
+//
+//        Log.d(TAG, feedDao.toString() + " left " + feedDao.getLeftBreastTime() + " right " + feedDao.getRightBreastTime());
+//
+//        vh.left.setText("Left Breast: " +  feedDao.getLeftBreastTime() + " seconds ");
+//        vh.right.setText("Left Breast: " +  feedDao.getRightBreastTime() + " seconds ");
+//        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getDate().getTime())));
+//        vh.notesTextView.setText(feedDao.getNotes());
 
 
-        return convertView;
+        return view;
     }
 
     private View getBottleFeedView(int position, View convertView, ViewGroup parent) {
-        BottleFeedViewHolder vh = null;
-        if(convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_item_bottle_feeding, parent, false);
-            if(convertView != null) {
-                vh = new BottleFeedViewHolder();
-                vh.txtType = (TextView) convertView.findViewById(R.id.txt_type);
-                vh.textViewTime = (TextView) convertView.findViewById(R.id.diaperChangeTime);
-                vh.notesTextView = (TextView) convertView.findViewById(R.id.notes_content);
-
-                convertView.setTag(vh);
-            }
-        }
-        else {
-            vh = (BottleFeedViewHolder) convertView.getTag();
-        }
         final FeedDao feedDao = feedDaoList.get(position);
 
-        vh.txtType.setText(feedDao.getFeedItem() + " " + feedDao.getQuantity());
-        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getDate().getTime())));
-        vh.notesTextView.setText(feedDao.getNotes());
+//        if (convertView == null) {
+            LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflator.inflate(R.layout.list_item_bottle_feeding, parent, false);
+            BottleFeedView view = (BottleFeedView) convertView;
+            view.setModel(feedDao);
+//            viewHolder = new ViewHolder(view);
+//        }
+//        if(convertView == null) {
+//            convertView = mInflater.inflate(R.layout.list_item_bottle_feeding, parent, false);
+//            if(convertView != null) {
+//                vh = new BottleFeedViewHolder();
+//                vh.txtType = (TextView) convertView.findViewById(R.id.txt_type);
+//                vh.textViewTime = (TextView) convertView.findViewById(R.id.diaperChangeTime);
+//                vh.notesTextView = (TextView) convertView.findViewById(R.id.notes_content);
+//
+//                convertView.setTag(vh);
+//            }
+//        }
+//        else {
+//            vh = (BottleFeedViewHolder) convertView.getTag();
+//        }
+//        final FeedDao feedDao = feedDaoList.get(position);
+
+//        vh.txtType.setText(feedDao.getFeedItem() + " " + feedDao.getQuantity());
+//        vh.textViewTime.setText(simpleDateFormat.format(new Date(feedDao.getDate().getTime())));
+//        vh.notesTextView.setText(feedDao.getNotes());
 
         return convertView;
     }
@@ -182,27 +197,27 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
     }
 
 
-    public static class NursingFeedViewHolder extends ViewHolder{
-        TextView left;
-        TextView right;
-        TextView textViewTime;
-        TextView notesTextView;
-
-
-
-    }
-
-    public static class BottleFeedViewHolder extends  ViewHolder{
-        TextView txtType;
-        TextView textViewTime;
-        TextView notesTextView;
-
-
-    }
-
-    public static class ViewHolder {
-        TextView textViewTime;
-    }
+//    public static class NursingFeedViewHolder extends ViewHolder{
+//        TextView left;
+//        TextView right;
+//        TextView textViewTime;
+//        TextView notesTextView;
+//
+//
+//
+//    }
+//
+//    public static class BottleFeedViewHolder extends  ViewHolder{
+//        TextView txtType;
+//        TextView textViewTime;
+//        TextView notesTextView;
+//
+//
+//    }
+//
+//    public static class ViewHolder {
+//        TextView textViewTime;
+//    }
 
 
 

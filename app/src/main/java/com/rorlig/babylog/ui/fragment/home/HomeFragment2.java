@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.j256.ormlite.table.TableUtils;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;

@@ -13,7 +13,7 @@ import java.util.Date;
  * @author gaurav gupta
  * diaper change sectionizer
  */
-public class DiaperChangeSectionizer implements Sectionizer<BaseDao> {
+public class DateSectionizer implements Sectionizer<BaseDao> {
     private static final String TODAY = "Today";
     private static final String TWO_DAYS = "Two days ago";
     private static final String WEEK = "One week ago";

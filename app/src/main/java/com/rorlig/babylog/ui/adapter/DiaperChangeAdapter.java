@@ -7,28 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dao.DiaperChangeDao;
-import com.rorlig.babylog.model.diaper.DiaperChangeEnum;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
+import com.rorlig.babylog.ui.widget.DiaperChangeView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
 import javax.inject.Inject;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by admin on 4/22/14.
@@ -74,98 +67,101 @@ public class DiaperChangeAdapter extends ArrayAdapter<DiaperChangeDao> {
 
     @Override
     public View getView( final int position, View convertView, ViewGroup parent ) {
-        View view;
-        ViewHolder viewHolder;
+        DiaperChangeView view = (DiaperChangeView) convertView;
+//        ViewHolder viewHolder;
 
-        if (convertView == null) {
+        if (view == null) {
             LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.list_item_diaper_change, null);
-            viewHolder = new ViewHolder(view);
-        } else {
-            view = convertView;
+            view = (DiaperChangeView) inflator.inflate(R.layout.list_item_diaper_change, null);
+//            viewHolder = new ViewHolder(view);
         }
+//        } else {
+//            view = convertView;
+//        }
         final DiaperChangeDao diaperChangeDao = diaperChangeDaoArrayList.get(position);
+
+        view.setModel(diaperChangeDao);
 //        Log.d(TAG,  event.toString());
 
-        Log.d(TAG, "merchant " + diaperChangeDao);
-
-        viewHolder  = (ViewHolder) view.getTag();
-        Log.d(TAG, " date is " + new Date(diaperChangeDao.getDate().getTime()).toString());
-        viewHolder.textViewTime.setText(simpleDateFormat.format(new Date(diaperChangeDao.getDate().getTime())));
-
-        setDiaperChangeType(diaperChangeDao, viewHolder);
-        setDiaperColor(diaperChangeDao,viewHolder);
-        setDiaperIncidentType(diaperChangeDao, viewHolder);
-
-        setPoopTexture(diaperChangeDao, viewHolder);
-
-        viewHolder.notesContent.setText(diaperChangeDao.getDiaperChangeNotes());
+//        Log.d(TAG, "merchant " + diaperChangeDao);
+//
+//        viewHolder  = (ViewHolder) view.getTag();
+//        Log.d(TAG, " date is " + new Date(diaperChangeDao.getDate().getTime()).toString());
+//        viewHolder.textViewTime.setText(simpleDateFormat.format(new Date(diaperChangeDao.getDate().getTime())));
+//
+//        setDiaperChangeType(diaperChangeDao, viewHolder);
+//        setDiaperColor(diaperChangeDao,viewHolder);
+//        setDiaperIncidentType(diaperChangeDao, viewHolder);
+//
+//        setPoopTexture(diaperChangeDao, viewHolder);
+//
+//        viewHolder.notesContent.setText(diaperChangeDao.getDiaperChangeNotes());
 
 //        viewHolder.poopColor.setImageDrawable(co);
         return view;
     }
 
-    private void setPoopTexture(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
-        if (diaperChangeDao.getPoopTexture()!=null) {
-            viewHolder.textViewPoopTexture.setText(diaperChangeDao.getPoopTexture().toString());
-        }
-    }
+//    private void setPoopTexture(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
+//        if (diaperChangeDao.getPoopTexture()!=null) {
+//            viewHolder.textViewPoopTexture.setText(diaperChangeDao.getPoopTexture().toString());
+//        }
+//    }
+//
+//    private void setDiaperIncidentType(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
+//        if (diaperChangeDao.getDiaperChangeIncidentType()!=null) {
+//            viewHolder.incidentDetails.setText(diaperChangeDao.getDiaperChangeIncidentType().toString());
+//        }
+//
+//    }
 
-    private void setDiaperIncidentType(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
-        if (diaperChangeDao.getDiaperChangeIncidentType()!=null) {
-            viewHolder.incidentDetails.setText(diaperChangeDao.getDiaperChangeIncidentType().toString());
-        }
-
-    }
 
 
-
-    private void setDiaperColor(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
-        if (diaperChangeDao.getPoopColor()!=null) {
-            switch (diaperChangeDao.getPoopColor()) {
-                case COLOR_1:
-                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_1));
-                    break;
-                case COLOR_2:
-                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_2));
-                    break;
-                case COLOR_3:
-                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_3));
-                    break;
-                case COLOR_4:
-                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_4));
-                    break;
-                case COLOR_5:
-                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_5));
-                    break;
-                case COLOR_6:
-                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_6));
-                    break;
-                case COLOR_7:
-                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_7));
-                    break;
-                case COLOR_8:
-                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_8));
-                    break;
-
-            }
-        }
-
-    }
-
-    private void setDiaperChangeType(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
-        if (diaperChangeDao.getDiaperChangeEventType()== DiaperChangeEnum.BOTH) {
-            viewHolder.diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
-            viewHolder.diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
-        } else if (diaperChangeDao.getDiaperChangeEventType()==DiaperChangeEnum.WET){
-            viewHolder.diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
-            viewHolder.diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
-            viewHolder.row2.setVisibility(View.GONE);
-        } else {
-            viewHolder.diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
-            viewHolder.diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
-        }
-    }
+//    private void setDiaperColor(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
+//        if (diaperChangeDao.getPoopColor()!=null) {
+//            switch (diaperChangeDao.getPoopColor()) {
+//                case COLOR_1:
+//                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_1));
+//                    break;
+//                case COLOR_2:
+//                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_2));
+//                    break;
+//                case COLOR_3:
+//                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_3));
+//                    break;
+//                case COLOR_4:
+//                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_4));
+//                    break;
+//                case COLOR_5:
+//                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_5));
+//                    break;
+//                case COLOR_6:
+//                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_6));
+//                    break;
+//                case COLOR_7:
+//                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_7));
+//                    break;
+//                case COLOR_8:
+//                    viewHolder.poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_8));
+//                    break;
+//
+//            }
+//        }
+//
+//    }
+//
+//    private void setDiaperChangeType(DiaperChangeDao diaperChangeDao, ViewHolder viewHolder) {
+//        if (diaperChangeDao.getDiaperChangeEventType()== DiaperChangeEnum.BOTH) {
+//            viewHolder.diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
+//            viewHolder.diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
+//        } else if (diaperChangeDao.getDiaperChangeEventType()==DiaperChangeEnum.WET){
+//            viewHolder.diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
+//            viewHolder.diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
+//            viewHolder.row2.setVisibility(View.GONE);
+//        } else {
+//            viewHolder.diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
+//            viewHolder.diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
+//        }
+//    }
 
 
     @Override
@@ -184,48 +180,48 @@ public class DiaperChangeAdapter extends ArrayAdapter<DiaperChangeDao> {
     /*
             *  View Holder class for individual list items
             */
-    public static class ViewHolder {
-
-//        @InjectView(R.id.card_merchant_icon)
-//        ImageView merchantIcon;
+//    public static class ViewHolder {
 //
-//        @InjectView(R.id.card_merchant_name)
-//        TextView merchantName;
+////        @InjectView(R.id.card_merchant_icon)
+////        ImageView merchantIcon;
+////
+////        @InjectView(R.id.card_merchant_name)
+////        TextView merchantName;
+////
+//////        @InjectView(R.id.merchant_low_value)
+//////        TextView merchantLowValue
 //
-////        @InjectView(R.id.merchant_low_value)
-////        TextView merchantLowValue
-
-        @InjectView(R.id.diaperWetChecked)
-        ImageView diaperWetChecked;
-
-        @InjectView(R.id.diaperPoopChecked)
-        ImageView diaperPoopChecked;
-
-        @InjectView(R.id.diaperChangeTime)
-        TextView textViewTime;
-
-        @InjectView(R.id.poopColor)
-        ImageView poopColor;
-
-        @InjectView(R.id.poopTexture)
-        TextView textViewPoopTexture;
-
-        @InjectView(R.id.notesContent)
-        TextView notesContent;
-
-        @InjectView(R.id.incidentDetails)
-        TextView incidentDetails;
-
-        @InjectView(R.id.row2)
-        LinearLayout row2;
-
-
-
-        public ViewHolder(View view){
-            ButterKnife.inject(this, view);
-            view.setTag(this);
-        }
-    }
+//        @InjectView(R.id.diaperWetChecked)
+//        ImageView diaperWetChecked;
+//
+//        @InjectView(R.id.diaperPoopChecked)
+//        ImageView diaperPoopChecked;
+//
+//        @InjectView(R.id.diaperChangeTime)
+//        TextView textViewTime;
+//
+//        @InjectView(R.id.poopColor)
+//        ImageView poopColor;
+//
+//        @InjectView(R.id.poopTexture)
+//        TextView textViewPoopTexture;
+//
+//        @InjectView(R.id.notesContent)
+//        TextView notesContent;
+//
+//        @InjectView(R.id.incidentDetails)
+//        TextView incidentDetails;
+//
+//        @InjectView(R.id.row2)
+//        LinearLayout row2;
+//
+//
+//
+//        public ViewHolder(View view){
+//            ButterKnife.inject(this, view);
+//            view.setTag(this);
+//        }
+//    }
 
 
 

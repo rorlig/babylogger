@@ -28,7 +28,7 @@ import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
-import com.rorlig.babylog.ui.adapter.DiaperChangeSectionizer;
+import com.rorlig.babylog.ui.adapter.DateSectionizer;
 import com.rorlig.babylog.ui.adapter.FeedAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 
@@ -238,7 +238,7 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
                 feedAdapter,
                 R.layout.section_header_blue,
                 R.id.title,
-                new DiaperChangeSectionizer());
+                new DateSectionizer());
 
         feedListView.setAdapter(sectionAdapter);
     }
