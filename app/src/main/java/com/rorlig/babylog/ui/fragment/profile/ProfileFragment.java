@@ -311,7 +311,7 @@ public class ProfileFragment extends InjectableFragment {
                 Pair<Integer, Integer> itemDimensions
                         = getBitmapBounds(ProfileActivity.imageUri.getPath());
 
-                float aspectRatio = 1f * itemDimensions.first/itemDimensions.second;
+//                float aspectRatio = 1f * itemDimensions.first/itemDimensions.second;
 
                 int inSampleSize = calculateInSampleSize(itemDimensions.first,
                         itemDimensions.second,

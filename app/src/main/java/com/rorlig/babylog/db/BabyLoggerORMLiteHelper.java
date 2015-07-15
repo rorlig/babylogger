@@ -43,7 +43,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
     private Dao<MilestonesDao, Integer> milestonesDao;
     private Dao<SleepDao, Integer> sleepDao;
 
-    private String TAG = "BabyLoggerORMLiteHelper";
+    private final String TAG = "BabyLoggerORMLiteHelper";
 
 
     //    // the DAO object we use to access the SimpleData table
@@ -84,7 +84,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
     private void populateGrowthDao() {
 
         Log.d(TAG, "populateGrowthDao");
-        ArrayList<GrowthDao> growthDaoArrayList = new ArrayList<GrowthDao>();
+        ArrayList<GrowthDao> growthDaoArrayList;
         final String growthResponse = new FileUtils().loadJSONFromAsset("growth.json", context);
         if (growthResponse!=null){
             Log.d(TAG , growthResponse);

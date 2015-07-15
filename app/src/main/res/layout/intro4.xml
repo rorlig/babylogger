@@ -45,7 +45,6 @@
         android:paddingRight="64dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:onClick="getStarted"
         android:text="GET STARTED"/>
     <TextView
         android:layout_width="fill_parent"

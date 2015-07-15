@@ -246,7 +246,6 @@ public class DateTimeHeaderFragment extends InjectableFragment {
             long dayInMillis  = sdf.parse(currentDate.getText().toString()).getTime();
             sdf = new SimpleDateFormat("hh:mm aa");
             long timeInMillis = sdf.parse(currentTime.getText().toString()).getTime();
-            Calendar curr = Calendar.getInstance(TimeZone.getDefault());
             TimeZone z = TimeZone.getDefault();
             int offset = z.getRawOffset();
             Log.d(TAG, " rawoffset " + offset);

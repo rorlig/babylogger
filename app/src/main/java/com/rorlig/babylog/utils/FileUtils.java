@@ -19,7 +19,7 @@ public class FileUtils {
      * loads json files for testing purposes..
      */
     public String loadJSONFromAsset(String fileName, Context context) {
-        String json = null;
+        String json;
         try {
             Log.d(TAG, "Context is " + context);
             InputStream is = context.getAssets().open(fileName);

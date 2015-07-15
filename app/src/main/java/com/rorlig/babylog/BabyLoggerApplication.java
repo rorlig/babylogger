@@ -24,7 +24,7 @@ import dagger.ObjectGraph;
 //)
 public class BabyLoggerApplication extends Application implements ObjectGraphApplication {
     private ObjectGraph objectGraph;
-    private String TAG = "BabyLoggerApplication";
+    private final String TAG = "BabyLoggerApplication";
 //    private JobManager jobManager;
 
     @Override

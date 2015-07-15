@@ -76,7 +76,7 @@ public class FeedingActivity extends InjectableActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //
-        String intentString = getIntent().getStringExtra("intent");
+//        String intentString = getIntent().getStringExtra("intent");
 
 
 //        if (intentString!=null && intentString.equals("feeding_activity_bottle")){

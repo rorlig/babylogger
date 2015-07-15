@@ -135,7 +135,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         itemNames = getResources().getStringArray(R.array.items);
         List<Parcelable> itemModelArrayList = new ArrayList<Parcelable>();
 
-        Parcelable[] itemList = null;
+        Parcelable[] itemList;
 
         if (paramBundle!=null) {
             itemList = paramBundle.getParcelableArray(EXPORT_LIST);
@@ -290,7 +290,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
             Uri diaperChangeUri = null;
             Uri growthUri = null;
             Uri feedsUri = null;
-            Uri milestonesUri = null;
+//            Uri milestonesUri = null;
             if (isDiaperLogSelected()) {
                 try {
                     List<DiaperChangeDao> diaperChangeList = babyORMLiteUtils.getDiaperChangeList(getStartTime(), getEndTime());
@@ -303,7 +303,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 }
 
             }
-            
+
             if (isFeedSelected()) {
                 try {
                     List<FeedDao> feedList = babyORMLiteUtils.getFeedList(getStartTime(), getEndTime());
@@ -528,7 +528,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 e.printStackTrace();
             }
         }
-        Uri uri  =   null;
+        Uri uri;
         uri  =   Uri.fromFile(file);
 
         return uri;
@@ -582,8 +582,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 e.printStackTrace();
             }
         }
-        Uri uri  =   null;
-        uri  =   Uri.fromFile(file);
+        Uri uri = Uri.fromFile(file);
 
         return uri;
 

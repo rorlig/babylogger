@@ -36,28 +36,7 @@
             android:layout_toRightOf="@+id/hourdivider"
 
             />
-        <TextView
-            android:textColor="@color/primary_gray_dark"
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/minutedivider"
-            android:text=":"
-            android:textSize="18sp"
-            android:layout_toRightOf="@+id/minute"
-            />
-
-        <TextView
-            android:textColor="@color/primary_gray_dark"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/second"
-            android:text="00"
-            android:textSize="18sp"
-            android:layout_toRightOf="@+id/minutedivider"
-
-            />
 
 
 

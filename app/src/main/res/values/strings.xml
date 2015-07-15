@@ -94,7 +94,6 @@
     <string name="remaining_time_format_h_mm"><g id="hours">%1$d</g>:<g id="minutes">%2$02d</g></string>
     <string name="remind_log_in_message">Signing up and/or logging in allows you to store your schedule in the cloud and sync it across your devices and on the web.</string>
     <string name="search_hint">Search sessions</string>
-    <string name="search_label">Devoxx sessions</string>
     <string name="session_notification_in_room">In <g id="room_name">%1$s</g></string>
     <string name="session_notification_text_1">starting in <g id="remaining_time">%1$d</g> min.</string>
     <string name="settings_about_version">Version <g id="version">%1$s</g></string>

@@ -58,7 +58,7 @@ public class ApplicationModule
     @Singleton
     AlarmManager provideAlarmManager(@ForApplication Context paramContext)
     {
-        return (AlarmManager)paramContext.getSystemService("alarm");
+        return (AlarmManager)paramContext.getSystemService(Context.ALARM_SERVICE);
     }
 
 

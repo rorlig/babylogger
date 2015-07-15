@@ -211,7 +211,6 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
         ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
         dataSets.add(set1);
 
-        BarData data = new BarData(xVals, dataSets);
 //        barChart.setBackgroundColor(getResources().getColor(R.color.primary_purple));
 //        barChart.setData(data);
 //        barChart.notifyDataSetChanged();
@@ -353,7 +352,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
     private String getDateRangeForWeek(int weekNumber){
         Log.d(TAG, "weekNumber " + weekNumber);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
         DateTime weekStartDate = new DateTime().withWeekOfWeekyear(weekNumber);
         DateTime weekEndDate = new DateTime().withWeekOfWeekyear(weekNumber + 1);
         String returnString = weekStartDate.toString(DateTimeFormat.forPattern("dd MMM"))

@@ -1,7 +1,9 @@
 package com.rorlig.babylog.ui.fragment.sleep;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,15 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
+import com.rorlig.babylog.otto.TimeSetEventError;
+import com.rorlig.babylog.otto.events.datetime.DateSetEvent;
+import com.rorlig.babylog.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
+import com.squareup.otto.Subscribe;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -60,28 +69,39 @@ public class SleepFragment extends InjectableFragment {
     TextView dateEndSecondTextView;
 
     private EventListener eventListener = new EventListener();
+    private String START_HOUR = "start_hour";
+    private String START_MINUTE = "start_minute";
+
+    private String END_HOUR = "end_hour";
+
+    private String END_MINUTE = "end_minute";
+
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-//                "fonts/proximanova_light.ttf");
 
         scopedBus.post(new FragmentCreated("Sleep"));
 
         dateStartHourTextView = (TextView) dateRangeStart.findViewById(R.id.hour);
         dateStartMinuteTextView = (TextView) dateRangeStart.findViewById(R.id.minute);
-        dateStartSecondTextView = (TextView) dateRangeStart.findViewById(R.id.second);
-
 
         dateEndHourTextView = (TextView) dateRangeEnd.findViewById(R.id.hour);
         dateEndMinuteTextView = (TextView) dateRangeEnd.findViewById(R.id.minute);
-        dateEndSecondTextView = (TextView) dateRangeEnd.findViewById(R.id.second);
 
+        if (paramBundle!=null) {
+            dateStartHourTextView.setText(paramBundle.getString(START_HOUR));
+            dateStartMinuteTextView.setText(paramBundle.getString(START_MINUTE));
+            dateEndHourTextView.setText(paramBundle.getString(END_HOUR));
+            dateEndMinuteTextView.setText(paramBundle.getString(END_MINUTE));
+        } else {
+            init();
+        }
 
 
     }
+
 
 
     @OnClick(R.id.sleep_start_time)
@@ -111,15 +131,65 @@ public class SleepFragment extends InjectableFragment {
         return view;
     }
 
+    /*
+     * Register to events...
+     */
+    @Override
+    public void onStart(){
 
-    private class EventListener {
-        public EventListener() {
 
-        }
+        super.onStart();
+        Log.d(TAG, "onStart");
+        scopedBus.register(eventListener);
+    }
+
+    /*
+     * Unregister from events ...
+     */
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+        scopedBus.unregister(eventListener);
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(START_HOUR, dateStartHourTextView.getText().toString());
+        outState.putString(START_MINUTE, dateStartMinuteTextView.getText().toString());
+        outState.putString(END_HOUR, dateEndHourTextView.getText().toString());
+        outState.putString(END_MINUTE, dateEndMinuteTextView.getText().toString());
+
+    }
+
+    /*
+     * Initializes the hour and minute sleep times...
+     * @param null
+     * @return null
+     */
+    private void init(){
+
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+
+        dateStartHourTextView.setText(String.format("%02d", hour));
+        dateStartMinuteTextView.setText(String.format("%02d", minute));
+
+        dateEndHourTextView.setText(String.format("%02d", hour));
+        dateEndMinuteTextView.setText(String.format("%02d", minute));
+        
+        
+        
+
     }
 
 
     private void showTimePickerDialog(String label) {
+        Log.d(TAG, " label " + label);
         DialogFragment newFragment = new TimePickerFragment();
 
         Bundle args = new Bundle();
@@ -129,22 +199,41 @@ public class SleepFragment extends InjectableFragment {
 
         //if the dialog is for the start date make sure the max date < end_date
         if (label.equals("start")) {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH-mm-ss");
-            String endDateString = dateEndHourTextView.getText().toString() + "-" + dateEndMinuteTextView.getText().toString() + "-" + dateEndSecondTextView.getText().toString();
-
-            try {
-                Log.d(TAG, "endDateString: " + endDateString);
-                Date endDate = sdf.parse(endDateString);
-                Log.d(TAG, "endDate " + endDate);
-                args.putLong("max_start_date", endDate.getTime());
-//                args.putLong("current_date", getStartTime().getTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            args.putInt("hour", Integer.parseInt(String.valueOf(dateStartHourTextView.getText())));
+            args.putInt("minute", Integer.parseInt(String.valueOf(dateStartMinuteTextView.getText())));
+            args.putInt("max_hour", Integer.parseInt(String.valueOf(dateEndHourTextView.getText())));
+            args.putInt("max_minute", Integer.parseInt(String.valueOf(dateEndMinuteTextView.getText())));
         } else {
-//            args.putLong("current_date", getEndTime().getTime());
+            args.putInt("hour", Integer.parseInt(String.valueOf(dateEndHourTextView.getText())));
+            args.putInt("minute", Integer.parseInt(String.valueOf(dateEndMinuteTextView.getText()))); 
         }
         newFragment.setArguments(args);
         newFragment.show(getFragmentManager(), "datepicker");
+    }
+
+    private class EventListener {
+        public EventListener() {
+
+        }
+
+
+
+        @Subscribe
+        public void onTimeChanged(TimeSetEvent timeSetEvent){
+            Log.d(TAG, "timeSetEvent " + timeSetEvent.toString());
+            if (timeSetEvent.getLabel().equals("start")) {
+                dateStartHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
+                dateStartMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
+            } else {
+                dateEndHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
+                dateEndMinuteTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
+            }
+
+        }
+
+        @Subscribe
+        public void onTimeChangeError(TimeSetEventError event) {
+            Toast.makeText(getActivity(), "Start time cannot be greater than end time", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -64,10 +64,14 @@ public class BabyLoggerORMUtils {
     }
 
 
+    /**
+     * @return
+     * @throws SQLException
+     */
     /*
      * Returns the feed data access object
      */
-    public Dao<FeedDao, Integer> getFeedDao() throws SQLException {
+    private Dao<FeedDao, Integer> getFeedDao() throws SQLException {
         if (feedDao == null) {
             feedDao = getHelper().getFeedDao();
         }
@@ -78,7 +82,7 @@ public class BabyLoggerORMUtils {
     /*
    * Returns the growth data access object
    */
-    public Dao<GrowthDao, Integer> getGrowthDao() throws SQLException {
+    private Dao<GrowthDao, Integer> getGrowthDao() throws SQLException {
         if (growthDao == null) {
             growthDao = getHelper().getGrowthDao();
         }
@@ -90,7 +94,7 @@ public class BabyLoggerORMUtils {
     /*
    * Returns the analytics data access object
    */
-    public Dao<MilestonesDao, Integer> getMilestonesDao() throws SQLException {
+    private Dao<MilestonesDao, Integer> getMilestonesDao() throws SQLException {
         if (milestonesDao == null) {
             milestonesDao = getHelper().getMilestonesDao();
         }

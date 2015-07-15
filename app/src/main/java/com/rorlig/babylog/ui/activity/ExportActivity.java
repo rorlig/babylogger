@@ -49,10 +49,7 @@ public class ExportActivity extends InjectableActivity {
         if (savedInstanceState == null) {
 
             showFragment(ExportFragment.class, "export_fragment", false);
-        } else {
-//            TestFragment test = (TestFragment) getSupportFragmentManager().findFragmentByTag("your_fragment_tag");
         }
-//        showFragment(ExportFragment.class, "export_fragment", false);
     }
 
     @Override

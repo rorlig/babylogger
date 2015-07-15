@@ -31,7 +31,6 @@ import com.rorlig.babylog.otto.events.milestones.MilestoneSaveEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
-import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.adapter.MilestonesItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.squareup.otto.Subscribe;

@@ -40,7 +40,6 @@ public class DateSectionizer implements Sectionizer<BaseDao> {
     @Override
     public String getSectionTitleForItem(BaseDao instance) {
         PrettyTime prettyTime = new PrettyTime();
-        String sectionTitle = prettyTime.format(new Date(instance.getDate().getTime()));
 
         Long currentTime = System.currentTimeMillis();
         Log.d(TAG, " currentTime " + currentTime + " diaper change time " + instance.getDate());

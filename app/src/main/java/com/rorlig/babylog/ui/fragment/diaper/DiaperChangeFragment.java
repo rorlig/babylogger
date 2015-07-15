@@ -194,7 +194,6 @@ public class DiaperChangeFragment extends InjectableFragment {
         super.onViewCreated(view, savedInstanceState);
         Time today = new Time(Time.getCurrentTimezone());
         today.setToNow();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy");
 //        currentDate.setText(sdf.format(new Date()));
 //        sdf = new SimpleDateFormat("hh:mm aa");
 //        currentTime.setText(sdf.format(new Date()));
@@ -366,7 +365,6 @@ public class DiaperChangeFragment extends InjectableFragment {
         @Subscribe
         public void onDateChanged(DateSetEvent dateSetEvent){
             Log.d(TAG, "dateSetEvent " + dateSetEvent);
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy");
 //            currentDateLong = dateSetEvent.getCalendar();
 //            currentDate.setText(sdf.format(dateSetEvent.getCalendar().getDate()));
         }

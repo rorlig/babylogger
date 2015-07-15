@@ -87,7 +87,7 @@ public class HomeFragment extends InjectableFragment {
         super.onActivityCreated(paramBundle);
 
 
-        String logItems = preferences.getString("logItems", "");
+//        String logItems = preferences.getString("logItems", "");
 
 
 
@@ -116,7 +116,7 @@ public class HomeFragment extends InjectableFragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     Log.d(TAG, "onItemClick ");
-                    CharSequence charSequence = "Todo";
+//                    CharSequence charSequence = "Todo";
 
                     switch (position) {
                         case 0:

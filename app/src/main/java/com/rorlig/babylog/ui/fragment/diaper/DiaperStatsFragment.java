@@ -196,7 +196,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
     private String getDateRangeForWeek(int weekNumber){
         Log.d(TAG, "weekNumber " + weekNumber);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
         DateTime weekStartDate = new DateTime().withWeekOfWeekyear(weekNumber);
         DateTime weekEndDate = new DateTime().withWeekOfWeekyear(weekNumber + 1);
         String returnString = weekStartDate.toString(DateTimeFormat.forPattern("dd MMM"))
@@ -340,7 +340,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         startTime.set(Calendar.SECOND, 0);
         startTime.set(Calendar.MILLISECOND, 0);
         startTime.add(Calendar.DATE, -(7*4+1));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar endTime = Calendar.getInstance();
         endTime.set(Calendar.HOUR_OF_DAY, 0);
         endTime.set(Calendar.MINUTE, 0);

@@ -67,7 +67,7 @@ public class MilestonesActivity extends InjectableActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        String intentString = getIntent().getStringExtra("intent");
+//        String intentString = getIntent().getStringExtra("intent");
 //        Log.d(TAG, " " +  intentString);
 
         showFragment(MilestoneListFragment.class, "milestones_fragment", false);

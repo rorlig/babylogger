@@ -239,7 +239,7 @@ public class ProfileActivity extends InjectableActivity {
 
         Log.d(TAG, "cameraImageCaptured : " + data.getData());
 
-        Uri returnedUri = null;
+        Uri returnedUri;
 
         if(data != null) {
             returnedUri = data.getData();
