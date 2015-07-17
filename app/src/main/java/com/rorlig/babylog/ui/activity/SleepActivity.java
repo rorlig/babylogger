@@ -25,6 +25,7 @@ import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthStatsFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepListFragment;
+import com.rorlig.babylog.ui.fragment.sleep.SleepStatsFragment;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
@@ -203,6 +204,11 @@ public class SleepActivity extends InjectableActivity {
         @Subscribe
         public void onAddItemEvent(AddItemEvent event){
             showFragment(SleepFragment.class, "sleep_fragment", false);
+        }
+
+        @Subscribe
+        public void onStatsItemEvent(StatsItemEvent event) {
+            showFragment(SleepStatsFragment.class, "stats_fragment", false);
         }
 
     }

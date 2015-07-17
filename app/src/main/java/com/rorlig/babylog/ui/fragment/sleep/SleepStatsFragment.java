@@ -63,13 +63,13 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 //    @InjectView(R.id.growth_stats_line_chart)
 //    LineChart lineChart;
 
-    @InjectView(R.id.diaper_change_stats_time)
-    RadioGroup diaperChangeRadioGroup;
+    @InjectView(R.id.sleep_stats_time)
+    RadioGroup sleepChangeRadioGroup;
 
-    @InjectView(R.id.diaper_bar_chart)
+    @InjectView(R.id.sleep_bar_chart)
     BarChart barChart;
 
-    private String TAG = "DiaperStatsFragment";
+    private String TAG = "SleepStatsFragment";
 
 
 
@@ -78,7 +78,8 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
     private BabyLoggerORMUtils babyORMLiteUtils;
-    private List<String[]> diaperChangeDaoList;
+    private List<String[]> sleepDaoList;
+//    private List<String[]> diaperChangeDaoList;
 
 
     @Override
@@ -108,26 +109,25 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 
 //        barChart.setBackgroundColor(getResources().getColor(R.color.primary_purple));
 //        barChart.setGridBackgroundColor(getResources().getColor(R.color.primary_purple));
-        barChart.getXAxis().setTextColor(getResources().getColor(R.color.primary_dark_purple));
+        barChart.getXAxis().setTextColor(getResources().getColor(R.color.primary_gray_dark));
 //        barChart.().setTextColor(getResources().getColor(R.color.white));
-        barChart.getLegend().setTextColor(getResources().getColor(R.color.primary_dark_purple));
+        barChart.getLegend().setTextColor(getResources().getColor(R.color.primary_gray_dark));
 
 
 
-//        barChart.set();
 
 
         try {
             Log.d(TAG, "get the data by day");
-            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDay();
+            sleepDaoList =  babyORMLiteUtils.getSleepByDay();
             //setData
 //            setData(12, 60);
-            setData(diaperChangeDaoList, DiaperChangeStatsType.DAY);
+            setData(sleepDaoList, DiaperChangeStatsType.DAY);
         } catch (SQLException   e) {
             e.printStackTrace();
         }
-
-        diaperChangeRadioGroup.setOnCheckedChangeListener(this);
+//
+        sleepChangeRadioGroup.setOnCheckedChangeListener(this);
 
 
     }
@@ -142,7 +142,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_diaper_change_stats, null);
+        View view =  inflater.inflate(R.layout.fragment_sleep_stats, null);
         ButterKnife.inject(this, view);
         return view;
     }
@@ -164,32 +164,32 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-        try {
-            switch (checkedId) {
-                case R.id.diaper_change_stats_week:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeek();
-                    barChart.setMaxVisibleValueCount(5);
-
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.WEEK);
-
-                    break;
-                case R.id.diaper_change_stats_month:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonth();
-                    barChart.setMaxVisibleValueCount(12);
-
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.MONTH);
-
-                    break;
-                default:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDay();
-                    barChart.setMaxVisibleValueCount(7);
-
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.DAY);
-            }
-
-        } catch (SQLException sqlException) {
-            Log.e(TAG, "Exception: " + sqlException);
-        }
+//        try {
+//            switch (checkedId) {
+//                case R.id.diaper_change_stats_week:
+//                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeek();
+//                    barChart.setMaxVisibleValueCount(5);
+//
+//                    setData(diaperChangeDaoList, DiaperChangeStatsType.WEEK);
+//
+//                    break;
+//                case R.id.diaper_change_stats_month:
+//                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonth();
+//                    barChart.setMaxVisibleValueCount(12);
+//
+//                    setData(diaperChangeDaoList, DiaperChangeStatsType.MONTH);
+//
+//                    break;
+//                default:
+//                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDay();
+//                    barChart.setMaxVisibleValueCount(7);
+//
+//                    setData(diaperChangeDaoList, DiaperChangeStatsType.DAY);
+//            }
+//
+//        } catch (SQLException sqlException) {
+//            Log.e(TAG, "Exception: " + sqlException);
+//        }
 
     }
 
@@ -210,12 +210,12 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 
     }
 
-    private void setData(List<String[]> diaperChangeDaoList, DiaperChangeStatsType diaperChangeStatsType) {
+    private void setData(List<String[]> sleepDaoList, DiaperChangeStatsType diaperChangeStatsType) {
 
         ArrayList<String> xVals = new ArrayList<String>();
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         int i = 0;
-        List<String[]> fullList = getFullList(diaperChangeDaoList, diaperChangeStatsType);
+        List<String[]> fullList = getFullList(sleepDaoList, diaperChangeStatsType);
 
         for (String[] diaperChangeResult: fullList) {
             Log.d(TAG, "iterating the result set");
@@ -244,17 +244,17 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
         barChart.animateY(1000);
         BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
         set1.setBarSpacePercent(35f);
-        set1.setColor(getResources().getColor(R.color.primary_purple));
-        set1.setValueTextColor(getResources().getColor(R.color.primary_purple));
+        set1.setColor(getResources().getColor(R.color.primary_gray));
+        set1.setValueTextColor(getResources().getColor(R.color.primary_gray));
         set1.setValueTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //        set1.setC
-        set1.setHighLightColor(getResources().getColor(R.color.primary_dark_purple));
+        set1.setHighLightColor(getResources().getColor(R.color.primary_gray));
 
         ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
         dataSets.add(set1);
 
         BarData data = new BarData(xVals, dataSets);
-        data.setValueTextColor(getResources().getColor(R.color.primary_dark_purple));
+        data.setValueTextColor(getResources().getColor(R.color.primary_gray));
         barChart.setData(data);
 //        barChart.setZ
         barChart.notifyDataSetChanged();
@@ -301,7 +301,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 
             String formattedDate = sdf.format(startTime.getTime());
 
-            for (String[] diaperChangeDao: diaperChangeDaoList) {
+            for (String[] diaperChangeDao: sleepDaoList) {
 
                 if (diaperChangeDao[0].equals(formattedDate)) {
                     Log.d(TAG, "found ");
@@ -357,7 +357,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 //           Log.d(TAG, "week no" + startTime.get(Calendar.WEEK_OF_YEAR));
             int weekNo = startTime.get(Calendar.WEEK_OF_YEAR);
 
-            for (String[] diaperChangeDao: diaperChangeDaoList) {
+            for (String[] diaperChangeDao: sleepDaoList) {
 
                 if (diaperChangeDao[0].equals(String.valueOf(weekNo))) {
                     Log.d(TAG, "found ");
@@ -412,7 +412,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
             boolean found = false;
             String[] temp  = new String[2];
 
-            for (String[] diaperChangeDao: diaperChangeDaoList) {
+            for (String[] diaperChangeDao: sleepDaoList) {
 
                 if (diaperChangeDao[0].equals(sdf.format(date))) {
                     Log.d(TAG, "found " + sdf.format(date));

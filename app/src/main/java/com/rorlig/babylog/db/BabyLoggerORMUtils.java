@@ -318,4 +318,38 @@ public class BabyLoggerORMUtils {
         Log.d(TAG, " query size " + queryBuilder.query().size());
         return queryBuilder.query();
     }
+
+
+    /*
+   * Return the diaper changes for the day of the week
+   *
+   */
+    public List<String[]> getSleepByDay() throws SQLException {
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        c.add(Calendar.DATE, 2);
+        String endTime = sdf.format(c.getTime());
+
+
+        c.add(Calendar.DATE, -8);
+
+        String startTime = sdf.format(c.getTime());
+
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+
+        String rawSelectSql = "select strftime('%Y-%m-%d', date), count(*) from sleepdao where date <'" + endTime
+                + "'and date>'" + startTime + "'group by strftime('%Y-%m,-%d', date)";
+
+//        Log.d(TAG, "rawSelectSql " + rawSelectSql);
+
+        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
+        return result;
+    }
 }
