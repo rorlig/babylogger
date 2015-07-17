@@ -125,6 +125,10 @@
         <item name="android:background">@color/primary_dark_purple</item>
     </style>
 
+    <style name="RadioButton.Gray">
+        <item name="android:background">@color/primary_gray_dark</item>
+    </style>
+
     <style name="RadioGroup">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">50dp</item>
@@ -341,6 +345,10 @@
 
     <style name="ListItemHeader.Green" parent="ListItemHeader">
         <item name="android:textColor">@color/primary_green</item>
+    </style>
+
+    <style name="ListItemHeader.Gray" parent="ListItemHeader">
+        <item name="android:textColor">@color/primary_gray_dark</item>
     </style>
 
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/sleep_stats_title"
-        style="@style/ListItemHeader"
-        android:textColor="@color/primary"
+        style="@style/ListItemHeader.Gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -14,13 +14,45 @@
         android:layout_marginBottom="10dp"
         android:text="@string/sleep_stats_title"/>
 
+    <RadioGroup
+        style="@style/RadioGroup.Purple"
+        android:id="@+id/sleep_stats_time"
+        android:layout_below="@+id/sleep_stats_title">
+
+        <RadioButton android:id="@+id/sleep_stats_day"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center_gray"
+            android:text="@string/diaper_change_stats_title_day"
+            android:checked="true"
+            android:textSize="14sp"
+            />
+
+        <RadioButton android:id="@+id/sleep_stats_week"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center_gray"
+            android:text="@string/diaper_change_stats_title_week"
+            android:layout_marginLeft="-1dp"
+            android:textSize="14sp"
+            />
+
+        <RadioButton android:id="@+id/sleep_stats_month"
+            style="@style/RadioButton"
+            android:background="@drawable/radio_button_center_gray"
+            android:text="@string/diaper_change_stats_title_month"
+            android:textSize="14sp"
+
+            />
 
 
-    <!-- multiline chart -->
-    <com.github.mikephil.charting.charts.CombinedChart
-        android:id="@+id/sleep_stats_combined_chart"
+
+    </RadioGroup>
+
+
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/sleep_bar_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/sleep_stats_title"
+        android:layout_below="@+id/sleep_stats_time"
         />
 </RelativeLayout>

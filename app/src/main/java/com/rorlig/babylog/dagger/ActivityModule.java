@@ -58,6 +58,7 @@ import com.rorlig.babylog.ui.fragment.profile.PictureSourceSelectFragment;
 import com.rorlig.babylog.ui.fragment.profile.ProfileFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepListFragment;
+import com.rorlig.babylog.ui.fragment.sleep.SleepStatsFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
 
 import javax.inject.Singleton;
@@ -120,6 +121,7 @@ import dagger.Provides;
             MilestonesItemAdapter.class,
             MilestonesCompletedFragment.class,
             PictureSourceSelectFragment.class,
+            SleepStatsFragment.class,
             PrefsFragment.class,
             ExportFragment.class,
             CustomTimePickerFragment.class,
