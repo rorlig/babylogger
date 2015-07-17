@@ -25,6 +25,7 @@ import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.adapter.LogItemAdapter;
 import com.rorlig.babylog.ui.adapter.MilestonesItemAdapter;
+import com.rorlig.babylog.ui.adapter.SleepAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.MainFragment;
@@ -33,6 +34,7 @@ import com.rorlig.babylog.ui.fragment.about.AboutFragment;
 import com.rorlig.babylog.ui.fragment.contact.ContactSelectFragment;
 import com.rorlig.babylog.ui.fragment.contact.ContactsFragment;
 import com.rorlig.babylog.ui.fragment.contact.ContactsPagerListFragment;
+import com.rorlig.babylog.ui.fragment.datetime.CustomTimePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
@@ -55,6 +57,7 @@ import com.rorlig.babylog.ui.fragment.preference.PrefsFragment;
 import com.rorlig.babylog.ui.fragment.profile.PictureSourceSelectFragment;
 import com.rorlig.babylog.ui.fragment.profile.ProfileFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepFragment;
+import com.rorlig.babylog.ui.fragment.sleep.SleepListFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
 
 import javax.inject.Singleton;
@@ -96,6 +99,7 @@ import dagger.Provides;
             DiaperChangeListFragment.class,
             FeedingListFragment.class,
             GrowthListFragment.class,
+            SleepListFragment.class,
             MilestoneListFragment.class,
             DiaperChangeAdapter.class,
             ContactsFragment.class,
@@ -117,7 +121,9 @@ import dagger.Provides;
             MilestonesCompletedFragment.class,
             PictureSourceSelectFragment.class,
             PrefsFragment.class,
-            ExportFragment.class
+            ExportFragment.class,
+            CustomTimePickerFragment.class,
+            SleepAdapter.class
 
           },
           library=true, complete = false)

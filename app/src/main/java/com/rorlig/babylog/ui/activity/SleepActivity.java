@@ -13,14 +13,18 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.SleepLogCreated;
+import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
+import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeListFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthStatsFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepFragment;
+import com.rorlig.babylog.ui.fragment.sleep.SleepListFragment;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
@@ -64,12 +68,6 @@ public class SleepActivity extends InjectableActivity {
     private EventListener eventListener = new EventListener();
 
 
-    /*
-   * Define a request code to send to Google Play services
-   * This code is returned in Activity.onActivityResult
-   */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private Typeface typeface;
 
 
     @Override
@@ -89,7 +87,7 @@ public class SleepActivity extends InjectableActivity {
         Log.d(TAG, " " +  intentString);
 
 //        if (intentString!=null && intentString.equals("growth_activity")){
-            showFragment(SleepFragment.class, "sleep_fragment", false);
+            showFragment(SleepListFragment.class, "sleep_fragment", false);
 
 //        } else  {
 //            showFragment(Slee.class, "growth_list_fragment", false);
@@ -195,28 +193,17 @@ public class SleepActivity extends InjectableActivity {
         }
 
         @Subscribe
-        public void onItemAddedEvent(AddItemEvent addItemEvent){
-            Log.d(TAG, "onItemAddedEvent");
-            switch (addItemEvent.getItemType()) {
-                case GROWTH_LOG:
-                    showFragment(GrowthFragment.class, "growth_fragment", true);
-                    break;
-            }
-        }
-
-        @Subscribe
-        public void onGrowthItemCreated(GrowthItemCreated event) {
-//            Log.d(TAG, "onFeedSavedEvent");
+        public void onSleepEventCreated(SleepLogCreated event) {
+            Log.d(TAG, "onSleepEventCreated");
+            showFragment(SleepListFragment.class, "sleep_list_fragment", false);
+            getFragmentManager().popBackStackImmediate();
 //            finish();
-            showFragment(GrowthListFragment.class, "growth_list_fragment",true);
         }
 
         @Subscribe
-        public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
-                    showFragment(GrowthStatsFragment.class, "growth_stats_fragment", false);
+        public void onAddItemEvent(AddItemEvent event){
+            showFragment(SleepFragment.class, "sleep_fragment", false);
         }
-
-
 
     }
 

@@ -70,15 +70,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sleep_end_time"
+            android:text="@string/sleep_duration"
             android:textColor="@color/primary_gray_dark"
             android:textSize="18sp"
             android:id="@+id/date_range_end_label"
             android:textAllCaps="false"/>
 
 
-        <include layout = "@layout/view_time_gray_small"
-            android:id="@+id/sleep_end_time"
+        <include layout = "@layout/view_time_gray_duration"
+            android:id="@+id/sleep_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

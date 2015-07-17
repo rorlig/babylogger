@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author gaurav gupta
- * Feed Dao
+ * Sleep Dao
  */
 @DatabaseTable
 public class SleepDao extends BaseDao {
@@ -19,26 +19,23 @@ public class SleepDao extends BaseDao {
 
 
 
-    //left breast date
     @DatabaseField
     Date sleepStartTime;
 
     //right breast date
     @DatabaseField
-    Date sleepEndTime;
+    Long duration;
 
-    //notes about the feed
-    @DatabaseField
-    String notes;
 
 
     public SleepDao() {
     }
 
-    public SleepDao(Date sleepStartTime, Date sleepEndTime, String notes) {
+    public SleepDao(Date sleepStartTime,
+                    Long duration, Date date) {
         this.sleepStartTime = sleepStartTime;
-        this.sleepEndTime = sleepEndTime;
-        this.notes = notes;
+        this.duration = duration;
+        this.date = date;
     }
 
     @Override
@@ -46,8 +43,7 @@ public class SleepDao extends BaseDao {
         return "SleepDao{" +
                 "id=" + id +
                 ", sleepStartTime=" + sleepStartTime +
-                ", sleepEndTime=" + sleepEndTime +
-                ", notes='" + notes + '\'' +
+                ", duration=" + duration +
                 "} " + super.toString();
     }
 
@@ -55,11 +51,7 @@ public class SleepDao extends BaseDao {
         return sleepStartTime;
     }
 
-    public Date getSleepEndTime() {
-        return sleepEndTime;
-    }
-
-    public String getNotes() {
-        return notes;
+    public Long getDuration() {
+        return duration;
     }
 }

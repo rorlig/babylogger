@@ -309,4 +309,13 @@ public class BabyLoggerORMUtils {
                 .and().gt("date", startTime);
         return queryBuilder.query();
     }
+
+
+
+    public List<SleepDao> getSleepList() throws SQLException {
+        QueryBuilder<SleepDao, Integer> queryBuilder = getSleepDao().queryBuilder().orderBy("date", false);
+//        queryBuilder.where().eq("isSend", false);
+        Log.d(TAG, " query size " + queryBuilder.query().size());
+        return queryBuilder.query();
+    }
 }

@@ -166,6 +166,14 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
         }
         return growthDao;
     }
+
+    public Dao<SleepDao, Integer> getSleepDao() throws SQLException {
+        if (sleepDao==null) {
+            sleepDao = getDao(SleepDao.class);
+        }
+        return sleepDao;
+    }
+
     /**
      * Close the database connections and clear any cached DAOs.
      */
@@ -176,6 +184,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
         feedDao = null;
         growthDao = null;
         milestonesDao = null;
+        sleepDao = null;
     }
 
 
@@ -186,10 +195,5 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
         return milestonesDao;
     }
 
-    public Dao<SleepDao, Integer> getSleepDao() throws SQLException {
-        if (sleepDao==null) {
-            sleepDao = getDao(SleepDao.class);
-        }
-        return sleepDao;
-    }
+
 }

@@ -179,6 +179,8 @@
     <string name="error_no_checkin_events">You have not checked into any events yet</string>
     <string name="error_not_checkedIn">Please check in first</string>
     <string name="no_diaper_change">You have not yet logged a diaper change!!!</string>
+    <string name="no_sleep">Get started with tracking your baby\'s sleep</string>
+
     <string name="diaper_change_title">Diaper Change</string>
     <string name="feeding_title">Feeding</string>
     <string name="no_growth">You have not added anything. Get Started!!!</string>
@@ -209,6 +211,8 @@
     <string name="add_growth_btn_text">Add Growth Item</string>
     <string name="add_feed_btn_text">Add Feed Item</string>
     <string name="add_feed_btn_txt">Add Feed Item</string>
+
+
 
 
     <!-- stopwatch stuff -->
@@ -313,8 +317,9 @@
     <string name="export">Export</string>
     <string name="text_toast_no_items_selected_for_export">Please Select at least one item to export</string>
     <string name="sleep_header">Track Sleep</string>
-    <string name="sleep_start_time">Sleep Start Time</string>
-    <string name="sleep_end_time">Sleep End Time</string>
+    <string name="sleep_start_time">Sleep Start Time: </string>
+    <string name="sleep_end_time">Sleep End Time: </string>
+    <string name="sleep_duration">Duration: </string>
     <string name="diaper_log_description_text">Log all the diaper changes.</string>
     <string name="feed_log_description_text">Track both bottle and breast feeds</string>
     <string name="growth_log_description_text">Record everything and chart progress on beautiful graphs</string>
@@ -326,6 +331,7 @@
     <string name="title_activity_sleep">Sleep</string>
     <string name="fab_title_bottle">Bottle Feed</string>
     <string name="fab_title_nursing">Nursing Feed</string>
+    <string name="add_sleep">Log Sleep Item</string>
 
 
 </resources>

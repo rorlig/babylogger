@@ -1,9 +1,8 @@
 package com.rorlig.babylog.ui.fragment.sleep;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,21 +10,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.j256.ormlite.dao.Dao;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
+import com.rorlig.babylog.dao.DiaperChangeDao;
+import com.rorlig.babylog.dao.SleepDao;
+import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
+import com.rorlig.babylog.model.diaper.DiaperChangeColorType;
+import com.rorlig.babylog.model.diaper.DiaperChangeEnum;
+import com.rorlig.babylog.model.diaper.DiaperChangeTextureType;
+import com.rorlig.babylog.model.diaper.DiaperIncident;
+import com.rorlig.babylog.otto.SleepLogCreated;
 import com.rorlig.babylog.otto.TimeSetEventError;
-import com.rorlig.babylog.otto.events.datetime.DateSetEvent;
 import com.rorlig.babylog.otto.events.datetime.TimeSetEvent;
+import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+import com.rorlig.babylog.ui.fragment.datetime.CustomTimePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
 import com.squareup.otto.Subscribe;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -35,10 +43,11 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+
 /**
  * Created by rorlig on 7/14/14.
  */
-public class SleepFragment extends InjectableFragment {
+public class SleepFragment extends InjectableFragment implements TimePickerDialog.OnTimeSetListener {
 
     @ForActivity
     @Inject
@@ -49,8 +58,8 @@ public class SleepFragment extends InjectableFragment {
     @InjectView(R.id.sleep_start_time)
     RelativeLayout dateRangeStart;
 
-    @InjectView(R.id.sleep_end_time)
-    RelativeLayout dateRangeEnd;
+    @InjectView(R.id.sleep_duration)
+    RelativeLayout sleepDurationLayout;
 
 
     TextView dateStartHourTextView;
@@ -61,10 +70,10 @@ public class SleepFragment extends InjectableFragment {
     TextView dateStartSecondTextView;
 
 
-    TextView dateEndHourTextView;
+    TextView durationHourTextView;
 
 
-    TextView dateEndMinuteTextView;
+    TextView durationMinuteTextView;
 
     TextView dateEndSecondTextView;
 
@@ -75,6 +84,9 @@ public class SleepFragment extends InjectableFragment {
     private String END_HOUR = "end_hour";
 
     private String END_MINUTE = "end_minute";
+
+    @Inject
+    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
 
     @Override
@@ -87,14 +99,14 @@ public class SleepFragment extends InjectableFragment {
         dateStartHourTextView = (TextView) dateRangeStart.findViewById(R.id.hour);
         dateStartMinuteTextView = (TextView) dateRangeStart.findViewById(R.id.minute);
 
-        dateEndHourTextView = (TextView) dateRangeEnd.findViewById(R.id.hour);
-        dateEndMinuteTextView = (TextView) dateRangeEnd.findViewById(R.id.minute);
+        durationHourTextView = (TextView) sleepDurationLayout.findViewById(R.id.hour);
+        durationMinuteTextView = (TextView) sleepDurationLayout.findViewById(R.id.minute);
 
         if (paramBundle!=null) {
             dateStartHourTextView.setText(paramBundle.getString(START_HOUR));
             dateStartMinuteTextView.setText(paramBundle.getString(START_MINUTE));
-            dateEndHourTextView.setText(paramBundle.getString(END_HOUR));
-            dateEndMinuteTextView.setText(paramBundle.getString(END_MINUTE));
+            durationHourTextView.setText(paramBundle.getString(END_HOUR));
+            durationMinuteTextView.setText(paramBundle.getString(END_MINUTE));
         } else {
             init();
         }
@@ -110,12 +122,38 @@ public class SleepFragment extends InjectableFragment {
         showTimePickerDialog("start");
     }
 
-    @OnClick(R.id.sleep_end_time)
-    public void onDateRangeEnd(){
-        Log.d(TAG, "onDateRangeEnd");
-        showTimePickerDialog("end");
+    @OnClick(R.id.sleep_duration)
+    public void onDurationClicked(){
+        Log.d(TAG, "onDurationClicked");
+        showDurationDialog();
+        //show custom dialog...
+//        showTimePickerDialog("end");
     }
 
+    @OnClick(R.id.btn_save)
+    public void onSaveBtnClicked() {
+        Log.d(TAG, "saveBtn clicked");
+        Log.d(TAG, "save btn clicked");
+        Dao<SleepDao, Integer> sleepDao;
+        SleepDao daoObject;
+        Calendar c = Calendar.getInstance();
+
+
+        try {
+            sleepDao = babyLoggerORMLiteHelper.getSleepDao();
+            daoObject = new SleepDao(getStartTime(),getDuration(), c.getTime());
+            sleepDao.create(daoObject);
+            Log.d(TAG, "created objected " + daoObject);
+            scopedBus.post(new SleepLogCreated());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    //show the duration dialog...
+    private void showDurationDialog() {
+        DialogFragment newFragment = new CustomTimePickerFragment();
+        newFragment.show(getFragmentManager(), "timePicker");
+    }
 
 
     @Override
@@ -159,8 +197,8 @@ public class SleepFragment extends InjectableFragment {
         super.onSaveInstanceState(outState);
         outState.putString(START_HOUR, dateStartHourTextView.getText().toString());
         outState.putString(START_MINUTE, dateStartMinuteTextView.getText().toString());
-        outState.putString(END_HOUR, dateEndHourTextView.getText().toString());
-        outState.putString(END_MINUTE, dateEndMinuteTextView.getText().toString());
+        outState.putString(END_HOUR, durationHourTextView.getText().toString());
+        outState.putString(END_MINUTE, durationMinuteTextView.getText().toString());
 
     }
 
@@ -179,8 +217,9 @@ public class SleepFragment extends InjectableFragment {
         dateStartHourTextView.setText(String.format("%02d", hour));
         dateStartMinuteTextView.setText(String.format("%02d", minute));
 
-        dateEndHourTextView.setText(String.format("%02d", hour));
-        dateEndMinuteTextView.setText(String.format("%02d", minute));
+        durationHourTextView.setText(String.format("%02d", 0));
+//        durationMinuteTextView.setText("hello");
+        durationMinuteTextView.setText(String.format("%02d", 0));
         
         
         
@@ -201,15 +240,38 @@ public class SleepFragment extends InjectableFragment {
         if (label.equals("start")) {
             args.putInt("hour", Integer.parseInt(String.valueOf(dateStartHourTextView.getText())));
             args.putInt("minute", Integer.parseInt(String.valueOf(dateStartMinuteTextView.getText())));
-            args.putInt("max_hour", Integer.parseInt(String.valueOf(dateEndHourTextView.getText())));
-            args.putInt("max_minute", Integer.parseInt(String.valueOf(dateEndMinuteTextView.getText())));
+            args.putInt("max_hour", Integer.parseInt(String.valueOf(durationHourTextView.getText())));
+            args.putInt("max_minute", Integer.parseInt(String.valueOf(durationMinuteTextView.getText())));
         } else {
-            args.putInt("hour", Integer.parseInt(String.valueOf(dateEndHourTextView.getText())));
-            args.putInt("minute", Integer.parseInt(String.valueOf(dateEndMinuteTextView.getText()))); 
+            args.putInt("hour", Integer.parseInt(String.valueOf(durationHourTextView.getText())));
+            args.putInt("minute", Integer.parseInt(String.valueOf(durationMinuteTextView.getText())));
         }
         newFragment.setArguments(args);
         newFragment.show(getFragmentManager(), "datepicker");
     }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+    }
+
+
+    private Date getStartTime() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR, Integer.parseInt(dateStartHourTextView.getText().toString()));
+        c.set(Calendar.MINUTE, Integer.parseInt(dateStartMinuteTextView.getText().toString())-1);
+        return c.getTime();
+
+
+    }
+
+    private Long getDuration() {
+        int hour = Integer.parseInt(durationHourTextView.getText().toString());
+        int minute = Integer.parseInt(durationMinuteTextView.getText().toString());
+        return Long.valueOf(hour * 60 + minute);
+
+    }
+
 
     private class EventListener {
         public EventListener() {
@@ -225,8 +287,9 @@ public class SleepFragment extends InjectableFragment {
                 dateStartHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
                 dateStartMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
             } else {
-                dateEndHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
-                dateEndMinuteTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
+                Log.d(TAG, "durartion set hour " + timeSetEvent.getHourOfDay() + " minute " + timeSetEvent.getMinute());
+                durationHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
+                durationMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
             }
 
         }
@@ -236,4 +299,7 @@ public class SleepFragment extends InjectableFragment {
             Toast.makeText(getActivity(), "Start time cannot be greater than end time", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+
 }
