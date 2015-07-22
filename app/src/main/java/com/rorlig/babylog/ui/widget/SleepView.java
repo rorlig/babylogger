@@ -91,12 +91,18 @@ public class SleepView extends RelativeLayout {
     private void bindModel() {
         textViewTime.setText(simpleDateFormat.format(sleepDao.getDate()));
         sleepStartTime.setText(simpleDateFormat.format(sleepDao.getSleepStartTime()));
-        sleepDuration.setText(Long.toString(sleepDao.getDuration()));
+        sleepDuration.setText(SleepView.toHoursandMinutes(sleepDao.getDuration()));
     }
 
-
-
-
+    private static String toHoursandMinutes(Long duration) {
+        long hours = duration/60;
+        long minutes = duration % 60;
+        if (hours==0) {
+            return minutes + " minutes";
+        } else  {
+            return hours + " hours and " + minutes + " minutes";
+        }
+    }
 
 
 }

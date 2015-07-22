@@ -321,10 +321,10 @@ public class BabyLoggerORMUtils {
 
 
     /*
-   * Return the diaper changes for the day of the week
+   * Return the sleep changes for the day of the week
    *
    */
-    public List<String[]> getSleepByDay() throws SQLException {
+    public List<String[]> getSleepByDayofWeek() throws SQLException {
         Date date = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(date);
@@ -344,12 +344,74 @@ public class BabyLoggerORMUtils {
 
         Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
 
-        String rawSelectSql = "select strftime('%Y-%m-%d', date), count(*) from sleepdao where date <'" + endTime
+        String rawSelectSql = "select strftime('%Y-%m-%d', date), sum(duration) from sleepdao where date <'" + endTime
                 + "'and date>'" + startTime + "'group by strftime('%Y-%m,-%d', date)";
 
-//        Log.d(TAG, "rawSelectSql " + rawSelectSql);
+        Log.d(TAG, "rawSelectSql " + rawSelectSql);
 
         final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
         return result;
     }
+
+
+    /*
+  * Return the sleep changes by Week of the Month
+  * @param null
+  * @returns List<String[]>: - result array with week and diaper changes by the week number...
+  */
+    public List<String[]> getSleepByWeekofMonth() throws SQLException {
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        c.add(Calendar.DATE, 2);
+        String endTime = sdf.format(c.getTime());
+
+
+        c.add(Calendar.DATE, -(7*4+1));
+
+        String startTime = sdf.format(c.getTime());
+
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+
+        String rawSelectSql = "select strftime('%W', date), sum(duration) from sleepdao "
+                + "group by strftime('%W', date)";
+
+        Log.d(TAG, "rawSelectSql " + rawSelectSql);
+
+        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
+        return result;
+    }
+
+    /*
+  * Return the diaper changes by month...
+  * jan/feb/march/
+  */
+    public List<String[]> getSleepByMonthofYear() throws SQLException {
+
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        c.add(Calendar.DATE, 2);
+        String endTime = sdf.format(c.getTime());
+        c.add(Calendar.DATE, -(7*52+1));
+        String startTime = sdf.format(c.getTime());
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+        String rawSelectSql = "select strftime('%Y-%m', date), sum(duration) from sleepdao "
+                + "group by strftime('%Y-%m', date)";
+        Log.d(TAG, "rawSelectSql " + rawSelectSql);
+        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
+        return result;
+
+    }
+
 }

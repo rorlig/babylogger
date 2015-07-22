@@ -56,7 +56,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
     };
 
     protected String[] mDays = new String[] {
-            "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
+            "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
     };
 
 //    @InjectView(R.id.growth_stats_line_chart)
@@ -121,7 +121,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
             diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDay();
             //setData
 //            setData(12, 60);
-            setData(diaperChangeDaoList, DiaperChangeStatsType.DAY);
+            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
         } catch (SQLException   e) {
             e.printStackTrace();
         }
@@ -165,25 +165,25 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
         try {
             switch (checkedId) {
-                case R.id.diaper_change_stats_week:
+                case R.id.diaper_change_stats_monthly:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeek();
                     barChart.setMaxVisibleValueCount(5);
-
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.WEEK);
+                    barChart.getXAxis().setLabelsToSkip(0);
+                    setData(diaperChangeDaoList, DiaperChangeStatsType.MONTHLY);
 
                     break;
-                case R.id.diaper_change_stats_month:
+                case R.id.diaper_change_stats_yearly:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonth();
                     barChart.setMaxVisibleValueCount(12);
-
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.MONTH);
-
+                    barChart.getXAxis().setLabelsToSkip(0);
+                    setData(diaperChangeDaoList, DiaperChangeStatsType.YEARLY);
                     break;
                 default:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDay();
                     barChart.setMaxVisibleValueCount(7);
+                    barChart.getXAxis().setLabelsToSkip(0);
 
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.DAY);
+                    setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
             }
 
         } catch (SQLException sqlException) {
@@ -223,12 +223,12 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
             Integer value = Integer.parseInt(diaperChangeResult[1]);
             String xValue = diaperChangeResult[0];
             switch (diaperChangeStatsType) {
-                case DAY:
+                case WEEKLY:
                     break;
-                case WEEK:
+                case MONTHLY:
 //                    xValue = diaperChangeResult[0];
                     break;
-                case MONTH:
+                case YEARLY:
 //                    Log.d(TAG, diaperChangeResult[0].substring(5));
 //                    xValue = mMonths[Integer.parseInt(diaperChangeResult[0].substring(5))-1];
 
@@ -263,18 +263,18 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
     private List<String[]> getFullList(List<String[]> diaperChangeDaoList, DiaperChangeStatsType diaperChangeStatsType) {
 
         switch (diaperChangeStatsType) {
-            case DAY:
-                return getFullListDay();
-            case WEEK:
-                return getFullMonthList();
-            case MONTH:
-                return getFullYearList();
+            case WEEKLY:
+                return getFullListDayofWeek();
+            case MONTHLY:
+                return getFullListWeekofMonth();
+            case YEARLY:
+                return getFullListMonthofYear();
         }
         return null;
 
     }
 
-    private List<String[]> getFullYearList() {
+    private List<String[]> getFullListMonthofYear() {
 
         List<String[]> returnList = new ArrayList<String[]>();
 
@@ -331,7 +331,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
     }
 
 
-    private List<String[]> getFullMonthList() {
+    private List<String[]> getFullListWeekofMonth() {
         List<String[]> returnList = new ArrayList<String[]>();
 
         Calendar startTime = Calendar.getInstance();
@@ -388,7 +388,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         return returnList;
     }
 
-    private List<String[]> getFullListDay() {
+    private List<String[]> getFullListDayofWeek() {
 
         List<String[]> returnList = new ArrayList<String[]>();
 

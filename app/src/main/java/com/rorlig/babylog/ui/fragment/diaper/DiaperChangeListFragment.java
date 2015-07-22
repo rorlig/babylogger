@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.j256.ormlite.stmt.PreparedQuery;
@@ -43,7 +42,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,7 +166,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         try {
             diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeek();
-            setData(diaperChangeDaoList, DiaperChangeStatsType.DAY);
+            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -190,9 +188,9 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
             Integer value = Integer.parseInt(diaperChangeResult[1]);
             String xValue = diaperChangeResult[0];
             switch (diaperChangeStatsType) {
-                case DAY:
+                case WEEKLY:
                     break;
-                case WEEK:
+                case MONTHLY:
                     xValue = getDateRangeForWeek(Integer.parseInt(diaperChangeResult[0]));
                     break;
 

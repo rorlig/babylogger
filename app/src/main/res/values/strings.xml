@@ -332,6 +332,9 @@
     <string name="fab_title_bottle">Bottle Feed</string>
     <string name="fab_title_nursing">Nursing Feed</string>
     <string name="add_sleep">Log Sleep Item</string>
+    <string name="stats_weekly">Week</string>
+    <string name="stats_month">Month</string>
+    <string name="stats_year">Year</string>
 
 
 </resources>

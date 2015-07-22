@@ -4,7 +4,7 @@ package com.rorlig.babylog.ui.fragment.diaper;
  * @author gaurav gupta
  */
 public enum DiaperChangeStatsType {
-    DAY("Day"), WEEK("Week"), MONTH("Month");
+    WEEKLY("Week"), MONTHLY("Month"), YEARLY("Year");
 
     private final String value;
 

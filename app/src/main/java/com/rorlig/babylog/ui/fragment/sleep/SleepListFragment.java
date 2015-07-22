@@ -173,7 +173,7 @@ public class SleepListFragment extends InjectableFragment
 
         try {
             sleepList =  babyORMLiteUtils.getSleepList();
-//            setData(diaperChangeDaoList, DiaperChangeStatsType.DAY);
+//            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
 
         } catch (SQLException e) {
             e.printStackTrace();

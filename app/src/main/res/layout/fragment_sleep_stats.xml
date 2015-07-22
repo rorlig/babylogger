@@ -19,26 +19,26 @@
         android:id="@+id/sleep_stats_time"
         android:layout_below="@+id/sleep_stats_title">
 
-        <RadioButton android:id="@+id/sleep_stats_day"
+        <RadioButton android:id="@+id/sleep_stats_weekly"
             style="@style/RadioButton"
             android:background="@drawable/radio_button_center_gray"
-            android:text="@string/diaper_change_stats_title_day"
+            android:text="@string/stats_weekly"
             android:checked="true"
             android:textSize="14sp"
             />
 
-        <RadioButton android:id="@+id/sleep_stats_week"
+        <RadioButton android:id="@+id/sleep_stats_monthly"
             style="@style/RadioButton"
             android:background="@drawable/radio_button_center_gray"
-            android:text="@string/diaper_change_stats_title_week"
+            android:text="@string/stats_month"
             android:layout_marginLeft="-1dp"
             android:textSize="14sp"
             />
 
-        <RadioButton android:id="@+id/sleep_stats_month"
+        <RadioButton android:id="@+id/sleep_stats_yearly"
             style="@style/RadioButton"
             android:background="@drawable/radio_button_center_gray"
-            android:text="@string/diaper_change_stats_title_month"
+            android:text="@string/stats_year"
             android:textSize="14sp"
 
             />
