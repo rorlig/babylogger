@@ -72,7 +72,7 @@ public class ExportItemAdapter extends ArrayAdapter<ItemModel> {
             convertView = inflater.inflate(R.layout.list_item_export, parent, false);
             viewHolder = new ViewHolder(convertView);
             viewHolder.itemLabel = (TextView) convertView.findViewById(R.id.log_item_label);
-            viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.icon_image);
+//            viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.icon_image);
             viewHolder.itemCheckBox = (CheckBox) convertView.findViewById(R.id.item_checkbox);
             viewHolder.itemCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,7 +90,7 @@ public class ExportItemAdapter extends ArrayAdapter<ItemModel> {
 
         viewHolder.itemLabel.setText(item.getItemName());
 
-        viewHolder.itemImage.setImageDrawable(context.getResources().getDrawable(iconArr.getResourceId(position,0)));
+//        viewHolder.itemImage.setImageDrawable(context.getResources().getDrawable(iconArr.getResourceId(position,0)));
 
         viewHolder.itemCheckBox.setChecked(item.isItemChecked());
 
@@ -115,7 +115,7 @@ public class ExportItemAdapter extends ArrayAdapter<ItemModel> {
         TextView itemLabel;
 
 
-        ImageView itemImage;
+//        ImageView itemImage;
 
         CheckBox itemCheckBox;
 

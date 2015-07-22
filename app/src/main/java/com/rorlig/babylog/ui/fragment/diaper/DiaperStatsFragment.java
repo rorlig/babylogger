@@ -118,7 +118,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
         try {
             Log.d(TAG, "get the data by day");
-            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDay();
+            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
             //setData
 //            setData(12, 60);
             setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
@@ -166,20 +166,20 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         try {
             switch (checkedId) {
                 case R.id.diaper_change_stats_monthly:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeek();
+                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
                     barChart.setMaxVisibleValueCount(5);
                     barChart.getXAxis().setLabelsToSkip(0);
                     setData(diaperChangeDaoList, DiaperChangeStatsType.MONTHLY);
 
                     break;
                 case R.id.diaper_change_stats_yearly:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonth();
+                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonthofYear();
                     barChart.setMaxVisibleValueCount(12);
                     barChart.getXAxis().setLabelsToSkip(0);
                     setData(diaperChangeDaoList, DiaperChangeStatsType.YEARLY);
                     break;
                 default:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDay();
+                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
                     barChart.setMaxVisibleValueCount(7);
                     barChart.getXAxis().setLabelsToSkip(0);
 

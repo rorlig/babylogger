@@ -12,6 +12,7 @@ public class AppUtils {
 
     public static final int RESULT_CAMERA_IMAGE_CAPTURE = 1;
     public static final int RESULT_LOAD_IMAGE = 2;
+    public static final int RESULT_CROP_IMAGE = 3;
 
     public static String getCameraDirectory() {
         String dirPath = "";

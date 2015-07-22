@@ -1,10 +1,13 @@
 package com.rorlig.babylog.ui.fragment.profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.android.camera.CropImageIntentBuilder;
 import com.gc.materialdesign.views.Button;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
@@ -27,6 +31,7 @@ import com.rorlig.babylog.otto.events.profile.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+import com.rorlig.babylog.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
@@ -94,6 +99,8 @@ public class ProfileFragment extends InjectableFragment {
     private int BITMAP_MAX_HEIGHT = 256;
     private int BITMAP_MAX_WIDTH = 256;
     private Uri imageUri;
+    private File croppedImageFile;
+    private Uri croppedImage;
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -178,13 +185,13 @@ public class ProfileFragment extends InjectableFragment {
 
         }
 
-        String imageStr = preferences.getString("imageUri","");
-        if (!imageStr.equals("")){
-            Uri imageUri = Uri.parse(imageStr);
-
-            babyPicImageView.setImageURI(imageUri);
-
-        }
+//        String imageStr = preferences.getString("imageUri","");
+//        if (!imageStr.equals("")){
+//            Uri imageUri = Uri.parse(imageStr);
+//
+//            babyPicImageView.setImageURI(imageUri);
+//
+//        }
 
 
         scopedBus.register(eventListener);
@@ -302,81 +309,44 @@ public class ProfileFragment extends InjectableFragment {
     */
     public void onStart(){
         super.onStart();
+        scopedBus.register(eventListener);
+
         Log.d(TAG, "onStart");
-        Log.d(TAG, " imageUri " + ProfileActivity.imageUri);
-        if (ProfileActivity.imageUri!=null && !ProfileActivity.imageUri.toString().equals("")) {
+        String imageString = preferences.getString("imageUri", "");
+        Log.d(TAG, " imageUri " + imageString);
+        Uri imageUri = Uri.parse(imageString);
 
-            File file = new File(ProfileActivity.imageUri.getPath());
-            if (file.exists()) {
-                Pair<Integer, Integer> itemDimensions
-                        = getBitmapBounds(ProfileActivity.imageUri.getPath());
-
-//                float aspectRatio = 1f * itemDimensions.first/itemDimensions.second;
-
-                int inSampleSize = calculateInSampleSize(itemDimensions.first,
-                        itemDimensions.second,
-                        BITMAP_MAX_WIDTH,
-                        BITMAP_MAX_HEIGHT);
-
-                Log.d(TAG, "inSampleSize" + inSampleSize);
-
-                picasso.load(new File(ProfileActivity.imageUri.getPath()))
-                        .resize(itemDimensions.first / inSampleSize,
-                                itemDimensions.second / inSampleSize)
-                        .centerInside()
-                        .into(babyPicImageView);
-            }
+        babyPicImageView.setImageURI(imageUri);
 
 
-        }
+//        if (imageUri!=null && !imageUri.toString().equals("")) {
+//
+//            File file = new File(imageUri);
+//            if (file.exists()) {
+//                Pair<Integer, Integer> itemDimensions
+//                        = getBitmapBounds(imageUri);
+//
+////                float aspectRatio = 1f * itemDimensions.first/itemDimensions.second;
+//
+//                int inSampleSize = calculateInSampleSize(itemDimensions.first,
+//                        itemDimensions.second,
+//                        BITMAP_MAX_WIDTH,
+//                        BITMAP_MAX_HEIGHT);
+//
+//                Log.d(TAG, "inSampleSize" + inSampleSize);
+//
+//                picasso.load(new File(imageUri))
+//                        .resize(itemDimensions.first / inSampleSize,
+//                                itemDimensions.second / inSampleSize)
+//                        .centerInside()
+//                        .into(babyPicImageView);
+//            }
+//
+//
+//        }
 //            babyPicImageView.setImageURI(ProfileActivity.imageUri);
 
-        scopedBus.register(eventListener);
     }
 
-    /*
-     * Unregister from events ...
-     */
-    public void onStop(){
-        super.onStop();
-        Log.d(TAG, "onStop");
-
-        scopedBus.unregister(eventListener);
-//        getActivity().stopService(new Intent(getActivity(), BackgroundLocationService.class));
-    }
-
-    private Pair<Integer,Integer> getBitmapBounds(String imagePath){
-        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-        bitmapOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(imagePath, bitmapOptions);
-        int imageWidth = bitmapOptions.outWidth;
-        int imageHeight = bitmapOptions.outHeight;
-        Log.d(TAG, " imageWidth " + imageWidth + " imageHeight " + imageHeight);
-        return new Pair<Integer,Integer>(imageWidth, imageHeight);
-    }
-
-
-    public static int calculateInSampleSize(
-            int inputBitmapWidth, int inputBitmapHeight, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = inputBitmapHeight;
-        final int width = inputBitmapWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
 
 }

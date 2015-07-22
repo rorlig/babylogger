@@ -165,7 +165,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
         getLoaderManager().initLoader(LOADER_ID, null, this);
 
         try {
-            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeek();
+            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
             setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
 
         } catch (SQLException e) {

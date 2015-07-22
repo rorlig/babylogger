@@ -42,9 +42,9 @@ public class DateSectionizer implements Sectionizer<BaseDao> {
         PrettyTime prettyTime = new PrettyTime();
 
         Long currentTime = System.currentTimeMillis();
-        Log.d(TAG, " currentTime " + currentTime + " diaper change time " + instance.getDate());
+//        Log.d(TAG, " currentTime " + currentTime + " diaper change time " + instance.getDate());
         Long diff = currentTime - instance.getDate().getTime();
-        Log.d(TAG, "diff " + diff);
+//        Log.d(TAG, "diff " + diff);
         if (diff< LENGTH_DAY) {
             return TODAY;
         } else if (diff<2*LENGTH_DAY) {

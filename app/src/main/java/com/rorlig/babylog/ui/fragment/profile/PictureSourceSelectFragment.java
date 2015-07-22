@@ -28,6 +28,10 @@ import butterknife.OnClick;
  * Created by rorlig on 7/16/14.
  */
 public class PictureSourceSelectFragment extends InjectableDialogFragment {
+    enum PictureSourceItem {
+        CAMERA, GALLERY
+    }
+
     @InjectView(R.id.camera)
     ImageView cameraImageView;
 
@@ -57,22 +61,12 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
         return view;
     }
 
+    /*
+     * start the camera activity
+     */
     @OnClick(R.id.camera)
     public void onCameraClick() {
         Log.d(TAG, "onCameraClick");
-//        EasyCamera camera = DefaultEasyCamera.open();
-//        EasyCamera.CameraActions actions = null;
-//        try {
-//            actions = camera.startPreview(surface);
-//            EasyCamera.PictureCallback callback = new EasyCamera.PictureCallback() {
-//                public void onPictureTaken(byte[] data, EasyCamera.CameraActions actions) {
-//                    // store picture
-//                }
-//            };
-//            actions.takePicture(EasyCamera.Callbacks.create().withJpegCallback(callback));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         long callTime = System.currentTimeMillis();
         String dir = AppUtils.getCameraDirectory();
         File file = new File(dir, callTime + ".jpg");
@@ -83,34 +77,14 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
         startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         dismiss();
         getActivity().startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        dismiss();
-//
-//        getActivity().startActivityForResult(intent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
     }
 
+    /*
+     * start the gallery application..
+     */
     @OnClick(R.id.gallery)
     public void onGalleryClick() {
 
-//        Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.setClassName("com.android.gallery3d", "com.android.camera.CropImage");
-//        long callTime = System.currentTimeMillis();
-//        String dir = AppUtils.getCameraDirectory();
-//        File file = new File(dir, callTime + ".jpg");
-//        Uri uri = Uri.fromFile(file);
-//        intent.setData(uri);
-//        intent.putExtra("crop", "true");
-//        intent.putExtra("aspectX", 1);
-//        intent.putExtra("aspectY", 1);
-//        intent.putExtra("outputX", 96);
-//        intent.putExtra("outputY", 96);
-//        intent.putExtra("noFaceDetection", true);
-//        intent.putExtra("return-data", true);
-//        getActivity().startActivityForResult(intent,AppUtils.RESULT_LOAD_IMAGE);
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

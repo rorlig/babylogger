@@ -115,7 +115,7 @@ public class BabyLoggerORMUtils {
      * Return the diaper changes by month...
      * jan/feb/march/
      */
-    public List<String[]> getDiaperChangeByMonth() throws SQLException {
+    public List<String[]> getDiaperChangeByMonthofYear() throws SQLException {
 
         Date date = new Date();
         Calendar c = Calendar.getInstance();
@@ -144,7 +144,7 @@ public class BabyLoggerORMUtils {
     * @param null
     * @returns List<String[]>: - result array with week and diaper changes by the week number...
     */
-    public List<String[]> getDiaperChangeByWeek() throws SQLException {
+    public List<String[]> getDiaperChangeByWeekofMonth() throws SQLException {
         Date date = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(date);
@@ -176,7 +176,7 @@ public class BabyLoggerORMUtils {
      * Return the diaper changes for the day of the week
      *
      */
-    public List<String[]> getDiaperChangeByDay() throws SQLException {
+    public List<String[]> getDiaperChangeByDayofWeek() throws SQLException {
         Date date = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(date);

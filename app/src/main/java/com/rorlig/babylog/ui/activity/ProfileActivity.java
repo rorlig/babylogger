@@ -227,6 +227,7 @@ public class ProfileActivity extends InjectableActivity {
                     cameraImageCaptured(data);
                     break;
                 case RESULT_CROP_IMAGE:
+                    Log.d(TAG, "croppedImage URI " + croppedImage);
                     imageUri = croppedImage;
                     preferences.edit().putString("imageUri", imageUri.toString()).apply();
                     break;
@@ -258,6 +259,7 @@ public class ProfileActivity extends InjectableActivity {
 
 
     private void imagePicked(Intent data) {
+        Log.d(TAG, "imagePicked");
 //            InCallAnalyticsData.getInstance().trackAnalyticsData(AnalyticsStatEvent.UIActionShare.SHARE_GALLERY);
         if(data != null) {
             Uri selectedImage = data.getData();
@@ -273,7 +275,7 @@ public class ProfileActivity extends InjectableActivity {
 
                 Log.d(TAG, "selectedImage " + selectedImage);
 
-                croppedImageFile = new File(getFilesDir(), "test.jpg");
+                croppedImageFile = new File(getFilesDir(), "test_" + System.currentTimeMillis() + "_.jpg");
 
                 croppedImage = Uri.fromFile(croppedImageFile);
 
@@ -281,6 +283,7 @@ public class ProfileActivity extends InjectableActivity {
                 cropImage.setOutlineColor(0xFF03A9F4);
                 cropImage.setSourceImage(selectedImage);
 
+                Log.d(TAG, "cropping image");
                 startActivityForResult(cropImage.getIntent(this), RESULT_CROP_IMAGE);
 
 

@@ -127,9 +127,9 @@ public class HomeActivity extends InjectableActivity {
 
         @Subscribe
         public void onItemsSelectedEvent(ItemsSelectedEvent itemSelectedEvent) {
-            preferences.edit().putString("logItems", gson.toJson(itemSelectedEvent.getLogListItem())).commit();
-            preferences.edit().putString("name", itemSelectedEvent.getName()).commit();
-            preferences.edit().putString("dob", itemSelectedEvent.getDob()).commit();
+            preferences.edit().putString("logItems", gson.toJson(itemSelectedEvent.getLogListItem())).apply();
+            preferences.edit().putString("name", itemSelectedEvent.getName()).apply();
+            preferences.edit().putString("dob", itemSelectedEvent.getDob()).apply();
             showFragment(HomeFragment2.class, "home_fragment", false);
         }
 
