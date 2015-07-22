@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weight:"
+        android:text="@string/growth_weight"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/left_panel"
         android:textColor="@color/primary_green"
@@ -43,7 +43,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weight"
+        android:text="@string/growth_weight"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/weight_label"
         android:textColor="@color/primary_green"
@@ -53,7 +53,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Height:"
+        android:text="@string/growth_height"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/left_panel"
         android:layout_below="@+id/weight_label"
@@ -63,7 +63,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Height"
+        android:text="@string/growth_height"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/height_label"
         android:layout_below="@+id/weight_value"
@@ -75,7 +75,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Head Measurement:"
+        android:text="@string/growth_head_measurement"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/left_panel"
         android:layout_below="@+id/height_label"
@@ -85,7 +85,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Head"
+        android:text="@string/growth_head_measurement"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/head_label"
         android:layout_below="@+id/height_value"
