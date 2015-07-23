@@ -241,6 +241,8 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
             i++;
         }
         barChart.animateY(1000);
+        barChart.getXAxis().setSpaceBetweenLabels(10);
+
         BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
         set1.setBarSpacePercent(35f);
         set1.setColor(getResources().getColor(R.color.primary_purple));

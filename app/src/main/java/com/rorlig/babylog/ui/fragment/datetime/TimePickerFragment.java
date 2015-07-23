@@ -63,6 +63,8 @@ public class TimePickerFragment extends InjectableDialogFragment
 
 //            setMax(hour, minute);
 
+        } else {
+
         }
 
         timePickerDialog = new RangeTimePickerDialog(getActivity(), this, hour, minute,

@@ -30,6 +30,8 @@ public class DatePickerFragment extends InjectableDialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current time as the default values for the picker
 
+        Log.d(TAG, "onCreateDialog");
+
         final Calendar c = Calendar.getInstance();
 
         int year = c.get(Calendar.YEAR);
@@ -51,6 +53,8 @@ public class DatePickerFragment extends InjectableDialogFragment
                 datePickerDialog.getDatePicker().setMaxDate(startMaxDate);
             }
 
+        } else {
+            datePickerDialog.getDatePicker().setMaxDate(new  Date().getTime());
         }
 
 

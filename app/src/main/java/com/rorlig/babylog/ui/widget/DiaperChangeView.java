@@ -113,7 +113,8 @@ public class DiaperChangeView extends RelativeLayout {
         setPoopColor();
         setPoopTexture();
         setDiaperIncidentType();
-//        notesContent.setText("" + diaperChangeDao.getDiaperChangeN);
+
+        notesContent.setText(diaperChangeDao.getDiaperChangeNotes()!=null ? "" + diaperChangeDao.getDiaperChangeNotes(): "");
 
     }
 

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -220,9 +222,9 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
         durationHourTextView.setText(String.format("%02d", 0));
 //        durationMinuteTextView.setText("hello");
         durationMinuteTextView.setText(String.format("%02d", 0));
-        
-        
-        
+
+
+
 
     }
 
@@ -259,7 +261,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     private Date getStartTime() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR, Integer.parseInt(dateStartHourTextView.getText().toString()));
-        c.set(Calendar.MINUTE, Integer.parseInt(dateStartMinuteTextView.getText().toString())-1);
+        c.set(Calendar.MINUTE, Integer.parseInt(dateStartMinuteTextView.getText().toString()) - 1);
         return c.getTime();
 
 
@@ -272,6 +274,19 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_main, menu);
+    }
 
     private class EventListener {
         public EventListener() {

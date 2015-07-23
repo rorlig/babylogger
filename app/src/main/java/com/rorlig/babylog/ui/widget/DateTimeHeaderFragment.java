@@ -149,6 +149,8 @@ public class DateTimeHeaderFragment extends InjectableFragment {
 
     public void showDatePickerDialog() {
         DialogFragment newFragment = new DatePickerFragment();
+
+
         newFragment.show(getFragmentManager(), "datepicker");
     }
 
