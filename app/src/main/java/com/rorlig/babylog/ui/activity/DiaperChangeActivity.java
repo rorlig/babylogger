@@ -151,13 +151,13 @@ public class DiaperChangeActivity extends InjectableActivity {
                     localFragmentManager.beginTransaction()
                             .add(R.id.fragment_container, localFragment)
                             .addToBackStack("diaper_stack")
-                            .commitAllowingStateLoss();
+                            .commit();
 
                 } else {
                     localFragment = (Fragment)paramClass.newInstance();
                     localFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, localFragment)
-                            .commitAllowingStateLoss();
+                            .add(R.id.fragment_container, localFragment)
+                            .commit();
                 }
 
             } catch (InstantiationException e) {
@@ -193,14 +193,16 @@ public class DiaperChangeActivity extends InjectableActivity {
         @Subscribe
         public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
             Log.d(TAG, "onDiaperLogCreatedEvent");
-            showFragment(DiaperChangeListFragment.class, "diaper_change_list", false);
-            getFragmentManager().popBackStackImmediate();
+            getSupportFragmentManager().popBackStackImmediate();
+//            showFragment(DiaperChangeListFragment.class, "diaper_change_list", false);
+
+//            getFragmentManager().popBackStackImmediate();
 //            finish();
         }
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
-                    showFragment(DiaperStatsFragment.class, "diaper_stats_fragment", false);
+                    showFragment(DiaperStatsFragment.class, "diaper_stats_fragment", true);
         }
 
 //        @Subscribe

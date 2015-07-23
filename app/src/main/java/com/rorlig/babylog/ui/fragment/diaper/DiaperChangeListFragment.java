@@ -368,8 +368,10 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
         }
 
         @Subscribe
-        public void onDiaperChangeEvent(DiaperLogCreatedEvent event) {
-            Log.d(TAG, "onDiaperChangeEvent");
+        public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
+            Log.d(TAG, "onDiaperLogCreatedEvent");
+            getLoaderManager().restartLoader(LOADER_ID, null, DiaperChangeListFragment.this);
+
         }
 
 
