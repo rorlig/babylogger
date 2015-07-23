@@ -284,7 +284,7 @@
     <string name="txt_not_completed">Not Completed</string>
     <string name="title_growth">GROWTH</string>
     <string name="head_measurement_title">HEAD MEASUREMENT (inches)</string>
-    <string name="notes_label">Notes: </string>
+    <string name="notes_label">Notes:\ </string>
     <string name="gallery_string_title">GALLERY</string>
     <string name="camera_string_title">CAMERA</string>
     <string name="picture_select_header_text">SELECT PICTURE FROM</string>
@@ -335,9 +335,9 @@
     <string name="stats_weekly">Week</string>
     <string name="stats_month">Month</string>
     <string name="stats_year">Year</string>
-    <string name="growth_weight">Weight: </string>
-    <string name="growth_height">Height: </string>
-    <string name="growth_head_measurement">Head Measurement: </string>
+    <string name="growth_weight">Weight:\ </string>
+    <string name="growth_height">Height:\ </string>
+    <string name="growth_head_measurement">Head Measurement:\ </string>
 
 
 </resources>
