@@ -149,8 +149,8 @@ public class FeedingActivity extends InjectableActivity {
                 } else {
                     localFragment = (Fragment)paramClass.newInstance();
                     localFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, localFragment)
-                            .commitAllowingStateLoss();
+                            .add(R.id.fragment_container, localFragment)
+                            .commit();
                 }
 
             } catch (InstantiationException e) {
@@ -217,9 +217,12 @@ public class FeedingActivity extends InjectableActivity {
 
         @Subscribe
         public void onFeedSavedEvent(FeedItemCreatedEvent event) {
-//            Log.d(TAG, "onFeedSavedEvent");
+            Log.d(TAG, "onFeedSavedEvent");
 //            finish();
-            showFragment(FeedingListFragment.class, "feeding_list",false);
+//            showFragment(FeedingListFragment.class, "feeding_list",false);
+
+//            Log.d(TAG, "onDiaperLogCreatedEvent");
+            getSupportFragmentManager().popBackStackImmediate();
         }
 
 

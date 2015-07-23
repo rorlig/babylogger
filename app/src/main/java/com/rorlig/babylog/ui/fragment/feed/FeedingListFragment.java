@@ -25,12 +25,14 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.FeedDao;
+import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.adapter.DateSectionizer;
 import com.rorlig.babylog.ui.adapter.FeedAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -259,6 +261,16 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
     private class EventListener {
         public EventListener() {
 
+        }
+
+        @Subscribe
+        public void onFeedSavedEvent(FeedItemCreatedEvent event) {
+            Log.d(TAG, "onFeedSavedEvent");
+//            finish();
+//            showFragment(FeedingListFragment.class, "feeding_list",false);
+
+//            Log.d(TAG, "onDiaperLogCreatedEvent");
+            getLoaderManager().restartLoader(LOADER_ID, null, FeedingListFragment.this);
         }
 
 

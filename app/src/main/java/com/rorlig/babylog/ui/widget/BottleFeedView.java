@@ -20,7 +20,7 @@ public class BottleFeedView extends RelativeLayout {
     private SimpleDateFormat simpleDateFormat;
 
 
-    TextView txtType;
+    TextView txtQuantity;
     TextView textViewTime;
     TextView notesTextView;
 
@@ -46,7 +46,7 @@ public class BottleFeedView extends RelativeLayout {
     @Override
     protected void onFinishInflate() {
 
-        txtType = (TextView) findViewById(R.id.txt_type);
+        txtQuantity = (TextView) findViewById(R.id.txt_quantity);
         textViewTime = (TextView) findViewById(R.id.diaperChangeTime);
         notesTextView = (TextView) findViewById(R.id.notes_content);
 
@@ -62,7 +62,7 @@ public class BottleFeedView extends RelativeLayout {
     }
 
     private void bindModel() {
-        txtType.setText(model.getFeedType().toString());
+        txtQuantity.setText(model.getQuantity().toString() + " oz");
         textViewTime.setText(simpleDateFormat.format(model.getDate()));
         notesTextView.setText(model.getNotes());
     }

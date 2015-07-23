@@ -37,7 +37,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/left_panel"
         android:textColor="@color/primary_blue"
-        android:id="@+id/txt_type"/>
+        android:id="@+id/txt_quantity"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
         android:layout_marginTop="30dp"
         android:id="@+id/notes_layout"
         android:layout_toRightOf="@+id/left_panel"
-        android:layout_below="@+id/txt_type"
+        android:layout_below="@+id/txt_quantity"
         >
         <TextView
             android:layout_width="wrap_content"
