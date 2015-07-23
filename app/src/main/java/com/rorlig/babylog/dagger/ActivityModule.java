@@ -29,7 +29,6 @@ import com.rorlig.babylog.ui.adapter.SleepAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.MainFragment;
-import com.rorlig.babylog.ui.fragment.MenuFragment;
 import com.rorlig.babylog.ui.fragment.about.AboutFragment;
 import com.rorlig.babylog.ui.fragment.contact.ContactSelectFragment;
 import com.rorlig.babylog.ui.fragment.contact.ContactsFragment;
@@ -82,7 +81,6 @@ import dagger.Provides;
             MilestonesActivity.class,
             PrefsActivity.class,
             ExportActivity.class,
-            MenuFragment.class,
             MainFragment.class,
             InjectableFragment.class,
             InjectablePreferenceFragment.class,

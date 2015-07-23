@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="menu_drawer_icons">
-        <item>@drawable/menu_item_diaper</item>
-        <item>@drawable/menu_item_feeds</item>
-        <item>@drawable/menu_item_growth</item>
-        <item>@drawable/menu_item_sleep</item>
-        <item>@drawable/menu_item_development</item>
-        <item>@drawable/menu_item_stats</item>
-        <item>@drawable/menu_item_about</item>
-        <item>@drawable/menu_item_about</item>
-        <item>@drawable/menu_item_profile</item>
+    <!--<array name="menu_drawer_icons">-->
+        <!--<item>@drawable/menu_item_diaper</item>-->
+        <!--<item>@drawable/menu_item_feeds</item>-->
+        <!--<item>@drawable/menu_item_growth</item>-->
+        <!--<item>@drawable/menu_item_sleep</item>-->
+        <!--<item>@drawable/menu_item_development</item>-->
+        <!--<item>@drawable/menu_item_stats</item>-->
+        <!--<item>@drawable/menu_item_about</item>-->
+        <!--<item>@drawable/menu_item_about</item>-->
+        <!--<item>@drawable/menu_item_profile</item>-->
 
 
 
-    </array>
+    <!--</array>-->
 
     <array name="action_fragment_icons">
         <item>@drawable/ic_diaper_purple</item>

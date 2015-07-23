@@ -233,28 +233,28 @@
 
 
 
-    <style name="ButtonDefault" parent="android:Widget.Holo.Light.Button">
-        <item name="android:background">@drawable/baby_btn_default_holo_light</item>
-    </style>
+    <!--<style name="ButtonDefault" parent="android:Widget.Holo.Light.Button">-->
+        <!--<item name="android:background">@drawable/baby_btn_default_holo_light</item>-->
+    <!--</style>-->
 
-    <style name="ImageButtonDefault" parent="android:Widget.Holo.Light.ImageButton">
-        <item name="android:background">@drawable/baby_btn_default_holo_light</item>
-    </style>
+    <!--<style name="ImageButtonDefault" parent="android:Widget.Holo.Light.ImageButton">-->
+        <!--<item name="android:background">@drawable/baby_btn_default_holo_light</item>-->
+    <!--</style>-->
 
-    <style name="CheckBoxDefaultItem" parent="android:Theme.Holo.Light">
+    <!--<style name="CheckBoxDefaultItem" parent="android:Theme.Holo.Light">-->
 
-        <item name="android:listChoiceIndicatorMultiple">@drawable/baby_btn_check_holo_light</item>
+        <!--<item name="android:listChoiceIndicatorMultiple">@drawable/baby_btn_check_holo_light</item>-->
 
-    </style>
+    <!--</style>-->
 
     <style name="Spinnerbaby" parent="android:Widget.Holo.Light.Spinner">
         <item name="android:background">@drawable/baby_spinner_background_holo_light</item>
         <item name="android:dropDownSelector">@drawable/baby_list_selector_holo_light</item>
     </style>
 
-    <style name="ButtonBaby" parent="android:Widget.Holo.Light.Button">
-        <item name="android:background">@drawable/baby_btn_default_focused_holo_light</item>
-    </style>
+    <!--<style name="ButtonBaby" parent="android:Widget.Holo.Light.Button">-->
+        <!--<item name="android:background">@drawable/baby_btn_default_focused_holo_light</item>-->
+    <!--</style>-->
 
 
     <style name="PagerTabStripText">

@@ -209,7 +209,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/diaper_indicident_none"
                 android:textColor="@color/primary_purple"
-                style="@style/CheckBoxDefaultItem"
                 android:layout_marginLeft="10dp"
                 android:textSize="10sp"
 
@@ -223,7 +222,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/diaper_indicident_no_diaper"
                 android:textColor="@color/primary_purple"
-                style="@style/CheckBoxDefaultItem"
                 android:layout_marginLeft="10dp"
                 android:textSize="10sp"
                 android:layout_weight="1"/>
@@ -235,7 +233,6 @@
             android:text="@string/diaper_incident_leak"
             android:textSize="10sp"
             android:textColor="@color/primary_purple"
-            style="@style/CheckBoxDefaultItem"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"/>
         </RadioGroup>
