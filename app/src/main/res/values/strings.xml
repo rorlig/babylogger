@@ -338,6 +338,7 @@
     <string name="growth_weight">Weight:\ </string>
     <string name="growth_height">Height:\ </string>
     <string name="growth_head_measurement">Head Measurement:\ </string>
+    <string name="weight_title">Weight (Pounds.Ounces)</string>
 
 
 </resources>

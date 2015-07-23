@@ -45,16 +45,16 @@ public class GrowthFragment extends InjectableFragment {
     Context context;
 
     @InjectView(R.id.notes)
-    com.rengwuxian.materialedittext.MaterialEditText notesContentTextView;
+    MaterialEditText notesContentTextView;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
 
-    @InjectView(R.id.weight_pounds)
-    EditText weightPoundsEditText;
+//    @InjectView(R.id.weight_pounds)
+//    EditText weightPoundsEditText;
 
-    @InjectView(R.id.weight_ounces)
-    EditText weightOuncesEditText;
+    @InjectView(R.id.weight_pounds_ounces)
+    MaterialEditText weightEditText;
 
     @InjectView(R.id.height_inches)
     MaterialEditText heightInchesEditText;
@@ -85,6 +85,52 @@ public class GrowthFragment extends InjectableFragment {
         scopedBus.post(new FragmentCreated("Growth Fragment"));
 
         saveBtn.setEnabled(false);
+
+
+        weightEditText.addTextChangedListener(new TextWatcher() {
+            int len = 0;
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "beforeTextChanged ");
+                String str = weightEditText.getText().toString();
+                len = str.length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "onTextChanged ");
+
+                String str = weightEditText.getText().toString();
+
+                Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
+
+                if ((str.length() == 2 && len < str.length())) {
+
+                    Log.d(TAG, "appending .");
+                    //checking length  for backspace.
+                    weightEditText.append(".");
+                    //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
+                }
+
+                if (str.length() > 0) {
+//                    saveBtn.setEnabled(true);
+                    weightEmpty = false;
+                    setSaveEnabled();
+
+                } else {
+                    saveBtn.setEnabled(false);
+                    weightEmpty = true;
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d(TAG, "afterTextChanged ");
+
+            }
+        });
 
         heightInchesEditText.addTextChangedListener(new TextWatcher() {
             int len = 0;
@@ -291,9 +337,14 @@ public class GrowthFragment extends InjectableFragment {
         Dao<GrowthDao, Integer> growthDao;
         GrowthDao daoObject;
         Date date = dateTimeHeader.getEventTime();
-        Integer weightPounds = Integer.parseInt(weightPoundsEditText.getText().toString());
 
-        Integer weightOunces = Integer.parseInt(weightOuncesEditText.getText().toString());
+        String weight = weightEditText.getText().toString();
+
+
+        Integer weightPounds = Integer.parseInt(weight.substring(0,2));
+
+
+        Integer weightOunces = Integer.parseInt(weight.substring(3));
 
         Double totalWeight = weightOunces.doubleValue()/16 + weightPounds;
 

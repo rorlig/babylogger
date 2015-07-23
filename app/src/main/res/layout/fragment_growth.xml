@@ -35,61 +35,61 @@
         android:textColor="@color/primary_green"
        />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/growth_header_title"
-        android:id="@+id/weight_layout"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/growth_header_title"-->
+        <!--android:id="@+id/weight_layout"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginTop="10dp"-->
 
 
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_weight"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/weight_label"
-            android:textColor="@color/primary_green"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="--"
-            android:layout_marginLeft="10dp"
-            android:inputType="number"
-            android:maxLength="2"
-            android:id="@+id/weight_pounds"
-            android:textColor="@color/primary_green"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="lbs"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/weight_pound_label"
-            android:layout_centerVertical="true"
-            android:textColor="@color/primary_green"/>
+        <!-->-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/txt_weight"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:id="@+id/weight_label"-->
+            <!--android:textColor="@color/primary_green"/>-->
+        <!--<EditText-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="&#45;&#45;"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:inputType="number"-->
+            <!--android:maxLength="2"-->
+            <!--android:id="@+id/weight_pounds"-->
+            <!--android:textColor="@color/primary_green"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="lbs"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:id="@+id/weight_pound_label"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textColor="@color/primary_green"/>-->
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="--"
-            android:layout_marginLeft="10dp"
-            android:inputType="number"
-            android:maxLength="2"
-            android:id="@+id/weight_ounces"
-            android:textColor="@color/primary_green"/>
+        <!--<EditText-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="&#45;&#45;"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:inputType="number"-->
+            <!--android:maxLength="2"-->
+            <!--android:id="@+id/weight_ounces"-->
+            <!--android:textColor="@color/primary_green"/>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="oz"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/weight_ounces_label"
-            android:layout_centerVertical="true"
-            android:textColor="@color/primary_green"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="oz"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:id="@+id/weight_ounces_label"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textColor="@color/primary_green"/>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 
 
@@ -132,16 +132,33 @@
     <!--</LinearLayout>-->
 
     <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/weight_pounds_ounces"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight = "15dp"
+        android:layout_marginLeft = "15dp"
+        android:maxLength="5"
+        android:ems="10"
+        android:hint="@string/weight_title"
+        app:met_floatingLabel="normal"
+        android:layout_below="@+id/growth_header_title"
+        app:met_minCharacters="4"
+        app:met_maxCharacters="5"
+        android:numeric="decimal"
+
+        />
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/height_inches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight = "15dp"
         android:layout_marginLeft = "15dp"
+        android:maxLength="5"
         android:ems="10"
         android:hint="@string/height_title"
         app:met_floatingLabel="normal"
-        android:layout_below="@+id/weight_layout"
-        app:met_minCharacters="5"
+        android:layout_below="@+id/weight_pounds_ounces"
+        app:met_minCharacters="4"
         app:met_maxCharacters="5"
         android:numeric="decimal"
 
@@ -157,7 +174,8 @@
         android:hint="@string/head_measurement_title"
         app:met_floatingLabel="normal"
         android:layout_below="@+id/height_inches"
-        app:met_minCharacters="5"
+        android:maxLength="5"
+        app:met_minCharacters="4"
         app:met_maxCharacters="5"
         android:numeric="decimal"
 
