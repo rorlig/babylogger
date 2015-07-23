@@ -29,6 +29,7 @@ import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.SleepDao;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
+import com.rorlig.babylog.otto.SleepLogCreated;
 import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
@@ -373,8 +374,12 @@ public class SleepListFragment extends InjectableFragment
         }
 
         @Subscribe
-        public void onDiaperChangeEvent(DiaperLogCreatedEvent event) {
-            Log.d(TAG, "onDiaperChangeEvent");
+        public void onSleepEventCreated(SleepLogCreated event) {
+            Log.d(TAG, "onSleepEventCreated");
+            getLoaderManager().restartLoader(LOADER_ID, null, SleepListFragment.this);
+
+
+//            finish();
         }
 
 

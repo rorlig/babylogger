@@ -41,7 +41,6 @@ import javax.inject.Inject;
  */
 public class GrowthActivity extends InjectableActivity {
 
-    //todo still figure out left + right toggle speeds...
 
 
     @Inject
@@ -62,13 +61,6 @@ public class GrowthActivity extends InjectableActivity {
 
     private EventListener eventListener = new EventListener();
 
-
-    /*
-   * Define a request code to send to Google Play services
-   * This code is returned in Activity.onActivityResult
-   */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private Typeface typeface;
 
 
     @Override
@@ -120,7 +112,9 @@ public class GrowthActivity extends InjectableActivity {
         // true, then it has handled the app icon touch event
 
         switch (item.getItemId()){
-
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case R.id.action_licenses:
                 break;
 
@@ -159,8 +153,8 @@ public class GrowthActivity extends InjectableActivity {
                 } else {
                     localFragment = (Fragment)paramClass.newInstance();
                     localFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, localFragment)
-                            .commitAllowingStateLoss();
+                            .add(R.id.fragment_container, localFragment)
+                            .commit();
                 }
 
             } catch (InstantiationException e) {
@@ -211,7 +205,7 @@ public class GrowthActivity extends InjectableActivity {
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
-            showFragment(GrowthStatsFragment.class, "growth_stats_fragment", false);
+            showFragment(GrowthStatsFragment.class, "growth_stats_fragment", true);
         }
 
 

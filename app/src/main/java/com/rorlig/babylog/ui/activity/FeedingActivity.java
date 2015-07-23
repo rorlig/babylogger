@@ -195,7 +195,7 @@ public class FeedingActivity extends InjectableActivity {
 //        public void onAddDiaperChangeEvent(AddDiaperChangeEvent diaperChangeEvent){
 ////            showFragment(DiaperChangeFragment.class, "diaper_change");
 //            Log.d(TAG, "onAddDiaperChangeEvent");
-//            showFragment(DiaperChangeFragment.class, "diaper_change", false);
+//            showFragment(DiaperChangeFragment.class, "diaper_change", falgse);
 ////            startActivity(DiaperChangeActivity.class,"diaper_change");
 //        }
 

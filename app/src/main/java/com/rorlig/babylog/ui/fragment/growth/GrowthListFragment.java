@@ -22,6 +22,7 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.GrowthDao;
+import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
@@ -29,6 +30,7 @@ import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.adapter.DateSectionizer;
 import com.rorlig.babylog.ui.adapter.GrowthAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -242,6 +244,13 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
         public EventListener() {
 
         }
+
+        @Subscribe
+        public void onGrowthItemCreated(GrowthItemCreated event) {
+            getLoaderManager().restartLoader(LOADER_ID, null, GrowthListFragment.this);
+//            showFragment(GrowthListFragment.class, "growth_list_fragment",false);
+        }
+
 
 
     }

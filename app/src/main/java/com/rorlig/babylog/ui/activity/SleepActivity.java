@@ -123,7 +123,9 @@ public class SleepActivity extends InjectableActivity {
 
             case R.id.action_licenses:
                 break;
-
+            case android.R.id.home:
+                onBackPressed();
+                return true;
 
         }
         // Handle your other action bar items...
@@ -159,8 +161,8 @@ public class SleepActivity extends InjectableActivity {
                 } else {
                     localFragment = (Fragment)paramClass.newInstance();
                     localFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, localFragment)
-                            .commitAllowingStateLoss();
+                            .add(R.id.fragment_container, localFragment)
+                            .commit();
                 }
 
             } catch (InstantiationException e) {
@@ -196,19 +198,19 @@ public class SleepActivity extends InjectableActivity {
         @Subscribe
         public void onSleepEventCreated(SleepLogCreated event) {
             Log.d(TAG, "onSleepEventCreated");
-            showFragment(SleepListFragment.class, "sleep_list_fragment", false);
-            getFragmentManager().popBackStackImmediate();
+//            showFragment(SleepListFragment.class, "sleep_list_fragment", false);
+            getSupportFragmentManager().popBackStack();
 //            finish();
         }
 
         @Subscribe
         public void onAddItemEvent(AddItemEvent event){
-            showFragment(SleepFragment.class, "sleep_fragment", false);
+            showFragment(SleepFragment.class, "sleep_fragment", true);
         }
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent event) {
-            showFragment(SleepStatsFragment.class, "stats_fragment", false);
+            showFragment(SleepStatsFragment.class, "stats_fragment", true);
         }
 
     }
