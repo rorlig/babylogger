@@ -46,6 +46,7 @@ public class LicenseActivity extends LibsActivity {
                 .withActivityTitle("Licenses")
                 .withLicenseShown(true)
                 .withActivityTheme(R.style.AppTheme)
+
                 .withActivityStyle(Libs.ActivityStyle.LIGHT)
 
                 .intent(this));

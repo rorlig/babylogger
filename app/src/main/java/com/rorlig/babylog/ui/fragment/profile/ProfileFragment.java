@@ -28,6 +28,7 @@ import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -157,6 +158,7 @@ public class ProfileFragment extends InjectableFragment {
         } else {
             babyGirlButton.setChecked(true);
         }
+        datePickerBirthday.setMaxDate(Calendar.getInstance().getTimeInMillis());
         String dob = preferences.getString("dob", "");
         if (!dob.equals("")){
             String[] dateElements = dob.split(",");
