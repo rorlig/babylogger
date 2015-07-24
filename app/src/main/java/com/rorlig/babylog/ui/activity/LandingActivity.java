@@ -92,37 +92,37 @@ public class LandingActivity extends InjectableActivity {
     }
 
 
-    private void showFragment(Class<?> paramClass,String paramString, boolean addToStack ) {
-        Log.d(TAG, "showFragment for " + paramClass);
-
-        FragmentManager localFragmentManager = getSupportFragmentManager();
-
-
-        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
-
-        if ((localFragment == null) || (!paramClass.isInstance(localFragment))) {
-            Log.d(TAG, "adding to back stack ");
-            try {
-                localFragment = (Fragment) paramClass.newInstance();
-                if (addToStack) {
-                    localFragmentManager.beginTransaction()
-                            .add(R.id.fragment_container, localFragment)
-                            .addToBackStack("main_screen_stack")
-                            .commit();
-                } else {
-                    localFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, localFragment)
-                            .commit();
-                }
-
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
+//    private void showFragment(Class<?> paramClass,String paramString, boolean addToStack ) {
+//        Log.d(TAG, "showFragment for " + paramClass);
+//
+//        FragmentManager localFragmentManager = getSupportFragmentManager();
+//
+//
+//        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
+//
+//        if ((localFragment == null) || (!paramClass.isInstance(localFragment))) {
+//            Log.d(TAG, "adding to back stack ");
+//            try {
+//                localFragment = (Fragment) paramClass.newInstance();
+//                if (addToStack) {
+//                    localFragmentManager.beginTransaction()
+//                            .add(R.id.fragment_container, localFragment)
+//                            .addToBackStack("main_screen_stack")
+//                            .commit();
+//                } else {
+//                    localFragmentManager.beginTransaction()
+//                            .replace(R.id.fragment_container, localFragment)
+//                            .commit();
+//                }
+//
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+//    }
 
 
     private class EventListener {

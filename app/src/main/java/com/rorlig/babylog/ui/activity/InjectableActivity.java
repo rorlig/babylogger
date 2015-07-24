@@ -1,9 +1,12 @@
 package com.rorlig.babylog.ui.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ActivityModule;
 import com.rorlig.babylog.dagger.ObjectGraphActivity;
 import com.rorlig.babylog.dagger.ObjectGraphUtils;
@@ -95,6 +98,39 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
 
     public void setScopedBus(ScopedBus scopedBus) {
         this.scopedBus = scopedBus;
+    }
+
+
+    protected void showFragment(Class<?> paramClass,String paramString, boolean addToStack ){
+        Log.d(TAG, "showFragment for " + paramClass);
+
+        FragmentManager localFragmentManager = getSupportFragmentManager();
+
+
+
+        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
+
+        if ((localFragment==null)||(!paramClass.isInstance(localFragment))){
+            Log.d(TAG, "adding to back stack ");
+            try {
+                localFragment = (Fragment)paramClass.newInstance();
+                if (addToStack) {
+                    localFragmentManager.beginTransaction()
+                            .add(R.id.fragment_container, localFragment)
+                            .addToBackStack("main_screen_stack")
+                            .commit();
+                } else {
+                    localFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, localFragment)
+                            .commit();
+                }
+
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 //
 //    /*
