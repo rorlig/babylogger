@@ -1,25 +1,19 @@
 package com.rorlig.babylog.ui.activity;
 
-import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.gson.Gson;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.preference.PrefsFragment;
-
-import javax.inject.Inject;
 
 
 
 /**
- * Created by admin on.
+ * @author rorlig
  */
 public class PrefsActivity extends InjectableActivity {
 
@@ -29,10 +23,7 @@ public class PrefsActivity extends InjectableActivity {
 
 
 
-
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
-    private String TAG  = "PrefsActivity";
+//    private String TAG  = "PrefsActivity";
 
     private EventListener eventListener = new EventListener();
 
@@ -46,6 +37,8 @@ public class PrefsActivity extends InjectableActivity {
         setContentView(R.layout.activity_pref);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         PrefsFragment mPrefsFragment = new PrefsFragment();
 

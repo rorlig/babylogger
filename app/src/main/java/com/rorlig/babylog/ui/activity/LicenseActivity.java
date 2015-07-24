@@ -1,25 +1,13 @@
 package com.rorlig.babylog.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
-import com.mikepenz.aboutlibraries.LibsConfiguration;
-import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;
-import com.mikepenz.aboutlibraries.ui.LibsFragment;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.ui.fragment.about.LicensesFragment;
 
 //import com.rorlig.babylog.common.AppConstants;
 //import com.rorlig.babylog.otto.events.filter.DistanceFilterChanged;
@@ -60,7 +48,7 @@ public class LicenseActivity extends LibsActivity {
                 .withActivityTheme(R.style.AppTheme)
                 .withActivityStyle(Libs.ActivityStyle.LIGHT)
 
-                        .intent(this));
+                .intent(this));
 
 
         super.onCreate(savedInstanceState);
