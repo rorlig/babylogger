@@ -28,6 +28,7 @@ import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.dao.MilestonesDao;
+import com.rorlig.babylog.dao.SleepDao;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.events.datetime.DateSetEvent;
@@ -35,6 +36,7 @@ import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.adapter.ExportItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
+import com.rorlig.babylog.ui.fragment.milestones.Milestones;
 import com.squareup.otto.Subscribe;
 
 import java.io.File;
@@ -110,6 +112,8 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     private static final String END_DATE_YEAR = "end_year";
     private BabyLoggerORMUtils babyORMLiteUtils;
     private PreparedQuery<DiaperChangeDao> queryBuilder;
+    private Uri milestoneUri;
+    private Uri sleepUri;
 //    private int LOADER_ID = 0;
 
     @Override
@@ -191,7 +195,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         int month = c.get(Calendar.MONTH) + 1;
         int day = c.get(Calendar.DAY_OF_MONTH);
         dateStartYearTextView.setText("" + year);
-        dateStartMonthTextView.setText((month<10? "0" + month: "" + month));
+        dateStartMonthTextView.setText((month < 10 ? "0" + month : "" + month));
         dateStartDayTextView.setText("" + day);
 
 
@@ -291,7 +295,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
             Uri growthUri = null;
             Uri feedsUri = null;
 //            Uri milestonesUri = null;
-            if (isDiaperLogSelected()) {
+            if (isItemSelected(ExportItem.DIAPER)) {
                 try {
                     List<DiaperChangeDao> diaperChangeList = babyORMLiteUtils.getDiaperChangeList(getStartTime(), getEndTime());
                     Log.d(TAG, "number of rows : " +  diaperChangeList.size());
@@ -304,7 +308,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
             }
 
-            if (isFeedSelected()) {
+            if (isItemSelected(ExportItem.FEED)) {
                 try {
                     List<FeedDao> feedList = babyORMLiteUtils.getFeedList(getStartTime(), getEndTime());
                     Log.d(TAG, "number of rows : " +  feedList.size());
@@ -315,7 +319,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 }
             }
 
-            if (isGrowthSelected()) {
+            if (isItemSelected(ExportItem.GROWTH)) {
                 try {
                     List<GrowthDao> growthList = babyORMLiteUtils.getGrowthList(getStartTime(), getEndTime());
                     Log.d(TAG, "number of rows : " +  growthList.size());
@@ -326,10 +330,13 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 }
             }
 
-            if (isMileStoneSelected()) {
+            if (isItemSelected(ExportItem.MILESTONE)) {
                 try {
                     List<MilestonesDao> milestonesList = babyORMLiteUtils.getMilestoneList(getStartTime(), getEndTime());
                     Log.d(TAG, "number of rows : " +  milestonesList.size());
+
+                    if (milestonesList.size()>0)
+                        milestoneUri = createMilestoneListToCSV(milestonesList);
 //                    if (milestonesList.size()>0)
 //                        growthUri  = createGrowthListToCSV(growthList);
                 } catch (SQLException e) {
@@ -337,11 +344,25 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 }
             }
 
-            sendEmail(diaperChangeUri, feedsUri, growthUri, "Diaper Logs");
+            if (isItemSelected(ExportItem.SLEEP)) {
+                try {
+                    List<SleepDao> sleepList = babyORMLiteUtils.getSleepList(getStartTime(), getEndTime());
+                    Log.d(TAG, "number of rows : " +  sleepList.size());
+                    if (sleepList.size()>0)
+                        sleepUri  = createSleepListToCSV(sleepList);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+            sendEmail(diaperChangeUri, feedsUri, growthUri, milestoneUri, sleepUri, "Logs");
         }
 
 
     }
+
 
 
 
@@ -357,9 +378,10 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
     private Date getEndTime() {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.DATE, Integer.parseInt(dateEndDayTextView.getText().toString()));
+        c.set(Calendar.DATE, Integer.parseInt(dateEndDayTextView.getText().toString())+1);
         c.set(Calendar.MONTH, Integer.parseInt(dateEndMonthTextView.getText().toString()) - 1);
         c.set(Calendar.YEAR, Integer.parseInt(dateEndYearTextView.getText().toString()));
+        c.set(Calendar.HOUR,0);
         return c.getTime();
     }
 
@@ -438,6 +460,12 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         return false;
     }
 
+    private boolean isItemSelected(ExportItem exportItem) {
+        ItemModel itemModel = (ItemModel)exportListAdapter.getLogListItem().get(exportItem.ordinal());
+        return itemModel.isItemChecked();
+    }
+
+
     /*
      * checks if the diaper logs is requested
      * @param null
@@ -482,6 +510,18 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         return itemModel.isItemChecked();
     }
 
+
+      /*
+     * checks if the sleep logs is requested
+     * @param null
+     * @return boolean :  whether growthlog is requested.
+     */
+
+
+    private boolean isSleepSelected() {
+        ItemModel itemModel = (ItemModel)exportListAdapter.getLogListItem().get(4);
+        return itemModel.isItemChecked();
+    }
 
     /*
      * creates csv file for diaper change
@@ -639,17 +679,120 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         return uri;
 
     }
+
+    /*
+   * creates csv file for feed change
+   * @param List<MilestonesDao> list of milestonedao
+   * @return Uri to the file location.
+   */
+    private Uri createMilestoneListToCSV(List<MilestonesDao> milestonesList) {
+        String header =   "\"Date\",\"Milestone\"\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (MilestonesDao milestoneItem: milestonesList) {
+            stringBuilder.append("\"" + milestoneItem.getCompletionDate() + "\",\""
+                    + milestoneItem.getTitle() + "\",\"");
+        }
+        String combinedString = header + stringBuilder.toString();
+        Log.d(TAG, "combined " + combinedString);
+
+        File file   = null;
+        File root   = Environment.getExternalStorageDirectory();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
+
+        if (root.canWrite()){
+            File dir    =   new File (root.getAbsolutePath() + "/MileStoneLogs");
+            dir.mkdirs();
+            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_milestones"  + ".csv");
+            FileOutputStream out   =   null;
+            try {
+                out = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.write(combinedString.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return  Uri.fromFile(file);
+
+    }
+
+
+     /*
+     * creates csv file for feed change
+     * @param List<FeedDao> list of diaperchangedao
+     * @return Uri to the file location.
+     */
+
+    private Uri createSleepListToCSV(List<SleepDao> sleepDaoList) {
+        String header =   "\"Date\",\"Start Time\",\"Duration\"\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (SleepDao sleepItem: sleepDaoList) {
+            stringBuilder.append("\"" + sleepItem.getDate() + "\",\""
+                    + sleepItem.getDate() + "\",\""
+                    + sleepItem.getSleepStartTime() + "\",\"" + sleepItem.getDuration() + "\",\"n");
+
+
+        }
+        String combinedString = header + stringBuilder.toString();
+        Log.d(TAG, "combined " + combinedString);
+
+        File file   = null;
+        File root   = Environment.getExternalStorageDirectory();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
+
+        if (root.canWrite()){
+            File dir    =   new File (root.getAbsolutePath() + "/SleepLogs");
+            dir.mkdirs();
+            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_sleep"  + ".csv");
+            FileOutputStream out   =   null;
+            try {
+                out = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.write(combinedString.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return Uri.fromFile(file);
+
+    }
+
     /*
      * sendEmail with attachment
      * @param Uri uri : - uri of the file to emailed...
      * @param String subject
      */
-    private void sendEmail(Uri diaperChangeUri, Uri feedsUri, Uri growthUri, String subject) {
+    private void sendEmail(Uri diaperChangeUri, Uri growthUri,
+                           Uri feedsUri,
+                           Uri sleepUri,
+                           Uri milestoneUri,
+                           String subject) {
         ArrayList<Uri> uri = new ArrayList<Uri>();
 
         if (diaperChangeUri!=null) uri.add(diaperChangeUri);
         if (feedsUri!=null) uri.add(feedsUri);
         if (growthUri!=null) uri.add(growthUri);
+        if (milestoneUri!=null) uri.add(milestoneUri);
+        if (sleepUri!=null) uri.add(sleepUri);
 
         Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, subject);

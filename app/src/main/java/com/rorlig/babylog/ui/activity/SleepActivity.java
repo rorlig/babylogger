@@ -126,45 +126,45 @@ public class SleepActivity extends InjectableActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-     * Class to swap fragments in and out
-     */
-
-    private void showFragment(Class<?> paramClass, String paramString, boolean addToBackStack){
-        Log.d(TAG, "showFragment for " + paramClass);
-
-        FragmentManager localFragmentManager = getSupportFragmentManager();
-
-
-
-        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
-
-        if ((localFragment==null)||(!paramClass.isInstance(localFragment))){
-            try {
-                Log.d(TAG, "replacing fragments");
-
-                if (addToBackStack) {
-
-                    localFragment = (Fragment)paramClass.newInstance();
-                    localFragmentManager.beginTransaction()
-                            .add(R.id.fragment_container, localFragment)
-                            .addToBackStack("growth_stack")
-                            .commit();
-
-                } else {
-                    localFragment = (Fragment)paramClass.newInstance();
-                    localFragmentManager.beginTransaction()
-                            .add(R.id.fragment_container, localFragment)
-                            .commit();
-                }
-
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    /*
+//     * Class to swap fragments in and out
+//     */
+//
+//    private void showFragment(Class<?> paramClass, String paramString, boolean addToBackStack){
+//        Log.d(TAG, "showFragment for " + paramClass);
+//
+//        FragmentManager localFragmentManager = getSupportFragmentManager();
+//
+//
+//
+//        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
+//
+//        if ((localFragment==null)||(!paramClass.isInstance(localFragment))){
+//            try {
+//                Log.d(TAG, "replacing fragments");
+//
+//                if (addToBackStack) {
+//
+//                    localFragment = (Fragment)paramClass.newInstance();
+//                    localFragmentManager.beginTransaction()
+//                            .add(R.id.fragment_container, localFragment)
+//                            .addToBackStack("growth_stack")
+//                            .commit();
+//
+//                } else {
+//                    localFragment = (Fragment)paramClass.newInstance();
+//                    localFragmentManager.beginTransaction()
+//                            .add(R.id.fragment_container, localFragment)
+//                            .commit();
+//                }
+//
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
 
     @Override

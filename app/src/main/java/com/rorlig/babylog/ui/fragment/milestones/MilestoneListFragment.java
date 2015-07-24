@@ -36,6 +36,7 @@ import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -242,9 +243,12 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         @Subscribe
         public void onMileStoneSaved(MilestoneSaveEvent event){
-
-            Date date = new Date(event.getYear(), event.getMonth()-1, event.getDay());
-            setCompleted(event.getPosition(), date, true);
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, event.getYear());
+            c.set(Calendar.MONTH, event.getMonth()-1);
+            c.set(Calendar.DATE, event.getDay());
+//            Date date = new Date(event.getYear(), event.getMonth()-1, event.getDay());
+            setCompleted(event.getPosition(), c.getTime(), true);
         }
 
 
@@ -281,7 +285,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         private void setCompleted(int position, Date date, boolean value) {
             MilestonesDao milestoneItem = milestoneData.get(position);
             milestoneItem.setCompleted(value);
-            milestoneItem.setDate(date);
+            milestoneItem.setCompletionDate(date);
 
 
             try {

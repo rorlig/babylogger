@@ -302,8 +302,8 @@ public class BabyLoggerORMUtils {
     public List<MilestonesDao> getMilestoneList(Date startTime, Date endTime) throws SQLException {
         Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
         QueryBuilder<MilestonesDao, Integer> queryBuilder = getMilestonesDao().queryBuilder().orderBy("date", false);
-        queryBuilder.where().lt("date", endTime)
-                .and().gt("date", startTime);
+        queryBuilder.where().lt("completionDate", endTime)
+                .and().gt("completionDate", startTime);
         return queryBuilder.query();
     }
 
@@ -316,6 +316,21 @@ public class BabyLoggerORMUtils {
         return queryBuilder.query();
     }
 
+
+    /*
+  * Returns a list of sleep items
+  * @param Date startTime start time for the query
+  * @param Date endTime end time for the query
+  * @return List<SleepDao> List of SleepDao @see @see com.rorlig.babylog.dao.SleepDao
+  * @throws SQLException
+    */
+    public List<SleepDao> getSleepList(Date startTime, Date endTime) throws SQLException {
+        Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
+        QueryBuilder<SleepDao, Integer> queryBuilder = getSleepDao().queryBuilder().orderBy("date", false);
+        queryBuilder.where().lt("date", endTime)
+                .and().gt("date", startTime);
+        return queryBuilder.query();
+    }
 
     /*
    * Return the sleep changes for the day of the week

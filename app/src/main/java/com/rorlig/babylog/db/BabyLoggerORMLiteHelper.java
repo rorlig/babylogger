@@ -19,12 +19,14 @@ import com.rorlig.babylog.utils.FileUtils;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -126,19 +128,21 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
 
     private void populateMilestoneDao() {
 //        MilestonesDao milestonesDao = new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, -1L);
+//        DateTime today = new DateTime().withTi();
+
         try {
-            getMilestonesDao().create(new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Week 4-8", false, "Smile to Mom", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Week 0-8", false, "Lifts Head", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Follows objects with eyes", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Reaches for things", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Starts Babbling", -1L,new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Searches for objects", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Sits without support", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Responds to name", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 9-12", false, "Stands up with support", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Stands up without support", -1L, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Walks", -1L, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Week 0-4", false, "Responds to Voice", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Week 4-8", false, "Smile to Mom", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Week 0-8", false, "Lifts Head", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Follows objects with eyes", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Reaches for things", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Starts Babbling", null,new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Searches for objects", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Sits without support", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Responds to name", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 9-12", false, "Stands up with support", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Stands up without support", null, new Date(0)));
+            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Walks", null, new Date(0)));
         } catch (SQLException e) {
             e.printStackTrace();
         }
