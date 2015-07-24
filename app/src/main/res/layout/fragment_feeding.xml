@@ -393,6 +393,7 @@
         android:text="@string/nursing_save_txt"
         android:background="@color/primary_blue"
         android:layout_alignParentBottom="true"
+        app:rippleSpeed="50"
         />
 
 

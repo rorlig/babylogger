@@ -276,6 +276,8 @@
         android:text="@string/btn_save_txt"
         android:background="@color/primary_purple"
         android:layout_alignParentBottom="true"
+        app:rippleSpeed="50"
+
         />
 
 

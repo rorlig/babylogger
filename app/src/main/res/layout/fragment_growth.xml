@@ -240,6 +240,8 @@
         android:text="@string/txt_save"
         android:background="@color/primary_green"
         android:layout_alignParentBottom="true"
+        app:rippleSpeed="50"
+
         />
 
 </RelativeLayout>
