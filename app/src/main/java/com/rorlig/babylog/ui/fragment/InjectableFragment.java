@@ -1,14 +1,20 @@
 package com.rorlig.babylog.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ObjectGraphActivity;
 import com.rorlig.babylog.otto.ScopedBus;
+import com.rorlig.babylog.ui.activity.ExportActivity;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
+import com.rorlig.babylog.ui.activity.LicenseActivity;
+import com.rorlig.babylog.ui.activity.PrefsActivity;
 
 import javax.inject.Inject;
 
@@ -31,7 +37,7 @@ public class InjectableFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().invalidateOptionsMenu();
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
 
 
     }
@@ -69,13 +75,21 @@ public class InjectableFragment extends Fragment {
         ButterKnife.inject(view);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
+            case R.id.action_settings:
+                startActivity(new Intent(getActivity(), PrefsActivity.class));
+                break;
+            case R.id.action_licenses:
+                startActivity(new Intent(getActivity(), LicenseActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-
-
-
-
-    //    @Override
+//    @Override
 //    public void onViewCreated(View paramView, Bundle paramBundle)
 //    {
 //        Views.inject(this, paramView);
