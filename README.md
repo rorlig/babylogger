@@ -9,11 +9,13 @@
 + Profile Screen: - Image Capture Issues
 + Milestones : - Change UI
 + Tutorial screen : - Change UI
++ Transparent Toolbar - migrate to toolbar from actionbar
++ Sleep Tracking
+
+
 
 
 ## Todo
-+ Sleep Tracking
-+ Transparent Toolbar - migrate to toolbar from actionbar
 
 
 
