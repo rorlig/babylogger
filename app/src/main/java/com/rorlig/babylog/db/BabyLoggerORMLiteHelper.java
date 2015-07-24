@@ -13,6 +13,8 @@ import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.dao.MilestonesDao;
 import com.rorlig.babylog.dao.SleepDao;
+import com.rorlig.babylog.model.diaper.DiaperChangeEnum;
+import com.rorlig.babylog.model.diaper.DiaperIncident;
 import com.rorlig.babylog.utils.FileUtils;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -68,7 +70,7 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, GrowthDao.class);
             TableUtils.createTable(connectionSource, MilestonesDao.class);
             TableUtils.createTable(connectionSource, SleepDao.class);
-//            populateDiaperDao();
+            populateDiaperDao();
 //            populateFeedDao();
             populateGrowthDao();
             populateMilestoneDao();
@@ -113,6 +115,13 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
 
     private void populateDiaperDao() {
 
+        try {
+            for (int i = 0; i < 1000; i++) {
+                getDiaperChangeDao().create(new DiaperChangeDao(DiaperChangeEnum.WET, null, null, DiaperIncident.NONE, "", new Date()));
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void populateMilestoneDao() {

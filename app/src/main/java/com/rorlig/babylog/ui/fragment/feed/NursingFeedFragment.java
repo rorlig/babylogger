@@ -139,7 +139,7 @@ public class NursingFeedFragment extends InjectableFragment {
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
-
+        Log.d(TAG, "onActivityCreated");
 //        typeface=Typeface.createFromAsset(getActivity().getAssets(),
 //                "fonts/proximanova_light.ttf");
 
@@ -151,16 +151,6 @@ public class NursingFeedFragment extends InjectableFragment {
         notificationManager = (NotificationManager)
                 getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
-        intent = new Intent(getActivity(), FeedingActivity.class);
-        pIntent = PendingIntent.getActivity(getActivity(), 0, intent, 0);
-
-        // build notification
-// the addAction re-use the same intent to keep the example short
-        notification  = new Notification.Builder(getActivity())
-                .setContentTitle("Logging Location")
-                .setContentIntent(pIntent)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .build();
 
 
         soundMgr = SoundManager.getInstance(getActivity());
@@ -175,6 +165,8 @@ public class NursingFeedFragment extends InjectableFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.d(TAG, "onViewCreated");
+
         leftTextView = (TextView) leftButton.findViewById(R.id.startLText);
         rightTextView = (TextView) rightButton.findViewById(R.id.startRText);
 
@@ -187,9 +179,46 @@ public class NursingFeedFragment extends InjectableFragment {
         secondLTextView = (TextView) leftButton.findViewById(R.id.second);
         secondRTextView = (TextView) rightButton.findViewById(R.id.second);
 
+
+        setUpViews();
     }
 
+    private void setUpViews() {
 
+        Log.d(TAG, "setUpViews");
+        Bundle args = getArguments();
+        if (args!=null) {
+            if (args.getBoolean("fromNotification", false)) {
+//                notificationManager.cancel(notification_id);
+
+                Log.d(TAG, "not null args and fromNotification");
+                hourLTextView.setText(args.getString("hourLTextView", "00"));
+                minuteLTextView.setText(args.getString("minuteLTextView", "00"));
+                secondLTextView.setText(args.getString("secondLTextView", "00"));
+
+                hourRTextView.setText(args.getString("hourRTextView", "00"));
+                minuteRTextView.setText(args.getString("minuteRTextView", "00"));
+                secondRTextView.setText(args.getString("secondRTextView", "00"));
+                elapsedTimeL = args.getLong("elapsedTimeL", 0L);
+                elapsedTimeR = args.getLong("elapsedTimeR", 0L);
+                leftStarted = args.getBoolean("leftStarted");
+                rightStarted = args.getBoolean("rightStarted");
+
+            } else {
+                Log.d(TAG, "not from notification");
+            }
+
+
+
+
+
+
+
+        } {
+            Log.d(TAG, "args are null");
+        }
+
+    }
 
 
     @Override
@@ -211,10 +240,10 @@ public class NursingFeedFragment extends InjectableFragment {
             soundMgr.doTick();
 
             Long currentTime = System.currentTimeMillis();
-            int diff;
+            int diff=0;
 
             Log.d(TAG, "leftStarted " + leftStarted + " rightStartded: " + rightStarted + " deltaL " + deltaL + " deltaR " + deltaR);
-
+            Log.d(TAG, "diff " + diff + " elapsedTimeL " + elapsedTimeL + " elapsedTimeR " + elapsedTimeR);
             if (leftStarted ) {
                 diff = (int)((currentTime - elapsedTimeL)/1000 + deltaL);
             } else  {
@@ -388,10 +417,47 @@ public class NursingFeedFragment extends InjectableFragment {
     public void onStop(){
         super.onStop();
         Log.d(TAG, "onStop");
+
+        Log.d(TAG, " leftStarted " + leftStarted + " rightStarted " + rightStarted);
         scopedBus.unregister(eventListener);
         if (leftStarted || rightStarted) {
-            notification.flags |= Notification.FLAG_ONGOING_EVENT;
+
+            intent = new Intent(getActivity(), FeedingActivity.class);
+            intent.putExtra("fromNotification", true);
+
+            intent.putExtra("hourLTextView", hourLTextView.getText().toString());
+            intent.putExtra("minuteLTextView", minuteLTextView.getText().toString());
+            intent.putExtra("secondLTextView", secondLTextView.getText().toString());
+
+            intent.putExtra("hourRTextView", hourRTextView.getText().toString());
+            intent.putExtra("minuteRTextView", minuteRTextView.getText().toString());
+            intent.putExtra("secondRTextView", secondRTextView.getText().toString());
+
+            intent.putExtra("elapsedTimeL", elapsedTimeL);
+            intent.putExtra("elapsedTimeR", elapsedTimeR);
+            intent.putExtra("leftStarted", leftStarted);
+            intent.putExtra("rightStarted", rightStarted);
+
+
+
+//            intent.putExtra("rightTimer", rightTextView.getText().toString());
+
+
+            pIntent = PendingIntent.getActivity(getActivity(), 0, intent, 0);
+
+            // build notification
+// the addAction re-use the same intent to keep the example short
+            notification  = new Notification.Builder(getActivity())
+                    .setContentTitle("Breast Feeding")
+                    .setContentIntent(pIntent)
+                    .setSmallIcon(R.drawable.ic_launcher_icon)
+                    .build();
+
+
+
+//            notification.flags |= Notification.FL;
             notificationManager.notify(notification_id, notification);
+//            notificationManager
         } else {
             getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
         }

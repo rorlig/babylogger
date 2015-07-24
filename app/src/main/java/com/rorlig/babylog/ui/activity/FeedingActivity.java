@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;
+import com.rorlig.babylog.ui.fragment.feed.FeedLoader;
 import com.rorlig.babylog.ui.fragment.feed.FeedingListFragment;
 import com.rorlig.babylog.ui.fragment.feed.NursingFeedFragment;
 import com.squareup.otto.Subscribe;
@@ -47,8 +49,6 @@ public class FeedingActivity extends InjectableActivity {
 
 
 
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
     private String TAG  = "FeedingActivity";
 
     private EventListener eventListener = new EventListener();
@@ -58,12 +58,6 @@ public class FeedingActivity extends InjectableActivity {
    * Define a request code to send to Google Play services
    * This code is returned in Activity.onActivityResult
    */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private Typeface typeface;
-    private NotificationManager notificationManager;
-    private Intent intent;
-    private PendingIntent pIntent;
-    private Notification notification;
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -77,13 +71,71 @@ public class FeedingActivity extends InjectableActivity {
 
 //
 //        String intentString = getIntent().getStringExtra("intent");
+        if (!getIntent().getBooleanExtra("fromNotification", false)) {
+            showFragment(FeedingListFragment.class, "feeding_list_fragment", false);
+        } else {
+            Fragment localFragment =  new FeedingListFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, localFragment)
+                    .commit();
+            Fragment nursingFragment = new NursingFeedFragment();
+            Bundle args = new Bundle();
 
+            Log.d(TAG, "fromNotification " + getIntent().getBooleanExtra("fromNotification", false));
+
+            Log.d(TAG, "hourLTextView " + getIntent().getStringExtra("hourLTextView"));
+
+            Log.d(TAG, "minuteLTextView " + getIntent().getStringExtra("minuteLTextView"));
+
+            Log.d(TAG, "secondLTextView " + getIntent().getStringExtra("secondLTextView"));
+
+            Log.d(TAG, "hourRTextView " + getIntent().getStringExtra("hourRTextView"));
+
+            Log.d(TAG, "minuteRTextView " + getIntent().getStringExtra("minuteRTextView"));
+
+            Log.d(TAG, "secondRTextView " + getIntent().getStringExtra("secondRTextView"));
+
+
+            Log.d(TAG, "elapsedTimeL " + getIntent().getLongExtra("elapsedTimeL", -1L));
+
+
+            Log.d(TAG, "elapsedTimeR " + getIntent().getLongExtra("elapsedTimeR", -1L));
+
+            Log.d(TAG, "leftStarted " + getIntent().getBooleanExtra("leftStarted", false));
+
+            Log.d(TAG, "rightStarted " + getIntent().getBooleanExtra("rightStarted", false));
+
+
+
+            args.putBoolean("fromNotification", getIntent().getBooleanExtra("fromNotification", false));
+
+
+            args.putString("hourLTextView", getIntent().getStringExtra("hourLTextView"));
+            args.putString("minuteLTextView", getIntent().getStringExtra("minuteLTextView"));
+            args.putString("secondLTextView", getIntent().getStringExtra("secondLTextView"));
+
+            args.putString("hourRTextView", getIntent().getStringExtra("hourRTextView"));
+            args.putString("minuteRTextView", getIntent().getStringExtra("minuteRTextView"));
+            args.putString("secondRTextView", getIntent().getStringExtra("secondRTextView"));
+            args.putLong("elapsedTimeL", getIntent().getLongExtra("elapsedTimeL", -1L));
+            args.putLong("elapsedTimeR", getIntent().getLongExtra("elapsedTimeR", -1L));
+            args.putBoolean("leftStarted", getIntent().getBooleanExtra("leftStarted", false));
+
+            args.putBoolean("rightStarted", getIntent().getBooleanExtra("rightStarted", false));
+
+
+
+            nursingFragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, nursingFragment)
+                    .addToBackStack("feeding_stack")
+                    .commit();
+        }
 
 //        if (intentString!=null && intentString.equals("feeding_activity_bottle")){
 //            showFragment(BottleFeedFragment.class, "bottle_feed", false);
 
 //        } else  {
-            showFragment(FeedingListFragment.class, "feeding_list_fragment", false);
 
 //        }
 //        showFragment(FeedingListFragment.class, "feeding_list_fragment", false);
