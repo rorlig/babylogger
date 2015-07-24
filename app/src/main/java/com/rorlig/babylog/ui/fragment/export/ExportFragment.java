@@ -582,9 +582,8 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 e.printStackTrace();
             }
         }
-        Uri uri = Uri.fromFile(file);
 
-        return uri;
+        return Uri.fromFile(file);
 
     }
 

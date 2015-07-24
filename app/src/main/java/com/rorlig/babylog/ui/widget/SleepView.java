@@ -1,22 +1,14 @@
 package com.rorlig.babylog.ui.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.SleepDao;
-import com.rorlig.babylog.model.diaper.DiaperChangeEnum;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimeZone;
 
 /**

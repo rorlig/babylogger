@@ -15,8 +15,6 @@ import com.rorlig.babylog.otto.events.milestones.MilestoneResetEvent;
 import com.rorlig.babylog.otto.events.milestones.MilestoneSaveEvent;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 
-import java.util.Calendar;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;

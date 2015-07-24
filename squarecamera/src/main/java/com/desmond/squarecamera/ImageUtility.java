@@ -119,8 +119,8 @@ public class ImageUtility {
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
         options.inJustDecodeBounds = false;
-        options.inPurgeable = true;
-        options.inInputShareable = true;
+//        options.inPurgeable = true;
+//        options.inInputShareable = true;
 
         return BitmapFactory.decodeFile(path, options);
     }

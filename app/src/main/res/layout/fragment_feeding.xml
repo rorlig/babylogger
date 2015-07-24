@@ -377,7 +377,7 @@
         android:layout_marginLeft = "15dp"
         android:ems="10"
         android:layout_below="@+id/timers"
-        android:hint="NOTES"
+        android:hint="@string/notes_hint"
 
         app:met_floatingLabel="normal"
         />

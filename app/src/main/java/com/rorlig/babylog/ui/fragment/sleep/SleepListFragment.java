@@ -1,7 +1,6 @@
 package com.rorlig.babylog.ui.fragment.sleep;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -17,29 +16,22 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
-import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.SleepDao;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
 import com.rorlig.babylog.otto.SleepLogCreated;
-import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.adapter.DateSectionizer;
-import com.rorlig.babylog.ui.adapter.DiaperChangeAdapter;
 import com.rorlig.babylog.ui.adapter.SleepAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeStatsType;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;

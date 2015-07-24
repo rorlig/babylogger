@@ -11,7 +11,7 @@
         style="@style/ListItemHeader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Choose Milestone Date"
+        android:text="@string/choose_milestone_date"
         android:textAllCaps="true"
         android:gravity="center"
         android:background="@android:color/transparent"
@@ -50,7 +50,7 @@
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:clickable="true"
-            android:text="Save"
+            android:text="@string/txt_save"
             android:textStyle="bold"
             android:background="@color/primary_orange"/>
 
@@ -60,7 +60,7 @@
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"
             android:clickable="true"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textStyle="bold"
             android:background="@color/primary_orange"/>
 
@@ -70,7 +70,7 @@
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:clickable="true"
-            android:text="Reset"
+            android:text="@string/reset"
             android:textStyle="bold"
             android:background="@color/primary_orange"/>
     </LinearLayout>

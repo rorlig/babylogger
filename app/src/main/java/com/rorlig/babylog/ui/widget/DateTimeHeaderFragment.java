@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.text.format.Time;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -98,8 +97,8 @@ public class DateTimeHeaderFragment extends InjectableFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Time today = new Time(Time.getCurrentTimezone());
-        today.setToNow();
+//        Time today = new Time(Time.getCurrentTimezone());
+//        today.setToNow();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy");
         currentDate.setText(sdf.format(new Date()));
         sdf = new SimpleDateFormat("hh:mm aa");

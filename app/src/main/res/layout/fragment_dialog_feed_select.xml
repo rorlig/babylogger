@@ -43,9 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/nursing"
             android:id="@+id/nursingText"
-            android:text="NURSING"
+            android:text="@string/nursing"
             android:textColor="@color/primary_blue"
             android:layout_centerHorizontal="true"
+            android:textAllCaps="true"
             />
     </com.andexert.library.RippleView>
 
@@ -78,7 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/bottle"
             android:id="@+id/bottleText"
-            android:text="BOTTLE"
+            android:text="@string/bottle"
+            android:textAllCaps="true"
             android:layout_centerHorizontal="true"
 
             android:textColor="@color/primary_blue"

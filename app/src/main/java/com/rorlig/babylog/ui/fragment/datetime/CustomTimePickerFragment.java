@@ -3,15 +3,12 @@ package com.rorlig.babylog.ui.fragment.datetime;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.TimePicker;
 
-import com.rorlig.babylog.otto.TimeSetEventError;
 import com.rorlig.babylog.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.ui.widget.CustomTimePickerDialog;
-import com.rorlig.babylog.ui.widget.RangeTimePickerDialog;
 
 import java.util.Calendar;
 

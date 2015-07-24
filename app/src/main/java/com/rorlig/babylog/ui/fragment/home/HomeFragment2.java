@@ -20,6 +20,7 @@ import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 import com.rorlig.babylog.ui.activity.ExportActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
+import com.rorlig.babylog.ui.activity.LicenseActivity;
 import com.rorlig.babylog.ui.activity.MilestonesActivity;
 import com.rorlig.babylog.ui.activity.PrefsActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
@@ -157,6 +158,10 @@ public class HomeFragment2 extends InjectableFragment {
                 break;
             case R.id.action_export:
                 startActivity(new Intent(getActivity(), ExportActivity.class));
+
+                break;
+            case R.id.action_licenses:
+                startActivity(new Intent(getActivity(), LicenseActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -25,14 +26,6 @@ public class PrefsActivity extends InjectableActivity {
     //todo still figure out left + right toggle speeds...
 
 
-    @Inject
-    ActionBar actionBar;
-
-    @Inject
-    Gson gson;
-
-    @Inject
-    TypeFaceManager typeFaceManager;
 
 
 
@@ -44,46 +37,30 @@ public class PrefsActivity extends InjectableActivity {
     private EventListener eventListener = new EventListener();
 
 
-    /*
-   * Define a request code to send to Google Play services
-   * This code is returned in Activity.onActivityResult
-   */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private Typeface typeface;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.activity_pref);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         PrefsFragment mPrefsFragment = new PrefsFragment();
 
-//        FragmentManager localFragmentManager = getSupportFragmentManager();
 
 
         FragmentTransaction mFragmentTransaction = getFragmentManager()
                 .beginTransaction();
         mFragmentTransaction.replace(R.id.fragment_container, mPrefsFragment);
         mFragmentTransaction.commit();
-//        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
 
-//        mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
-//        mFragmentTransaction.commit();
-
-//        showFragment(PrefsFragment.class, "prefs_fragment", false);
-
-
-//        localFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, mPrefsFragment)
-//                .commitAllowingStateLoss();
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //inflate the option menu items..
-//        getMenuInflater().inflate(R.menu.menu_add_item, menu);
 
         return super.onCreateOptionsMenu(menu);
     }

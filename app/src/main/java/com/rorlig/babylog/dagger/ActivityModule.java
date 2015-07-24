@@ -13,6 +13,7 @@ import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
 import com.rorlig.babylog.ui.activity.HomeActivity;
 import com.rorlig.babylog.ui.activity.LandingActivity;
+import com.rorlig.babylog.ui.activity.LicenseActivity;
 import com.rorlig.babylog.ui.activity.MilestonesActivity;
 import com.rorlig.babylog.ui.activity.PrefsActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
@@ -29,10 +30,7 @@ import com.rorlig.babylog.ui.adapter.SleepAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.MainFragment;
-import com.rorlig.babylog.ui.fragment.about.AboutFragment;
-import com.rorlig.babylog.ui.fragment.contact.ContactSelectFragment;
-import com.rorlig.babylog.ui.fragment.contact.ContactsFragment;
-import com.rorlig.babylog.ui.fragment.contact.ContactsPagerListFragment;
+import com.rorlig.babylog.ui.fragment.about.LicensesFragment;
 import com.rorlig.babylog.ui.fragment.datetime.CustomTimePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
@@ -81,6 +79,8 @@ import dagger.Provides;
             MilestonesActivity.class,
             PrefsActivity.class,
             ExportActivity.class,
+            LicenseActivity.class,
+            LicensesFragment.class,
             MainFragment.class,
             InjectableFragment.class,
             InjectablePreferenceFragment.class,
@@ -89,7 +89,7 @@ import dagger.Provides;
             GrowthFragment.class,
             SleepFragment.class,
             NursingFeedFragment.class,
-            AboutFragment.class,
+            LicensesFragment.class,
             InjectableDialogFragment.class,
             FeedSelectFragment.class,
             BottleFeedFragment.class,
@@ -101,11 +101,8 @@ import dagger.Provides;
             SleepListFragment.class,
             MilestoneListFragment.class,
             DiaperChangeAdapter.class,
-            ContactsFragment.class,
             ExportItemAdapter.class,
-            ContactsPagerListFragment.class,
             DateTimeHeaderFragment.class,
-            ContactSelectFragment.class,
             HomeFragment.class,
             HomeFragment2.class,
             SleepActivity.class,

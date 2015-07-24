@@ -230,43 +230,6 @@ public class GrowthFragment extends InjectableFragment {
         Log.d(TAG, " color choosen " + color);
 
 
-//        headInchesEditText.addTextChangedListener(new TextWatcher() {
-//            int len = 0;
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                Log.d(TAG, "beforeTextChanged ");
-//                String str = headInchesEditText.getText().toString();
-//                len = str.length();
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.d(TAG, "onTextChanged ");
-//
-//                String str = headInchesEditText.getText().toString();
-//
-//                Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
-//
-//                if ((str.length() == 2 && len < str.length())) {
-//
-//                    Log.d(TAG, "appending .");
-//                    //checking length  for backspace.
-//                    headInchesEditText.append(".");
-//                    //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
-//                }
-//
-////            if (str.length()>0) {
-////                saveBtn.setEnabled(true);
-////            } else {
-////                saveBtn.setEnabled(false);
-////            }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
 
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));

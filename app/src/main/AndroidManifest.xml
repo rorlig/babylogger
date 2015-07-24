@@ -126,7 +126,19 @@
             android:name=".ui.activity.PrefsActivity"
             android:label="@string/prefs_title"
             android:title="@string/prefs_title"
+            android:theme="@style/AppTheme"
+
             android:parentActivityName=".ui.activity.HomeActivity"/>
+
+
+        <activity
+            android:name=".ui.activity.LicenseActivity"
+            android:label="@string/action_licenses"
+            android:title="@string/action_licenses"
+            android:theme="@style/AppTheme"
+
+            android:parentActivityName=".ui.activity.HomeActivity"/>
+
             <!--<meta-data-->
                 <!--android:name="android.support.PARENT_ACTIVITY"-->
                 <!--android:value=".ui.activity.BabyLogActivity" >-->
@@ -136,7 +148,7 @@
 
         <service android:name=".service.StopWatchService"/>
 
-
+        
 
 
     </application>

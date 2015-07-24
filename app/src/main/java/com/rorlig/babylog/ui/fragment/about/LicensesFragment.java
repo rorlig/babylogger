@@ -19,16 +19,12 @@ import butterknife.ButterKnife;
 /**
  *  @author gaurav gupta
  */
-public class AboutFragment extends InjectableFragment {
+public class LicensesFragment extends InjectableFragment {
+
     @ForActivity
     @Inject
     Context context;
 
-//    @InjectView(R.id.gridview)
-//    GridView actionsList;
-
-//    @InjectView(R.id.menu_header)
-//    TextView menuHeader;
 
 
     Typeface typeface;
@@ -40,10 +36,6 @@ public class AboutFragment extends InjectableFragment {
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
-
-//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-//                "fonts/proximanova_light.ttf");
-
         scopedBus.post(new FragmentCreated("About"));
 
     }
@@ -52,7 +44,7 @@ public class AboutFragment extends InjectableFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_diaper_change, null);
+        View view =  inflater.inflate(R.layout.fragment_about, null);
         ButterKnife.inject(this, view);
         return view;
     }

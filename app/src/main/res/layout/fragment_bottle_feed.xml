@@ -40,29 +40,30 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="00.00"
+            android:hint="@string/default_feed_quantity"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:numeric="decimal"
             android:maxLength="5"
             android:id="@+id/quantity"
-            android:textColor="@color/text_color_main"/>
+            android:textColor="@color/primary_blue"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="oz"
+            android:text="@string/unit_oz"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/quantity"
             android:id="@+id/quantityLabel"
             android:layout_centerVertical="true"
             android:layout_alignBottom="@+id/quantity"
-            android:textColor="@color/text_color_main"/>
+            android:textColor="@color/primary_blue"/>
 
        <Spinner
            style="@style/Spinnerbaby"
            android:id="@+id/type_spinner"
            android:layout_toRightOf="@+id/quantityLabel"
+
            android:layout_centerVertical="true"
            android:layout_alignParentRight="true"
            android:layout_width="wrap_content"
@@ -92,7 +93,7 @@
         android:layout_marginLeft = "15dp"
         android:ems="10"
         android:layout_below="@+id/quantity_layout"
-        android:hint="NOTES"
+        android:hint="@string/notes_hint"
         app:met_floatingLabel="normal"
         />
 
@@ -100,7 +101,7 @@
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="@string/txt_save"
         android:background="@color/primary_blue"
         android:layout_alignParentBottom="true"
         />

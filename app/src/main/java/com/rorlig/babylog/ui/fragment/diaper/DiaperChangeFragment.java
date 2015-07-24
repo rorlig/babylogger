@@ -3,7 +3,6 @@ package com.rorlig.babylog.ui.fragment.diaper;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,7 +36,6 @@ import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
 import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -192,8 +190,8 @@ public class DiaperChangeFragment extends InjectableFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Time today = new Time(Time.getCurrentTimezone());
-        today.setToNow();
+//        Time today = new Time(Time.getCurrentTimezone());
+//        today.setToNow();
 //        currentDate.setText(sdf.format(new Date()));
 //        sdf = new SimpleDateFormat("hh:mm aa");
 //        currentTime.setText(sdf.format(new Date()));

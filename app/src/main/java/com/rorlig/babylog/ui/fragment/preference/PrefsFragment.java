@@ -35,7 +35,7 @@ public class PrefsFragment extends InjectablePreferenceFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences_notifications);
+        addPreferencesFromResource(R.xml.preferences_general);
 
 
 

@@ -22,8 +22,7 @@
     <string name="auth_client_play_services_err_notification_msg">Google Play services error</string>
     <string name="auth_client_requested_by_msg">Requested by <g id="app_name">%1$s</g></string>
     <string name="auth_client_using_bad_version_title">An application attempted to use a bad version of Google Play Services.</string>
-    <string name="authentication_in_progress">Signing in...</string>
-    <string name="com.crashlytics.android.build_id">21b11f30-fd74-46fc-a14f-f865a58f08e5</string>
+    <string name="authentication_in_progress">Signing in…</string>
     <string name="common_google_play_services_enable_button">Enable Google Play services</string>
     <string name="common_google_play_services_enable_text">"This app won't work unless you enable Google Play services."</string>
     <string name="common_google_play_services_enable_title">Enable Google Play services</string>
@@ -339,6 +338,17 @@
     <string name="growth_height">Height:\ </string>
     <string name="growth_head_measurement">Head Measurement:\ </string>
     <string name="weight_title">Weight (Pounds.Ounces)</string>
+    <string name="choose_milestone_date">Choose Milestone Date</string>
+    <string name="default_feed_quantity">00.00</string>
+    <string name="unit_oz">oz</string>
+    <string name="notes_hint">NOTES</string>
+    <string name="nursing">Nursing</string>
+    <string name="bottle">Bottle</string>
+    <string name="type">Type</string>
+    <string name="preference_about">About</string>
+    <string name="version_number_title">Version Number</string>
+    <string name="version_number_summary">1.0.0</string>
+    <string name="more_settings_toc">Terms and Conditions</string>
 
 
 </resources>

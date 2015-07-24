@@ -1,12 +1,8 @@
 package com.rorlig.babylog.ui.adapter;
 
-import android.util.Log;
-
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.rorlig.babylog.dao.BaseDao;
-
-import java.util.Date;
 
 /**
  * Created by rorlig on 8/24/14.

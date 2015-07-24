@@ -10,13 +10,10 @@ import android.widget.ArrayAdapter;
 
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.SleepDao;
 import com.rorlig.babylog.ui.activity.InjectableActivity;
-import com.rorlig.babylog.ui.widget.DiaperChangeView;
 import com.rorlig.babylog.ui.widget.SleepView;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

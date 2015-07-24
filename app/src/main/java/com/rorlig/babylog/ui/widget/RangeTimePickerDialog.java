@@ -5,8 +5,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.TimePicker;
 
-import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
-
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.util.Calendar;

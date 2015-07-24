@@ -133,8 +133,7 @@ public class BabyLoggerORMUtils {
         String rawSelectSql = "select strftime('%Y-%m', date), count(*) from diaperchangedao "
                 + "group by strftime('%Y-%m', date)";
         Log.d(TAG, "rawSelectSql " + rawSelectSql);
-        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
-        return result;
+        return getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
 
     }
 
@@ -168,8 +167,7 @@ public class BabyLoggerORMUtils {
 
         Log.d(TAG, "rawSelectSql " + rawSelectSql);
 
-        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
-        return result;
+        return getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
     }
 
     /*
@@ -201,8 +199,7 @@ public class BabyLoggerORMUtils {
 
 //        Log.d(TAG, "rawSelectSql " + rawSelectSql);
 
-        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
-        return result;
+        return getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
     }
 
     /*
@@ -349,8 +346,7 @@ public class BabyLoggerORMUtils {
 
         Log.d(TAG, "rawSelectSql " + rawSelectSql);
 
-        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
-        return result;
+        return getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
     }
 
 
@@ -383,8 +379,7 @@ public class BabyLoggerORMUtils {
 
         Log.d(TAG, "rawSelectSql " + rawSelectSql);
 
-        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
-        return result;
+        return getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
     }
 
     /*
@@ -409,8 +404,7 @@ public class BabyLoggerORMUtils {
         String rawSelectSql = "select strftime('%Y-%m', date), sum(duration) from sleepdao "
                 + "group by strftime('%Y-%m', date)";
         Log.d(TAG, "rawSelectSql " + rawSelectSql);
-        final List<String[]> result =  getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
-        return result;
+        return getDiaperChangeDao().queryRaw(rawSelectSql).getResults();
 
     }
 
