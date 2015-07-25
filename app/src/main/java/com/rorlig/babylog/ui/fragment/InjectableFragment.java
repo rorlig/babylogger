@@ -81,10 +81,10 @@ public class InjectableFragment extends Fragment {
 
             case R.id.action_settings:
                 startActivity(new Intent(getActivity(), PrefsActivity.class));
-                break;
+                return true;
             case R.id.action_licenses:
                 startActivity(new Intent(getActivity(), LicenseActivity.class));
-                break;
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

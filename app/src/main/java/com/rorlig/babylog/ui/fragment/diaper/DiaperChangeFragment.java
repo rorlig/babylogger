@@ -337,7 +337,7 @@ public class DiaperChangeFragment extends InjectableFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override

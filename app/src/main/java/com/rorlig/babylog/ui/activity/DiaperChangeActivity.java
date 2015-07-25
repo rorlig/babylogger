@@ -112,21 +112,8 @@ public class DiaperChangeActivity extends InjectableActivity {
 
 
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Pass the event to ActionBarDrawerToggle, if it returns
-//        // true, then it has handled the app icon touch event
 //
-//        switch (item.getItemId()){
-//            case R.id.action_licenses:
-//                break;
-//
-//
-//        }
-//        // Handle your other action bar items...
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+
 
     /*
      * Class to swap fragments in and out
@@ -245,6 +232,12 @@ public class DiaperChangeActivity extends InjectableActivity {
             case android.R.id.home:
                 onBackPressed();
 //                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.action_settings:
+                startActivity(new Intent(this, PrefsActivity.class));
+                return true;
+            case R.id.action_export:
+                startActivity(new Intent(this, ExportActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -114,8 +114,7 @@ public class GrowthActivity extends InjectableActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_licenses:
-                break;
+
 
 
         }
