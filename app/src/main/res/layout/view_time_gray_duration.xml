@@ -20,7 +20,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/hourdivider"
+            android:id="@+id/hour_divider"
             android:layout_marginLeft="3dp"
             android:text="Hours"
             android:textSize="18sp"
@@ -34,7 +34,7 @@
             android:layout_marginLeft="3dp"
             android:text="00"
             android:textSize="18sp"
-            android:layout_toRightOf="@+id/hourdivider"
+            android:layout_toRightOf="@+id/hour_divider"
 
             />
 

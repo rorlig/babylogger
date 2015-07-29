@@ -4,6 +4,10 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +32,8 @@ import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.datetime.CustomTimePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
 import com.squareup.otto.Subscribe;
+
+import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -60,18 +66,20 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     TextView dateStartHourTextView;
 
+    TextView dateStartHourDivider;
+
 
     TextView dateStartMinuteTextView;
 
-    TextView dateStartSecondTextView;
 
 
     TextView durationHourTextView;
 
 
     TextView durationMinuteTextView;
+    TextView durationHourDivider;
 
-    TextView dateEndSecondTextView;
+    TextView durationMinuteDivider;
 
     private EventListener eventListener = new EventListener();
     private String START_HOUR = "start_hour";
@@ -94,9 +102,13 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
         dateStartHourTextView = (TextView) dateRangeStart.findViewById(R.id.hour);
         dateStartMinuteTextView = (TextView) dateRangeStart.findViewById(R.id.minute);
+        dateStartHourDivider = (TextView) dateRangeStart.findViewById(R.id.hour_divider);
 
         durationHourTextView = (TextView) sleepDurationLayout.findViewById(R.id.hour);
         durationMinuteTextView = (TextView) sleepDurationLayout.findViewById(R.id.minute);
+
+        durationHourDivider = (TextView) sleepDurationLayout.findViewById(R.id.hour_divider);
+        durationMinuteDivider = (TextView) sleepDurationLayout.findViewById(R.id.minute_divider);
 
         if (paramBundle!=null) {
             dateStartHourTextView.setText(paramBundle.getString(START_HOUR));
@@ -107,9 +119,31 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
             init();
         }
 
+        dateStartHourTextView.setText(getSpannable(dateStartHourTextView.getText().toString()));
+        dateStartMinuteTextView.setText(getSpannable(dateStartMinuteTextView.getText().toString()));
+        dateStartHourDivider.setText(getSpannable(dateStartHourDivider.getText().toString()));
+        durationHourTextView.setText(getSpannable(durationHourTextView.getText().toString()));
+        durationMinuteTextView.setText(getSpannable(durationMinuteTextView.getText().toString()));
+        durationHourDivider.setText(getSpannable(durationHourDivider.getText().toString()));
+        durationMinuteDivider.setText(getSpannable(durationMinuteDivider.getText().toString()));
 
     }
 
+
+    private Spannable getSpannable(CharSequence charSequence) {
+        ClickableSpan cs = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+
+            }
+        };
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(getActivity().getResources().getColor(R.color.primary_gray));
+       Spannable spannable =  Spannable.Factory.getInstance().newSpannable(charSequence);
+       spannable.setSpan(cs, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+       spannable.setSpan(foregroundColorSpan, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return spannable;
+    }
 
 
     @OnClick(R.id.sleep_start_time)

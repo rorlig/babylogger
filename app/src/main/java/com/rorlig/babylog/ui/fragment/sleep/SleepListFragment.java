@@ -36,6 +36,7 @@ import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
+import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -83,6 +84,7 @@ public class SleepListFragment extends InjectableFragment
     @InjectView(R.id.errorText)
     TextView errorText;
 
+
 //    @InjectView(R.id.diaper_bar_chart)
 //    BarChart barChart;
 
@@ -113,15 +115,6 @@ public class SleepListFragment extends InjectableFragment
 
         scopedBus.post(new AddItemEvent(AddItemTypes.SLEEP_LOG));
     }
-//
-//    @OnClick(R.id.add_diaper_item)
-//    public void onDiaperChangeBtnClicked(){
-////        scopedBus.post(new AddDiaperChangeEvent());
-//        Log.d(TAG, "add diaper item clicked");
-//        scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
-//    }
-
-//    Typeface typeface;
 
     private String TAG = "SleepListFragment";
 
@@ -294,56 +287,6 @@ public class SleepListFragment extends InjectableFragment
 
     }
 
-//    @Override
-//    public void onLoadFinished(Loader<List<DiaperChangeDao>> listLoader, List<DiaperChangeDao> diaperChangeDaoList) {
-//        Log.d(TAG, "number of diaper changes " + diaperChangeDaoList.size());
-//        Log.d(TAG, "loader finished");
-//
-//        if (diaperChangeDaoList.size()>0) {
-//            emptyView.setVisibility(View.GONE);
-////            barChart.setVisibility(View.VISIBLE);
-//
-//            sleepListView.setVisibility(View.VISIBLE);
-//        } else {
-//            emptyView.setVisibility(View.VISIBLE);
-//            sleepListView.setVisibility(View.GONE);
-////            barChart.setVisibility(View.GONE);
-//
-//        }
-//        sleepList = diaperChangeDaoList;
-//
-//        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, sleepList);
-//
-////        diaperChangeAdapter.update(diaperChangeDaoList);
-//
-//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-//                diaperChangeAdapter, R.layout.section_header, R.id.title,
-//                new DateSectionizer());
-//
-//        sleepListView.setAdapter(sectionAdapter);
-//        //        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeDaoList);
-////        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
-////                diaperChangeAdapter, R.layout.section_header, R.id.title,
-////                new DiaperChangeSectionizer());
-////        sleepListView.setAdapter(diaperChangeAdapter);
-////        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
-////                diaperChangeAdapter, R.layout.section_header, R.id.title,
-////                new DiaperChangeSectionizer());
-////        sleepListView.setAdapter(diaperChangeAdapter);
-//
-////        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, sleepList);
-////        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
-////                diaperChangeAdapter, R.layout.section_header, R.id.title,
-////                new DiaperChangeSectionizer());
-////        sleepListView.setAdapter(sectionAdapter);
-////        sleepListView.setOnItemClickListener(this);
-//    }
-//
-//
-//    @Override
-//    public void onLoaderReset(Loader<List<DiaperChangeDao>> listLoader) {
-//
-//    }
 
 
     private String getDateRangeForWeek(int weekNumber){
@@ -369,9 +312,6 @@ public class SleepListFragment extends InjectableFragment
         public void onSleepEventCreated(SleepLogCreated event) {
             Log.d(TAG, "onSleepEventCreated");
             getLoaderManager().restartLoader(LOADER_ID, null, SleepListFragment.this);
-
-
-//            finish();
         }
 
 

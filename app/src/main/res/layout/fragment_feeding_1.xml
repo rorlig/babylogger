@@ -150,7 +150,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/hourdivider"
+            android:id="@+id/hour_divider"
             android:text=":"
             android:textSize="70sp"
             android:layout_toRightOf="@+id/hour"
@@ -161,7 +161,7 @@
             android:id="@+id/minute"
             android:text="00"
             android:textSize="70sp"
-            android:layout_toRightOf="@+id/hourdivider"
+            android:layout_toRightOf="@+id/hour_divider"
 
             />
         <TextView
