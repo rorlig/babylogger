@@ -6,7 +6,7 @@
     >
 
 
-
+    <!-- todo make them spannable -->
         <TextView
             android:textColor="@color/primary_gray_dark"
             android:layout_width="wrap_content"

@@ -192,7 +192,7 @@ public class SleepActivity extends InjectableActivity {
         public void onSleepEventCreated(SleepLogCreated event) {
             Log.d(TAG, "onSleepEventCreated");
 //            showFragment(SleepListFragment.class, "sleep_list_fragment", false);
-            getSupportFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStackImmediate();
 //            finish();
         }
 
@@ -200,7 +200,6 @@ public class SleepActivity extends InjectableActivity {
         public void onAddItemEvent(AddItemEvent event){
             showFragment(SleepFragment.class, "sleep_fragment", true);
         }
-
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent event) {
             showFragment(SleepStatsFragment.class, "stats_fragment", true);

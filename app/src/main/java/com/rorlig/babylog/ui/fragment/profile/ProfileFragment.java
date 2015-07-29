@@ -301,6 +301,7 @@ public class ProfileFragment extends InjectableFragment {
     /*
     * Register to events...
     */
+    @Override
     public void onStart(){
         super.onStart();
         scopedBus.register(eventListener);
@@ -308,9 +309,12 @@ public class ProfileFragment extends InjectableFragment {
         Log.d(TAG, "onStart");
         String imageString = preferences.getString("imageUri", "");
         Log.d(TAG, " imageUri " + imageString);
-        Uri imageUri = Uri.parse(imageString);
 
-        babyPicImageView.setImageURI(imageUri);
+        if (!imageString.equals("")){
+            Uri imageUri = Uri.parse(imageString);
+            babyPicImageView.setImageURI(imageUri);
+        }
+
 
 
 //        if (imageUri!=null && !imageUri.toString().equals("")) {

@@ -264,7 +264,7 @@ public class SleepListFragment extends InjectableFragment
 
         Log.d(TAG, "loader finished");
 
-        if (sleepList.size()>0) {
+        if (data.size()>0) {
             emptyView.setVisibility(View.GONE);
 //            barChart.setVisibility(View.VISIBLE);
 
