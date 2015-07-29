@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.android.camera.CropImageIntentBuilder;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.CroppedImageEvent;
 import com.rorlig.babylog.otto.events.camera.CameraStartEvent;
 import com.rorlig.babylog.otto.events.camera.PictureSelectEvent;
 import com.rorlig.babylog.otto.events.profile.SavedProfileEvent;
@@ -183,6 +184,7 @@ public class ProfileActivity extends InjectableActivity {
 
         @Subscribe
         public void onSaveProfileEvent(SavedProfileEvent event) {
+
             finish();
         }
 
@@ -213,91 +215,99 @@ public class ProfileActivity extends InjectableActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode  + " data " + data );
-        //Request was successful
-        if (resultCode == RESULT_OK) {
-//                mBus.post(new ShareRequestEvent(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA));
 
-            switch (requestCode) {
+       super.onActivityResult(requestCode, resultCode, data);
 
-                case AppUtils.RESULT_LOAD_IMAGE:
-                    imagePicked(data);
-
-                    break;
-                case AppUtils.RESULT_CAMERA_IMAGE_CAPTURE:
-                    cameraImageCaptured(data);
-                    break;
-                case RESULT_CROP_IMAGE:
-                    Log.d(TAG, "croppedImage URI " + croppedImage);
-                    imageUri = croppedImage;
-                    preferences.edit().putString("imageUri", imageUri.toString()).apply();
-                    break;
-            }
-        }
+//        Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode + " data " + data);
+//        //Request was successful
+//        if (resultCode == RESULT_OK) {
+////                mBus.post(new ShareRequestEvent(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA));
+//
+//            switch (requestCode) {
+//
+//                case AppUtils.RESULT_LOAD_IMAGE:
+//                    imagePicked(data);
+//
+//                    break;
+//                case AppUtils.RESULT_CAMERA_IMAGE_CAPTURE:
+//                    cameraImageCaptured(data);
+//                    break;
+//                case RESULT_CROP_IMAGE:
+//                    Log.d(TAG, "croppedImage URI " + croppedImage);
+//                    imageUri = croppedImage;
+//                    preferences.edit().putString("imageUri", imageUri.toString()).apply();
+//                    scopedBus.post(new CroppedImageEvent(imageUri.toString()));
+//                    break;
+//                default:
+//                    super.onActivityResult(requestCode, resultCode, data);
+//                    break;
+//            }
+//        }
     }
 
 
-    private void cameraImageCaptured(Intent data) {
-
-        Log.d(TAG, "cameraImageCaptured : " + data.getData());
-
-        Uri returnedUri;
-
-        if(data != null) {
-            returnedUri = data.getData();
-
-            if(returnedUri != null) {
-                imageUri = returnedUri;
-
-            }
-        }
-
-        Log.d(TAG, "imageUri " + imageUri);
-        preferences.edit().putString("imageUri", imageUri.toString()).apply();
-
-        scopedBus.post(new PictureSelectEvent(imageUri));
-    }
-
-
-    private void imagePicked(Intent data) {
-        Log.d(TAG, "imagePicked");
-//            InCallAnalyticsData.getInstance().trackAnalyticsData(AnalyticsStatEvent.UIActionShare.SHARE_GALLERY);
-        if(data != null) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = null;
-            try {
-                if(selectedImage != null)
-                    cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                if(cursor != null)
-                    cursor.moveToFirst();
-
-
-
-                Log.d(TAG, "selectedImage " + selectedImage);
-
-                croppedImageFile = new File(getFilesDir(), "test_" + System.currentTimeMillis() + "_.jpg");
-
-                croppedImage = Uri.fromFile(croppedImageFile);
-
-                CropImageIntentBuilder cropImage = new CropImageIntentBuilder(200, 200, croppedImage);
-                cropImage.setOutlineColor(0xFF03A9F4);
-                cropImage.setSourceImage(selectedImage);
-
-                Log.d(TAG, "cropping image");
-                startActivityForResult(cropImage.getIntent(this), RESULT_CROP_IMAGE);
-
-
-//                imageUri = selectedImage;
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
-            finally {
-                if(cursor != null)
-                    cursor.close();
-            }
-        }
-    }
+//    private void cameraImageCaptured(Intent data) {
+//
+//        Log.d(TAG, "cameraImageCaptured : " + data.getData());
+//
+//        Uri returnedUri;
+//
+//        if(data != null) {
+//            returnedUri = data.getData();
+//
+//            if(returnedUri != null) {
+//                imageUri = returnedUri;
+//
+//            }
+//        }
+//
+//        Log.d(TAG, "imageUri " + imageUri);
+//        preferences.edit().putString("imageUri", imageUri.toString()).apply();
+//
+//        scopedBus.post(new PictureSelectEvent(imageUri));
+//    }
+//
+//
+//    private void imagePicked(Intent data) {
+//        Log.d(TAG, "imagePicked");
+////            InCallAnalyticsData.getInstance().trackAnalyticsData(AnalyticsStatEvent.UIActionShare.SHARE_GALLERY);
+//        if(data != null) {
+//            Uri selectedImage = data.getData();
+//            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//            Cursor cursor = null;
+//            try {
+//                if(selectedImage != null)
+//                    cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+//                if(cursor != null)
+//                    cursor.moveToFirst();
+//
+//
+//
+//                Log.d(TAG, "selectedImage " + selectedImage);
+//
+//                croppedImageFile = new File(getFilesDir(), "test_" + System.currentTimeMillis() + "_.jpg");
+//
+//                croppedImage = Uri.fromFile(croppedImageFile);
+//
+//                CropImageIntentBuilder cropImage = new CropImageIntentBuilder(200, 200, croppedImage);
+//                cropImage.setOutlineColor(0xFF03A9F4);
+//                cropImage.setSourceImage(selectedImage);
+//
+//                Log.d(TAG, "cropping image");
+//                startActivityForResult(cropImage.getIntent(this), RESULT_CROP_IMAGE);
+//
+//
+////                imageUri = selectedImage;
+//            }
+//            catch(Exception e) {
+//                e.printStackTrace();
+//            }
+//            finally {
+//                if(cursor != null)
+//                    cursor.close();
+//            }
+//        }
+//    }
 
 
 

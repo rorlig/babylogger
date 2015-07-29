@@ -1,9 +1,13 @@
 package com.rorlig.babylog.ui.fragment.profile;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -11,19 +15,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.android.camera.CropImageIntentBuilder;
+import com.desmond.squarecamera.CameraActivity;
 import com.gc.materialdesign.views.Button;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
+import com.rorlig.babylog.otto.CroppedImageEvent;
+import com.rorlig.babylog.otto.GalleryEvent;
 import com.rorlig.babylog.otto.events.camera.CameraStartEvent;
 import com.rorlig.babylog.otto.events.camera.PictureSelectEvent;
 import com.rorlig.babylog.otto.events.profile.SavedProfileEvent;
 import com.rorlig.babylog.otto.events.profile.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+import com.rorlig.babylog.utils.AppUtils;
+import com.rorlig.babylog.utils.transform.BlurTransformation;
+import com.rorlig.babylog.utils.transform.CircleTransform;
+import com.rorlig.babylog.utils.transform.CropTransform;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
@@ -42,6 +55,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * fragment for baby ic_profile.
  */
 public class ProfileFragment extends InjectableFragment {
+
+    private static final int RESULT_CROP_IMAGE = 3;
+
 
     @ForActivity
     @Inject
@@ -67,7 +83,7 @@ public class ProfileFragment extends InjectableFragment {
     DatePicker datePickerBirthday;
 
     @InjectView(R.id.baby_pic)
-    CircleImageView babyPicImageView;
+    ImageView babyPicImageView;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
@@ -179,6 +195,17 @@ public class ProfileFragment extends InjectableFragment {
 
         }
 
+        String imageString = preferences.getString("imageUri", "");
+        Log.d(TAG, " imageUri " + imageString);
+//
+        if (!imageString.equals("")){
+            Uri imageUri = Uri.parse(imageString);
+            picasso.load(imageUri)
+                    .fit()
+                    .transform(new CircleTransform())
+                    .into(babyPicImageView);
+        }
+
 //        String imageStr = preferences.getString("imageUri","");
 //        if (!imageStr.equals("")){
 //            Uri imageUri = Uri.parse(imageStr);
@@ -188,7 +215,7 @@ public class ProfileFragment extends InjectableFragment {
 //        }
 
 
-        scopedBus.register(eventListener);
+//        scopedBus.register(eventListener);
 
         //todo dob...
 
@@ -224,11 +251,74 @@ public class ProfileFragment extends InjectableFragment {
 
         @Subscribe
         public void onCameraEvent(CameraStartEvent event) {
-            Log.d(TAG, "onCameraEvent " + event.getImageUri());
 
-            imageUri = event.getImageUri();
+            Log.d(TAG, "onCameraEvent");
+            long callTime = System.currentTimeMillis();
+            String dir = AppUtils.getCameraDirectory();
+            File file = new File(dir, callTime + ".jpg");
+            Uri imageUri = Uri.fromFile(file);
+            Log.d(TAG, "imageUri " + imageUri);
+//            scopedBus.post(new CameraStartEvent(imageUri));
+            Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
+            startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//            dismiss();
+           startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
+
+//            imageUri = event.getImageUri();
+//            babyPicImageView.setImageURI(event.getImageUri());
+
+        }
+
+        @Subscribe
+        public void onCroppedImageEvent(CroppedImageEvent event) {
+            Log.d(TAG, "onCroppedImageEvent " + event.getImageUri());
+        }
+
+        @Subscribe
+        public void onGalleryEvent(GalleryEvent event) {
+            Log.d(TAG, "onGalleryEvent");
+
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            startActivityForResult(intent, AppUtils.RESULT_LOAD_IMAGE);
         }
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode  + " data " + data );
+        //Request was successful
+        if (resultCode == Activity.RESULT_OK) {
+//                mBus.post(new ShareRequestEvent(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA));
+
+            switch (requestCode) {
+
+                case AppUtils.RESULT_LOAD_IMAGE:
+                    imagePicked(data);
+
+                    break;
+                case AppUtils.RESULT_CAMERA_IMAGE_CAPTURE:
+                    cameraImageCaptured(data);
+                    break;
+                case RESULT_CROP_IMAGE:
+                    Log.d(TAG, "croppedImage URI " + croppedImage);
+//                    imageUri = croppedImage;
+                    updateImageUri(croppedImage.toString());
+//                    preferences.edit().putString("imageUri", imageUri.toString()).apply();
+//                    scopedBus.post(new CroppedImageEvent(imageUri.toString()));
+                    break;
+                default:
+                    super.onActivityResult(requestCode, resultCode, data);
+                    break;
+            }
+        }
+    }
+
 
     @OnClick(R.id.baby_pic)
     public void setBabyPicImageViewClicked(){
@@ -277,6 +367,7 @@ public class ProfileFragment extends InjectableFragment {
 //        }
 
             preferences.edit().putString("dob", dob).apply();
+            saveImageUri(imageUri);
             scopedBus.post(new SavedProfileEvent());
 
 
@@ -307,13 +398,7 @@ public class ProfileFragment extends InjectableFragment {
         scopedBus.register(eventListener);
 
         Log.d(TAG, "onStart");
-        String imageString = preferences.getString("imageUri", "");
-        Log.d(TAG, " imageUri " + imageString);
 
-        if (!imageString.equals("")){
-            Uri imageUri = Uri.parse(imageString);
-            babyPicImageView.setImageURI(imageUri);
-        }
 
 
 
@@ -346,5 +431,92 @@ public class ProfileFragment extends InjectableFragment {
 
     }
 
+
+    private void cameraImageCaptured(Intent data) {
+
+        Log.d(TAG, "cameraImageCaptured : " + data.getData());
+
+        Uri returnedUri;
+
+        if(data != null) {
+            returnedUri = data.getData();
+
+            if(returnedUri != null) {
+                imageUri = returnedUri;
+
+            }
+        }
+
+        Log.d(TAG, "imageUri " + imageUri);
+
+        updateImageUri(imageUri.toString());
+
+//        preferences.edit().putString("imageUri", imageUri.toString()).apply();
+//
+//        scopedBus.post(new PictureSelectEvent(imageUri));
+    }
+
+
+    private void imagePicked(Intent data) {
+        Log.d(TAG, "imagePicked");
+//            InCallAnalyticsData.getInstance().trackAnalyticsData(AnalyticsStatEvent.UIActionShare.SHARE_GALLERY);
+        if(data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = null;
+            try {
+                if(selectedImage != null)
+                    cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                if(cursor != null)
+                    cursor.moveToFirst();
+
+
+
+                Log.d(TAG, "selectedImage " + selectedImage);
+
+                croppedImageFile = new File(getActivity().getFilesDir(), "test_" + System.currentTimeMillis() + "_.jpg");
+
+                croppedImage = Uri.fromFile(croppedImageFile);
+
+                CropImageIntentBuilder cropImage = new CropImageIntentBuilder(200, 200, croppedImage);
+                cropImage.setOutlineColor(0xFF03A9F4);
+                cropImage.setSourceImage(selectedImage);
+
+                Log.d(TAG, "cropping image");
+                startActivityForResult(cropImage.getIntent(getActivity()), RESULT_CROP_IMAGE);
+
+
+//                imageUri = selectedImage;
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            finally {
+                if(cursor != null)
+                    cursor.close();
+            }
+        }
+    }
+
+    private void updateImageUri(String imageString){
+        Log.d(TAG, "updateImageUri " + imageString);
+        if (!imageString.equals("")){
+
+            imageUri = Uri.parse(imageString);
+            Log.d(TAG, "update the image " + imageUri.toString());
+//            babyPicImageView.set
+            picasso.load(imageUri)
+                    .fit()
+                    .transform(new CircleTransform())
+                            .into(babyPicImageView);
+//            babyPicImageView.setImageURI(null);
+//            babyPicImageView.setImageURI(imageUri);
+        }
+    }
+
+
+    private void saveImageUri(Uri imageUri) {
+        preferences.edit().putString("imageUri", imageUri.toString()).apply();
+    }
 
 }

@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +41,7 @@ import com.rorlig.babylog.ui.adapter.ExportItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babylog.ui.fragment.milestones.Milestones;
+import com.rorlig.babylog.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.io.File;
@@ -158,6 +163,15 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 itemModelArrayList.add(new ItemModel(item, false));
             }
         }
+
+
+
+        dateStartDayTextView.setText(AppUtils.getSpannable(dateStartDayTextView.getText().toString(), getResources().getColor(R.color.primary_blue)));
+        dateStartMonthTextView.setText(AppUtils.getSpannable(dateStartMonthTextView.getText().toString(), getResources().getColor(R.color.primary_blue)));
+        dateStartYearTextView.setText(AppUtils.getSpannable(dateStartYearTextView.getText().toString(), getResources().getColor(R.color.primary_blue)));
+        dateEndDayTextView.setText(AppUtils.getSpannable(dateEndDayTextView.getText().toString(), getResources().getColor(R.color.primary_blue)));
+        dateEndMonthTextView.setText(AppUtils.getSpannable(dateEndMonthTextView.getText().toString(), getResources().getColor(R.color.primary_blue)));
+        dateEndYearTextView.setText(AppUtils.getSpannable(dateEndYearTextView.getText().toString(), getResources().getColor(R.color.primary_blue)));
 
 
 
@@ -574,6 +588,10 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         return uri;
 
     }
+
+
+
+
 
 
     /*

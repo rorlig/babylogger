@@ -1,6 +1,11 @@
 package com.rorlig.babylog.utils;
 
 import android.os.Environment;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.view.View;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,5 +54,22 @@ public class AppUtils {
 
         return dirPath;
     }
+
+
+    public static Spannable getSpannable(CharSequence charSequence, int color) {
+        ClickableSpan cs = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+
+            }
+        };
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(color);
+        Spannable spannable =  Spannable.Factory.getInstance().newSpannable(charSequence);
+        spannable.setSpan(cs, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(foregroundColorSpan, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return spannable;
+    }
+
 
 }

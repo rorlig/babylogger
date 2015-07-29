@@ -31,9 +31,8 @@ import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.datetime.CustomTimePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
+import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
 import com.squareup.otto.Subscribe;
-
-import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -91,6 +90,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
+    private DateTimeHeaderFragment dateTimeHeader;
 
 
     @Override
@@ -122,11 +122,15 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
         dateStartHourTextView.setText(getSpannable(dateStartHourTextView.getText().toString()));
         dateStartMinuteTextView.setText(getSpannable(dateStartMinuteTextView.getText().toString()));
         dateStartHourDivider.setText(getSpannable(dateStartHourDivider.getText().toString()));
+
         durationHourTextView.setText(getSpannable(durationHourTextView.getText().toString()));
         durationMinuteTextView.setText(getSpannable(durationMinuteTextView.getText().toString()));
         durationHourDivider.setText(getSpannable(durationHourDivider.getText().toString()));
         durationMinuteDivider.setText(getSpannable(durationMinuteDivider.getText().toString()));
 
+
+//        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+//        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GRAY);
     }
 
 

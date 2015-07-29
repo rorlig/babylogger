@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +43,7 @@ import butterknife.OnClick;
  */
 public class DateTimeHeaderFragment extends InjectableFragment {
     public enum DateTimeColor {
-        GREEN, BLUE, PURPLE
+        GREEN, BLUE, GRAY, PURPLE
     }
 
 
@@ -60,38 +64,6 @@ public class DateTimeHeaderFragment extends InjectableFragment {
 
 
 
-//    public DateTimeHeader(Context context) {
-//        super(context);
-//
-//        LayoutInflater inflater = (LayoutInflater) context
-//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View v = inflater.inflate(R.layout.header_date_time, this, true);
-//
-//        currentDate = (TextView) v.findViewById(R.id.currentDate);
-//
-//        currentTime  = (TextView) v.findViewById(R.id.currentTime);
-//
-//        Time today = new Time(Time.getCurrentTimezone());
-//        today.setToNow();
-//        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy");
-//        currentDate.setText(sdf.format(new Date()));
-//        sdf = new SimpleDateFormat("hh:mm aa");
-//        currentTime.setText(sdf.format(new Date()));
-//
-////        currentDate.setOnClickListener(new OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////
-////                showDatePickerDialog();
-////
-////            }
-////        });
-//    }
-//
-//    public void showDatePickerDialog() {
-//        DialogFragment newFragment = new DatePickerFragment();
-//        newFragment.show(getFragmentManager(), "datepicker");
-//    }
 
 
     @Override
@@ -110,8 +82,10 @@ public class DateTimeHeaderFragment extends InjectableFragment {
         int my_integer = a.getColor(R.styleable.DateTimeHeaderFragment_my_int, -1);
         Log.d(TAG, "My Integer " + my_integer);
         Log.d(TAG, " color choosen " + color);
-        currentDate.setTextColor(color);
-        currentTime.setTextColor(color);
+
+
+//        currentDate.setTextColor(color);
+//        currentTime.setTextColor(color);
 
         a.recycle();
 
@@ -120,6 +94,21 @@ public class DateTimeHeaderFragment extends InjectableFragment {
 //        currentTime.setText(today.hour + ":" + today.minute + ":" + today.second);
     }
 
+
+    private Spannable getSpannable(CharSequence charSequence, int color) {
+        ClickableSpan cs = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+
+            }
+        };
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(color);
+        Spannable spannable =  Spannable.Factory.getInstance().newSpannable(charSequence);
+        spannable.setSpan(cs, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(foregroundColorSpan, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return spannable;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -199,23 +188,26 @@ public class DateTimeHeaderFragment extends InjectableFragment {
 
     public void setColor(DateTimeColor color) {
 //        Log.d(TAG, " color " + Integer.toString(color, 16));
+        int dateTimeColor = 0;
         switch (color) {
             case GREEN:
-                currentDate.setTextColor(getResources().getColor(R.color.primary_green));
-                currentTime.setTextColor(getResources().getColor(R.color.primary_green));
+                dateTimeColor = getResources().getColor(R.color.primary_green);
             break;
             case BLUE:
-                currentDate.setTextColor(getResources().getColor(R.color.primary_blue));
-                currentTime.setTextColor(getResources().getColor(R.color.primary_blue));
+                dateTimeColor = getResources().getColor(R.color.primary_blue);
                 break;
-
             case PURPLE:
-                currentDate.setTextColor(getResources().getColor(R.color.primary_purple));
-                currentTime.setTextColor(getResources().getColor(R.color.primary_purple));
+                dateTimeColor = getResources().getColor(R.color.primary_purple);
+                break;
+            case GRAY:
+                dateTimeColor = getResources().getColor(R.color.primary_gray_dark);
                 break;
 
 
         }
+
+        currentDate.setText(getSpannable(currentDate.getText().toString(), dateTimeColor));
+        currentTime.setText(getSpannable(currentTime.getText().toString(), dateTimeColor));
 
     }
 
@@ -278,14 +270,6 @@ public class DateTimeHeaderFragment extends InjectableFragment {
         super.onInflate(activity, attrs, savedInstanceState);
         Log.v(TAG,"onInflate called " + getParentFragment());
 
-//        TypedArray a = getParentFragment().onobtainStyledAttributes(attrs, R.styleable.DateTimeHeaderFragment);
-
-//        int color = a.getColor(R.styleable.DateTimeHeaderFragment_color_text, getResources().getColor(R.color.text_color_main));
-////        Log.d(TAG)
-//        currentDate.setTextColor(color);
-//        currentTime.setTextColor(color);
-//
-//        a.recycle();
     }
 
 }

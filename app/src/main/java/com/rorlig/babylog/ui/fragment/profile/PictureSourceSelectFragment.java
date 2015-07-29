@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.desmond.squarecamera.CameraActivity;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.GalleryEvent;
 import com.rorlig.babylog.otto.events.camera.CameraStartEvent;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.utils.AppUtils;
@@ -67,16 +68,17 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     @OnClick(R.id.camera)
     public void onCameraClick() {
         Log.d(TAG, "onCameraClick");
-        long callTime = System.currentTimeMillis();
-        String dir = AppUtils.getCameraDirectory();
-        File file = new File(dir, callTime + ".jpg");
-        Uri imageUri = Uri.fromFile(file);
-        Log.d(TAG, "imageUri " + imageUri);
-        scopedBus.post(new CameraStartEvent(imageUri));
-        Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
-        startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//        long callTime = System.currentTimeMillis();
+//        String dir = AppUtils.getCameraDirectory();
+//        File file = new File(dir, callTime + ".jpg");
+//        Uri imageUri = Uri.fromFile(file);
+//        Log.d(TAG, "imageUri " + imageUri);
+        scopedBus.post(new CameraStartEvent());
         dismiss();
-        getActivity().startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
+//        Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
+//        startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//        dismiss();
+//        getActivity().startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
     }
 
     /*
@@ -85,11 +87,9 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     @OnClick(R.id.gallery)
     public void onGalleryClick() {
 
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        scopedBus.post(new GalleryEvent());
         dismiss();
 
-        getActivity().startActivityForResult(intent, AppUtils.RESULT_LOAD_IMAGE);
+
     }
 }
