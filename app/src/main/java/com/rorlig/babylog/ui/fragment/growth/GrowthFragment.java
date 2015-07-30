@@ -304,12 +304,19 @@ public class GrowthFragment extends InjectableFragment {
         String weight = weightEditText.getText().toString();
 
 
-        Integer weightPounds = Integer.parseInt(weight.substring(0,2));
 
 
-        Integer weightOunces = Integer.parseInt(weight.substring(3));
+        Integer weightPounds = Integer.parseInt(weight.substring(0, weight.indexOf(".")));
 
-        Double totalWeight = weightOunces.doubleValue()/16 + weightPounds;
+        Double totalWeight =  weightPounds.doubleValue();
+
+
+        if (weight.length()>3) {
+            Integer weightOunces = Integer.parseInt(weight.substring(3));
+            totalWeight+=weightOunces.doubleValue()/16;
+        }
+
+
 
         Double height  = Double.parseDouble(heightInchesEditText.getText().toString());
 
