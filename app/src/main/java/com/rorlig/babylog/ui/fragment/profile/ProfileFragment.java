@@ -546,6 +546,7 @@ public class ProfileFragment extends InjectableFragment {
 
 
     private void saveImageUri(Uri imageUri) {
+        if (imageUri!=null)
         preferences.edit().putString("imageUri", imageUri.toString()).apply();
     }
 

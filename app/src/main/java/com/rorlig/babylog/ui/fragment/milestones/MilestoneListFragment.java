@@ -243,12 +243,12 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         @Subscribe
         public void onMileStoneSaved(MilestoneSaveEvent event){
-            Calendar c = Calendar.getInstance();
-            c.set(Calendar.YEAR, event.getYear());
-            c.set(Calendar.MONTH, event.getMonth()-1);
-            c.set(Calendar.DATE, event.getDay());
-//            Date date = new Date(event.getYear(), event.getMonth()-1, event.getDay());
-            setCompleted(event.getPosition(), c.getTime(), true);
+//            Calendar c = Calendar.getInstance();
+//            c.set(Calendar.YEAR, event.getYear());
+//            c.set(Calendar.MONTH, event.getMonth()-1);
+//            c.set(Calendar.DATE, event.getDay());
+            Date date = new Date(event.getYear(), event.getMonth()-1, event.getDay());
+            setCompleted(event.getPosition(), date, true);
         }
 
 
