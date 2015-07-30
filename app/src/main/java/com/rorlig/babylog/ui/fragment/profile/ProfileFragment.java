@@ -251,18 +251,19 @@ public class ProfileFragment extends InjectableFragment {
 
         @Subscribe
         public void onCameraEvent(CameraStartEvent event) {
-
-            Log.d(TAG, "onCameraEvent");
-            long callTime = System.currentTimeMillis();
-            String dir = AppUtils.getCameraDirectory();
-            File file = new File(dir, callTime + ".jpg");
-            Uri imageUri = Uri.fromFile(file);
-            Log.d(TAG, "imageUri " + imageUri);
-//            scopedBus.post(new CameraStartEvent(imageUri));
-            Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
-            startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//            dismiss();
-           startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
+            handleCameraEvent();
+//            Log.d(TAG, "onCameraEvent");
+//            long callTime = System.currentTimeMillis();
+//            String dir = AppUtils.getCameraDirectory();
+//            File file = new File(dir, callTime + ".jpg");
+//            Uri imageUri = Uri.fromFile(file);
+//            Log.d(TAG, "imageUri " + imageUri);
+////            scopedBus.post(new CameraStartEvent(imageUri));
+//            Log.d(TAG, " getActivity " + getActivity());
+//            Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
+//            startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+////            dismiss();
+//           startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
 
 //            imageUri = event.getImageUri();
 //            babyPicImageView.setImageURI(event.getImageUri());
@@ -276,14 +277,42 @@ public class ProfileFragment extends InjectableFragment {
 
         @Subscribe
         public void onGalleryEvent(GalleryEvent event) {
-            Log.d(TAG, "onGalleryEvent");
-
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-            startActivityForResult(intent, AppUtils.RESULT_LOAD_IMAGE);
+            handleGalleryEvent();
+//            Log.d(TAG, "onGalleryEvent");
+//
+//            Log.d(TAG, " getActivity " + getActivity());
+//
+//
+//            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//
+//            startActivityForResult(intent, AppUtils.RESULT_LOAD_IMAGE);
         }
+    }
+
+    public void handleGalleryEvent() {
+        Log.d(TAG, "onGalleryEvent");
+        Log.d(TAG, " getActivity " + getActivity());
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivityForResult(intent, AppUtils.RESULT_LOAD_IMAGE);
+    }
+
+    public void handleCameraEvent() {
+        Log.d(TAG, "onCameraEvent");
+        long callTime = System.currentTimeMillis();
+        String dir = AppUtils.getCameraDirectory();
+        File file = new File(dir, callTime + ".jpg");
+        Uri imageUri = Uri.fromFile(file);
+        Log.d(TAG, "imageUri " + imageUri);
+//            scopedBus.post(new CameraStartEvent(imageUri));
+        Log.d(TAG, " getActivity " + getActivity());
+        Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
+        startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//            dismiss();
+        startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
     }
 
 
@@ -323,6 +352,7 @@ public class ProfileFragment extends InjectableFragment {
     @OnClick(R.id.baby_pic)
     public void setBabyPicImageViewClicked(){
          pictureSourceSelectFragment = new PictureSourceSelectFragment();
+        pictureSourceSelectFragment.setTargetFragment(this,1);
         pictureSourceSelectFragment.show(getActivity().getSupportFragmentManager(), "picture_select_fragment");
     }
 

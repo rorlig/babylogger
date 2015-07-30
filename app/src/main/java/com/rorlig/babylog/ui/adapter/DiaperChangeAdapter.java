@@ -67,10 +67,12 @@ public class DiaperChangeAdapter extends ArrayAdapter<DiaperChangeDao> {
 
     @Override
     public View getView( final int position, View convertView, ViewGroup parent ) {
+        Log.d(TAG, "position " + position);
         DiaperChangeView view = (DiaperChangeView) convertView;
 //        ViewHolder viewHolder;
 
         if (view == null) {
+            Log.d(TAG, " view is inflated ");
             LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = (DiaperChangeView) inflator.inflate(R.layout.list_item_diaper_change, null);
 //            viewHolder = new ViewHolder(view);
@@ -79,6 +81,8 @@ public class DiaperChangeAdapter extends ArrayAdapter<DiaperChangeDao> {
 //            view = convertView;
 //        }
         final DiaperChangeDao diaperChangeDao = diaperChangeDaoArrayList.get(position);
+
+        Log.d(TAG, diaperChangeDao.toString());
 
         view.setModel(diaperChangeDao);
 //        Log.d(TAG,  event.toString());

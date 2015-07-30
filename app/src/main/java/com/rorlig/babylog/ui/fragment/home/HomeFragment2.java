@@ -12,6 +12,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rorlig.babylog.R;
@@ -27,6 +30,10 @@ import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.activity.SleepActivity;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+import com.rorlig.babylog.utils.transform.BlurTransformation;
+import com.rorlig.babylog.utils.transform.CircleTransform;
+import com.rorlig.babylog.utils.transform.CropTransform;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,12 +50,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class HomeFragment2 extends InjectableFragment {
 
+    @InjectView(R.id.profile_block)
+    ImageView profileImageView;
+
     @InjectView(R.id.baby_name)
     TextView babyNameTextView;
 
 
     @InjectView(R.id.baby_image)
-    CircleImageView babyImageView;
+    ImageView babyImageView;
+
+    @Inject
+    Picasso picasso;
 
 
     private ArrayList<ItemModel> logs;
@@ -96,19 +109,50 @@ public class HomeFragment2 extends InjectableFragment {
 
         }
 
-        String imageUri = preferences.getString("imageUri", "");
-        if (!imageUri.equals("")) {
-            babyImageView.setImageURI(Uri.parse(imageUri));
 
-        }
+
 
     }
+
+
+
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, " onResume");
+        final String imageUri = preferences.getString("imageUri", "");
+
+        Log.d(TAG, "imageUri " + imageUri);
+        profileImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Log.d(TAG, "here");
+                if (!imageUri.equals("")) {
+
+                    //             load background image in nav drawer
+                    Log.d(TAG, "display metrics dpi " + getResources().getDisplayMetrics().density);
+                    float density = getResources().getDisplayMetrics().density + 1;
+                    picasso.load(Uri.parse(imageUri))
+                            .transform(new CropTransform(profileImageView.getWidth()/density, profileImageView.getHeight()/density))
+                            .transform(new BlurTransformation(getActivity()))
+                            .fit()
+                            .into(profileImageView);
+
+                    // load background image in nav drawer
+                    picasso.load(Uri.parse(imageUri))
+                            .transform(new CircleTransform())
+                            .fit()
+                            .into(babyImageView);
+
+
+                }
+
+            }
+
 //        Log.d(TAG, "onResume");
 
+        });
     }
 
 

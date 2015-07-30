@@ -103,7 +103,6 @@ import dagger.Provides;
             DiaperChangeAdapter.class,
             ExportItemAdapter.class,
             DateTimeHeaderFragment.class,
-            HomeFragment.class,
             HomeFragment2.class,
             SleepActivity.class,
             GrowthStatsFragment.class,

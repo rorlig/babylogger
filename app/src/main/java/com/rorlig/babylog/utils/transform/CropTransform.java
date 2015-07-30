@@ -21,10 +21,10 @@ public class CropTransform implements Transformation {
         this.mCropType = CropTransform.CropType.CENTER;
     }
 
-    public CropTransform(int width, int height) {
+    public CropTransform(float width, float height) {
         this();
-        this.mWidth = width;
-        this.mHeight = height;
+        this.mWidth = (int) width;
+        this.mHeight = (int) height;
     }
 
     public CropTransform(int width, int height, CropTransform.CropType cropType) {

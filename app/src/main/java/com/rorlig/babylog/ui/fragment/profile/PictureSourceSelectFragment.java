@@ -5,6 +5,7 @@ import android.graphics.SurfaceTexture;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,7 +74,10 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
 //        File file = new File(dir, callTime + ".jpg");
 //        Uri imageUri = Uri.fromFile(file);
 //        Log.d(TAG, "imageUri " + imageUri);
-        scopedBus.post(new CameraStartEvent());
+        ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
+        profileFragment.handleCameraEvent();
+
+//        scopedBus.post(new CameraStartEvent());
         dismiss();
 //        Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
 //        startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -87,7 +91,10 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     @OnClick(R.id.gallery)
     public void onGalleryClick() {
 
-        scopedBus.post(new GalleryEvent());
+        ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
+        profileFragment.handleGalleryEvent();
+
+//        scopedBus.post(new GalleryEvent());
         dismiss();
 
 

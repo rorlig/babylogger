@@ -10,7 +10,7 @@
 
         tools:context=".MainActivity">
 
-        <RelativeLayout
+        <ImageView
             android:id="@+id/profile_block"
             android:layout_width="fill_parent"
             android:layout_height="160dp"
@@ -18,23 +18,23 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:background="@color/gray_cloud"
-            android:clickable="true">
+            android:clickable="true"/>
 
 
 
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
 
                 android:id="@+id/baby_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerInParent="true"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
                 android:clickable="false"
                 android:contentDescription="@string/profile_image_content_description"
                 android:src="@drawable/btn_radio_boy"
                 android:textColor="@color/primary"
-                app:border_color="#FFFFFFFF"
-                app:border_width="2dp" />
+                 />
 
 
             <TextView
@@ -50,7 +50,7 @@
                 android:visibility="visible" />
 
 
-        </RelativeLayout>
+        <!--</ImageView>-->
 
 
 

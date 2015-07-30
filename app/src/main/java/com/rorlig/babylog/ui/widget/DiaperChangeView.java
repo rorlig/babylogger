@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,6 +54,7 @@ public class DiaperChangeView extends RelativeLayout {
     LinearLayout row2;
 
     private DiaperChangeDao diaperChangeDao;
+    private String TAG = "DiaperChangeView";
 
 
 //    public ViewHolder(View view){
@@ -71,6 +74,8 @@ public class DiaperChangeView extends RelativeLayout {
     }
 
     private void init() {
+//        View v = LayoutInflater.from(context).inflate(R.layout.list_item_diaper_change, this);
+//        initializeViews();
         simpleDateFormat = new SimpleDateFormat("MMM d, ''yy h:mm a");
         simpleDateFormat.setTimeZone(TimeZone.getDefault());
     }
@@ -101,6 +106,17 @@ public class DiaperChangeView extends RelativeLayout {
 
     }
 
+    private void initializeViews() {
+        this.diaperWetChecked = (ImageView) findViewById(R.id.diaperWetChecked);
+        this.diaperPoopChecked = (ImageView) findViewById(R.id.diaperPoopChecked);
+        this.textViewTime = (TextView) findViewById(R.id.diaperChangeTime);
+        this.poopColor = (ImageView) findViewById(R.id.poopColor);
+        this.textViewPoopTexture = (TextView) findViewById(R.id.poopTexture);
+        this.notesContent = (TextView) findViewById(R.id.notes_content);
+        this.incidentDetails = (TextView) findViewById(R.id.incidentDetails);
+        this.row2 = (LinearLayout) findViewById(R.id.row2);
+    }
+
 
     public void setModel(DiaperChangeDao diaperChangeDao) {
         this.diaperChangeDao = diaperChangeDao;
@@ -108,7 +124,7 @@ public class DiaperChangeView extends RelativeLayout {
     }
 
     private void bindModel() {
-
+        Log.d(TAG, diaperChangeDao.toString());
         textViewTime.setText(simpleDateFormat.format(new Date(diaperChangeDao.getDate().getTime())));
         setPoopColor();
         setPoopTexture();
@@ -179,13 +195,15 @@ public class DiaperChangeView extends RelativeLayout {
                     break;
 
             }
-        }
+        } else poopColor.setBackgroundColor(context.getResources().getColor(R.color.white));
 
     }
 
     private void setPoopTexture() {
         if (diaperChangeDao.getPoopTexture()!=null) {
             textViewPoopTexture.setText(diaperChangeDao.getPoopTexture().toString());
+        } else {
+            textViewPoopTexture.setText("N/A");
         }
     }
 
