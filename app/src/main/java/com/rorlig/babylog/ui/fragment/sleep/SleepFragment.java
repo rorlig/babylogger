@@ -119,15 +119,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
             init();
         }
 
-        dateStartHourTextView.setText(getSpannable(dateStartHourTextView.getText().toString()));
-        dateStartMinuteTextView.setText(getSpannable(dateStartMinuteTextView.getText().toString()));
-        dateStartHourDivider.setText(getSpannable(dateStartHourDivider.getText().toString()));
-
-        durationHourTextView.setText(getSpannable(durationHourTextView.getText().toString()));
-        durationMinuteTextView.setText(getSpannable(durationMinuteTextView.getText().toString()));
-        durationHourDivider.setText(getSpannable(durationHourDivider.getText().toString()));
-        durationMinuteDivider.setText(getSpannable(durationMinuteDivider.getText().toString()));
-
+        setSpans();
 
 //        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
 //        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GRAY);
@@ -292,7 +284,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     private Date getStartTime() {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR, Integer.parseInt(dateStartHourTextView.getText().toString()));
+        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(dateStartHourTextView.getText().toString()));
         c.set(Calendar.MINUTE, Integer.parseInt(dateStartMinuteTextView.getText().toString()) - 1);
         return c.getTime();
 
@@ -338,7 +330,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
                 durationHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
                 durationMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
             }
-
+            setSpans();
         }
 
         @Subscribe
@@ -348,5 +340,17 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     }
 
 
+    ///sets spans to the textview elements...
+
+    private void setSpans(){
+        dateStartHourTextView.setText(getSpannable(dateStartHourTextView.getText().toString()));
+        dateStartMinuteTextView.setText(getSpannable(dateStartMinuteTextView.getText().toString()));
+        dateStartHourDivider.setText(getSpannable(dateStartHourDivider.getText().toString()));
+
+        durationHourTextView.setText(getSpannable(durationHourTextView.getText().toString()));
+        durationMinuteTextView.setText(getSpannable(durationMinuteTextView.getText().toString()));
+        durationHourDivider.setText(getSpannable(durationHourDivider.getText().toString()));
+        durationMinuteDivider.setText(getSpannable(durationMinuteDivider.getText().toString()));
+    }
 
 }
