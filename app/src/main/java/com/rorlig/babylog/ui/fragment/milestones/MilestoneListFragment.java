@@ -243,12 +243,13 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         @Subscribe
         public void onMileStoneSaved(MilestoneSaveEvent event){
-//            Calendar c = Calendar.getInstance();
-//            c.set(Calendar.YEAR, event.getYear());
-//            c.set(Calendar.MONTH, event.getMonth()-1);
-//            c.set(Calendar.DATE, event.getDay());
-            Date date = new Date(event.getYear(), event.getMonth()-1, event.getDay());
-            setCompleted(event.getPosition(), date, true);
+            Log.d(TAG, "milestonesaved event " + event);
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, event.getYear());
+            c.set(Calendar.MONTH, event.getMonth()-1);
+            c.set(Calendar.DAY_OF_MONTH, event.getDay());
+//            Date date = new Date(event.getYear(), event.getMonth()-1, event.getDay());
+            setCompleted(event.getPosition(), c.getTime(), true);
         }
 
 
@@ -283,6 +284,8 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         }
 
         private void setCompleted(int position, Date date, boolean value) {
+
+            Log.d(TAG, "date " + date);
             MilestonesDao milestoneItem = milestoneData.get(position);
             milestoneItem.setCompleted(value);
             milestoneItem.setCompletionDate(date);

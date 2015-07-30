@@ -23,7 +23,7 @@
 
 
 
-            <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
 
                 android:id="@+id/baby_image"
                 android:layout_width="100dp"
@@ -34,6 +34,8 @@
                 android:contentDescription="@string/profile_image_content_description"
                 android:src="@drawable/btn_radio_boy"
                 android:textColor="@color/primary"
+                app:border_width="2dp"
+                app:border_color="@color/white"
                  />
 
 

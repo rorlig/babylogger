@@ -3,8 +3,6 @@ package com.rorlig.babylog.ui.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +10,7 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
-import com.rorlig.babylog.ui.fragment.home.HomeFragment2;
+import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
@@ -134,7 +132,7 @@ public class LandingActivity extends InjectableActivity {
             preferences.edit().putString("logItems", gson.toJson(itemSelectedEvent.getLogListItem())).apply();
             preferences.edit().putString("name", itemSelectedEvent.getName()).apply();
             preferences.edit().putString("dob", itemSelectedEvent.getDob()).apply();
-            showFragment(HomeFragment2.class, "home_fragment", false);
+            showFragment(HomeFragment.class, "home_fragment", false);
 //            Log.d(TAG, "MenuItemSelectedEvent " + itemSelectedEvent.getMenuId());
 //            selectMenuItem(menuItemSelectedEvent.getMenuId());
         }

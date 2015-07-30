@@ -323,23 +323,16 @@ public class ProfileFragment extends InjectableFragment {
         Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode  + " data " + data );
         //Request was successful
         if (resultCode == Activity.RESULT_OK) {
-//                mBus.post(new ShareRequestEvent(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA));
-
             switch (requestCode) {
-
                 case AppUtils.RESULT_LOAD_IMAGE:
                     imagePicked(data);
-
                     break;
                 case AppUtils.RESULT_CAMERA_IMAGE_CAPTURE:
                     cameraImageCaptured(data);
                     break;
                 case RESULT_CROP_IMAGE:
                     Log.d(TAG, "croppedImage URI " + croppedImage);
-//                    imageUri = croppedImage;
                     updateImageUri(croppedImage.toString());
-//                    preferences.edit().putString("imageUri", imageUri.toString()).apply();
-//                    scopedBus.post(new CroppedImageEvent(imageUri.toString()));
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);
@@ -378,23 +371,6 @@ public class ProfileFragment extends InjectableFragment {
 
             Log.d(TAG, "dob: " + dob);
 
-//        Log.d(TAG, dob);
-//        if (!dob.equals("")){
-//            String[] dateElements = dob.split(",");
-//            Log.d(TAG,"" + dateElements.length);
-//            Log.d(TAG, dateElements[0]);
-//            int year = Integer.parseInt(dateElements[0]);
-//            int month = Integer.parseInt(dateElements[1]);
-//            int day = Integer.parseInt(dateElements[2]);
-//            Log.d(TAG, " year "  + year + " month " + month + " day " + day);
-//            datePickerBirthday.updateDate(year, month, day);
-//            Calendar c = Calendar.getInstance();
-//            c.set(year,month,day);
-//            Log.d(TAG, "time " + c.getTimeInMillis());
-//            long diff = System.currentTimeMillis() - c.getTimeInMillis();
-//            long days = diff/(86400*1000);
-//            Log.d(TAG, "days old " + days);
-//        }
 
             preferences.edit().putString("dob", dob).apply();
             saveImageUri(imageUri);
@@ -472,18 +448,29 @@ public class ProfileFragment extends InjectableFragment {
             returnedUri = data.getData();
 
             if(returnedUri != null) {
-                imageUri = returnedUri;
+
+                Log.d(TAG, "imageUri " + imageUri);
+
+                croppedImageFile = new File(getActivity().getFilesDir(), "test_" + System.currentTimeMillis() + "_.jpg");
+
+                croppedImage = Uri.fromFile(croppedImageFile);
+
+                CropImageIntentBuilder cropImage = new CropImageIntentBuilder(200, 200, croppedImage);
+                cropImage.setOutlineColor(0xFF03A9F4);
+                cropImage.setSourceImage(returnedUri);
+
+                Log.d(TAG, "cropping image");
+                startActivityForResult(cropImage.getIntent(getActivity()), RESULT_CROP_IMAGE);
+
+
 
             }
         }
 
-        Log.d(TAG, "imageUri " + imageUri);
 
-        updateImageUri(imageUri.toString());
 
-//        preferences.edit().putString("imageUri", imageUri.toString()).apply();
-//
-//        scopedBus.post(new PictureSelectEvent(imageUri));
+//        updateImageUri(imageUri.toString());
+
     }
 
 

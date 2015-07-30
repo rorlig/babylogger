@@ -109,7 +109,7 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
         if (item.isCompleted()) {
             viewHolder.itemImage.setImageResource(R.drawable.ic_mood_blue);
             viewHolder.textCompleted.setText(R.string.txt_completed);
-            viewHolder.dateCompletionText.setText(simpleDateFormat.format(item.getDate()));
+            viewHolder.dateCompletionText.setText(simpleDateFormat.format(item.getCompletionDate()));
         } else  {
             viewHolder.itemImage.setImageResource(R.drawable.ic_mood_black);
             viewHolder.textCompleted.setText(R.string.txt_not_completed);

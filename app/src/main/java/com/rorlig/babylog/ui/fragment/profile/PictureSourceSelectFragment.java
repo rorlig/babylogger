@@ -69,20 +69,9 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     @OnClick(R.id.camera)
     public void onCameraClick() {
         Log.d(TAG, "onCameraClick");
-//        long callTime = System.currentTimeMillis();
-//        String dir = AppUtils.getCameraDirectory();
-//        File file = new File(dir, callTime + ".jpg");
-//        Uri imageUri = Uri.fromFile(file);
-//        Log.d(TAG, "imageUri " + imageUri);
         ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
         profileFragment.handleCameraEvent();
-
-//        scopedBus.post(new CameraStartEvent());
         dismiss();
-//        Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
-//        startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//        dismiss();
-//        getActivity().startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
     }
 
     /*
@@ -90,11 +79,8 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
      */
     @OnClick(R.id.gallery)
     public void onGalleryClick() {
-
         ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
         profileFragment.handleGalleryEvent();
-
-//        scopedBus.post(new GalleryEvent());
         dismiss();
 
 
