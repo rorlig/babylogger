@@ -129,28 +129,30 @@ public class DiaperChangeView extends RelativeLayout {
         setPoopColor();
         setPoopTexture();
         setDiaperIncidentType();
+        setDiaperChangeType();
 
         notesContent.setText(diaperChangeDao.getDiaperChangeNotes()!=null ? "" + diaperChangeDao.getDiaperChangeNotes(): "");
 
     }
 
-    @SuppressLint("NewApi")
     private void setDiaperChangeType() {
 
-        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP) {
-            if (diaperChangeDao.getDiaperChangeEventType()== DiaperChangeEnum.BOTH) {
-                diaperWetChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
-                diaperPoopChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
-            } else if (diaperChangeDao.getDiaperChangeEventType()==DiaperChangeEnum.WET){
-                diaperWetChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
-                diaperPoopChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_unselected));
-                row2.setVisibility(View.GONE);
-            } else {
-                diaperWetChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_unselected));
-                diaperPoopChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
-            }
-        } else {
-            if (diaperChangeDao.getDiaperChangeEventType()== DiaperChangeEnum.BOTH) {
+//        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP) {
+//            if (diaperChangeDao.getDiaperChangeEventType()== DiaperChangeEnum.BOTH) {
+//                diaperWetChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
+//                diaperPoopChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
+//            } else if (diaperChangeDao.getDiaperChangeEventType()==DiaperChangeEnum.WET){
+//                diaperWetChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
+//                diaperPoopChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_unselected));
+//                row2.setVisibility(View.GONE);
+//            } else {
+//                diaperWetChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_unselected));
+//                diaperPoopChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
+//            }
+//        } else {
+
+        Log.d(TAG, "diaperChange Type " + diaperChangeDao.getDiaperChangeEventType());
+            if (diaperChangeDao.getDiaperChangeEventType()==(DiaperChangeEnum.BOTH)) {
                 diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
                 diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
             } else if (diaperChangeDao.getDiaperChangeEventType()==DiaperChangeEnum.WET){
@@ -158,10 +160,10 @@ public class DiaperChangeView extends RelativeLayout {
                 diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
                 row2.setVisibility(View.GONE);
             } else {
-                diaperWetChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_unselected));
-                diaperPoopChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
+                diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
+                diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
             }
-        }
+//        }
 
     }
 

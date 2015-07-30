@@ -408,32 +408,6 @@ public class ProfileFragment extends InjectableFragment {
 
 
 
-//        if (imageUri!=null && !imageUri.toString().equals("")) {
-//
-//            File file = new File(imageUri);
-//            if (file.exists()) {
-//                Pair<Integer, Integer> itemDimensions
-//                        = getBitmapBounds(imageUri);
-//
-////                float aspectRatio = 1f * itemDimensions.first/itemDimensions.second;
-//
-//                int inSampleSize = calculateInSampleSize(itemDimensions.first,
-//                        itemDimensions.second,
-//                        BITMAP_MAX_WIDTH,
-//                        BITMAP_MAX_HEIGHT);
-//
-//                Log.d(TAG, "inSampleSize" + inSampleSize);
-//
-//                picasso.load(new File(imageUri))
-//                        .resize(itemDimensions.first / inSampleSize,
-//                                itemDimensions.second / inSampleSize)
-//                        .centerInside()
-//                        .into(babyPicImageView);
-//            }
-//
-//
-//        }
-//            babyPicImageView.setImageURI(ProfileActivity.imageUri);
 
     }
 
