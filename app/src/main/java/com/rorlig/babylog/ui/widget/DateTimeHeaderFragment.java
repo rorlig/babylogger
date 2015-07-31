@@ -42,6 +42,8 @@ import butterknife.OnClick;
  * Created by rorlig on 5/27/15.
  */
 public class DateTimeHeaderFragment extends InjectableFragment {
+    private int dateTimeColor;
+
     public enum DateTimeColor {
         GREEN, BLUE, GRAY, PURPLE
     }
@@ -105,7 +107,7 @@ public class DateTimeHeaderFragment extends InjectableFragment {
         ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(color);
         Spannable spannable =  Spannable.Factory.getInstance().newSpannable(charSequence);
         spannable.setSpan(cs, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(foregroundColorSpan, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(foregroundColorSpan, 0, charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return spannable;
     }
@@ -206,9 +208,17 @@ public class DateTimeHeaderFragment extends InjectableFragment {
 
         }
 
+        this.dateTimeColor = dateTimeColor;
+
+
+        setSpans(dateTimeColor);
+
+
+    }
+
+    private void setSpans(int dateTimeColor) {
         currentDate.setText(getSpannable(currentDate.getText().toString(), dateTimeColor));
         currentTime.setText(getSpannable(currentTime.getText().toString(), dateTimeColor));
-
     }
 
 
@@ -223,12 +233,14 @@ public class DateTimeHeaderFragment extends InjectableFragment {
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy");
 //            currentDateLong = dateSetEvent.getCalendar();
             currentDate.setText(sdf.format(dateSetEvent.getCalendar().getTime()));
+            setSpans(dateTimeColor);
         }
 
         @Subscribe
         public void onTimeChanged(TimeSetEvent timeSetEvent){
             Log.d(TAG, "timeSetEvent " + timeSetEvent);
             currentTime.setText(timeSetEvent.getHourOfDay() + ":" + timeSetEvent.getMinute() + " " + (timeSetEvent.getHourOfDay() > 11 ? "PM" : "AM"));
+            setSpans(dateTimeColor);
         }
     }
 
