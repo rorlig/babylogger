@@ -5,12 +5,15 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.view.ActionMode;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,6 +31,7 @@ import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
 import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
+import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
@@ -285,7 +289,10 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Log.d(TAG, "item clicked at position " + position + " id " + id);
+        DiaperChangeDao diaperChangeDao = (DiaperChangeDao) diaperChangeListView.getItemAtPosition(position);
+        Log.d(TAG, "diaperchange dao " + diaperChangeDao);
+        scopedBus.post(new DiaperChangeItemClickedEvent(diaperChangeDao));
     }
 
     @Override
@@ -323,6 +330,21 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
                 new DateSectionizer());
 
         diaperChangeListView.setAdapter(sectionAdapter);
+        diaperChangeListView.setOnItemClickListener(this);
+//        diaperChangeListView.setOnLongClickListener(new OnLongClickListener() {
+//
+//            @Override
+//            public boolean onLongClick(View v) {
+//                if (mActionMode != null) {
+//                    return false;
+//                }
+//                mActionMode = getActivity().startActionMode(mActionModeCallback);
+//                v.setSelected(true);
+//                return true;
+//
+//            }
+//        });
+//        registerForContextMenu(diaperChangeListView);
         //        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeDaoList);
 //        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
 //                diaperChangeAdapter, R.layout.section_header, R.id.title,
@@ -347,6 +369,21 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
     }
 
+
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        Log.d(TAG, "onCreateContextMenu");
+//        menu.add(0, v.getId(), 0, "Action 1");
+//
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Log.d(TAG, "onContextItemSelected");
+
+        return super.onContextItemSelected(item);
+    }
 
     private String getDateRangeForWeek(int weekNumber){
         Log.d(TAG, "weekNumber " + weekNumber);
@@ -378,4 +415,44 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
 
     }
+    public ActionMode mActionMode;
+
+//    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+//
+//
+//        // Called when the action mode is created; startActionMode() was called
+//        @Override
+//        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+//            // Inflate a menu resource providing context menu items
+//            MenuInflater inflater = mode.getMenuInflater();
+//            inflater.inflate(R.menu.context_menu, menu);
+//            return true;
+//        }
+//
+//        // Called each time the action mode is shown. Always called after onCreateActionMode, but
+//// may be called multiple times if the mode is invalidated.
+//        @Override
+//        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+//            return false; // Return false if nothing is done
+//        }
+//
+//        // Called when the user selects a contextual menu item
+//        @Override
+//        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+//            switch (item.getItemId()) {
+////                case R.id.menu_share:
+//////                    shareCurrentItem();
+////                    mode.finish(); // Action picked, so close the CAB
+////                    return true;
+//                default:
+//                    return false;
+//            }
+//        }
+//
+//        // Called when the user exits the action mode
+//        @Override
+//        public void onDestroyActionMode(ActionMode mode) {
+//            mActionMode = null;
+//        }
+//    };
 }

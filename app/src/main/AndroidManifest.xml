@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rorlig.babylog">
+    package="com.rorlig.babylog"
+    android:versionCode="0"
+    android:versionName="1.0.0">
 
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.CAMERA" />
@@ -151,6 +153,10 @@
         
 
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="af156a584b800d79ad188965d4aca77b501fe6f0" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

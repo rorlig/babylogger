@@ -76,7 +76,7 @@
             style="@style/ListItemHeader.Purple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/poppy_texture"
+            android:text="@string/poop_texture"
             android:textAllCaps="true"
              />
 
@@ -120,7 +120,7 @@
             style="@style/ListItemHeader.Purple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/poppy_color_header"
+            android:text="@string/poop_color_header"
             android:textAllCaps="true"
              />
 
@@ -279,6 +279,32 @@
         app:rippleSpeed="50"
 
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/two_button_layout"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/edit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:background="@color/primary_purple"
+            android:layout_weight="1"
+            app:rippleSpeed="50"/>
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/delete_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:background="@color/primary_purple"
+            android:layout_weight="1"
+            app:rippleSpeed="50"/>
+
+    </LinearLayout>
 
 
 

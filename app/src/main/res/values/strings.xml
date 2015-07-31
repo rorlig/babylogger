@@ -184,11 +184,11 @@
     <string name="feeding_title">Feeding</string>
     <string name="no_growth">You have not added anything. Get Started!!!</string>
     <string name="growth_title">Growth</string>
-    <string name="poppy_texture">POPPY TEXTURE</string>
+    <string name="poop_texture">POOP TEXTURE</string>
     <string name="diaper_indicident">INCIDENT</string>
     <string name="diaper_indicident_no_diaper">No Diaper</string>
     <string name="diaper_incident_leak">Diaper Leak</string>
-    <string name="poppy_color_header">POP COLOR</string>
+    <string name="poop_color_header">POOP COLOR</string>
     <string name="diaper_wet">Wet</string>
     <string name="diaper_poop">Poop</string>
     <string name="diaper_color">Color:</string>

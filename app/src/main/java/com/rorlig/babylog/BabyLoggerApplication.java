@@ -3,9 +3,11 @@ package com.rorlig.babylog;
 import android.app.Application;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.rorlig.babylog.dagger.ApplicationModule;
 import com.rorlig.babylog.dagger.ObjectGraphApplication;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         initializeDagger();
 //        configureJobManager();
 //        ACRA.init(this);

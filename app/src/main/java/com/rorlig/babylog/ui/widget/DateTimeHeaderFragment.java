@@ -84,16 +84,8 @@ public class DateTimeHeaderFragment extends InjectableFragment {
         int my_integer = a.getColor(R.styleable.DateTimeHeaderFragment_my_int, -1);
         Log.d(TAG, "My Integer " + my_integer);
         Log.d(TAG, " color choosen " + color);
-
-
-//        currentDate.setTextColor(color);
-//        currentTime.setTextColor(color);
-
         a.recycle();
 
-//        getActivity().ge
-
-//        currentTime.setText(today.hour + ":" + today.minute + ":" + today.second);
     }
 
 
@@ -139,8 +131,6 @@ public class DateTimeHeaderFragment extends InjectableFragment {
 
     public void showDatePickerDialog() {
         DialogFragment newFragment = new DatePickerFragment();
-
-
         newFragment.show(getFragmentManager(), "datepicker");
     }
 
@@ -261,11 +251,6 @@ public class DateTimeHeaderFragment extends InjectableFragment {
             Log.d(TAG, "offset " + offset);
             return new Date(dayInMillis+timeInMillis+offset);
 
-//            if (TimeZone.getDefault().inDaylightTime(new Date())){
-//                return new Date(dayInMillis + timeInMillis + curr.get(Calendar.ZONE_OFFSET) + curr.get(Calendar.DST_OFFSET)).getDate();
-//            } else {
-//                return new Date(dayInMillis + timeInMillis + curr.get(Calendar.ZONE_OFFSET)).getDate();
-//            }
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -284,4 +269,16 @@ public class DateTimeHeaderFragment extends InjectableFragment {
 
     }
 
+    /**
+     * set the date time for the header...
+     * @param date
+     */
+    public void setDateTime(Date date) {
+        Log.d(TAG, "date " + date);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd,yyyy");
+        currentDate.setText(dateFormat.format(date));
+        currentTime.setText(timeFormat.format(date));
+        setSpans(dateTimeColor);
+    }
 }

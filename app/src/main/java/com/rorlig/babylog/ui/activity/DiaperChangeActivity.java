@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
@@ -213,7 +214,25 @@ public class DiaperChangeActivity extends InjectableActivity {
 
 
 
+        @Subscribe
+        public void onDiaperItemClickedEvent(DiaperChangeItemClickedEvent event) {
+            Log.d(TAG, "diaperChangeItemClicked");
+            DiaperChangeFragment fragment = new DiaperChangeFragment();
+            Bundle args = new Bundle();
+            args.putInt("diaper_change_id", event.getDiaperChangeDao().getId());
+            fragment.setArguments(args);
 
+            Log.d(TAG, "adding to back stack ");
+
+//            Fragment localFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .addToBackStack("main_screen_stack")
+                    .commit();
+
+//            showFragment(DiaperChangeFragment.class, "diaper_change", true);
+        }
     }
 
 
