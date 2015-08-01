@@ -39,6 +39,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -330,6 +331,21 @@ public class NursingFeedFragment extends InjectableFragment {
     @OnClick(R.id.left)
     public void leftButtonClicked() {
 
+        if (leftStarted) {
+
+            leftValue+=currentLeftValue;
+            leftStarted = false;
+            unsubscribeLeftTimer();
+            resetTextViews();
+
+            return;
+        }
+
+        leftStarted = true;
+
+        rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
+        leftTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
+
         if (leftSubscription==null || leftSubscription.isUnsubscribed()) {
 
             leftSubscription =  Observable.timer(1L, 1L, TimeUnit.SECONDS)
@@ -356,14 +372,13 @@ public class NursingFeedFragment extends InjectableFragment {
 
         if (rightSubscription!=null && !rightSubscription.isUnsubscribed()) {
             Log.d(TAG, "unsubscribing right");
+            rightStarted = false;
             rightSubscription.unsubscribe();
             rightValue+=currentRightValue;
         }
 
 
-        rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
 
-        leftTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
 
         String time = getTime(leftValue);
         String hours = time.substring(0, 2);
@@ -380,6 +395,8 @@ public class NursingFeedFragment extends InjectableFragment {
     }
 
 
+
+
     private String getTime(int timeInSeconds) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -393,6 +410,17 @@ public class NursingFeedFragment extends InjectableFragment {
     @OnClick(R.id.right)
     public void rightButtonClicked() {
         Log.d(TAG, "right button clicked");
+
+        if (rightStarted) {
+            rightValue+=currentRightValue;
+            rightStarted = false;
+            unsubscribeRightTimer();
+            resetTextViews();
+            return;
+        }
+
+        rightStarted = true;
+
         leftTextView.setText(getResources().getString(R.string.stopwatch_start_text));
 
         rightTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
@@ -427,6 +455,7 @@ public class NursingFeedFragment extends InjectableFragment {
 
         if (leftSubscription!=null && !leftSubscription.isUnsubscribed()) {
             Log.d(TAG, "unsubscribe left");
+            leftStarted = false;
             leftValue+=currentLeftValue;
             leftSubscription.unsubscribe();
         }
@@ -530,7 +559,13 @@ public class NursingFeedFragment extends InjectableFragment {
 //        deltaR += (System.currentTimeMillis() - elapsedTimeR)/1000;
 //        deltaL += (System.currentTimeMillis() - elapsedTimeL)/1000;
 
-        Log.d(TAG, " deltaL " + deltaL + " deltaR " + deltaR);
+        Log.d(TAG, " currentLeftValue " + currentLeftValue + " currentRightValue " + currentRightValue);
+
+        Log.d(TAG, " leftValue " + leftValue + " rightValue " + rightValue);
+
+        long rightL = rightValue;
+        long leftL = leftValue;
+
 
 
         try {
@@ -539,8 +574,8 @@ public class NursingFeedFragment extends InjectableFragment {
 
             daoObject  = new FeedDao(FeedType.BREAST,
                     "" , -1.0,
-                    currentLeftValue,
-                    currentRightValue, notes.getText().toString(),
+                    leftL,
+                    rightL, notes.getText().toString(),
                     date);
             feedDao.create(daoObject);
             Log.d(TAG, "created object " + daoObject);
@@ -565,7 +600,27 @@ public class NursingFeedFragment extends InjectableFragment {
         if (rightSubscription!=null&&!rightSubscription.isUnsubscribed()) {
             rightSubscription.unsubscribe();
         }
+
+
         
+    }
+
+
+    private void unsubscribeLeftTimer() {
+        if (leftSubscription!=null&&!leftSubscription.isUnsubscribed()) {
+            leftSubscription.unsubscribe();
+        }
+    }
+
+    private void unsubscribeRightTimer() {
+        if (rightSubscription!=null&&!rightSubscription.isUnsubscribed()) {
+            rightSubscription.unsubscribe();
+        }
+    }
+
+    private void resetTextViews() {
+        rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
+        leftTextView.setText(getResources().getString(R.string.stopwatch_start_text));
     }
 
 
