@@ -89,10 +89,14 @@ public class InjectableFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onViewCreated(View paramView, Bundle paramBundle)
-//    {
-//        Views.inject(this, paramView);
-//    }
+    /*
+     * called when the fragment comes back on the top on pop from the fragment stack..
+     */
+    public void onFragmentResume() {
+
+        Log.d(TAG, "onFragment Resume ");
+
+    }
+
 
 }

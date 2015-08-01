@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,13 +22,12 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
-import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
-import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babylog.otto.FeedItemClickedEvent;
 import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
@@ -52,7 +52,7 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of feeds changes
  */
-public class FeedingListFragment extends InjectableFragment implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<List<FeedDao>> {
+public class FeedingListFragment extends InjectableFragment implements  AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<List<FeedDao>> {
 
     @ForActivity
     @Inject
@@ -78,6 +78,14 @@ public class FeedingListFragment extends InjectableFragment implements AdapterVi
 
     @InjectView(R.id.add_breast_feed)
     FloatingActionButton addBreastFeed;
+
+
+    @InjectView(R.id.feed_item_types)
+    FloatingActionsMenu floatingActionsMenu;
+
+
+//    @InjectView(R.id.feed_list_layout)
+//    RelativeLayout feedListLayout;
 
 
     private int LOADER_ID=3;
@@ -149,6 +157,13 @@ public class FeedingListFragment extends InjectableFragment implements AdapterVi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_feeding_list, null);
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d(TAG, "onTouch");
+                return true;
+            }
+        });
         ButterKnife.inject(this, view);
         return view;
     }
@@ -163,6 +178,7 @@ public class FeedingListFragment extends InjectableFragment implements AdapterVi
         super.onStart();
         Log.d(TAG, "onStart");
         scopedBus.register(eventListener);
+        collapseFloatingMenuIfOpen();
         getLoaderManager().restartLoader(LOADER_ID, null, this);
 
     }
@@ -224,7 +240,7 @@ public class FeedingListFragment extends InjectableFragment implements AdapterVi
 
     @Override
     public void onLoadFinished(Loader<List<FeedDao>> loader, List<FeedDao> data) {
-//        Log.d(TAG, "number of diaper changes " + data.size());
+        Log.d(TAG, "number of diaper changes " + data.size());
         Log.d(TAG, "loader finished");
 
         if (data!=null && data.size()>0) {
@@ -247,8 +263,9 @@ public class FeedingListFragment extends InjectableFragment implements AdapterVi
                 new DateSectionizer());
 
         feedListView.setAdapter(sectionAdapter);
-
         feedListView.setOnItemClickListener(this);
+//        feedListView.setOnClickListener(this);
+
     }
 
     /**
@@ -269,8 +286,16 @@ public class FeedingListFragment extends InjectableFragment implements AdapterVi
         Log.d(TAG, "item clicked at position " + position + " id " + id);
         FeedDao feedDao = (FeedDao) feedListView.getItemAtPosition(position);
         Log.d(TAG, "feedDao dao " + feedDao);
+        collapseFloatingMenuIfOpen();
         scopedBus.post(new FeedItemClickedEvent(feedDao));
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        if (v.getId()==R.id.fragment_feed_list) {
+//            collapseFloatingMenuIfOpen();
+//        }
+//    }
 
 
     private class EventListener {
@@ -290,4 +315,34 @@ public class FeedingListFragment extends InjectableFragment implements AdapterVi
 
 
     }
+
+    /*
+     * click on anywhere in fragment ...
+     */
+    public void fragmentClicked(View v) {
+       Log.d(TAG, "fragmentClicked");
+      collapseFloatingMenuIfOpen();
+    }
+
+    /*
+     * collapse
+     */
+    private void collapseFloatingMenuIfOpen() {
+        Log.d(TAG, "collapseFloatingMenu");
+        if (floatingActionsMenu.isExpanded()) {
+            floatingActionsMenu.collapse();
+        }
+    }
+
+
+    //collapse the
+    @Override
+    public void onFragmentResume() {
+        collapseFloatingMenuIfOpen();
+        super.onFragmentResume();
+    }
+
+
+
+
 }

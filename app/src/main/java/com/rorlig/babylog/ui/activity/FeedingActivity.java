@@ -24,6 +24,7 @@ import com.rorlig.babylog.otto.FeedItemClickedEvent;
 import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
+import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babylog.ui.fragment.feed.BottleFeedFragment;
 import com.rorlig.babylog.ui.fragment.feed.FeedLoader;
@@ -55,6 +56,7 @@ public class FeedingActivity extends InjectableActivity {
     private String TAG  = "FeedingActivity";
 
     private EventListener eventListener = new EventListener();
+    private FragmentManager.OnBackStackChangedListener listener = getListener();
 
 
     /*
@@ -71,6 +73,10 @@ public class FeedingActivity extends InjectableActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportFragmentManager().addOnBackStackChangedListener(listener);
+
+
+
 
 //
 //        String intentString = getIntent().getStringExtra("intent");
@@ -160,73 +166,19 @@ public class FeedingActivity extends InjectableActivity {
 
 
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Pass the event to ActionBarDrawerToggle, if it returns
-//        // true, then it has handled the app icon touch event
-//
-//        switch (item.getItemId()){
-//            case R.id.action_licenses:
-//                break;
-//
-//
-//        }
-//        // Handle your other action bar items...
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    /*
-     * Class to swap fragments in and out
-     */
-
-//    private void showFragment(Class<?> paramClass, String paramString, boolean addToBackStack){
-//        Log.d(TAG, "showFragment for " + paramClass);
-//
-//        FragmentManager localFragmentManager = getSupportFragmentManager();
-//
-//
-//
-//        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
-//
-//        if ((localFragment==null)||(!paramClass.isInstance(localFragment))){
-//            try {
-//                Log.d(TAG, "replacing fragments");
-//
-//                if (addToBackStack) {
-//
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .add(R.id.fragment_container, localFragment)
-//                            .addToBackStack("feeding_stack")
-//                            .commit();
-//
-//                } else {
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .add(R.id.fragment_container, localFragment)
-//                            .commit();
-//                }
-//
-//            } catch (InstantiationException e) {
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
-
     @Override
     public void onStart(){
         super.onStart();
         scopedBus.register(eventListener);
+
+
     }
 
     @Override
     public void onStop(){
         super.onStop();
         scopedBus.unregister(eventListener);
+//        getSupportFragmentManager().removeOnBackStackChangedListener(listener);
     }
 
     private void startActivity(Class<?> paramClass,String paramString){
@@ -328,5 +280,36 @@ public class FeedingActivity extends InjectableActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /*
+     * Listen to the back stack...
+     */
+
+    private FragmentManager.OnBackStackChangedListener getListener()
+    {
+        FragmentManager.OnBackStackChangedListener onBackStackChangedListener = new FragmentManager.OnBackStackChangedListener()
+        {
+            public void onBackStackChanged()
+            {
+                Log.d(TAG, "backstack changed");
+                FragmentManager manager = getSupportFragmentManager();
+
+                if (manager != null)
+                {   int count = manager.getBackStackEntryCount();
+                    Log.d(TAG, " number of fragments " + manager.getFragments().size());
+                    Log.d(TAG, " count " + count);
+                    if (manager.getFragments().size() > 0 ) {
+                        Log.d(TAG, " calling the fragment ");
+                        InjectableFragment currFrag = (InjectableFragment)manager.getFragments().get(0);
+                        Log.d(TAG, "currFrag " + currFrag);
+                        currFrag.onFragmentResume();
+                    }
+
+                }
+            }
+        };
+
+        return onBackStackChangedListener;
     }
 }

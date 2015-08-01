@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"
+    android:id="@+id/fragment_feed_list"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto">
 
@@ -15,17 +16,18 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_gravity="center" />-->
 
-    <!--<ListView-->
-    <!--android:id="@+id/list"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent" />-->
 
-    <ListView
-        android:id="@+id/feedListView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="visible"
-        />
+
+
+        <ListView
+            android:id="@+id/feedListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="visible"
+            />
+
+
+
 
     <RelativeLayout android:id="@+id/emptyView"
         android:layout_width="match_parent"
