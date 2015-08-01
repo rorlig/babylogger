@@ -24,6 +24,8 @@ import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.model.feed.FeedType;
+import com.rorlig.babylog.otto.TimersEvent;
+import com.rorlig.babylog.otto.TimersStartEvent;
 import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.timer.TimerEvent;
 import com.rorlig.babylog.service.StopWatchService;
@@ -37,12 +39,18 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 //import android.widget.Button;
 //import com.gc.materialdesign.views.Button;
@@ -134,6 +142,9 @@ public class NursingFeedFragment extends InjectableFragment {
     private Notification notification;
     private int notification_id=0;
     private SoundManager soundMgr;
+    private CompositeSubscription subscriptions;
+    private Subscription leftSubscription;
+    private Subscription rightSubscription;
 
     @SuppressLint("NewApi")
     @Override
@@ -168,6 +179,13 @@ public class NursingFeedFragment extends InjectableFragment {
 
         notificationManager = (NotificationManager)
                 getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        subscriptions = new CompositeSubscription();
+
+
+
+
 
 
 
@@ -229,6 +247,10 @@ public class NursingFeedFragment extends InjectableFragment {
     private class EventListener {
         public EventListener() {
 
+        }
+        @Subscribe
+        public void onTimerEvent(TimersEvent event) {
+            Log.d(TAG, event.toString());
         }
 
         @Subscribe
@@ -299,107 +321,122 @@ public class NursingFeedFragment extends InjectableFragment {
 
     private Long deltaL = 0L;
     private Long deltaR = 0L;
+    private int leftValue = 0;
+    private int rightValue = 0;
+
+    private Long currentLeftValue = 0L;
+    private Long currentRightValue = 0L;
 
     @OnClick(R.id.left)
     public void leftButtonClicked() {
-        Intent intent = new Intent(getActivity(), StopWatchService.class);
-        intent.putExtra("stopwatch", "left");
 
-        if (!leftStarted) {
+        if (leftSubscription==null || leftSubscription.isUnsubscribed()) {
 
-            getActivity().startService(intent);
+            leftSubscription =  Observable.timer(1L, 1L, TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            s -> {
+                                currentLeftValue = s;
+                                System.out.println(currentLeftValue);
 
-            elapsedTimeL = System.currentTimeMillis();
-            leftStarted = true;
-            leftTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
-//
-//            leftButton.
-            showStartButtons();
+                                String time = getTime((int) (leftValue + currentLeftValue));
+                                String hours = time.substring(0, 2);
+                                String minutes = time.substring(3,5);
+                                String seconds = time.substring(6,8);
+                                Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
+                                hourLTextView.setText(hours);
+                                minuteLTextView.setText(minutes);
+                                secondLTextView.setText(seconds);
+                            });
 
-            if (rightStarted) {
-//                intent = new Intent(getActivity(), StopWatchService.class);
-//                intent.putExtra("stopwatch", "left");
-                rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
-                rightStarted = false;
-                deltaR += (System.currentTimeMillis() - elapsedTimeR)/1000;
-//            rightTextView.setText("Start");
-//                rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
-
-
-            }
-
-
-        } else {
-            getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
-            leftTextView.setText(getResources().getString(R.string.stopwatch_start_text));
-
-            deltaL += (System.currentTimeMillis() - elapsedTimeL)/1000;
-            leftStarted = false;
-//            soundMgr.stopEndlessAlarm();
-//            showStopButtons();
         }
 
+
+
+        if (rightSubscription!=null && !rightSubscription.isUnsubscribed()) {
+            Log.d(TAG, "unsubscribing right");
+            rightSubscription.unsubscribe();
+            rightValue+=currentRightValue;
+        }
+
+
+        rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
+
+        leftTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
+
+        String time = getTime(leftValue);
+        String hours = time.substring(0, 2);
+        String minutes = time.substring(3,5);
+        String seconds = time.substring(6,8);
+        Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
+        hourLTextView.setText(hours);
+        minuteLTextView.setText(minutes);
+        secondLTextView.setText(seconds);
+
+
+
+
     }
 
-    private void showStartButtons() {
 
-        Log.d(TAG, " leftButton " + leftButton);
-//        leftButton.setText("Pause");
+    private String getTime(int timeInSeconds) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, timeInSeconds);
+        return new SimpleDateFormat("HH:mm:ss").format(calendar.getTime());
     }
 
-    private void showStopButtons() {
-//        leftButton.setText("Start");
-    }
 
     @OnClick(R.id.right)
     public void rightButtonClicked() {
-        Log.d(TAG, "right button pressed");
-//        leftStarted = false;
+        Log.d(TAG, "right button clicked");
+        leftTextView.setText(getResources().getString(R.string.stopwatch_start_text));
 
-        Log.d(TAG, "rightbutton " + rightStarted);
-        if (!rightStarted) {
+        rightTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
 
+        if (rightSubscription==null || rightSubscription.isUnsubscribed()) {
+            Log.d(TAG, "start right subscription");
+            rightSubscription = Observable.timer(1L, 1L, TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            s -> {
 
-            getActivity().startService(new Intent(getActivity(), StopWatchService.class));
+                                currentRightValue = s;
+                                System.out.println(currentRightValue);
 
-            elapsedTimeR = System.currentTimeMillis();
-            rightStarted = true;
-            rightTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
-//
-//            leftButton.
-            showStartButtons();
-
-            if (leftStarted) {
-//                intent = new Intent(getActivity(), StopWatchService.class);
-//                intent.putExtra("stopwatch", "left");
-                leftStarted = false;
-                deltaL += (System.currentTimeMillis() - elapsedTimeL)/1000;
-//            rightTextView.setText("Start");
-                leftTextView.setText(getResources().getString(R.string.stopwatch_start_text));
-
-
-            }
-
-//            soundMgr.doTick();
+                                String time = getTime((int) (rightValue + currentRightValue));
+                                String hours = time.substring(0, 2);
+                                String minutes = time.substring(3,5);
+                                String seconds = time.substring(6,8);
+                                Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
+                                hourRTextView.setText(hours);
+                                minuteRTextView.setText(minutes);
+                                secondRTextView.setText(seconds);
 
 
-        } else {
-            getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
-            rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
+                            }
 
-            deltaR += (System.currentTimeMillis() - elapsedTimeR)/1000;
-            rightStarted = false;
 
-//            soundMgr.stopEndlessAlarm();
-//            showStopButtons();
+                    );
+
         }
 
-//        deltaL = 0L;
-//        hourTextView.setText("00");
-//        minuteTextView.setText("00");
-//        secondTextView.setText("00");
-//        leftButton.setText(getResources().getString(R.string.stopwatch_start_text));
-//        getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
+        if (leftSubscription!=null && !leftSubscription.isUnsubscribed()) {
+            Log.d(TAG, "unsubscribe left");
+            leftValue+=currentLeftValue;
+            leftSubscription.unsubscribe();
+        }
+
+
+
+
+
+
+
 
     }
 
@@ -408,10 +445,15 @@ public class NursingFeedFragment extends InjectableFragment {
     * Register to events...
     */
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart");
         scopedBus.register(eventListener);
+//        Intent intent = new Intent(getActivity(), StopWatchService.class);
+//        intent.putExtra("stopwatch", "left");
+////        if (!leftStarted) {
+//            getActivity().startService(intent);
+//        }
     }
 
     /*
@@ -478,13 +520,13 @@ public class NursingFeedFragment extends InjectableFragment {
         FeedDao daoObject;
         Date date = dateTimeHeader.getEventTime();
         //stop the service....
-        getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
-        if (leftStarted) {
-            deltaL += (System.currentTimeMillis() - elapsedTimeL)/1000;
-        } else if (rightStarted) {
-            deltaR += (System.currentTimeMillis() - elapsedTimeR)/1000;
-
-        }
+//        getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
+//        if (leftStarted) {
+//            deltaL += (System.currentTimeMillis() - elapsedTimeL)/1000;
+//        } else if (rightStarted) {
+//            deltaR += (System.currentTimeMillis() - elapsedTimeR)/1000;
+//
+//        }
 //        deltaR += (System.currentTimeMillis() - elapsedTimeR)/1000;
 //        deltaL += (System.currentTimeMillis() - elapsedTimeL)/1000;
 
@@ -497,30 +539,14 @@ public class NursingFeedFragment extends InjectableFragment {
 
             daoObject  = new FeedDao(FeedType.BREAST,
                     "" , -1.0,
-                    deltaL,
-                    deltaR, notes.getText().toString(),
+                    currentLeftValue,
+                    currentRightValue, notes.getText().toString(),
                     date);
-//            switch (diaperChangeType.getCheckedRadioButtonId()) {
-//                case R.id.diaper_wet:
-//                    daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, diaperIncident, notes.getText().toString(), time );
-//                    break;
-//                case R.id.diaper_both:
-//
-//                    diaperChangeTexture = getDiaperChangeTexture();
-//                    daoObject = new DiaperChangeDao(DiaperChangeEnum.BOTH, diaperChangeTexture, diaperChangeColorType,
-//                            diaperIncident, notes.getText().toString(), time );
-//                    break;
-//                default:
-//                    diaperChangeTexture = getDiaperChangeTexture();
-//                    daoObject = new DiaperChangeDao(DiaperChangeEnum.POOP, diaperChangeTexture, diaperChangeColorType,
-//                            diaperIncident, notes.getText().toString(), time );
-//
-//                    break;
-//            }
             feedDao.create(daoObject);
             Log.d(TAG, "created object " + daoObject);
             leftStarted = false;
             rightStarted = false;
+            unsubscribeTimers();
             scopedBus.post(new FeedItemCreatedEvent());
 
             soundMgr.stopEndlessAlarm();
@@ -531,6 +557,16 @@ public class NursingFeedFragment extends InjectableFragment {
 
     }
 
+    private void unsubscribeTimers() {
+        if (leftSubscription!=null&&!leftSubscription.isUnsubscribed()) {
+            leftSubscription.unsubscribe();
+        }
+
+        if (rightSubscription!=null&&!rightSubscription.isUnsubscribed()) {
+            rightSubscription.unsubscribe();
+        }
+        
+    }
 
 
 }
