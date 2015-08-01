@@ -71,8 +71,6 @@ public class DateTimeHeaderFragment extends InjectableFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        Time today = new Time(Time.getCurrentTimezone());
-//        today.setToNow();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy");
         currentDate.setText(sdf.format(new Date()));
         sdf = new SimpleDateFormat("hh:mm aa");
