@@ -81,7 +81,8 @@ public class BottleFeedFragment extends InjectableFragment
     ArrayAdapter<CharSequence> feedAdapter;
 
     DateTimeHeaderFragment dateTimeHeader;
-    private int id;
+
+    private int id =-1;
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -167,7 +168,6 @@ public class BottleFeedFragment extends InjectableFragment
     // initialize views based on
     private void initViews(int id) {
         Log.d(TAG, "initViews " + id);
-
         try {
             FeedDao feedDao = babyLoggerORMLiteHelper.getFeedDao().queryForId(id);
             Log.d(TAG, feedDao.toString());
@@ -184,13 +184,6 @@ public class BottleFeedFragment extends InjectableFragment
                 }
                 index++;
             }
-
-//            switch (feedDao.getFeedItem()) {
-//
-////                case
-//
-//            }
-//            feedTypeSpinner.setSelection();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -243,54 +236,6 @@ public class BottleFeedFragment extends InjectableFragment
         Log.d(TAG, "save btn clicked");
         createOrEdit();
 
-//        String quantityText = quantityTextView.getText().toString();
-//
-//        Log.d(TAG, "value of quantity " + quantityText);
-//
-//
-//        if (quantityText.trim().equals("")) {
-//            quantityTextView.setError("Quantity cannot be blank");
-//        } else {
-//            Log.d(TAG, "double value " + Double.parseDouble(quantityTextView.getText().toString()));
-//            Dao<FeedDao, Integer> feedDao;
-//            FeedDao daoObject;
-//            Date date = dateTimeHeader.getEventTime();
-//            Log.d(TAG, "feedTypeSpinner " + feedTypeSpinner);
-//            try {
-//                feedDao = babyLoggerORMLiteHelper.getFeedDao();
-//
-//
-//                daoObject  = new FeedDao(FeedType.BOTTLE,
-//                        feedTypeSpinner.getSelectedItem().toString() ,
-//                        Double.parseDouble(quantityTextView.getText().toString()),
-//                        -1L,
-//                        -1L, notes.getText().toString(),
-//                        date);
-////            switch (diaperChangeType.getCheckedRadioButtonId()) {
-////                case R.id.diaper_wet:
-////                    daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, diaperIncident, notes.getText().toString(), time );
-////                    break;
-////                case R.id.diaper_both:
-////
-////                    diaperChangeTexture = getDiaperChangeTexture();
-////                    daoObject = new DiaperChangeDao(DiaperChangeEnum.BOTH, diaperChangeTexture, diaperChangeColorType,
-////                            diaperIncident, notes.getText().toString(), time );
-////                    break;
-////                default:
-////                    diaperChangeTexture = getDiaperChangeTexture();
-////                    daoObject = new DiaperChangeDao(DiaperChangeEnum.POOP, diaperChangeTexture, diaperChangeColorType,
-////                            diaperIncident, notes.getText().toString(), time );
-////
-////                    break;
-////            }
-//                feedDao.create(daoObject);
-//                Log.d(TAG, "created objected " + daoObject);
-//                scopedBus.post(new FeedItemCreatedEvent());
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-
-//        }
 
 
     }
@@ -328,7 +273,6 @@ public class BottleFeedFragment extends InjectableFragment
     }
 
     /*
-     * creates or updates the feed item
      */
     private void createOrEdit() {
         Dao<FeedDao, Integer> feedDao;

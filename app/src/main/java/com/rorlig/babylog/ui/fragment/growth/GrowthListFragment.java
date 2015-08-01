@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,7 +22,10 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
+import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.GrowthDao;
+import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
+import com.rorlig.babylog.otto.GrowthItemClicked;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
@@ -47,7 +51,7 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of growth items
  */
-public class GrowthListFragment extends InjectableFragment implements LoaderManager.LoaderCallbacks<List<GrowthDao>>{
+public class GrowthListFragment extends InjectableFragment implements LoaderManager.LoaderCallbacks<List<GrowthDao>>, AdapterView.OnItemClickListener {
 
     @ForActivity
     @Inject
@@ -231,12 +235,21 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
                 new DateSectionizer());
 
         listView.setAdapter(sectionAdapter);
+        listView.setOnItemClickListener(this);
 
     }
 
     @Override
     public void onLoaderReset(Loader<List<GrowthDao>> loader) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(TAG, "iten at position " + position + " clicked");
+        GrowthDao growthDao = (GrowthDao) listView.getItemAtPosition(position);
+        Log.d(TAG, "growth dao " + growthDao);
+        scopedBus.post(new GrowthItemClicked(growthDao));
     }
 
 

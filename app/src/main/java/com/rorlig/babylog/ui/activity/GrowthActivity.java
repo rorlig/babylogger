@@ -12,10 +12,13 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
+import com.rorlig.babylog.otto.GrowthItemClicked;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
+import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthStatsFragment;
@@ -204,6 +207,21 @@ public class GrowthActivity extends InjectableActivity {
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
             showFragment(GrowthStatsFragment.class, "growth_stats_fragment", true);
+        }
+
+        @Subscribe
+        public void onGrowthItemClicked(GrowthItemClicked event) {
+            Log.d(TAG, "diaperChangeItemClicked");
+            GrowthFragment fragment = new GrowthFragment();
+            Bundle args = new Bundle();
+            args.putInt("growth_id", event.getGrowthDao().getId());
+            fragment.setArguments(args);
+            Log.d(TAG, "adding to back stack ");
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .addToBackStack("main_screen_stack")
+                    .commit();
+
         }
 
 

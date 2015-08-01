@@ -73,4 +73,12 @@ public class GrowthDao extends BaseDao {
     public String getNotes() {
         return notes;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

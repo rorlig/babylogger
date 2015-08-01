@@ -12,14 +12,18 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
+import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
+import com.rorlig.babylog.model.feed.FeedType;
+import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
@@ -62,6 +66,11 @@ public class GrowthFragment extends InjectableFragment {
     @InjectView(R.id.head_inches)
     com.rengwuxian.materialedittext.MaterialEditText headInchesEditText;
 
+    @InjectView(R.id.two_button_layout)
+    LinearLayout editDeleteBtn;
+
+
+
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
@@ -73,6 +82,8 @@ public class GrowthFragment extends InjectableFragment {
     private boolean heightEmpty = true;
     private boolean weightEmpty = true;
     private boolean headMeasureEmpty = true;
+    private int id = -1;
+
 
 
     @Override
@@ -86,6 +97,64 @@ public class GrowthFragment extends InjectableFragment {
 
         saveBtn.setEnabled(false);
 
+
+
+        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+        Log.d(TAG, " green color " + Integer.toString(R.color.primary_green, 16));
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GREEN);
+
+
+        //initialize views if not creating new feed item
+        if (getArguments()!=null) {
+            Log.d(TAG, "arguments are not null");
+            id = getArguments().getInt("growth_id");
+            initViews(id);
+        }
+
+        setUpTextWatchers();
+
+
+    }
+
+    private void initViews(int id) {
+
+        Log.d(TAG, "initViews " + id);
+        try {
+            GrowthDao growthDao = babyLoggerORMLiteHelper.getGrowthDao().queryForId(id);
+            Log.d(TAG, growthDao.toString());
+            editDeleteBtn.setVisibility(View.VISIBLE);
+            saveBtn.setVisibility(View.GONE);
+
+            //convert weight to pound.ounces
+
+//            String.val
+            weightEditText.setText(convertWeightToString(growthDao.getWeight()));
+            heightInchesEditText.setText(growthDao.getHeight().toString());
+            headInchesEditText.setText(growthDao.getHeadMeasurement().toString());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /*
+     * helper method to convert weight (double) into string (pound.ounces)
+     * @param Double- weight
+     * @return String - value is pound.ounces..
+     */
+    private String convertWeightToString(Double weight) {
+        Double decimalWeight = weight - Math.floor(weight);
+        int ounces = (int) ((weight - Math.floor(weight))*16);
+        Log.d(TAG, "decimalWeight " + decimalWeight);
+        int poundWeight = (int) (weight - decimalWeight);
+        Log.d(TAG, "poundWeight" + poundWeight);
+        return (Integer.toString(poundWeight) + "." + Integer.toString(ounces));
+
+    }
+
+    private void setUpTextWatchers() {
 
         weightEditText.addTextChangedListener(new TextWatcher() {
             int len = 0;
@@ -222,121 +291,59 @@ public class GrowthFragment extends InjectableFragment {
             }
         });
 
-        TypedArray a  = getActivity().obtainStyledAttributes(R.styleable.DateTimeHeaderFragment);
-
-        int color = a.getColor(R.styleable.DateTimeHeaderFragment_color_text, getResources().getColor(R.color.text_color_main));
-        int my_integer = a.getColor(R.styleable.DateTimeHeaderFragment_my_int, -1);
-        Log.d(TAG, "My Integer " + my_integer);
-        Log.d(TAG, " color choosen " + color);
-
-
-
-
-        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
-        Log.d(TAG, " green color " + Integer.toString(R.color.primary_green, 16));
-        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GREEN);
 
     }
-
     private void setSaveEnabled() {
         if (!headMeasureEmpty && !heightEmpty)
             saveBtn.setEnabled(true);
 
     }
 
-    private class MeasurementWatcher implements TextWatcher {
-
-
-        private final EditText editText;
-        private int len;
-
-        public MeasurementWatcher(EditText editText) {
-
-            this.editText = editText;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            Log.d(TAG, "beforeTextChanged ");
-            String str = editText.getText().toString();
-            len = str.length();
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            Log.d(TAG, "onTextChanged ");
-
-            String str = editText.getText().toString();
-
-            Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
-
-            if ((str.length() == 2 && len < str.length())) {
-
-                Log.d(TAG, "appending .");
-                //checking length  for backspace.
-                editText.append(".");
-                //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
-            }
-
-//            if (str.length()>0) {
-//                saveBtn.setEnabled(true);
-//            } else {
-//                saveBtn.setEnabled(false);
-//            }
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    }
 
     @OnClick(R.id.save_btn)
     public void saveBtnClicked() {
-        Dao<GrowthDao, Integer> growthDao;
-        GrowthDao daoObject;
-        Date date = dateTimeHeader.getEventTime();
 
-        String weight = weightEditText.getText().toString();
-
-
-
-
-        Integer weightPounds = Integer.parseInt(weight.substring(0, weight.indexOf(".")));
-
-        Double totalWeight =  weightPounds.doubleValue();
-
-
-        if (weight.length()>3) {
-            Integer weightOunces = Integer.parseInt(weight.substring(3));
-            totalWeight+=weightOunces.doubleValue()/16;
-        }
-
-
-
-        Double height  = Double.parseDouble(heightInchesEditText.getText().toString());
-
-        Double headMeasure = Double.parseDouble(headInchesEditText.getText().toString());
-
-
-
-
-        try {
-            growthDao = babyLoggerORMLiteHelper.getGrowthDao();
-
-
-            daoObject  = new GrowthDao(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), date);
-            growthDao.create(daoObject);
-//            feedDao.create(daoObject);
-            Log.d(TAG, "created objected " + daoObject);
-            scopedBus.post(new GrowthItemCreated());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        createOrEdit();
+//        Dao<GrowthDao, Integer> growthDao;
+//        GrowthDao daoObject;
+//        Date date = dateTimeHeader.getEventTime();
+//
+//        String weight = weightEditText.getText().toString();
+//
+//
+//
+//
+//        Integer weightPounds = Integer.parseInt(weight.substring(0, weight.indexOf(".")));
+//
+//        Double totalWeight =  weightPounds.doubleValue();
+//
+//
+//        if (weight.length()>3) {
+//            Integer weightOunces = Integer.parseInt(weight.substring(3));
+//            totalWeight+=weightOunces.doubleValue()/16;
+//        }
+//
+//
+//
+//        Double height  = Double.parseDouble(heightInchesEditText.getText().toString());
+//
+//        Double headMeasure = Double.parseDouble(headInchesEditText.getText().toString());
+//
+//
+//
+//
+//        try {
+//            growthDao = babyLoggerORMLiteHelper.getGrowthDao();
+//
+//
+//            daoObject  = new GrowthDao(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), date);
+//            growthDao.create(daoObject);
+////            feedDao.create(daoObject);
+//            Log.d(TAG, "created objected " + daoObject);
+//            scopedBus.post(new GrowthItemCreated());
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public BabyLoggerORMLiteHelper getBabyLoggerORMLiteHelper() {
@@ -375,5 +382,98 @@ public class GrowthFragment extends InjectableFragment {
         public EventListener() {
 
         }
+    }
+
+
+    /*
+   * creates a temporary growth item from the local view values...
+   */
+    private GrowthDao createLocalGrowthDao() {
+
+        Date date = dateTimeHeader.getEventTime();
+
+        String weight = weightEditText.getText().toString();
+
+
+
+
+        Integer weightPounds = Integer.parseInt(weight.substring(0, weight.indexOf(".")));
+
+        Double totalWeight =  weightPounds.doubleValue();
+
+
+        if (weight.length()>3) {
+            Integer weightOunces = Integer.parseInt(weight.substring(3));
+            totalWeight+=weightOunces.doubleValue()/16;
+        }
+
+
+
+        Double height  = Double.parseDouble(heightInchesEditText.getText().toString());
+
+        Double headMeasure = Double.parseDouble(headInchesEditText.getText().toString());
+
+        return new GrowthDao(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), date);
+    }
+
+    @OnClick(R.id.edit_btn)
+    public void onEditBtnClicked(){
+        Log.d(TAG, "edit btn clicked");
+        createOrEdit();
+    }
+
+    /*
+     */
+    private void createOrEdit() {
+        Dao<GrowthDao, Integer> growthDao;
+        try {
+
+            growthDao = createGrowthDao();
+            GrowthDao daoObject = createLocalGrowthDao();
+
+            if (daoObject!=null) {
+                if (id!=-1) {
+                    Log.d(TAG, "updating it");
+                    daoObject.setId(id);
+                    growthDao.update(daoObject);
+                } else {
+                    Log.d(TAG, "creating it");
+                    growthDao.create(daoObject);
+                }
+
+                Log.d(TAG, "created objected " + daoObject);
+                scopedBus.post(new GrowthItemCreated());
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     * deletes the feed item...
+     */
+    @OnClick(R.id.delete_btn)
+    public void onDeleteBtnClicked(){
+        Log.d(TAG, "delete btn clicked");
+        Dao<GrowthDao, Integer> daoObject;
+
+        try {
+
+            daoObject = createGrowthDao();
+
+            if (id!=-1) {
+                Log.d(TAG, "updating it");
+                daoObject.deleteById(id);
+            }
+            scopedBus.post(new GrowthItemCreated());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Dao<GrowthDao, Integer> createGrowthDao() throws SQLException {
+        return babyLoggerORMLiteHelper.getGrowthDao();
     }
 }

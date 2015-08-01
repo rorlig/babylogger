@@ -60,7 +60,6 @@
             android:textColor="@color/primary_blue"/>
 
        <Spinner
-           style="@style/Spinnerbaby"
            android:id="@+id/type_spinner"
            android:layout_toRightOf="@+id/quantityLabel"
 
@@ -118,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edit"
-            android:background="@color/primary_purple"
+            android:background="@color/primary_blue"
             android:layout_weight="1"
             app:rippleSpeed="50"/>
 
@@ -127,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Delete"
-            android:background="@color/primary_purple"
+            android:background="@color/primary_blue"
             android:layout_weight="1"
             app:rippleSpeed="50"/>
 
