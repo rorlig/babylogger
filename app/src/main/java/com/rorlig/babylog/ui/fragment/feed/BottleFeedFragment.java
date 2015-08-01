@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.gc.materialdesign.views.Button;
@@ -24,6 +25,7 @@ import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.model.feed.FeedType;
+import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
@@ -52,6 +54,10 @@ public class BottleFeedFragment extends InjectableFragment
 
     @InjectView(R.id.type_spinner)
     Spinner feedTypeSpinner;
+
+    @InjectView(R.id.two_button_layout)
+    LinearLayout editDeleteBtn;
+
 
     @InjectView(R.id.quantity)
     EditText quantityTextView;
@@ -96,7 +102,27 @@ public class BottleFeedFragment extends InjectableFragment
 
         scopedBus.post(new FragmentCreated("Bottle Feed"));
 
+        setUpTextWatchers();
 
+
+
+
+        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
+
+        //initialize views if not creating new feed item
+        if (getArguments()!=null) {
+            Log.d(TAG, "arguments are not null");
+            id = getArguments().getInt("feed_id");
+            initViews(id);
+        }
+
+//        feedTypeSpinner.setOnItemClickListener(this);
+    }
+
+
+    // sets up the text watchers to monitor text change in the various edittext boxes
+    private void setUpTextWatchers() {
         quantityTextView.addTextChangedListener(new TextWatcher() {
             int len = 0;
 
@@ -123,7 +149,7 @@ public class BottleFeedFragment extends InjectableFragment
                     //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
                 }
 
-                if (str.length()>0) {
+                if (str.length() > 0) {
                     saveBtn.setEnabled(true);
                 } else {
                     saveBtn.setEnabled(false);
@@ -136,28 +162,28 @@ public class BottleFeedFragment extends InjectableFragment
 
             }
         });
-
-        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
-        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
-
-
-        if (getArguments()!=null) {
-            Log.d(TAG, "arguments are not null");
-            id = getArguments().getInt("feed_id");
-            initViews(id);
-        }
-
-//        feedTypeSpinner.setOnItemClickListener(this);
     }
 
-
+    // initialize views based on
     private void initViews(int id) {
         Log.d(TAG, "initViews " + id);
 
         try {
             FeedDao feedDao = babyLoggerORMLiteHelper.getFeedDao().queryForId(id);
             Log.d(TAG, feedDao.toString());
+            editDeleteBtn.setVisibility(View.VISIBLE);
+            saveBtn.setVisibility(View.GONE);
+
             quantityTextView.setText(feedDao.getQuantity().toString());
+            final String[] values = getResources().getStringArray(R.array.type_array);
+            int index = 0;
+            for (String value : values) {
+                if (value.equals(feedDao.getFeedItem())) {
+                    feedTypeSpinner.setSelection(index);
+                    break;
+                }
+                index++;
+            }
 
 //            switch (feedDao.getFeedItem()) {
 //
@@ -215,6 +241,64 @@ public class BottleFeedFragment extends InjectableFragment
     @OnClick(R.id.save_btn)
     public void onSaveBtnClicked(){
         Log.d(TAG, "save btn clicked");
+        createOrEdit();
+
+//        String quantityText = quantityTextView.getText().toString();
+//
+//        Log.d(TAG, "value of quantity " + quantityText);
+//
+//
+//        if (quantityText.trim().equals("")) {
+//            quantityTextView.setError("Quantity cannot be blank");
+//        } else {
+//            Log.d(TAG, "double value " + Double.parseDouble(quantityTextView.getText().toString()));
+//            Dao<FeedDao, Integer> feedDao;
+//            FeedDao daoObject;
+//            Date date = dateTimeHeader.getEventTime();
+//            Log.d(TAG, "feedTypeSpinner " + feedTypeSpinner);
+//            try {
+//                feedDao = babyLoggerORMLiteHelper.getFeedDao();
+//
+//
+//                daoObject  = new FeedDao(FeedType.BOTTLE,
+//                        feedTypeSpinner.getSelectedItem().toString() ,
+//                        Double.parseDouble(quantityTextView.getText().toString()),
+//                        -1L,
+//                        -1L, notes.getText().toString(),
+//                        date);
+////            switch (diaperChangeType.getCheckedRadioButtonId()) {
+////                case R.id.diaper_wet:
+////                    daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, diaperIncident, notes.getText().toString(), time );
+////                    break;
+////                case R.id.diaper_both:
+////
+////                    diaperChangeTexture = getDiaperChangeTexture();
+////                    daoObject = new DiaperChangeDao(DiaperChangeEnum.BOTH, diaperChangeTexture, diaperChangeColorType,
+////                            diaperIncident, notes.getText().toString(), time );
+////                    break;
+////                default:
+////                    diaperChangeTexture = getDiaperChangeTexture();
+////                    daoObject = new DiaperChangeDao(DiaperChangeEnum.POOP, diaperChangeTexture, diaperChangeColorType,
+////                            diaperIncident, notes.getText().toString(), time );
+////
+////                    break;
+////            }
+//                feedDao.create(daoObject);
+//                Log.d(TAG, "created objected " + daoObject);
+//                scopedBus.post(new FeedItemCreatedEvent());
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+
+//        }
+
+
+    }
+
+    /*
+     * creates a temporary feed item from the local view values...
+     */
+    private FeedDao createLocalFeedDao() {
 
         String quantityText = quantityTextView.getText().toString();
 
@@ -223,48 +307,79 @@ public class BottleFeedFragment extends InjectableFragment
 
         if (quantityText.trim().equals("")) {
             quantityTextView.setError("Quantity cannot be blank");
-        } else {
-            Log.d(TAG, "double value " + Double.parseDouble(quantityTextView.getText().toString()));
-            Dao<FeedDao, Integer> feedDao;
-            FeedDao daoObject;
-            Date date = dateTimeHeader.getEventTime();
-            Log.d(TAG, "feedTypeSpinner " + feedTypeSpinner);
-            try {
-                feedDao = babyLoggerORMLiteHelper.getFeedDao();
-
-
-                daoObject  = new FeedDao(FeedType.BOTTLE,
-                        feedTypeSpinner.getSelectedItem().toString() ,
-                        Double.parseDouble(quantityTextView.getText().toString()),
-                        -1L,
-                        -1L, notes.getText().toString(),
-                        date);
-//            switch (diaperChangeType.getCheckedRadioButtonId()) {
-//                case R.id.diaper_wet:
-//                    daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, diaperIncident, notes.getText().toString(), time );
-//                    break;
-//                case R.id.diaper_both:
-//
-//                    diaperChangeTexture = getDiaperChangeTexture();
-//                    daoObject = new DiaperChangeDao(DiaperChangeEnum.BOTH, diaperChangeTexture, diaperChangeColorType,
-//                            diaperIncident, notes.getText().toString(), time );
-//                    break;
-//                default:
-//                    diaperChangeTexture = getDiaperChangeTexture();
-//                    daoObject = new DiaperChangeDao(DiaperChangeEnum.POOP, diaperChangeTexture, diaperChangeColorType,
-//                            diaperIncident, notes.getText().toString(), time );
-//
-//                    break;
-//            }
-                feedDao.create(daoObject);
-                Log.d(TAG, "created objected " + daoObject);
-                scopedBus.post(new FeedItemCreatedEvent());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
+            return null;
         }
 
+        Date date = dateTimeHeader.getEventTime();
 
+        return new FeedDao(FeedType.BOTTLE,
+                feedTypeSpinner.getSelectedItem().toString(),
+                Double.parseDouble(quantityTextView.getText().toString()),
+                -1L,
+                -1L, notes.getText().toString(),
+                date);
+
+    }
+
+    @OnClick(R.id.edit_btn)
+    public void onEditBtnClicked(){
+        Log.d(TAG, "edit btn clicked");
+        createOrEdit();
+    }
+
+    /*
+     * creates or updates the feed item
+     */
+    private void createOrEdit() {
+        Dao<FeedDao, Integer> feedDao;
+        try {
+
+            feedDao = createFeedDao();
+            FeedDao daoObject = createLocalFeedDao();
+
+            if (daoObject!=null) {
+                if (id!=-1) {
+                    Log.d(TAG, "updating it");
+                    daoObject.setId(id);
+                    feedDao.update(daoObject);
+                } else {
+                    Log.d(TAG, "creating it");
+                    feedDao.create(daoObject);
+                }
+
+                Log.d(TAG, "created objected " + daoObject);
+                scopedBus.post(new FeedItemCreatedEvent());
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     * deletes the feed item...
+     */
+    @OnClick(R.id.delete_btn)
+    public void onDeleteBtnClicked(){
+        Log.d(TAG, "delete btn clicked");
+        Dao<FeedDao, Integer> daoObject;
+
+        try {
+
+            daoObject = createFeedDao();
+
+            if (id!=-1) {
+                Log.d(TAG, "updating it");
+                daoObject.deleteById(id);
+            }
+            scopedBus.post(new FeedItemCreatedEvent());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Dao<FeedDao, Integer> createFeedDao() throws SQLException {
+        return babyLoggerORMLiteHelper.getFeedDao();
     }
 }

@@ -378,7 +378,7 @@ public class DiaperChangeFragment extends InjectableFragment {
     }
 
     @OnClick(R.id.edit_btn)
-    public void onEditBtnClicked(){
+      public void onEditBtnClicked(){
         Log.d(TAG, "edit btn clicked");
         createOrEdit();
     }

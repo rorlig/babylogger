@@ -147,10 +147,6 @@ public class FeedingListFragment extends InjectableFragment implements  AdapterV
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-
-
-
-//        currentTime.setText(today.hour + ":" + today.minute + ":" + today.second);
     }
 
 
@@ -290,14 +286,8 @@ public class FeedingListFragment extends InjectableFragment implements  AdapterV
         scopedBus.post(new FeedItemClickedEvent(feedDao));
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        if (v.getId()==R.id.fragment_feed_list) {
-//            collapseFloatingMenuIfOpen();
-//        }
-//    }
 
-
+    // event listener to listen to events on the buss
     private class EventListener {
         public EventListener() {
 
@@ -325,7 +315,7 @@ public class FeedingListFragment extends InjectableFragment implements  AdapterV
     }
 
     /*
-     * collapse
+     * collapse floating menu if open
      */
     private void collapseFloatingMenuIfOpen() {
         Log.d(TAG, "collapseFloatingMenu");
@@ -335,7 +325,7 @@ public class FeedingListFragment extends InjectableFragment implements  AdapterV
     }
 
 
-    //collapse the
+    //collapse the floating menu on back stack popup....
     @Override
     public void onFragmentResume() {
         collapseFloatingMenuIfOpen();
