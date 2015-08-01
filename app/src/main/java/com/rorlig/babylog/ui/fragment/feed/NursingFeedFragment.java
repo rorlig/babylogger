@@ -148,8 +148,7 @@ public class NursingFeedFragment extends InjectableFragment {
 
 
 
-        notificationManager = (NotificationManager)
-                getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
 
 
 
@@ -167,6 +166,17 @@ public class NursingFeedFragment extends InjectableFragment {
 
         Log.d(TAG, "onViewCreated");
 
+        notificationManager = (NotificationManager)
+                getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+
+        setUpViews();
+    }
+
+    private void setUpViews() {
+
+        Log.d(TAG, "setUpViews");
         leftTextView = (TextView) leftButton.findViewById(R.id.startLText);
         rightTextView = (TextView) rightButton.findViewById(R.id.startRText);
 
@@ -180,22 +190,13 @@ public class NursingFeedFragment extends InjectableFragment {
         secondRTextView = (TextView) rightButton.findViewById(R.id.second);
 
 
-        setUpViews();
-    }
-
-    private void setUpViews() {
-
-        Log.d(TAG, "setUpViews");
         Bundle args = getArguments();
-        if (args!=null) {
-            if (args.getBoolean("fromNotification", false)) {
-//                notificationManager.cancel(notification_id);
-
+        if (args!=null && args.getBoolean("fromNotification", false)) {
+                //restore times from the bundle...
                 Log.d(TAG, "not null args and fromNotification");
                 hourLTextView.setText(args.getString("hourLTextView", "00"));
                 minuteLTextView.setText(args.getString("minuteLTextView", "00"));
                 secondLTextView.setText(args.getString("secondLTextView", "00"));
-
                 hourRTextView.setText(args.getString("hourRTextView", "00"));
                 minuteRTextView.setText(args.getString("minuteRTextView", "00"));
                 secondRTextView.setText(args.getString("secondRTextView", "00"));
@@ -203,19 +204,15 @@ public class NursingFeedFragment extends InjectableFragment {
                 elapsedTimeR = args.getLong("elapsedTimeR", 0L);
                 leftStarted = args.getBoolean("leftStarted");
                 rightStarted = args.getBoolean("rightStarted");
+                Log.d(TAG, "leftStarted " + leftStarted + " rightStarted " + rightStarted);
+                if (leftStarted) {
+                    leftTextView.setText("Stop");
+                } else {
+                    rightTextView.setText("Stop");
+                }
 
-            } else {
-                Log.d(TAG, "not from notification");
-            }
+                notificationManager.cancel(notification_id);
 
-
-
-
-
-
-
-        } {
-            Log.d(TAG, "args are null");
         }
 
     }
@@ -242,8 +239,8 @@ public class NursingFeedFragment extends InjectableFragment {
             Long currentTime = System.currentTimeMillis();
             int diff=0;
 
-            Log.d(TAG, "leftStarted " + leftStarted + " rightStartded: " + rightStarted + " deltaL " + deltaL + " deltaR " + deltaR);
-            Log.d(TAG, "diff " + diff + " elapsedTimeL " + elapsedTimeL + " elapsedTimeR " + elapsedTimeR);
+//            Log.d(TAG, "leftStarted " + leftStarted + " rightStartded: " + rightStarted + " deltaL " + deltaL + " deltaR " + deltaR);
+//            Log.d(TAG, "diff " + diff + " elapsedTimeL " + elapsedTimeL + " elapsedTimeR " + elapsedTimeR);
             if (leftStarted ) {
                 diff = (int)((currentTime - elapsedTimeL)/1000 + deltaL);
             } else  {
@@ -522,9 +519,10 @@ public class NursingFeedFragment extends InjectableFragment {
 //            }
             feedDao.create(daoObject);
             Log.d(TAG, "created object " + daoObject);
-            scopedBus.post(new FeedItemCreatedEvent());
             leftStarted = false;
             rightStarted = false;
+            scopedBus.post(new FeedItemCreatedEvent());
+
             soundMgr.stopEndlessAlarm();
 
         } catch (SQLException e) {
