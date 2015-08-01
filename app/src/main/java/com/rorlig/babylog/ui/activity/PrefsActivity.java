@@ -38,12 +38,7 @@ public class PrefsActivity extends InjectableActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         PrefsFragment mPrefsFragment = new PrefsFragment();
-
-
-
         FragmentTransaction mFragmentTransaction = getFragmentManager()
                 .beginTransaction();
         mFragmentTransaction.replace(R.id.fragment_container, mPrefsFragment);
@@ -52,31 +47,31 @@ public class PrefsActivity extends InjectableActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle, if it returns
-        // true, then it has handled the app icon touch event
-
-        switch (item.getItemId()){
-
-            case R.id.action_licenses:
-                break;
 
 
-        }
-        // Handle your other action bar items...
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Pass the event to ActionBarDrawerToggle, if it returns
+//        // true, then it has handled the app icon touch event
+//
+//        switch (item.getItemId()){
+//
+//            case R.id.action_licenses:
+//                break;
+//
+//
+//        }
+//        // Handle your other action bar items...
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     @Override

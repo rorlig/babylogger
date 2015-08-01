@@ -93,4 +93,8 @@ public class FeedDao extends BaseDao {
     public String getNotes() {
         return notes;
     }
+
+    public int getId() {
+        return id;
+    }
 }

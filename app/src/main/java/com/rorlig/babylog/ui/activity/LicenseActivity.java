@@ -42,13 +42,10 @@ public class LicenseActivity extends LibsActivity {
         */
 
         setIntent(new LibsBuilder().withFields(R.string.class.getFields())
-                .withLibraries("activeandroid", "caldroid")
                 .withActivityTitle("Licenses")
                 .withLicenseShown(true)
                 .withActivityTheme(R.style.AppTheme)
-
                 .withActivityStyle(Libs.ActivityStyle.LIGHT)
-
                 .intent(this));
 
 

@@ -196,16 +196,16 @@ public class HomeFragment extends InjectableFragment {
 
         switch (item.getItemId()) {
 
-            case R.id.action_settings:
-                startActivity(new Intent(getActivity(), PrefsActivity.class));
-                break;
+//            case R.id.action_settings:
+//                startActivity(new Intent(getActivity(), PrefsActivity.class));
+//                break;
             case R.id.action_export:
                 startActivity(new Intent(getActivity(), ExportActivity.class));
 
                 break;
-            case R.id.action_licenses:
-                startActivity(new Intent(getActivity(), LicenseActivity.class));
-                break;
+//            case R.id.action_licenses:
+//                startActivity(new Intent(getActivity(), LicenseActivity.class));
+//                break;
         }
         return super.onOptionsItemSelected(item);
 

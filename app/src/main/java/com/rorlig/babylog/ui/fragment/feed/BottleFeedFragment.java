@@ -20,6 +20,7 @@ import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
+import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.model.feed.FeedType;
@@ -74,6 +75,7 @@ public class BottleFeedFragment extends InjectableFragment
     ArrayAdapter<CharSequence> feedAdapter;
 
     DateTimeHeaderFragment dateTimeHeader;
+    private int id;
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -139,7 +141,34 @@ public class BottleFeedFragment extends InjectableFragment
         dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
 
 
+        if (getArguments()!=null) {
+            Log.d(TAG, "arguments are not null");
+            id = getArguments().getInt("feed_id");
+            initViews(id);
+        }
+
 //        feedTypeSpinner.setOnItemClickListener(this);
+    }
+
+
+    private void initViews(int id) {
+        Log.d(TAG, "initViews " + id);
+
+        try {
+            FeedDao feedDao = babyLoggerORMLiteHelper.getFeedDao().queryForId(id);
+            Log.d(TAG, feedDao.toString());
+            quantityTextView.setText(feedDao.getQuantity().toString());
+
+//            switch (feedDao.getFeedItem()) {
+//
+////                case
+//
+//            }
+//            feedTypeSpinner.setSelection();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

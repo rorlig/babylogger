@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,7 +25,10 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
+import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.FeedDao;
+import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
+import com.rorlig.babylog.otto.FeedItemClickedEvent;
 import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
@@ -48,7 +52,7 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of feeds changes
  */
-public class FeedingListFragment extends InjectableFragment implements LoaderManager.LoaderCallbacks<List<FeedDao>> {
+public class FeedingListFragment extends InjectableFragment implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<List<FeedDao>> {
 
     @ForActivity
     @Inject
@@ -243,6 +247,8 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
                 new DateSectionizer());
 
         feedListView.setAdapter(sectionAdapter);
+
+        feedListView.setOnItemClickListener(this);
     }
 
     /**
@@ -255,6 +261,15 @@ public class FeedingListFragment extends InjectableFragment implements LoaderMan
     @Override
     public void onLoaderReset(Loader<List<FeedDao>> loader) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(TAG, "onItemClick");
+        Log.d(TAG, "item clicked at position " + position + " id " + id);
+        FeedDao feedDao = (FeedDao) feedListView.getItemAtPosition(position);
+        Log.d(TAG, "feedDao dao " + feedDao);
+        scopedBus.post(new FeedItemClickedEvent(feedDao));
     }
 
 
