@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bottle"
+            android:layout_below="@id/bottle"
             android:layout_centerHorizontal="true"
             android:id="@+id/diaperChangeTime"
             android:text="hello"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:text="Test"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/left_panel"
+        android:layout_toRightOf="@id/left_panel"
         android:textColor="@color/primary_blue"
         android:id="@+id/txt_quantity"/>
 
@@ -45,7 +45,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="30dp"
         android:id="@+id/notes_layout"
-        android:layout_toRightOf="@+id/left_panel"
+        android:layout_toRightOf="@id/left_panel"
         android:layout_below="@+id/txt_quantity"
         >
         <TextView

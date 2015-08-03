@@ -12,10 +12,13 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
+import com.rorlig.babylog.otto.SleepItemClicked;
 import com.rorlig.babylog.otto.SleepLogCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
+import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepListFragment;
 import com.rorlig.babylog.ui.fragment.sleep.SleepStatsFragment;
@@ -165,6 +168,26 @@ public class SleepActivity extends InjectableActivity {
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent event) {
             showFragment(SleepStatsFragment.class, "stats_fragment", true);
+        }
+
+        @Subscribe
+        public void onSleepItemClicked(SleepItemClicked event) {
+            Log.d(TAG, "onSleepItemClicked");
+            SleepFragment fragment = new SleepFragment();
+            Bundle args = new Bundle();
+            args.putInt("sleep_id", event.getSleepDao().getId());
+            fragment.setArguments(args);
+
+            Log.d(TAG, "adding to back stack ");
+
+//            Fragment localFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .addToBackStack("main_screen_stack")
+                    .commit();
+
+//            showFragment(DiaperChangeFragment.class, "diaper_change", true);
         }
 
     }

@@ -54,4 +54,12 @@ public class SleepDao extends BaseDao {
     public Long getDuration() {
         return duration;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

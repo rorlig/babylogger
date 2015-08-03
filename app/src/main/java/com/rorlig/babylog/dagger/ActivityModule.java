@@ -29,7 +29,6 @@ import com.rorlig.babylog.ui.adapter.MilestonesItemAdapter;
 import com.rorlig.babylog.ui.adapter.SleepAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.fragment.MainFragment;
 import com.rorlig.babylog.ui.fragment.about.LicensesFragment;
 import com.rorlig.babylog.ui.fragment.datetime.CustomTimePickerFragment;
 import com.rorlig.babylog.ui.fragment.datetime.DatePickerFragment;
@@ -80,7 +79,6 @@ import dagger.Provides;
             ExportActivity.class,
             LicenseActivity.class,
             LicensesFragment.class,
-            MainFragment.class,
             InjectableFragment.class,
             InjectablePreferenceFragment.class,
             DiaperChangeFragment.class,

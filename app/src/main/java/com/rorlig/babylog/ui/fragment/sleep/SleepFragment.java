@@ -3,23 +3,17 @@ package com.rorlig.babylog.ui.fragment.sleep;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
@@ -28,18 +22,12 @@ import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.SleepDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.otto.SleepLogCreated;
-import com.rorlig.babylog.otto.TimeSetEventError;
-import com.rorlig.babylog.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
-import com.rorlig.babylog.ui.fragment.datetime.CustomTimePickerFragment;
-import com.rorlig.babylog.ui.fragment.datetime.TimePickerFragment;
 import com.rorlig.babylog.ui.widget.DateTimeHeaderFragment;
-import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -73,6 +61,9 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     @InjectView(R.id.save_btn)
     Button saveBtn;
 
+    @InjectView(R.id.two_button_layout)
+    LinearLayout editDeleteBtn;
+
 
 
     @Inject
@@ -81,6 +72,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     private DateTimeHeaderFragment dateTimeHeader;
     private boolean minuteEmpty = true;
     private boolean hourEmpty = true;
+    private int id = -1;
 
 
     @Override
@@ -108,62 +100,71 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
         dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GRAY);
+
+        if (getArguments()!=null) {
+            Log.d(TAG, "arguments are not null");
+            id = getArguments().getInt("sleep_id");
+            initViews(id);
+        }
+
+
+
+
+
+//        getActivity().getActionBar().setDisplayHomeAsUpEnabled(fa);
+
+//        scopedBus.post(new UpNavigationEvent);
+    }
+
+    private void initViews(int id) {
+        Log.d(TAG, "initViews "   + id);
+        try {
+            SleepDao sleepDao = babyLoggerORMLiteHelper.getSleepDao().queryForId(id);
+            Log.d(TAG, sleepDao.toString());
+            int hours = (int) (sleepDao.getDuration()/60);
+            int minutes = (int) (sleepDao.getDuration()%60);
+
+            sleepHours.setText(String.valueOf(hours));
+            sleepMinutes.setText(String.valueOf(minutes));
+            dateTimeHeader.setDateTime(sleepDao.getDate());
+            editDeleteBtn.setVisibility(View.VISIBLE);
+            saveBtn.setVisibility(View.GONE);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
-//    private Spannable getSpannable(CharSequence charSequence) {
-//        ClickableSpan cs = new ClickableSpan() {
-//            @Override
-//            public void onClick(View widget) {
-//
-//            }
-//        };
-//        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(getActivity().getResources().getColor(R.color.primary_gray));
-//       Spannable spannable =  Spannable.Factory.getInstance().newSpannable(charSequence);
-//       spannable.setSpan(cs, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//       spannable.setSpan(foregroundColorSpan, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-//        return spannable;
-//    }
-
-
-//    @OnClick(R.id.sleep_start_time)
-//    public void onDateRangeStart(){
-//        Log.d(TAG, "onDateRangeStart");
-//        showTimePickerDialog("start");
-//    }
-//
-//    @OnClick(R.id.sleep_duration)
-//    public void onDurationClicked(){
-//        Log.d(TAG, "onDurationClicked");
-//        showDurationDialog();
-//        //show custom dialog...
-////        showTimePickerDialog("end");
-//    }
-
     @OnClick(R.id.save_btn)
     public void onSaveBtnClicked() {
-        Log.d(TAG, "saveBtn clicked");
-        Log.d(TAG, "save btn clicked");
-        Dao<SleepDao, Integer> sleepDao;
-        SleepDao daoObject = null;
-        Calendar c = Calendar.getInstance();
+       createOrEdit();
+    }
 
+    @OnClick(R.id.edit_btn)
+    public void onEditBtnClicked(){
+        Log.d(TAG, "edit btn clicked");
+        createOrEdit();
+    }
+
+    @OnClick(R.id.delete_btn)
+    public void onDeleteBtnClicked(){
+        Log.d(TAG, "delete btn clicked");
 
         try {
-            sleepDao = babyLoggerORMLiteHelper.getSleepDao();
-            daoObject = new SleepDao(c.getTime(), getDuration(), c.getTime());
-            sleepDao.create(daoObject);
-            Log.d(TAG, "created objected " + daoObject);
+
+            if (id!=-1) {
+                Log.d(TAG, "deleting it");
+//                daoObject.setId(id);
+                babyLoggerORMLiteHelper.getSleepDao().deleteById(id);
+//                diaperChangeDao.delete(daoObject);
+            }
             scopedBus.post(new SleepLogCreated());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-    //show the duration dialog...
-    private void showDurationDialog() {
-        DialogFragment newFragment = new CustomTimePickerFragment();
-        newFragment.show(getFragmentManager(), "timePicker");
     }
 
 
@@ -175,33 +176,35 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_sleep_new, null);
+        View view =  inflater.inflate(R.layout.fragment_sleep, null);
         ButterKnife.inject(this, view);
         return view;
     }
 
-//    /*
-//     * Register to events...
-//     */
-//    @Override
-//    public void onStart(){
-//
-//
-//        super.onStart();
-//        Log.d(TAG, "onStart");
-//        scopedBus.register(eventListener);
-//    }
-//
-//    /*
-//     * Unregister from events ...
-//     */
-//    @Override
-//    public void onStop(){
-//        super.onStop();
-//        Log.d(TAG, "onStop");
-//        scopedBus.unregister(eventListener);
-//
-//    }
+
+    private void createOrEdit() {
+        Dao<SleepDao, Integer> sleepDao;
+        SleepDao daoObject;
+        try {
+
+            daoObject = new SleepDao(dateTimeHeader.getEventTime(), getDuration(), dateTimeHeader.getEventTime());
+            sleepDao = babyLoggerORMLiteHelper.getSleepDao();
+
+            if (id!=-1) {
+                Log.d(TAG, "updating it");
+                daoObject.setId(id);
+                sleepDao.update(daoObject);
+            } else {
+                Log.d(TAG, "creating it");
+                sleepDao.create(daoObject);
+            }
+
+            Log.d(TAG, "created objected " + daoObject);
+            scopedBus.post(new SleepLogCreated());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -238,28 +241,6 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     }
 
 
-//    private void showTimePickerDialog(String label) {
-//        Log.d(TAG, " label " + label);
-//        DialogFragment newFragment = new TimePickerFragment();
-//
-//        Bundle args = new Bundle();
-//
-//        //add label to indicate which date is being set...
-//        args.putString("label", label);
-//
-//        //if the dialog is for the start date make sure the max date < end_date
-//        if (label.equals("start")) {
-//            args.putInt("hour", Integer.parseInt(String.valueOf(dateStartHourTextView.getText())));
-//            args.putInt("minute", Integer.parseInt(String.valueOf(dateStartMinuteTextView.getText())));
-//            args.putInt("max_hour", Integer.parseInt(String.valueOf(durationHourTextView.getText())));
-//            args.putInt("max_minute", Integer.parseInt(String.valueOf(durationMinuteTextView.getText())));
-//        } else {
-//            args.putInt("hour", Integer.parseInt(String.valueOf(durationHourTextView.getText())));
-//            args.putInt("minute", Integer.parseInt(String.valueOf(durationMinuteTextView.getText())));
-//        }
-//        newFragment.setArguments(args);
-//        newFragment.show(getFragmentManager(), "datepicker");
-//    }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {

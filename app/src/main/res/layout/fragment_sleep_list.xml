@@ -50,7 +50,7 @@
             android:text="@string/no_sleep"
             android:id="@+id/errorText"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/icon_no_diaper_change"/>
+            android:layout_below="@id/icon_no_diaper_change"/>
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/add_item"
@@ -62,7 +62,7 @@
             android:background="@color/primary_gray_dark"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/errorText"/>
+            android:layout_below="@id/errorText"/>
     </RelativeLayout>
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_sleep_item"

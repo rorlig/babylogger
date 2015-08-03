@@ -22,8 +22,11 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.BaseDao;
+import com.rorlig.babylog.dao.DiaperChangeDao;
 import com.rorlig.babylog.dao.SleepDao;
 import com.rorlig.babylog.db.BabyLoggerORMUtils;
+import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
+import com.rorlig.babylog.otto.SleepItemClicked;
 import com.rorlig.babylog.otto.SleepLogCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.other.AddItemTypes;
@@ -241,7 +244,10 @@ public class SleepListFragment extends InjectableFragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Log.d(TAG, "item clicked at position " + position + " id " + id);
+        SleepDao sleepDao = (SleepDao) sleepListView.getItemAtPosition(position);
+        Log.d(TAG, "diaperchange dao " + sleepDao);
+        scopedBus.post(new SleepItemClicked(sleepDao));
     }
 
     @Override
