@@ -4,8 +4,10 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
@@ -67,12 +70,17 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     @InjectView(R.id.sleep_minutes)
     TextView sleepMinutes;
 
+    @InjectView(R.id.save_btn)
+    Button saveBtn;
+
 
 
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
     private DateTimeHeaderFragment dateTimeHeader;
+    private boolean minuteEmpty = true;
+    private boolean hourEmpty = true;
 
 
     @Override
@@ -92,6 +100,10 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
             init();
         }
 
+        saveBtn.setEnabled(false);
+
+        setUpTextWatchers();
+
 //        setSpans();
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
@@ -99,20 +111,20 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     }
 
 
-    private Spannable getSpannable(CharSequence charSequence) {
-        ClickableSpan cs = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-
-            }
-        };
-        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(getActivity().getResources().getColor(R.color.primary_gray));
-       Spannable spannable =  Spannable.Factory.getInstance().newSpannable(charSequence);
-       spannable.setSpan(cs, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-       spannable.setSpan(foregroundColorSpan, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        return spannable;
-    }
+//    private Spannable getSpannable(CharSequence charSequence) {
+//        ClickableSpan cs = new ClickableSpan() {
+//            @Override
+//            public void onClick(View widget) {
+//
+//            }
+//        };
+//        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(getActivity().getResources().getColor(R.color.primary_gray));
+//       Spannable spannable =  Spannable.Factory.getInstance().newSpannable(charSequence);
+//       spannable.setSpan(cs, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//       spannable.setSpan(foregroundColorSpan, 0 , charSequence.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//        return spannable;
+//    }
 
 
 //    @OnClick(R.id.sleep_start_time)
@@ -129,7 +141,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 ////        showTimePickerDialog("end");
 //    }
 
-    @OnClick(R.id.btn_save)
+    @OnClick(R.id.save_btn)
     public void onSaveBtnClicked() {
         Log.d(TAG, "saveBtn clicked");
         Log.d(TAG, "save btn clicked");
@@ -140,7 +152,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
         try {
             sleepDao = babyLoggerORMLiteHelper.getSleepDao();
-//            daoObject = new SleepDao(getStartTime(),getDuration(), c.getTime());
+            daoObject = new SleepDao(c.getTime(), getDuration(), c.getTime());
             sleepDao.create(daoObject);
             Log.d(TAG, "created objected " + daoObject);
             scopedBus.post(new SleepLogCreated());
@@ -257,19 +269,19 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
 //    private Date getStartTime() {
 //        Calendar c = Calendar.getInstance();
-//        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(dateStartHourTextView.getText().toString()));
-//        c.set(Calendar.MINUTE, Integer.parseInt(dateStartMinuteTextView.getText().toString()) - 1);
+//        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(sleepHours.getText().toString()));
+//        c.set(Calendar.MINUTE, Integer.parseInt(sleepMinutes.getText().toString()));
 //        return c.getTime();
 //
 //
 //    }
 //
-//    private Long getDuration() {
-//        int hour = Integer.parseInt(durationHourTextView.getText().toString());
-//        int minute = Integer.parseInt(durationMinuteTextView.getText().toString());
-//        return Long.valueOf(hour * 60 + minute);
-//
-//    }
+    private Long getDuration() {
+        int hour = Integer.parseInt(sleepHours.getText().toString());
+        int minute = Integer.parseInt(sleepMinutes.getText().toString());
+        return Long.valueOf(hour * 60 + minute);
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -285,45 +297,107 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
         inflater.inflate(R.menu.menu_main, menu);
     }
 
-    private class EventListener {
-        public EventListener() {
-
-        }
 
 
+    private void setUpTextWatchers() {
 
-//        @Subscribe
-//        public void onTimeChanged(TimeSetEvent timeSetEvent){
-//            Log.d(TAG, "timeSetEvent " + timeSetEvent.toString());
-//            if (timeSetEvent.getLabel().equals("start")) {
-//                dateStartHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
-//                dateStartMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
-//            } else {
-//                Log.d(TAG, "durartion set hour " + timeSetEvent.getHourOfDay() + " minute " + timeSetEvent.getMinute());
-//                durationHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
-//                durationMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
-//            }
-//            setSpans();
-//        }
+        sleepMinutes.addTextChangedListener(new TextWatcher() {
+            int len = 0;
 
-        @Subscribe
-        public void onTimeChangeError(TimeSetEventError event) {
-            Toast.makeText(getActivity(), "Start time cannot be greater than end time", Toast.LENGTH_SHORT).show();
-        }
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "beforeTextChanged ");
+                String str = sleepMinutes.getText().toString();
+                len = str.length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "onTextChanged ");
+
+                String str = sleepMinutes.getText().toString();
+
+                Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
+//
+//                if ((str.length() == 2 && len < str.length())) {
+//
+//                    Log.d(TAG, "appending .");
+//                    //checking length  for backspace.
+//                    sleepMinutes.append(".");
+//                    //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
+//                }
+
+                if (str.length() > 0) {
+//                    saveBtn.setEnabled(true);
+                    minuteEmpty = false;
+//                    setSaveEnabled();
+
+                } else {
+//                    saveBtn.setEnabled(false);
+                    minuteEmpty = true;
+
+                }
+                setSaveEnabled();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d(TAG, "afterTextChanged ");
+
+            }
+        });
+
+        sleepHours.addTextChangedListener(new TextWatcher() {
+            int len = 0;
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "beforeTextChanged ");
+                String str = sleepHours.getText().toString();
+                len = str.length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "onTextChanged ");
+
+                String str = sleepHours.getText().toString();
+
+                Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
+
+
+                if (str.length()>0) {
+                    hourEmpty = false;
+
+                } else {
+//                    saveBtn.setEnabled(false);
+                    hourEmpty = true;
+
+                }
+
+                setSaveEnabled();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d(TAG, "afterTextChanged ");
+
+            }
+        });
+
+
+
+
     }
 
+    private void setSaveEnabled() {
+            if (!minuteEmpty || !hourEmpty) {
+                saveBtn.setEnabled(true);
+            } else {
+                saveBtn.setEnabled(false);
+            }
+    }
 
-    ///sets spans to the textview elements...
-
-//    private void setSpans(){
-//        dateStartHourTextView.setText(getSpannable(dateStartHourTextView.getText().toString()));
-//        dateStartMinuteTextView.setText(getSpannable(dateStartMinuteTextView.getText().toString()));
-//        dateStartHourDivider.setText(getSpannable(dateStartHourDivider.getText().toString()));
-//
-//        durationHourTextView.setText(getSpannable(durationHourTextView.getText().toString()));
-//        durationMinuteTextView.setText(getSpannable(durationMinuteTextView.getText().toString()));
-//        durationHourDivider.setText(getSpannable(durationHourDivider.getText().toString()));
-//        durationMinuteDivider.setText(getSpannable(durationMinuteDivider.getText().toString()));
-//    }
 
 }

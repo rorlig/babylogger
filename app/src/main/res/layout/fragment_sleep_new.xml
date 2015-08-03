@@ -82,6 +82,7 @@
             app:met_floatingLabel="normal"
             android:numeric="decimal"
             android:layout_weight="1"
+
             />
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/sleep_minutes"
@@ -104,7 +105,7 @@
 
 
     <com.gc.materialdesign.views.ButtonRectangle
-        android:id="@+id/btn_save"
+        android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txt_save"
@@ -129,6 +130,7 @@
             android:text="Delete"
             android:background="@color/primary_gray_dark"
             android:layout_weight="1"
+
             app:rippleSpeed="50"/>
 
         <com.gc.materialdesign.views.ButtonRectangle
