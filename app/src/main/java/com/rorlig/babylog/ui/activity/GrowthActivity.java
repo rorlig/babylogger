@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
@@ -25,6 +26,8 @@ import com.rorlig.babylog.ui.fragment.growth.GrowthStatsFragment;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
+
+import butterknife.InjectView;
 
 //import com.rorlig.babylog.common.AppConstants;
 //import com.rorlig.babylog.otto.events.filter.DistanceFilterChanged;
@@ -54,6 +57,12 @@ public class GrowthActivity extends InjectableActivity {
     @Inject
     TypeFaceManager typeFaceManager;
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @InjectView(R.id.title)
+    TextView titleTextView;
+
 
 
 
@@ -68,10 +77,10 @@ public class GrowthActivity extends InjectableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_growth);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setBackgroundColor(getResources().getColor(R.color.primary_green));
+//        titleTextView.setText(getTitle());
 
 
 
@@ -126,45 +135,6 @@ public class GrowthActivity extends InjectableActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-     * Class to swap fragments in and out
-     */
-
-//    private void showFragment(Class<?> paramClass, String paramString, boolean addToBackStack){
-//        Log.d(TAG, "showFragment for " + paramClass);
-//
-//        FragmentManager localFragmentManager = getSupportFragmentManager();
-//
-//
-//
-//        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
-//
-//        if ((localFragment==null)||(!paramClass.isInstance(localFragment))){
-//            try {
-//                Log.d(TAG, "replacing fragments");
-//
-//                if (addToBackStack) {
-//
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .add(R.id.fragment_container, localFragment)
-//                            .addToBackStack("growth_stack")
-//                            .commit();
-//
-//                } else {
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .add(R.id.fragment_container, localFragment)
-//                            .commit();
-//                }
-//
-//            } catch (InstantiationException e) {
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
 
     @Override

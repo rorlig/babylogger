@@ -1,16 +1,23 @@
 package com.rorlig.babylog.ui.activity;
 
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ActivityModule;
 import com.rorlig.babylog.dagger.ObjectGraphActivity;
 import com.rorlig.babylog.dagger.ObjectGraphUtils;
 import com.rorlig.babylog.otto.ScopedBus;
+
+import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,10 +44,15 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
     @Inject
     public ScopedBus scopedBus;
 
+    @Inject
+    public SharedPreferences preferences;
+
     private String TAG = "InjectableActivity";
 
+    private TextView titleTextView;
 
-    @Override
+
+        @Override
     public void inject(Object paramObject) {
        Log.d(TAG, "injecting " + paramObject);
        activityGraph.inject(paramObject);
@@ -49,8 +61,25 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_base);
+
+
         activityGraph = ObjectGraphUtils.getApplicationGraph(this).plus(getModules().toArray());
         activityGraph.inject(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ImageView profileImageIcon = (ImageView) toolbar.findViewById(R.id.icon_image);
+        titleTextView = (TextView) toolbar.findViewById(R.id.title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        final String imageUri = preferences.getString("imageUri", "");
+        Log.d(TAG, "imageUri " + imageUri);
+        if (!imageUri.equals("")) {
+            Log.d(TAG, "setting the profile image");
+            profileImageIcon.setImageURI(Uri.parse(imageUri));
+        }
+
+        titleTextView.setText(getTitle());
     }
 
     @Override

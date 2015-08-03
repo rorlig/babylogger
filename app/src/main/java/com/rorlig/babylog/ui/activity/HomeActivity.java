@@ -2,18 +2,23 @@ package com.rorlig.babylog.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment;
+import com.rorlig.babylog.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -36,9 +41,6 @@ public class HomeActivity extends InjectableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         showFragment(HomeFragment.class, "home_fragment", false);
     }
 

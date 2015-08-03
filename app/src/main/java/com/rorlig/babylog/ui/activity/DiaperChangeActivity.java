@@ -3,6 +3,7 @@ package com.rorlig.babylog.ui.activity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
@@ -24,6 +27,8 @@ import com.rorlig.babylog.ui.fragment.diaper.DiaperStatsFragment;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
+
+import butterknife.InjectView;
 
 //import com.rorlig.babylog.common.AppConstants;
 //import com.rorlig.babylog.otto.events.filter.DistanceFilterChanged;
@@ -54,6 +59,12 @@ public class DiaperChangeActivity extends InjectableActivity {
     @Inject
     TypeFaceManager typeFaceManager;
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @InjectView(R.id.title)
+    TextView titleTextView;
+
 
 
 
@@ -75,13 +86,33 @@ public class DiaperChangeActivity extends InjectableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diaper_change_list);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
+//        setContentView(R.layout.activity_diaper_change_list);
+//
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//
+//        setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.primary_purple));
+//        getSupportActionBar().setBackgroundDrawable(R.color.primary_dark_purple);
+
+//        ImageView profileImageIcon = (ImageView) toolbar.findViewById(R.id.icon_image);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+//        titleT.setText(getTitle());
+
+//        final String imageUri = preferences.getString("imageUri", "");
+//        Log.d(TAG, "imageUri " + imageUri);
+//        if (imageUri.equals("")) {
+////            getSupportActionBar().setIcon(R.drawable.ic_action_profile);
+//
+//
+//        } else  {
+//            profileImageIcon.setImageURI(Uri.parse(imageUri));
+////                getSupportActionBar().setIcon(AppUtils.getDrawableFromUri
+////                        (Uri.parse(preferences.getString("imageUri", "")), getApplicationContext()));
+//        }
 
 
         String intentString = getIntent().getStringExtra("intent");
@@ -115,46 +146,6 @@ public class DiaperChangeActivity extends InjectableActivity {
 
 //
 
-
-    /*
-     * Class to swap fragments in and out
-     */
-
-//    private void showFragment(Class<?> paramClass, String paramString, boolean addToBackStack){
-//        Log.d(TAG, "showFragment for " + paramClass);
-//
-//        FragmentManager localFragmentManager = getSupportFragmentManager();
-//
-//
-//
-//        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
-//
-//        if ((localFragment==null)||(!paramClass.isInstance(localFragment))){
-//            try {
-//                Log.d(TAG, "replacing fragments");
-//
-//                if (addToBackStack) {
-//
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .add(R.id.fragment_container, localFragment)
-//                            .addToBackStack("diaper_stack")
-//                            .commit();
-//
-//                } else {
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .add(R.id.fragment_container, localFragment)
-//                            .commit();
-//                }
-//
-//            } catch (InstantiationException e) {
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
 
     @Override

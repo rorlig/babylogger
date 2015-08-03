@@ -46,6 +46,15 @@
         android:orientation="horizontal" >
 
         <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_reset"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:text="@string/reset"
+            android:textStyle="bold"
+            android:background="@color/primary_orange"/>
+
+        <com.gc.materialdesign.views.ButtonFlat
             android:id="@+id/btn_save"
             android:layout_width="100dp"
             android:layout_height="30dp"
@@ -65,14 +74,7 @@
             android:background="@color/primary_orange"/>
 
 
-        <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btn_reset"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:clickable="true"
-            android:text="@string/reset"
-            android:textStyle="bold"
-            android:background="@color/primary_orange"/>
+
     </LinearLayout>
 
 </LinearLayout>

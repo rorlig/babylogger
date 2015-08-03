@@ -270,9 +270,9 @@
     <string name="stopwatch_reset_text">Reset</string>
     <string name="nursing_save_txt">Save</string>
     <string name="title_breast">BREAST FEEDING</string>
-    <string name="breast_title_left">LEFT</string>
+    <string name="breast_title_left">LEFT BREAST</string>
 
-    <string name="breast_title_right">RIGHT</string>
+    <string name="breast_title_right">RIGHT BREAST</string>
     <string name="label_inches">inches</string>
     <string name="txt_save">Save</string>
     <string name="txt_hint_decimal">--.--</string>
@@ -318,7 +318,7 @@
     <string name="sleep_header">Track Sleep</string>
     <string name="sleep_start_time">Sleep Start Time: </string>
     <string name="sleep_end_time">Sleep End Time: </string>
-    <string name="sleep_duration">Duration: </string>
+    <string name="sleep_duration">Sleep Duration </string>
     <string name="diaper_log_description_text">Log all the diaper changes.</string>
     <string name="feed_log_description_text">Track both bottle and breast feeds</string>
     <string name="growth_log_description_text">Record everything and chart progress on beautiful graphs</string>
@@ -349,6 +349,9 @@
     <string name="version_number_title">Version Number</string>
     <string name="version_number_summary">1.0.0</string>
     <string name="more_settings_toc">Terms and Conditions</string>
+    <string name="minutes">Minutes</string>
+    <string name="bottle_feed_title">BOTTLE FEED</string>
+    <string name="nursing_heading">Nursing Feed</string>
 
 
 </resources>

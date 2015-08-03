@@ -60,11 +60,12 @@ public class MilestonesActivity extends InjectableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_milestones);
+//        setContentView(R.layout.activity_milestones);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.primary_orange));
 
 
 //        String intentString = getIntent().getStringExtra("intent");
@@ -104,45 +105,6 @@ public class MilestonesActivity extends InjectableActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-     * Class to swap fragments in and out
-     */
-
-//    private void showFragment(Class<?> paramClass, String paramString, boolean addToBackStack){
-//        Log.d(TAG, "showFragment for " + paramClass);
-//
-//        FragmentManager localFragmentManager = getSupportFragmentManager();
-//
-//
-//
-//        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
-//
-//        if ((localFragment==null)||(!paramClass.isInstance(localFragment))){
-//            try {
-//                Log.d(TAG, "replacing fragments");
-//
-//                if (addToBackStack) {
-//
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .add(R.id.fragment_container, localFragment)
-//                            .addToBackStack("diaper_stack")
-//                            .commit();
-//
-//                } else {
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .replace(R.id.fragment_container, localFragment)
-//                            .commitAllowingStateLoss();
-//                }
-//
-//            } catch (InstantiationException e) {
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
 
     @Override

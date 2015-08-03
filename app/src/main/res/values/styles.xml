@@ -209,6 +209,11 @@
     </style>
 
 
+    <style name="ListItemDividerShort.Green" parent="ListItemDividerShort">
+        <item name="android:background">@color/primary_green</item>
+    </style>
+
+
     <style name="ListItemDividerShort.Blue" parent="ListItemDividerShort">
         <item name="android:background">@color/primary_blue</item>
     </style>

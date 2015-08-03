@@ -13,7 +13,26 @@
         app:theme="@style/AppTheme.Toolbar"
         app:titleTextAppearance="@style/AppTheme.Toolbar.Title"
 
-        />
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/icon_image"
+            android:src="@drawable/ic_action_profile"
+            app:border_width="2dp"
+            app:border_color="@color/white"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:id="@+id/title"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+
+            android:layout_gravity="center"/>
+    </android.support.v7.widget.Toolbar>
 
 
 

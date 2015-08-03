@@ -78,10 +78,10 @@ public class DateTimeHeaderFragment extends InjectableFragment {
 
         TypedArray a  = getParentFragment().getActivity().obtainStyledAttributes(R.styleable.DateTimeHeaderFragment);
 
-        int color = a.getColor(R.styleable.DateTimeHeaderFragment_color_text, getResources().getColor(R.color.text_color_main));
-        int my_integer = a.getColor(R.styleable.DateTimeHeaderFragment_my_int, -1);
-        Log.d(TAG, "My Integer " + my_integer);
-        Log.d(TAG, " color choosen " + color);
+//        int color = a.getColor(R.styleable.DateTimeHeaderFragment_color_text, getResources().getColor(R.color.text_color_main));
+//        int my_integer = a.getColor(R.styleable.DateTimeHeaderFragment_my_int, -1);
+//        Log.d(TAG, "My Integer " + my_integer);
+//        Log.d(TAG, " color choosen " + color);
         a.recycle();
 
     }

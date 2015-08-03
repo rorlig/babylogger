@@ -38,10 +38,10 @@ public class GrowthDao extends BaseDao {
     public GrowthDao() {
     }
 
-    public GrowthDao(Double weight, Double headMeasurement, Double height, String notes, Date time) {
+    public GrowthDao(Double weight,  Double height, Double headMeasurement,String notes, Date time) {
         this.weight = weight;
-        this.headMeasurement = headMeasurement;
         this.height = height;
+        this.headMeasurement = headMeasurement;
         this.date = new Date(time.getTime());
         this.notes = notes;
     }

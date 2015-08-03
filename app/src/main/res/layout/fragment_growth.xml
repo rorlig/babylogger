@@ -14,26 +14,33 @@
     <!--android:layout_height="fill_parent"-->
     <!--android:orientation="vertical">-->
     <fragment
-
         android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/header"
-     >
-
-    </fragment>
+        android:id="@+id/header"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_growth"
-        android:layout_below="@+id/header"
-        android:layout_marginTop="15dp"
-        android:paddingLeft="5dp"
-        android:textSize="18sp"
         android:id="@+id/growth_header_title"
         android:textColor="@color/primary_green"
-       />
+        android:textSize="20sp"
+        android:textAllCaps="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/header"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        style="@style/ListItemDividerShort.Green"
+        android:layout_below="@+id/growth_header_title"
+        android:layout_marginTop="2dp"
+        android:id="@+id/growht_header_divider"/>
 
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
@@ -135,15 +142,15 @@
         android:id="@+id/weight_pounds_ounces"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginRight = "15dp"
         android:layout_marginLeft = "15dp"
         android:maxLength="5"
         android:ems="10"
         android:hint="@string/weight_title"
         app:met_floatingLabel="normal"
-        android:layout_below="@+id/growth_header_title"
-        app:met_minCharacters="4"
-        app:met_maxCharacters="5"
+        android:layout_below="@+id/growht_header_divider"
+
         android:numeric="decimal"
 
         />
@@ -158,8 +165,7 @@
         android:hint="@string/height_title"
         app:met_floatingLabel="normal"
         android:layout_below="@+id/weight_pounds_ounces"
-        app:met_minCharacters="4"
-        app:met_maxCharacters="5"
+
         android:numeric="decimal"
 
         />
@@ -175,8 +181,7 @@
         app:met_floatingLabel="normal"
         android:layout_below="@+id/height_inches"
         android:maxLength="5"
-        app:met_minCharacters="4"
-        app:met_maxCharacters="5"
+
         android:numeric="decimal"
 
         />
@@ -251,14 +256,6 @@
         android:id="@+id/two_button_layout"
         android:visibility="gone"
         android:orientation="horizontal">
-        <com.gc.materialdesign.views.ButtonRectangle
-            android:id="@+id/edit_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edit"
-            android:background="@color/primary_green"
-            android:layout_weight="1"
-            app:rippleSpeed="50"/>
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/delete_btn"
@@ -268,6 +265,16 @@
             android:background="@color/primary_green"
             android:layout_weight="1"
             app:rippleSpeed="50"/>
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/edit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:background="@color/primary_green"
+            android:layout_weight="1"
+            app:rippleSpeed="50"/>
+
 
     </LinearLayout>
 

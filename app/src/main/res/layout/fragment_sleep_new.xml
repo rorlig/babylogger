@@ -50,55 +50,57 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sleep_start_time"
+            android:text="@string/sleep_duration"
             android:textColor="@color/primary_gray_dark"
             android:textSize="18sp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/date_range_start_label"
             android:textAllCaps="false"/>
 
 
-        <include layout = "@layout/view_time_gray_small"
-            android:id="@+id/sleep_start_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            >
-
-        </include>
 
 
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/date_range_end_layout"
         android:layout_margin="5dp"
         android:layout_below="@+id/sleep_start_layout">
 
-        <TextView
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/sleep_hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sleep_duration"
-            android:textColor="@color/primary_gray_dark"
-            android:textSize="18sp"
-            android:id="@+id/date_range_end_label"
-            android:textAllCaps="false"/>
-
-
-        <include layout = "@layout/view_time_gray_duration"
-            android:id="@+id/sleep_duration"
+            android:layout_marginRight = "15dp"
+            android:layout_marginLeft = "15dp"
+            android:maxLength="2"
+            android:ems="10"
+            android:hint="@string/hours"
+            app:met_floatingLabel="normal"
+            android:numeric="decimal"
+            android:layout_weight="1"
+            />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/sleep_minutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            >
+            android:layout_marginRight = "15dp"
+            android:layout_marginLeft = "15dp"
+            android:maxLength="2"
+            android:ems="10"
+            android:hint="@string/minutes"
+            android:layout_toRightOf="@+id/sleep_hours"
+            app:met_floatingLabel="normal"
+            android:numeric="decimal"
+            android:layout_weight="1"
 
-        </include>
+            />
 
 
-
-    </RelativeLayout>
+    </LinearLayout>
 
 
 
@@ -112,6 +114,36 @@
         app:rippleSpeed="50"
 
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/two_button_layout"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/delete_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:background="@color/primary_gray_dark"
+            android:layout_weight="1"
+            app:rippleSpeed="50"/>
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/edit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:background="@color/primary_gray_dark"
+            android:layout_weight="1"
+            app:rippleSpeed="50"/>
+
+
+    </LinearLayout>
+
 
 
 

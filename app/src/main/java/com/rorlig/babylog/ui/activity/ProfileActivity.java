@@ -82,9 +82,9 @@ public class ProfileActivity extends InjectableActivity {
 
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        setContentView(R.layout.activity_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setContentView(R.layout.activity_profile);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         showFragment(ProfileFragment.class, "profile_fragment", false);
     }
@@ -117,47 +117,6 @@ public class ProfileActivity extends InjectableActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    /*
-     * Class to swap fragments in and out
-     */
-
-//    private void showFragment(Class<?> paramClass, String paramString, boolean addToBackStack){
-//        Log.d(TAG, "showFragment for " + paramClass);
-//
-//        FragmentManager localFragmentManager = getSupportFragmentManager();
-//
-//
-//
-//        Fragment localFragment = localFragmentManager.findFragmentById(R.id.fragment_container);
-//
-//        if ((localFragment==null)||(!paramClass.isInstance(localFragment))){
-//            try {
-//                Log.d(TAG, "replacing fragments");
-//
-//                if (addToBackStack) {
-//
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .add(R.id.fragment_container, localFragment)
-//                            .addToBackStack("diaper_stack")
-//                            .commit();
-//
-//                } else {
-//                    localFragment = (Fragment)paramClass.newInstance();
-//                    localFragmentManager.beginTransaction()
-//                            .replace(R.id.fragment_container, localFragment)
-//                            .commitAllowingStateLoss();
-//                }
-//
-//            } catch (InstantiationException e) {
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
 
     @Override
     public void onStart(){

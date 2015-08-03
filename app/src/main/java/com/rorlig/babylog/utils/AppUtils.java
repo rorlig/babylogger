@@ -1,5 +1,8 @@
 package com.rorlig.babylog.utils;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Environment;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -8,7 +11,9 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by rorlig on 6/17/15.
@@ -71,5 +76,10 @@ public class AppUtils {
         return spannable;
     }
 
+
+    public static Drawable getDrawableFromUri(Uri uri, Context context) throws FileNotFoundException {
+        InputStream inputStream = context.getContentResolver().openInputStream(uri);
+        return Drawable.createFromStream(inputStream, uri.toString() );
+    }
 
 }

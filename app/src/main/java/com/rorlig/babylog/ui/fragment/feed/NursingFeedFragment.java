@@ -24,6 +24,11 @@ import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.model.feed.FeedType;
+import com.rorlig.babylog.otto.LeftEvent;
+import com.rorlig.babylog.otto.NursingFragmentRestartEvent;
+import com.rorlig.babylog.otto.RightEvent;
+import com.rorlig.babylog.otto.StopWatchLeftEvent;
+import com.rorlig.babylog.otto.StopWatchRightEvent;
 import com.rorlig.babylog.otto.TimersEvent;
 import com.rorlig.babylog.otto.TimersStartEvent;
 import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
@@ -166,6 +171,9 @@ public class NursingFeedFragment extends InjectableFragment {
 
         soundMgr = SoundManager.getInstance(getActivity());
 
+        setUpViews();
+
+
 
 
 //        scopedBus.post(new Feed("Bottle Feed"));
@@ -190,7 +198,6 @@ public class NursingFeedFragment extends InjectableFragment {
 
 
 
-        setUpViews();
     }
 
     private void setUpViews() {
@@ -213,18 +220,21 @@ public class NursingFeedFragment extends InjectableFragment {
         if (args!=null && args.getBoolean("fromNotification", false)) {
                 //restore times from the bundle...
                 Log.d(TAG, "not null args and fromNotification");
-                hourLTextView.setText(args.getString("hourLTextView", "00"));
-                minuteLTextView.setText(args.getString("minuteLTextView", "00"));
-                secondLTextView.setText(args.getString("secondLTextView", "00"));
-                hourRTextView.setText(args.getString("hourRTextView", "00"));
-                minuteRTextView.setText(args.getString("minuteRTextView", "00"));
-                secondRTextView.setText(args.getString("secondRTextView", "00"));
-                elapsedTimeL = args.getLong("elapsedTimeL", 0L);
-                elapsedTimeR = args.getLong("elapsedTimeR", 0L);
-                leftStarted = args.getBoolean("leftStarted");
-                rightStarted = args.getBoolean("rightStarted");
+//                hourLTextView.setText(args.getString("hourLTextView", "00"));
+//                minuteLTextView.setText(args.getString("minuteLTextView", "00"));
+//                secondLTextView.setText(args.getString("secondLTextView", "00"));
+//                hourRTextView.setText(args.getString("hourRTextView", "00"));
+//                minuteRTextView.setText(args.getString("minuteRTextView", "00"));
+//                secondRTextView.setText(args.getString("secondRTextView", "00"));
+//                elapsedTimeL = args.getLong("elapsedTimeL", 0L);
+//                elapsedTimeR = args.getLong("elapsedTimeR", 0L);
+//                leftStarted = args.getBoolean("leftStarted");
+//                rightStarted = args.getBoolean("rightStarted");
                 Log.d(TAG, "leftStarted " + leftStarted + " rightStarted " + rightStarted);
+                scopedBus.post(new NursingFragmentRestartEvent());
                 if (leftStarted) {
+                    Log.d(TAG, "setting text leftStarted");
+//                    Log.d(TAG, "leftSubscription " + leftSubscription.isUnsubscribed());
                     leftTextView.setText("Stop");
                 } else {
                     rightTextView.setText("Stop");
@@ -249,62 +259,81 @@ public class NursingFeedFragment extends InjectableFragment {
         public EventListener() {
 
         }
+
         @Subscribe
-        public void onTimerEvent(TimersEvent event) {
-            Log.d(TAG, event.toString());
+        public void onLeftEvent(LeftEvent event) {
+
+            hourLTextView.setText(event.getHours());
+            minuteLTextView.setText(event.getMinutes());
+            secondLTextView.setText(event.getSeconds());
+            leftValue = Integer.parseInt(event.getSeconds()) + Integer.parseInt(event.getMinutes()) * 60 + Integer.parseInt(event.getHours())*60*60;
         }
 
         @Subscribe
-        public void onTimeEvent(TimerEvent timerEvent) {
-//            Log.d(TAG, "onTimeTimeEvent");
-            soundMgr.doTick();
-
-            Long currentTime = System.currentTimeMillis();
-            int diff=0;
-
-//            Log.d(TAG, "leftStarted " + leftStarted + " rightStartded: " + rightStarted + " deltaL " + deltaL + " deltaR " + deltaR);
-//            Log.d(TAG, "diff " + diff + " elapsedTimeL " + elapsedTimeL + " elapsedTimeR " + elapsedTimeR);
-            if (leftStarted ) {
-                diff = (int)((currentTime - elapsedTimeL)/1000 + deltaL);
-            } else  {
-                diff = (int)((currentTime - elapsedTimeR)/1000 + deltaR);
-
-            }
-//            Log.d(TAG, " diff in seconds " + diff);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-            calendar.set(Calendar.SECOND, diff);
-            String time =  new SimpleDateFormat("HH:mm:ss").format(calendar.getTime());
-            String hours = time.substring(0, 2);
-            String minutes = time.substring(3,5);
-            String seconds = time.substring(6,8);
-            Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
-
-            if (leftStarted) {
-
-                hourLTextView.setText(hours);
-            minuteLTextView.setText(minutes);
-            secondLTextView.setText(seconds);
-
-            } else  {
-
-                hourRTextView.setText(hours);
-                minuteRTextView.setText(minutes);
-                secondRTextView.setText(seconds);
-
-            }
-//            hourTextView.setText(hours);
-//            minuteTextView.setText(minutes);
-//            secondTextView.setText(seconds);
-
-
-
-//            int seconds, minutes, hours;
+        public void onRightEvent(RightEvent event) {
+            hourRTextView.setText(event.getHours());
+            minuteRTextView.setText(event.getMinutes());
+            secondRTextView.setText(event.getSeconds());
+            rightValue = Integer.parseInt(event.getSeconds()) + Integer.parseInt(event.getMinutes()) * 60 + Integer.parseInt(event.getHours())*60*60;
 
         }
+
+//        @Subscribe
+//        public void onTimerEvent(TimersEvent event) {
+//            Log.d(TAG, event.toString());
+//        }
+//
+//        @Subscribe
+//        public void onTimeEvent(TimerEvent timerEvent) {
+////            Log.d(TAG, "onTimeTimeEvent");
+//            soundMgr.doTick();
+//
+//            Long currentTime = System.currentTimeMillis();
+//            int diff=0;
+//
+////            Log.d(TAG, "leftStarted " + leftStarted + " rightStartded: " + rightStarted + " deltaL " + deltaL + " deltaR " + deltaR);
+////            Log.d(TAG, "diff " + diff + " elapsedTimeL " + elapsedTimeL + " elapsedTimeR " + elapsedTimeR);
+//            if (leftStarted ) {
+//                diff = (int)((currentTime - elapsedTimeL)/1000 + deltaL);
+//            } else  {
+//                diff = (int)((currentTime - elapsedTimeR)/1000 + deltaR);
+//
+//            }
+////            Log.d(TAG, " diff in seconds " + diff);
+//
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.set(Calendar.HOUR_OF_DAY, 0);
+//            calendar.set(Calendar.MINUTE, 0);
+//            calendar.set(Calendar.MILLISECOND, 0);
+//            calendar.set(Calendar.SECOND, diff);
+//            String time =  new SimpleDateFormat("HH:mm:ss").format(calendar.getTime());
+//            String hours = time.substring(0, 2);
+//            String minutes = time.substring(3,5);
+//            String seconds = time.substring(6,8);
+//            Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
+//
+//            if (leftStarted) {
+//
+//                hourLTextView.setText(hours);
+//            minuteLTextView.setText(minutes);
+//            secondLTextView.setText(seconds);
+//
+//            } else  {
+//
+//                hourRTextView.setText(hours);
+//                minuteRTextView.setText(minutes);
+//                secondRTextView.setText(seconds);
+//
+//            }
+////            hourTextView.setText(hours);
+////            minuteTextView.setText(minutes);
+////            secondTextView.setText(seconds);
+//
+//
+//
+////            int seconds, minutes, hours;
+//
+//        }
     }
 
     @Override
@@ -331,63 +360,78 @@ public class NursingFeedFragment extends InjectableFragment {
     @OnClick(R.id.left)
     public void leftButtonClicked() {
 
+        scopedBus.post(new StopWatchLeftEvent());
+        leftStarted=!leftStarted;
         if (leftStarted) {
-
-            leftValue+=currentLeftValue;
-            leftStarted = false;
-            unsubscribeLeftTimer();
+            if (rightStarted) {
+                rightStarted = false;
+            }
+            rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
+            leftTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
+        } else {
             resetTextViews();
-
-            return;
-        }
-
-        leftStarted = true;
-
-        rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
-        leftTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
-
-        if (leftSubscription==null || leftSubscription.isUnsubscribed()) {
-
-            leftSubscription =  Observable.timer(1L, 1L, TimeUnit.SECONDS)
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            s -> {
-                                currentLeftValue = s;
-                                System.out.println(currentLeftValue);
-
-                                String time = getTime((int) (leftValue + currentLeftValue));
-                                String hours = time.substring(0, 2);
-                                String minutes = time.substring(3,5);
-                                String seconds = time.substring(6,8);
-                                Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
-                                hourLTextView.setText(hours);
-                                minuteLTextView.setText(minutes);
-                                secondLTextView.setText(seconds);
-                            });
-
         }
 
 
+//        if (leftStarted) {
+//
+//            leftValue+=currentLeftValue;
+//            leftStarted = false;
+//            unsubscribeLeftTimer();
+//            resetTextViews();
+//
+//            return;
+//        }
+//
+//        leftStarted = true;
+//
+//        rightTextView.setText(getResources().getString(R.string.stopwatch_start_text));
+//        leftTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
+//
+//        if (leftSubscription==null || leftSubscription.isUnsubscribed()) {
+//
+//            leftSubscription =  Observable.timer(1L, 1L, TimeUnit.SECONDS)
+//                    .subscribeOn(Schedulers.newThread())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(
+//                            s -> {
+//                                currentLeftValue = s;
+//
+//
+//                                System.out.println(currentLeftValue);
+//
+//                                String time = getTime((int) (leftValue + currentLeftValue));
+//                                String hours = time.substring(0, 2);
+//                                String minutes = time.substring(3,5);
+//                                String seconds = time.substring(6,8);
+//                                Log.d(TAG, "LEFT TIMER hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
+//                                hourLTextView.setText(hours);
+//                                minuteLTextView.setText(minutes);
+//                                secondLTextView.setText(seconds);
+//                            });
+//
+//        }
+//
+//
+//
+//        if (rightSubscription!=null && !rightSubscription.isUnsubscribed()) {
+//            Log.d(TAG, "unsubscribing right");
+//            rightStarted = false;
+//            rightSubscription.unsubscribe();
+//            rightValue+=currentRightValue;
+//        }
 
-        if (rightSubscription!=null && !rightSubscription.isUnsubscribed()) {
-            Log.d(TAG, "unsubscribing right");
-            rightStarted = false;
-            rightSubscription.unsubscribe();
-            rightValue+=currentRightValue;
-        }
 
 
 
-
-        String time = getTime(leftValue);
-        String hours = time.substring(0, 2);
-        String minutes = time.substring(3,5);
-        String seconds = time.substring(6,8);
-        Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
-        hourLTextView.setText(hours);
-        minuteLTextView.setText(minutes);
-        secondLTextView.setText(seconds);
+//        String time = getTime(leftValue);
+//        String hours = time.substring(0, 2);
+//        String minutes = time.substring(3,5);
+//        String seconds = time.substring(6,8);
+//        Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
+//        hourLTextView.setText(hours);
+//        minuteLTextView.setText(minutes);
+//        secondLTextView.setText(seconds);
 
 
 
@@ -410,55 +454,66 @@ public class NursingFeedFragment extends InjectableFragment {
     @OnClick(R.id.right)
     public void rightButtonClicked() {
         Log.d(TAG, "right button clicked");
-
+        rightStarted=!rightStarted;
         if (rightStarted) {
-            rightValue+=currentRightValue;
-            rightStarted = false;
-            unsubscribeRightTimer();
+            if (leftStarted) {
+                leftStarted = false;
+            }
+            leftTextView.setText(getResources().getString(R.string.stopwatch_start_text));
+            rightTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
+        } else {
             resetTextViews();
-            return;
         }
+        scopedBus.post(new StopWatchRightEvent());
 
-        rightStarted = true;
-
-        leftTextView.setText(getResources().getString(R.string.stopwatch_start_text));
-
-        rightTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
-
-        if (rightSubscription==null || rightSubscription.isUnsubscribed()) {
-            Log.d(TAG, "start right subscription");
-            rightSubscription = Observable.timer(1L, 1L, TimeUnit.SECONDS)
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            s -> {
-
-                                currentRightValue = s;
-                                System.out.println(currentRightValue);
-
-                                String time = getTime((int) (rightValue + currentRightValue));
-                                String hours = time.substring(0, 2);
-                                String minutes = time.substring(3,5);
-                                String seconds = time.substring(6,8);
-                                Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
-                                hourRTextView.setText(hours);
-                                minuteRTextView.setText(minutes);
-                                secondRTextView.setText(seconds);
-
-
-                            }
-
-
-                    );
-
-        }
-
-        if (leftSubscription!=null && !leftSubscription.isUnsubscribed()) {
-            Log.d(TAG, "unsubscribe left");
-            leftStarted = false;
-            leftValue+=currentLeftValue;
-            leftSubscription.unsubscribe();
-        }
+//        if (rightStarted) {
+//            rightValue+=currentRightValue;
+//            rightStarted = false;
+//            unsubscribeRightTimer();
+//            resetTextViews();
+//            return;
+//        }
+//
+//        rightStarted = true;
+//
+//        leftTextView.setText(getResources().getString(R.string.stopwatch_start_text));
+//
+//        rightTextView.setText(getResources().getString(R.string.stopwatch_stop_text));
+//
+//        if (rightSubscription==null || rightSubscription.isUnsubscribed()) {
+//            Log.d(TAG, "start right subscription");
+//            rightSubscription = Observable.timer(1L, 1L, TimeUnit.SECONDS)
+//                    .subscribeOn(Schedulers.newThread())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(
+//                            s -> {
+//
+//                                currentRightValue = s;
+//                                System.out.println(currentRightValue);
+//
+//                                String time = getTime((int) (rightValue + currentRightValue));
+//                                String hours = time.substring(0, 2);
+//                                String minutes = time.substring(3,5);
+//                                String seconds = time.substring(6,8);
+//                                Log.d(TAG, "hours "  + hours + " minutes " + minutes + " seconds "  + seconds);
+//                                hourRTextView.setText(hours);
+//                                minuteRTextView.setText(minutes);
+//                                secondRTextView.setText(seconds);
+//
+//
+//                            }
+//
+//
+//                    );
+//
+//        }
+//
+//        if (leftSubscription!=null && !leftSubscription.isUnsubscribed()) {
+//            Log.d(TAG, "unsubscribe left");
+//            leftStarted = false;
+//            leftValue+=currentLeftValue;
+//            leftSubscription.unsubscribe();
+//        }
 
 
 
@@ -478,7 +533,8 @@ public class NursingFeedFragment extends InjectableFragment {
         super.onStart();
         Log.d(TAG, "onStart");
         scopedBus.register(eventListener);
-//        Intent intent = new Intent(getActivity(), StopWatchService.class);
+        Intent intent = new Intent(getActivity(), StopWatchService.class);
+        getActivity().startService(intent);
 //        intent.putExtra("stopwatch", "left");
 ////        if (!leftStarted) {
 //            getActivity().startService(intent);
@@ -500,18 +556,18 @@ public class NursingFeedFragment extends InjectableFragment {
             intent = new Intent(getActivity(), FeedingActivity.class);
             intent.putExtra("fromNotification", true);
 
-            intent.putExtra("hourLTextView", hourLTextView.getText().toString());
-            intent.putExtra("minuteLTextView", minuteLTextView.getText().toString());
-            intent.putExtra("secondLTextView", secondLTextView.getText().toString());
-
-            intent.putExtra("hourRTextView", hourRTextView.getText().toString());
-            intent.putExtra("minuteRTextView", minuteRTextView.getText().toString());
-            intent.putExtra("secondRTextView", secondRTextView.getText().toString());
-
-            intent.putExtra("elapsedTimeL", elapsedTimeL);
-            intent.putExtra("elapsedTimeR", elapsedTimeR);
-            intent.putExtra("leftStarted", leftStarted);
-            intent.putExtra("rightStarted", rightStarted);
+//            intent.putExtra("hourLTextView", hourLTextView.getText().toString());
+//            intent.putExtra("minuteLTextView", minuteLTextView.getText().toString());
+//            intent.putExtra("secondLTextView", secondLTextView.getText().toString());
+//
+//            intent.putExtra("hourRTextView", hourRTextView.getText().toString());
+//            intent.putExtra("minuteRTextView", minuteRTextView.getText().toString());
+//            intent.putExtra("secondRTextView", secondRTextView.getText().toString());
+//
+//            intent.putExtra("elapsedTimeL", elapsedTimeL);
+//            intent.putExtra("elapsedTimeR", elapsedTimeR);
+//            intent.putExtra("leftStarted", leftStarted);
+//            intent.putExtra("rightStarted", rightStarted);
 
 
 
@@ -534,7 +590,8 @@ public class NursingFeedFragment extends InjectableFragment {
             notificationManager.notify(notification_id, notification);
 //            notificationManager
         } else {
-            getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
+            unsubscribeTimers();
+//            getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
         }
 
     }
@@ -548,21 +605,8 @@ public class NursingFeedFragment extends InjectableFragment {
         Dao<FeedDao, Integer> feedDao;
         FeedDao daoObject;
         Date date = dateTimeHeader.getEventTime();
-        //stop the service....
-//        getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
-//        if (leftStarted) {
-//            deltaL += (System.currentTimeMillis() - elapsedTimeL)/1000;
-//        } else if (rightStarted) {
-//            deltaR += (System.currentTimeMillis() - elapsedTimeR)/1000;
-//
-//        }
-//        deltaR += (System.currentTimeMillis() - elapsedTimeR)/1000;
-//        deltaL += (System.currentTimeMillis() - elapsedTimeL)/1000;
-
         Log.d(TAG, " currentLeftValue " + currentLeftValue + " currentRightValue " + currentRightValue);
-
         Log.d(TAG, " leftValue " + leftValue + " rightValue " + rightValue);
-
         long rightL = rightValue;
         long leftL = leftValue;
 
@@ -581,7 +625,8 @@ public class NursingFeedFragment extends InjectableFragment {
             Log.d(TAG, "created object " + daoObject);
             leftStarted = false;
             rightStarted = false;
-            unsubscribeTimers();
+//            unsubscribeTimers();
+            getActivity().stopService(new Intent(getActivity(), StopWatchService.class));
             scopedBus.post(new FeedItemCreatedEvent());
 
             soundMgr.stopEndlessAlarm();

@@ -121,8 +121,8 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
         setSpans();
 
-//        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
-//        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GRAY);
+        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GRAY);
     }
 
 
