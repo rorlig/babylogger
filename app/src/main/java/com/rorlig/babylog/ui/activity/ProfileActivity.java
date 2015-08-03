@@ -82,9 +82,6 @@ public class ProfileActivity extends InjectableActivity {
 
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-//        setContentView(R.layout.activity_profile);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         showFragment(ProfileFragment.class, "profile_fragment", false);
     }

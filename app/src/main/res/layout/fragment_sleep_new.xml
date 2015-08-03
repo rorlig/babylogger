@@ -95,7 +95,6 @@
             android:layout_toRightOf="@+id/sleep_hours"
             app:met_floatingLabel="normal"
             android:numeric="decimal"
-            android:layout_weight="1"
 
             />
 

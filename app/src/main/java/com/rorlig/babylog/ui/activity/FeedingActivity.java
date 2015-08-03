@@ -65,14 +65,16 @@ public class FeedingActivity extends InjectableActivity {
    */
 
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_feeding_list);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.primary_blue));
+
+
 //        getSupportFragmentManager().addOnBackStackChangedListener(listener);
 
 
@@ -80,66 +82,66 @@ public class FeedingActivity extends InjectableActivity {
 
 //
 //        String intentString = getIntent().getStringExtra("intent");
-        if (!getIntent().getBooleanExtra("fromNotification", false)) {
+//        if (!getIntent().getBooleanExtra("fromNotification", false)) {
             showFragment(FeedingListFragment.class, "feeding_list_fragment", false);
-        } else {
-            Fragment localFragment =  new FeedingListFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, localFragment)
-                    .commit();
-            Fragment nursingFragment = new NursingFeedFragment();
-            Bundle args = new Bundle();
-
-            Log.d(TAG, "fromNotification " + getIntent().getBooleanExtra("fromNotification", false));
-
-            Log.d(TAG, "hourLTextView " + getIntent().getStringExtra("hourLTextView"));
-
-            Log.d(TAG, "minuteLTextView " + getIntent().getStringExtra("minuteLTextView"));
-
-            Log.d(TAG, "secondLTextView " + getIntent().getStringExtra("secondLTextView"));
-
-            Log.d(TAG, "hourRTextView " + getIntent().getStringExtra("hourRTextView"));
-
-            Log.d(TAG, "minuteRTextView " + getIntent().getStringExtra("minuteRTextView"));
-
-            Log.d(TAG, "secondRTextView " + getIntent().getStringExtra("secondRTextView"));
-
-
-            Log.d(TAG, "elapsedTimeL " + getIntent().getLongExtra("elapsedTimeL", -1L));
-
-
-            Log.d(TAG, "elapsedTimeR " + getIntent().getLongExtra("elapsedTimeR", -1L));
-
-            Log.d(TAG, "leftStarted " + getIntent().getBooleanExtra("leftStarted", false));
-
-            Log.d(TAG, "rightStarted " + getIntent().getBooleanExtra("rightStarted", false));
-
-
-
-            args.putBoolean("fromNotification", getIntent().getBooleanExtra("fromNotification", false));
-
-
-            args.putString("hourLTextView", getIntent().getStringExtra("hourLTextView"));
-            args.putString("minuteLTextView", getIntent().getStringExtra("minuteLTextView"));
-            args.putString("secondLTextView", getIntent().getStringExtra("secondLTextView"));
-
-            args.putString("hourRTextView", getIntent().getStringExtra("hourRTextView"));
-            args.putString("minuteRTextView", getIntent().getStringExtra("minuteRTextView"));
-            args.putString("secondRTextView", getIntent().getStringExtra("secondRTextView"));
-            args.putLong("elapsedTimeL", getIntent().getLongExtra("elapsedTimeL", -1L));
-            args.putLong("elapsedTimeR", getIntent().getLongExtra("elapsedTimeR", -1L));
-            args.putBoolean("leftStarted", getIntent().getBooleanExtra("leftStarted", false));
-
-            args.putBoolean("rightStarted", getIntent().getBooleanExtra("rightStarted", false));
-
-
-
-            nursingFragment.setArguments(args);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, nursingFragment)
-                    .addToBackStack("feeding_stack")
-                    .commit();
-        }
+//        } else {
+//            Fragment localFragment =  new FeedingListFragment();
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.fragment_container, localFragment)
+//                    .commit();
+//            Fragment nursingFragment = new NursingFeedFragment();
+//            Bundle args = new Bundle();
+//
+//            Log.d(TAG, "fromNotification " + getIntent().getBooleanExtra("fromNotification", false));
+//
+//            Log.d(TAG, "hourLTextView " + getIntent().getStringExtra("hourLTextView"));
+//
+//            Log.d(TAG, "minuteLTextView " + getIntent().getStringExtra("minuteLTextView"));
+//
+//            Log.d(TAG, "secondLTextView " + getIntent().getStringExtra("secondLTextView"));
+//
+//            Log.d(TAG, "hourRTextView " + getIntent().getStringExtra("hourRTextView"));
+//
+//            Log.d(TAG, "minuteRTextView " + getIntent().getStringExtra("minuteRTextView"));
+//
+//            Log.d(TAG, "secondRTextView " + getIntent().getStringExtra("secondRTextView"));
+//
+//
+//            Log.d(TAG, "elapsedTimeL " + getIntent().getLongExtra("elapsedTimeL", -1L));
+//
+//
+//            Log.d(TAG, "elapsedTimeR " + getIntent().getLongExtra("elapsedTimeR", -1L));
+//
+//            Log.d(TAG, "leftStarted " + getIntent().getBooleanExtra("leftStarted", false));
+//
+//            Log.d(TAG, "rightStarted " + getIntent().getBooleanExtra("rightStarted", false));
+//
+//
+//
+//            args.putBoolean("fromNotification", getIntent().getBooleanExtra("fromNotification", false));
+//
+//
+//            args.putString("hourLTextView", getIntent().getStringExtra("hourLTextView"));
+//            args.putString("minuteLTextView", getIntent().getStringExtra("minuteLTextView"));
+//            args.putString("secondLTextView", getIntent().getStringExtra("secondLTextView"));
+//
+//            args.putString("hourRTextView", getIntent().getStringExtra("hourRTextView"));
+//            args.putString("minuteRTextView", getIntent().getStringExtra("minuteRTextView"));
+//            args.putString("secondRTextView", getIntent().getStringExtra("secondRTextView"));
+//            args.putLong("elapsedTimeL", getIntent().getLongExtra("elapsedTimeL", -1L));
+//            args.putLong("elapsedTimeR", getIntent().getLongExtra("elapsedTimeR", -1L));
+//            args.putBoolean("leftStarted", getIntent().getBooleanExtra("leftStarted", false));
+//
+//            args.putBoolean("rightStarted", getIntent().getBooleanExtra("rightStarted", false));
+//
+//
+//
+//            nursingFragment.setArguments(args);
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.fragment_container, nursingFragment)
+//                    .addToBackStack("feeding_stack")
+//                    .commit();
+//        }
 
 //        if (intentString!=null && intentString.equals("feeding_activity_bottle")){
 //            showFragment(BottleFeedFragment.class, "bottle_feed", false);

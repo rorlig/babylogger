@@ -227,7 +227,7 @@ public class DateTimeHeaderFragment extends InjectableFragment {
         @Subscribe
         public void onTimeChanged(TimeSetEvent timeSetEvent){
             Log.d(TAG, "timeSetEvent " + timeSetEvent);
-            currentTime.setText(timeSetEvent.getHourOfDay() + ":" + timeSetEvent.getMinute() + " " + (timeSetEvent.getHourOfDay() > 11 ? "PM" : "AM"));
+            currentTime.setText(timeSetEvent.getHourOfDay()%12 + ":" + timeSetEvent.getMinute() + " " + (timeSetEvent.getHourOfDay() > 11 ? "PM" : "AM"));
             setSpans(dateTimeColor);
         }
     }
@@ -242,9 +242,9 @@ public class DateTimeHeaderFragment extends InjectableFragment {
             TimeZone z = TimeZone.getDefault();
             int offset = z.getRawOffset();
             Log.d(TAG, " rawoffset " + offset);
-            if(z.useDaylightTime()){
+            if(!z.inDaylightTime(new Date(dayInMillis+timeInMillis))){
                 Log.d(TAG, "in dst " + z.getDSTSavings());
-                offset = offset + z.getDSTSavings();
+                offset = offset - z.getDSTSavings();
             }
             Log.d(TAG, "offset " + offset);
             return new Date(dayInMillis+timeInMillis+offset);

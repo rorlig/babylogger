@@ -56,40 +56,22 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     private String TAG = "SleepFragment";
 
-    @InjectView(R.id.sleep_start_time)
-    RelativeLayout dateRangeStart;
-
-    @InjectView(R.id.sleep_duration)
-    RelativeLayout sleepDurationLayout;
 
 
-    TextView dateStartHourTextView;
+//    @InjectView(R.id.sleep_start_time)
+//    RelativeLayout dateRangeStart;
 
-    TextView dateStartHourDivider;
+    @InjectView(R.id.sleep_hours)
+    TextView sleepHours;
 
-
-    TextView dateStartMinuteTextView;
-
-
-
-    TextView durationHourTextView;
+    @InjectView(R.id.sleep_minutes)
+    TextView sleepMinutes;
 
 
-    TextView durationMinuteTextView;
-    TextView durationHourDivider;
-
-    TextView durationMinuteDivider;
-
-    private EventListener eventListener = new EventListener();
-    private String START_HOUR = "start_hour";
-    private String START_MINUTE = "start_minute";
-
-    private String END_HOUR = "end_hour";
-
-    private String END_MINUTE = "end_minute";
 
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
+
     private DateTimeHeaderFragment dateTimeHeader;
 
 
@@ -100,26 +82,17 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
         scopedBus.post(new FragmentCreated("Sleep"));
 
-        dateStartHourTextView = (TextView) dateRangeStart.findViewById(R.id.hour);
-        dateStartMinuteTextView = (TextView) dateRangeStart.findViewById(R.id.minute);
-        dateStartHourDivider = (TextView) dateRangeStart.findViewById(R.id.hour_divider);
-
-        durationHourTextView = (TextView) sleepDurationLayout.findViewById(R.id.hour);
-        durationMinuteTextView = (TextView) sleepDurationLayout.findViewById(R.id.minute);
-
-        durationHourDivider = (TextView) sleepDurationLayout.findViewById(R.id.hour_divider);
-        durationMinuteDivider = (TextView) sleepDurationLayout.findViewById(R.id.minute_divider);
 
         if (paramBundle!=null) {
-            dateStartHourTextView.setText(paramBundle.getString(START_HOUR));
-            dateStartMinuteTextView.setText(paramBundle.getString(START_MINUTE));
-            durationHourTextView.setText(paramBundle.getString(END_HOUR));
-            durationMinuteTextView.setText(paramBundle.getString(END_MINUTE));
+//            dateStartHourTextView.setText(paramBundle.getString(START_HOUR));
+//            dateStartMinuteTextView.setText(paramBundle.getString(START_MINUTE));
+//            durationHourTextView.setText(paramBundle.getString(END_HOUR));
+//            durationMinuteTextView.setText(paramBundle.getString(END_MINUTE));
         } else {
             init();
         }
 
-        setSpans();
+//        setSpans();
 
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
         dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GRAY);
@@ -142,32 +115,32 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     }
 
 
-    @OnClick(R.id.sleep_start_time)
-    public void onDateRangeStart(){
-        Log.d(TAG, "onDateRangeStart");
-        showTimePickerDialog("start");
-    }
-
-    @OnClick(R.id.sleep_duration)
-    public void onDurationClicked(){
-        Log.d(TAG, "onDurationClicked");
-        showDurationDialog();
-        //show custom dialog...
-//        showTimePickerDialog("end");
-    }
+//    @OnClick(R.id.sleep_start_time)
+//    public void onDateRangeStart(){
+//        Log.d(TAG, "onDateRangeStart");
+//        showTimePickerDialog("start");
+//    }
+//
+//    @OnClick(R.id.sleep_duration)
+//    public void onDurationClicked(){
+//        Log.d(TAG, "onDurationClicked");
+//        showDurationDialog();
+//        //show custom dialog...
+////        showTimePickerDialog("end");
+//    }
 
     @OnClick(R.id.btn_save)
     public void onSaveBtnClicked() {
         Log.d(TAG, "saveBtn clicked");
         Log.d(TAG, "save btn clicked");
         Dao<SleepDao, Integer> sleepDao;
-        SleepDao daoObject;
+        SleepDao daoObject = null;
         Calendar c = Calendar.getInstance();
 
 
         try {
             sleepDao = babyLoggerORMLiteHelper.getSleepDao();
-            daoObject = new SleepDao(getStartTime(),getDuration(), c.getTime());
+//            daoObject = new SleepDao(getStartTime(),getDuration(), c.getTime());
             sleepDao.create(daoObject);
             Log.d(TAG, "created objected " + daoObject);
             scopedBus.post(new SleepLogCreated());
@@ -190,41 +163,41 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_sleep, null);
+        View view =  inflater.inflate(R.layout.fragment_sleep_new, null);
         ButterKnife.inject(this, view);
         return view;
     }
 
-    /*
-     * Register to events...
-     */
-    @Override
-    public void onStart(){
-
-
-        super.onStart();
-        Log.d(TAG, "onStart");
-        scopedBus.register(eventListener);
-    }
-
-    /*
-     * Unregister from events ...
-     */
-    @Override
-    public void onStop(){
-        super.onStop();
-        Log.d(TAG, "onStop");
-        scopedBus.unregister(eventListener);
-
-    }
+//    /*
+//     * Register to events...
+//     */
+//    @Override
+//    public void onStart(){
+//
+//
+//        super.onStart();
+//        Log.d(TAG, "onStart");
+//        scopedBus.register(eventListener);
+//    }
+//
+//    /*
+//     * Unregister from events ...
+//     */
+//    @Override
+//    public void onStop(){
+//        super.onStop();
+//        Log.d(TAG, "onStop");
+//        scopedBus.unregister(eventListener);
+//
+//    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(START_HOUR, dateStartHourTextView.getText().toString());
-        outState.putString(START_MINUTE, dateStartMinuteTextView.getText().toString());
-        outState.putString(END_HOUR, durationHourTextView.getText().toString());
-        outState.putString(END_MINUTE, durationMinuteTextView.getText().toString());
+//        outState.putString(START_HOUR, dateStartHourTextView.getText().toString());
+//        outState.putString(START_MINUTE, dateStartMinuteTextView.getText().toString());
+//        outState.putString(END_HOUR, durationHourTextView.getText().toString());
+//        outState.putString(END_MINUTE, durationMinuteTextView.getText().toString());
 
     }
 
@@ -240,12 +213,12 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
         int minute = c.get(Calendar.MINUTE);
 
 
-        dateStartHourTextView.setText(String.format("%02d", hour));
-        dateStartMinuteTextView.setText(String.format("%02d", minute));
-
-        durationHourTextView.setText(String.format("%02d", 0));
-//        durationMinuteTextView.setText("hello");
-        durationMinuteTextView.setText(String.format("%02d", 0));
+//        dateStartHourTextView.setText(String.format("%02d", hour));
+//        dateStartMinuteTextView.setText(String.format("%02d", minute));
+//
+//        durationHourTextView.setText(String.format("%02d", 0));
+////        durationMinuteTextView.setText("hello");
+//        durationMinuteTextView.setText(String.format("%02d", 0));
 
 
 
@@ -253,28 +226,28 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     }
 
 
-    private void showTimePickerDialog(String label) {
-        Log.d(TAG, " label " + label);
-        DialogFragment newFragment = new TimePickerFragment();
-
-        Bundle args = new Bundle();
-
-        //add label to indicate which date is being set...
-        args.putString("label", label);
-
-        //if the dialog is for the start date make sure the max date < end_date
-        if (label.equals("start")) {
-            args.putInt("hour", Integer.parseInt(String.valueOf(dateStartHourTextView.getText())));
-            args.putInt("minute", Integer.parseInt(String.valueOf(dateStartMinuteTextView.getText())));
-            args.putInt("max_hour", Integer.parseInt(String.valueOf(durationHourTextView.getText())));
-            args.putInt("max_minute", Integer.parseInt(String.valueOf(durationMinuteTextView.getText())));
-        } else {
-            args.putInt("hour", Integer.parseInt(String.valueOf(durationHourTextView.getText())));
-            args.putInt("minute", Integer.parseInt(String.valueOf(durationMinuteTextView.getText())));
-        }
-        newFragment.setArguments(args);
-        newFragment.show(getFragmentManager(), "datepicker");
-    }
+//    private void showTimePickerDialog(String label) {
+//        Log.d(TAG, " label " + label);
+//        DialogFragment newFragment = new TimePickerFragment();
+//
+//        Bundle args = new Bundle();
+//
+//        //add label to indicate which date is being set...
+//        args.putString("label", label);
+//
+//        //if the dialog is for the start date make sure the max date < end_date
+//        if (label.equals("start")) {
+//            args.putInt("hour", Integer.parseInt(String.valueOf(dateStartHourTextView.getText())));
+//            args.putInt("minute", Integer.parseInt(String.valueOf(dateStartMinuteTextView.getText())));
+//            args.putInt("max_hour", Integer.parseInt(String.valueOf(durationHourTextView.getText())));
+//            args.putInt("max_minute", Integer.parseInt(String.valueOf(durationMinuteTextView.getText())));
+//        } else {
+//            args.putInt("hour", Integer.parseInt(String.valueOf(durationHourTextView.getText())));
+//            args.putInt("minute", Integer.parseInt(String.valueOf(durationMinuteTextView.getText())));
+//        }
+//        newFragment.setArguments(args);
+//        newFragment.show(getFragmentManager(), "datepicker");
+//    }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -282,21 +255,21 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     }
 
 
-    private Date getStartTime() {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(dateStartHourTextView.getText().toString()));
-        c.set(Calendar.MINUTE, Integer.parseInt(dateStartMinuteTextView.getText().toString()) - 1);
-        return c.getTime();
-
-
-    }
-
-    private Long getDuration() {
-        int hour = Integer.parseInt(durationHourTextView.getText().toString());
-        int minute = Integer.parseInt(durationMinuteTextView.getText().toString());
-        return Long.valueOf(hour * 60 + minute);
-
-    }
+//    private Date getStartTime() {
+//        Calendar c = Calendar.getInstance();
+//        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(dateStartHourTextView.getText().toString()));
+//        c.set(Calendar.MINUTE, Integer.parseInt(dateStartMinuteTextView.getText().toString()) - 1);
+//        return c.getTime();
+//
+//
+//    }
+//
+//    private Long getDuration() {
+//        int hour = Integer.parseInt(durationHourTextView.getText().toString());
+//        int minute = Integer.parseInt(durationMinuteTextView.getText().toString());
+//        return Long.valueOf(hour * 60 + minute);
+//
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -319,19 +292,19 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
 
 
-        @Subscribe
-        public void onTimeChanged(TimeSetEvent timeSetEvent){
-            Log.d(TAG, "timeSetEvent " + timeSetEvent.toString());
-            if (timeSetEvent.getLabel().equals("start")) {
-                dateStartHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
-                dateStartMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
-            } else {
-                Log.d(TAG, "durartion set hour " + timeSetEvent.getHourOfDay() + " minute " + timeSetEvent.getMinute());
-                durationHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
-                durationMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
-            }
-            setSpans();
-        }
+//        @Subscribe
+//        public void onTimeChanged(TimeSetEvent timeSetEvent){
+//            Log.d(TAG, "timeSetEvent " + timeSetEvent.toString());
+//            if (timeSetEvent.getLabel().equals("start")) {
+//                dateStartHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
+//                dateStartMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
+//            } else {
+//                Log.d(TAG, "durartion set hour " + timeSetEvent.getHourOfDay() + " minute " + timeSetEvent.getMinute());
+//                durationHourTextView.setText(String.format("%02d", timeSetEvent.getHourOfDay()));
+//                durationMinuteTextView.setText(String.format("%02d", timeSetEvent.getMinute()));
+//            }
+//            setSpans();
+//        }
 
         @Subscribe
         public void onTimeChangeError(TimeSetEventError event) {
@@ -342,15 +315,15 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     ///sets spans to the textview elements...
 
-    private void setSpans(){
-        dateStartHourTextView.setText(getSpannable(dateStartHourTextView.getText().toString()));
-        dateStartMinuteTextView.setText(getSpannable(dateStartMinuteTextView.getText().toString()));
-        dateStartHourDivider.setText(getSpannable(dateStartHourDivider.getText().toString()));
-
-        durationHourTextView.setText(getSpannable(durationHourTextView.getText().toString()));
-        durationMinuteTextView.setText(getSpannable(durationMinuteTextView.getText().toString()));
-        durationHourDivider.setText(getSpannable(durationHourDivider.getText().toString()));
-        durationMinuteDivider.setText(getSpannable(durationMinuteDivider.getText().toString()));
-    }
+//    private void setSpans(){
+//        dateStartHourTextView.setText(getSpannable(dateStartHourTextView.getText().toString()));
+//        dateStartMinuteTextView.setText(getSpannable(dateStartMinuteTextView.getText().toString()));
+//        dateStartHourDivider.setText(getSpannable(dateStartHourDivider.getText().toString()));
+//
+//        durationHourTextView.setText(getSpannable(durationHourTextView.getText().toString()));
+//        durationMinuteTextView.setText(getSpannable(durationMinuteTextView.getText().toString()));
+//        durationHourDivider.setText(getSpannable(durationHourDivider.getText().toString()));
+//        durationMinuteDivider.setText(getSpannable(durationMinuteDivider.getText().toString()));
+//    }
 
 }
