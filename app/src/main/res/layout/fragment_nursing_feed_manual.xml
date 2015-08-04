@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_marginTop="25dp"
-        android:layout_below="@+id/header"
+        android:layout_below="@id/header"
         />
 
     <View
@@ -61,7 +61,7 @@
         android:layout_below="@+id/left_header_title">
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/sleep_hours"
+            android:id="@+id/left_sleep_hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight = "15dp"
@@ -75,7 +75,7 @@
 
             />
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/sleep_minutes"
+            android:id="@+id/left_sleep_minutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight = "15dp"
@@ -83,7 +83,6 @@
             android:maxLength="2"
             android:ems="10"
             android:hint="@string/minutes"
-            android:layout_toRightOf="@+id/sleep_hours"
             app:met_floatingLabel="normal"
             android:numeric="decimal"
             android:layout_weight="1"

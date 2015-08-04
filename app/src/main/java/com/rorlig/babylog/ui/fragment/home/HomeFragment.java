@@ -22,9 +22,7 @@ import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 import com.rorlig.babylog.ui.activity.ExportActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
 import com.rorlig.babylog.ui.activity.GrowthActivity;
-import com.rorlig.babylog.ui.activity.LicenseActivity;
 import com.rorlig.babylog.ui.activity.MilestonesActivity;
-import com.rorlig.babylog.ui.activity.PrefsActivity;
 import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.activity.SleepActivity;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
@@ -167,7 +165,7 @@ public class HomeFragment extends InjectableFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_home_2, null);
+        View view =  inflater.inflate(R.layout.fragment_home, null);
         ButterKnife.inject(this, view);
         return view;
     }

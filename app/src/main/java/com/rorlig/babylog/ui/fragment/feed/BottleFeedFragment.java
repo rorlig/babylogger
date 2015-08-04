@@ -321,6 +321,8 @@ public class BottleFeedFragment extends InjectableFragment
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
     }
 
     private Dao<FeedDao, Integer> createFeedDao() throws SQLException {

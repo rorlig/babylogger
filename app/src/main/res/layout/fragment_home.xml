@@ -1,230 +1,258 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    tools:context=".MainActivity">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
+        tools:context=".MainActivity">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/profile_block"
             android:layout_width="fill_parent"
-            android:clickable="true"
-            android:id="@+id/diaper_block"
-            android:background="@color/black"
-            android:layout_height="160dp">
-
-
-            <!--<RelativeLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:clickable="true"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:paddingRight="20dp"-->
-                <!--android:paddingLeft="20dp"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_height="fill_parent"-->
-                <!-->-->
+            android:layout_height="160dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/gray_cloud"
+            android:clickable="true"/>
 
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
 
                 android:id="@+id/baby_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:textColor="@color/primary"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
                 android:clickable="false"
-                android:layout_centerInParent="true"
+                android:contentDescription="@string/profile_image_content_description"
                 android:src="@drawable/btn_radio_boy"
+                android:textColor="@color/primary"
                 app:border_width="2dp"
-                app:border_color="#FFFFFFFF"
+                app:border_color="@color/white"
+                 />
 
-
-                android:contentDescription="@string/profile_image_content_description" />
-
-            <!--<TextView-->
-                <!--android:id="@+id/baby_age"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textSize="18sp"-->
-                <!--android:clickable="false"-->
-                <!--android:layout_above="@+id/baby_image"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:visibility="gone"-->
-                <!--/>-->
-
-
-
-            <!--</RelativeLayout>-->
 
             <TextView
                 android:id="@+id/baby_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:clickable="false"
                 android:layout_below="@+id/baby_image"
-                android:text="@string/edit_profile"
                 android:layout_centerHorizontal="true"
+                android:clickable="false"
+                android:text="@string/edit_profile"
                 android:textColor="@color/white"
-                android:visibility="visible"
-                />
+                android:textSize="18sp"
+                android:visibility="visible" />
+
+
+        <!--</ImageView>-->
+
+
+
+
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:layout_width="fill_parent"
+                android:layout_height="160dp"
+                android:id="@+id/diaper_block"
+                android:layout_below="@+id/profile_block"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/intro_3"
+                materialdesign:rippleSpeed="75"
+
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/diaper_img"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_diaper_normal" />
+
+                <TextView
+                    android:id="@+id/diaper_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/diaper_img"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_diaper_normal"
+                    android:text="@string/diaper_log_description_text"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </com.gc.materialdesign.views.ButtonRectangle>
 
 
 
 
 
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:layout_width="fill_parent"
+                android:layout_height="160dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/intro_2"
+                android:id="@+id/feed_block"
+                android:layout_below="@+id/diaper_block"
+                materialdesign:rippleSpeed="75"
+
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/feed_img"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_feed_normal" />
+
+                <TextView
+                    android:id="@+id/feed_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/feed_img"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_diaper_normal"
+                    android:text="@string/feed_log_description_text"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </com.gc.materialdesign.views.ButtonRectangle>
 
 
 
-        </RelativeLayout>
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:layout_width="fill_parent"
+                android:layout_height="160dp"
+                android:id="@+id/growth_block"
 
-    <!--<android.support.v7.widget.CardView-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="5dp"-->
-        <!--android:id="@+id/listBlock"-->
-        <!--android:layout_below="@id/basicInfoBlock">-->
+                android:layout_below="@+id/feed_block"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/intro_4"
+                materialdesign:rippleSpeed="75"
 
-<!-- list view here -->
-
-    <!-- recyler view -->
-        <ListView
-            android:id="@+id/homeList"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:calendarViewShown="false"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/diaper_block"
-            android:background="@color/white"
+                android:clickable="true">
 
 
+                <ImageView
+                    android:id="@+id/growth_img"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_growth2_normal" />
 
-            />
+                <TextView
+                    android:id="@+id/growth_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/growth_img"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_diaper_normal"
+                    android:text="@string/growth_log_description_text"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    />
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/multiple_actions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        fab:fab_addButtonColorNormal="@color/white"
-        fab:fab_addButtonColorPressed="@color/white_pressed"
-        fab:fab_addButtonPlusIconColor="@color/half_black"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp">
 
+            </com.gc.materialdesign.views.ButtonRectangle>
 
 
 
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:layout_width="fill_parent"
+                android:layout_height="160dp"
+                android:layout_below="@+id/growth_block"
+                android:id="@+id/milestone_block"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/orange_peel"
+                materialdesign:rippleSpeed="75"
+
+                android:clickable="true">
 
 
+                <ImageView
+                    android:id="@+id/milestones_img"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_development_normal" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_sleep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_title="@string/fab_title_sleep"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_icon="@drawable/ic_sleep"
-            />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_milestones"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_title="@string/fab_title_milestones"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_icon="@drawable/ic_development"
-            />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_growth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_title="@string/fab_title_growth"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_icon="@drawable/ic_growth2"
-            />
+                <TextView
+                    android:id="@+id/milestone_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/milestones_img"
+                    android:scaleType="fitXY"
+                    android:text="@string/milestone_log_description_text"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
+            </com.gc.materialdesign.views.ButtonRectangle>
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_bottle_feed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_title="@string/fab_title_feeding"
-            fab:fab_icon="@drawable/ic_feed"
-            fab:fab_colorPressed="@color/white_pressed"/>
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:layout_width="fill_parent"
+            android:layout_height="160dp"
+            android:layout_below="@+id/milestone_block"
+            android:id="@+id/sleep_block"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/primary_gray_dark"
+            materialdesign:rippleSpeed="75"
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_diaper_change"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_title="@string/fab_title_diaper_change"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_icon="@drawable/ic_diaper"
-            />
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            android:clickable="true">
 
 
-    <!--</android.support.v7.widget.CardView>-->
+            <ImageView
+                android:id="@+id/sleep_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_sleep_normal" />
+
+            <TextView
+                android:id="@+id/sleep_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/sleep_img"
+                android:scaleType="fitXY"
+                android:text="@string/sleep_description_text"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
 
+        </com.gc.materialdesign.views.ButtonRectangle>
 
 
+    </RelativeLayout>
 
-
-
-
-
-
-
-
-
-
-    <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/birthdayHeader"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="BIRTHDAY"-->
-        <!--android:textAllCaps="true"-->
-        <!--android:textSize="16sp"-->
-        <!--android:textColor="@color/primary_dark"-->
-
-
-        <!--android:layout_below="@+id/basicInfoBlock"-->
-        <!--/>-->
-
-    <!--<View-->
-        <!--style="@style/ListItemDivider"-->
-        <!--android:layout_below="@id/birthdayHeader"-->
-        <!--android:id="@+id/birthdayDivider"-->
-        <!--/>-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</RelativeLayout>
+</ScrollView>

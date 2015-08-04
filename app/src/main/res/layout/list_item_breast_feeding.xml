@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/list_title_breast_right"
-            android:layout_below="@+id/txtLeft"
+            android:layout_below="@id/txtLeft"
             android:textColor="@color/primary_blue"
             android:id="@+id/txtRight"/>
 
@@ -59,7 +59,7 @@
             android:orientation="horizontal"
             android:id="@+id/notes_layout"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/txtRight">
+            android:layout_below="@id/txtRight">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

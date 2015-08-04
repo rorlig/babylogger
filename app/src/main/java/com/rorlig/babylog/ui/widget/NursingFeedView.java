@@ -64,10 +64,20 @@ public class NursingFeedView extends RelativeLayout {
     }
 
     private void bindModel() {
-        left.setText("Left Breast: " + model.getLeftBreastTime() + " seconds");
-        right.setText("Right Breast: " +  model.getRightBreastTime() + " seconds ");
+        left.setText("Left Breast: " + toHoursandMinutes(model.getLeftBreastTime()) );
+        right.setText("Right Breast: " +  toHoursandMinutes(model.getRightBreastTime()) );
         textViewTime.setText(simpleDateFormat.format(model.getDate()));
         notesTextView.setText(model.getNotes());
+    }
+
+    private static String toHoursandMinutes(Long duration) {
+        long hours = duration/60;
+        long minutes = duration % 60;
+        if (hours==0) {
+            return minutes + " minutes";
+        } else  {
+            return hours + " hours and " + minutes + " minutes";
+        }
     }
 
 }
