@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/rorlig/Documents/work/android/babylog/babylogger/MaterialDesign/assets"><file name="sprite_check.png" path="/Users/rorlig/Documents/work/android/babylog/babylogger/MaterialDesign/assets/sprite_check.png"/></source></dataSet><dataSet config="debug"><source path="/Users/rorlig/Documents/work/android/babylog/babylogger/MaterialDesign/src/debug/assets"/></dataSet></merger>

@@ -122,9 +122,9 @@ public class HomeFragment extends InjectableFragment {
         final String imageUri = preferences.getString("imageUri", "");
 
         Log.d(TAG, "imageUri " + imageUri);
-        profileImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
+//        profileImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
 //                Log.d(TAG, "here");
                 if (!imageUri.equals("")) {
 
@@ -153,12 +153,15 @@ public class HomeFragment extends InjectableFragment {
 
 //        Log.d(TAG, "onResume");
 
-        });
-    }
+//        });
+//    }
 
     private void resetImageViews() {
+        Log.d(TAG, "resetImageViews");
         babyImageView.setImageURI(null);
         babyImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.boy_normal));
+        profileImageView.setImageURI(null);
+        profileImageView.setImageDrawable(null);
         profileImageView.setBackgroundColor(getResources().getColor(R.color.gray_cloud));
 
     }

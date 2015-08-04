@@ -69,35 +69,47 @@
         android:id="@+id/date_range_end_layout"
         android:layout_margin="5dp"
         android:layout_below="@id/sleep_start_layout">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sleep_hourts_text_input_layout"
+            android:layout_marginRight = "15dp"
+            android:layout_marginLeft = "15dp"
+            android:layout_weight="1"
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+            >
+        <EditText
             android:id="@+id/sleep_hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight = "15dp"
-            android:layout_marginLeft = "15dp"
             android:maxLength="2"
             android:ems="10"
             android:hint="@string/hours"
-            app:met_floatingLabel="normal"
             android:numeric="decimal"
-            android:layout_weight="1"
 
             />
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/sleep_minutes"
-            android:layout_width="wrap_content"
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/sleep_minutes_text_input_layout"
             android:layout_marginRight = "15dp"
             android:layout_marginLeft = "15dp"
-            android:maxLength="2"
-            android:ems="10"
-            android:hint="@string/minutes"
-            android:layout_toRightOf="@+id/sleep_hours"
-            app:met_floatingLabel="normal"
-            android:numeric="decimal"
+            android:layout_weight="1"
 
-            />
+            >
+            <EditText
+                android:id="@+id/sleep_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="2"
+                android:ems="10"
+                android:hint="@string/minutes"
+                android:numeric="decimal"
+
+                />
+        </android.support.design.widget.TextInputLayout>
 
 
     </LinearLayout>

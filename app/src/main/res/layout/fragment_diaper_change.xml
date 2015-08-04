@@ -196,7 +196,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/accidentLayoutWrapper"
+        android:id="@+id/accident_layout_wrapper"
         android:layout_below="@+id/accident_header">
         <RadioGroup
             style="@style/RadioGroup"
@@ -246,18 +246,22 @@
         <!--android:textAllCaps="true"-->
         <!--android:layout_below="@+id/accidentLayoutWrapper"-->
          <!--/>-->
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/notes"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/notes_text_input_layout"
         android:layout_marginRight = "15dp"
         android:layout_marginLeft = "15dp"
-        android:ems="10"
-        android:layout_below="@+id/accidentLayoutWrapper"
-        android:hint="@string/notes_hint"
-        app:met_floatingLabel="normal"
-        />
+        android:layout_below="@+id/accident_layout_wrapper"
+        >
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/notes_hint"
+            />
+    </android.support.design.widget.TextInputLayout>
     <!--<EditText xmlns:android="http://schemas.android.com/apk/res/android"-->
         <!--android:id="@+id/notes"-->
         <!--android:layout_width="match_parent"-->

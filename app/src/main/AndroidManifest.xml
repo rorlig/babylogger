@@ -21,6 +21,7 @@
         android:name=".BabyLoggerApplication"
         android:theme="@style/AppTheme"
         android:icon="@drawable/ic_launcher_1"
+
         >
 
         <activity
@@ -40,7 +41,8 @@
         </activity>
 
         <activity android:name=".ui.activity.TutorialActivity"
-            android:noHistory="true" >
+            android:noHistory="true"
+            >
         </activity>
         <activity
             android:name=".ui.activity.HomeActivity">
@@ -60,6 +62,8 @@
         <activity android:name=".ui.activity.ProfileActivity"
             android:label="@string/profile_title"
             android:parentActivityName=".ui.activity.HomeActivity"
+            android:windowSoftInputMode="adjustPan"
+
             >
             <meta-data
             android:name="android.support.PARENT_ACTIVITY"
@@ -84,6 +88,8 @@
             android:label="@string/title_activity_sleep"
             android:parentActivityName=".ui.activity.HomeActivity"
             android:theme="@style/AppTheme.Gray"
+            android:windowSoftInputMode="adjustPan"
+
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -95,6 +101,8 @@
             android:name=".ui.activity.DiaperChangeActivity"
             android:label="@string/diaper_change_title"
             android:theme="@style/AppTheme.Purple"
+            android:windowSoftInputMode="adjustPan"
+
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -107,7 +115,9 @@
             android:label="Feeding"
             android:title="@string/diaper_change_title"
             android:theme="@style/AppTheme.Blue"
-            android:parentActivityName=".ui.activity.HomeActivity">
+            android:parentActivityName=".ui.activity.HomeActivity"
+            android:windowSoftInputMode="adjustPan"
+            >
             <!--<meta-data-->
                 <!--android:name="android.support.PARENT_ACTIVITY"-->
                 <!--android:value=".ui.activity.BabyLogActivity" />-->
@@ -121,7 +131,9 @@
             android:title="@string/growth_title"
             android:theme="@style/AppTheme.Green"
 
-            android:parentActivityName=".ui.activity.HomeActivity"/>
+            android:parentActivityName=".ui.activity.HomeActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
 
 
         <activity

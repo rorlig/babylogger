@@ -1,5 +1,6 @@
 package com.rorlig.babylog.ui.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -78,7 +80,13 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
             Log.d(TAG, "setting the profile image");
             profileImageIcon.setImageURI(Uri.parse(imageUri));
         }
+        profileImageIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
 
+            }
+        });
         titleTextView.setText(getTitle());
     }
 

@@ -185,6 +185,8 @@ public class BottleFeedFragment extends InjectableFragment
                 index++;
             }
 
+            notes.setText(feedDao.getNotes());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

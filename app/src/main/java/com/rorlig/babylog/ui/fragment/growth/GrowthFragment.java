@@ -11,12 +11,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
-import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.dao.FeedDao;
@@ -49,7 +49,7 @@ public class GrowthFragment extends InjectableFragment {
     Context context;
 
     @InjectView(R.id.notes)
-    MaterialEditText notesContentTextView;
+    EditText notesContentTextView;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
@@ -58,13 +58,16 @@ public class GrowthFragment extends InjectableFragment {
 //    EditText weightPoundsEditText;
 
     @InjectView(R.id.weight_pounds_ounces)
-    MaterialEditText weightEditText;
+    EditText weightEditText;
 
     @InjectView(R.id.height_inches)
-    MaterialEditText heightInchesEditText;
+    EditText heightInchesEditText;
 
     @InjectView(R.id.head_inches)
-    com.rengwuxian.materialedittext.MaterialEditText headInchesEditText;
+    EditText headInchesEditText;
+
+    @InjectView(R.id.notes)
+    EditText notes;
 
     @InjectView(R.id.two_button_layout)
     LinearLayout editDeleteBtn;
@@ -131,6 +134,8 @@ public class GrowthFragment extends InjectableFragment {
             weightEditText.setText(convertWeightToString(growthDao.getWeight()));
             heightInchesEditText.setText(growthDao.getHeight().toString());
             headInchesEditText.setText(growthDao.getHeadMeasurement().toString());
+            notes.setText(growthDao.getNotes());
+
 
         } catch (SQLException e) {
             e.printStackTrace();

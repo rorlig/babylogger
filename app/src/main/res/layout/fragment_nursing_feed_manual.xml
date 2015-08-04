@@ -19,39 +19,39 @@
 
     </fragment>
 
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/nursing_heading"-->
+        <!--android:id="@+id/nursing_header"-->
+        <!--android:textColor="@color/primary_blue"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textAllCaps="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:layout_below="@id/header"-->
+        <!--/>-->
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--style="@style/ListItemDividerShort.Blue"-->
+        <!--android:layout_below="@+id/nursing_header"-->
+        <!--android:layout_marginTop="2dp"-->
+        <!--android:id="@+id/nursing_header_divider"/>-->
+
+
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nursing_heading"
-        android:id="@+id/nursing_header"
-        android:textColor="@color/primary_blue"
-        android:textSize="20sp"
-        android:textAllCaps="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_below="@id/header"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        style="@style/ListItemDividerShort.Blue"
-        android:layout_below="@+id/nursing_header"
-        android:layout_marginTop="2dp"
-        android:id="@+id/nursing_header_divider"/>
-
-
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/breast_title_left"
-    android:layout_below="@+id/header"
-    android:layout_marginTop="50dp"
-    android:layout_marginLeft="10dp"
-    android:id="@+id/left_header_title"
-    android:textColor="@color/primary_blue"/>
+        android:text="@string/breast_title_left"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/left_header_title"
+        android:textColor="@color/primary_blue"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,35 +59,46 @@
         android:id="@+id/left_breast_value"
         android:layout_margin="5dp"
         android:layout_below="@+id/left_header_title">
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/left_sleep_hours"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/left_sleep_hour_text_input_layout"
             android:layout_marginRight = "15dp"
             android:layout_marginLeft = "15dp"
-            android:maxLength="2"
-            android:ems="10"
-            android:hint="@string/hours"
-            app:met_floatingLabel="normal"
-            android:numeric="decimal"
             android:layout_weight="1"
 
-            />
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/left_sleep_minutes"
+            >
+            <EditText
+                android:id="@+id/left_sleep_hours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="2"
+                android:ems="10"
+                android:hint="@string/hours"
+                android:numeric="decimal"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/left_sleep_minutes_text_input_layout"
             android:layout_marginRight = "15dp"
             android:layout_marginLeft = "15dp"
-            android:maxLength="2"
-            android:ems="10"
-            android:hint="@string/minutes"
-            app:met_floatingLabel="normal"
-            android:numeric="decimal"
             android:layout_weight="1"
 
-            />
+            >
+            <EditText
+                android:id="@+id/left_sleep_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="2"
+                android:ems="10"
+                android:hint="@string/minutes"
+                android:numeric="decimal"
+
+                />
+        </android.support.design.widget.TextInputLayout>
 
 
     </LinearLayout>
@@ -109,35 +120,46 @@
         android:layout_margin="5dp"
         android:orientation="horizontal"
         android:layout_below="@+id/right_header_title">
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/right_sleep_hours"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight = "10dp"
-            android:layout_marginLeft = "10dp"
-            android:maxLength="2"
-            android:ems="10"
-            android:hint="@string/hours"
-            app:met_floatingLabel="normal"
-            android:numeric="decimal"
-            android:layout_weight="1"
-            />
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/right_sleep_minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/right_sleep_hour_text_input_layout"
             android:layout_marginRight = "15dp"
             android:layout_marginLeft = "15dp"
-            android:maxLength="2"
-            android:ems="10"
-            android:hint="@string/minutes"
-            android:layout_toRightOf="@+id/right_sleep_hours"
-            app:met_floatingLabel="normal"
-            android:numeric="decimal"
             android:layout_weight="1"
 
+            >
+                <EditText
+                android:id="@+id/right_sleep_hours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="2"
+                android:ems="10"
+                android:hint="@string/hours"
+                android:numeric="decimal"
             />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/right_sleep_minute_text_input_layout"
+            android:layout_marginRight = "15dp"
+            android:layout_marginLeft = "15dp"
+            android:layout_weight="1"
+
+            >
+            <EditText
+                android:id="@+id/right_sleep_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="2"
+                android:ems="10"
+                android:hint="@string/minutes"
+                android:layout_toRightOf="@+id/right_sleep_hours"
+                android:numeric="decimal"
+
+                />
+        </android.support.design.widget.TextInputLayout>
 
 
     </LinearLayout>
@@ -153,18 +175,23 @@
         <!--android:textSize="16sp"-->
         <!--android:layout_below="@+id/quantity_layout"-->
         <!--android:textColor="@color/primary_blue" />-->
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/notes"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/notes_text_input_layout"
         android:layout_marginRight = "15dp"
         android:layout_marginLeft = "15dp"
-        android:ems="10"
         android:layout_below="@+id/right_breast_value"
-        android:hint="@string/notes_hint"
-        app:met_floatingLabel="normal"
-        />
+
+        >
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/notes_hint"
+            />
+    </android.support.design.widget.TextInputLayout>
 
     <com.gc.materialdesign.views.ButtonRectangle
         android:id="@+id/save_btn"

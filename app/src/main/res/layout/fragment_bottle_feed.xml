@@ -19,35 +19,35 @@
 
     </fragment>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bottle_feed_title"
-        android:id="@+id/bottle_header"
-        android:textColor="@color/primary_blue"
-        android:textSize="20sp"
-        android:textAllCaps="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/header"
-        />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/bottle_feed_title"-->
+        <!--android:id="@+id/bottle_header"-->
+        <!--android:textColor="@color/primary_blue"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textAllCaps="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:layout_below="@+id/header"-->
+        <!--/>-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        style="@style/ListItemDividerShort.Blue"
-        android:layout_below="@+id/bottle_header"
-        android:layout_marginTop="2dp"
-        android:id="@+id/bottle_header_divider"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--style="@style/ListItemDividerShort.Blue"-->
+        <!--android:layout_below="@+id/bottle_header"-->
+        <!--android:layout_marginTop="2dp"-->
+        <!--android:id="@+id/bottle_header_divider"/>-->
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_quantity"
-        android:layout_below="@+id/bottle_header_divider"
+        android:layout_below="@+id/header"
         android:textSize="16sp"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
@@ -107,19 +107,25 @@
         <!--android:textSize="16sp"-->
         <!--android:layout_below="@+id/quantity_layout"-->
         <!--android:textColor="@color/primary_blue" />-->
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/notes"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/notes_text_input_layout"
         android:layout_marginRight = "15dp"
         android:layout_marginLeft = "15dp"
-        android:ems="10"
         android:layout_below="@+id/quantity_layout"
-        android:hint="@string/notes_hint"
-        app:met_floatingLabel="normal"
-        />
-
+        >
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight = "15dp"
+            android:layout_marginLeft = "15dp"
+            android:ems="10"
+            android:layout_below="@+id/quantity_layout"
+            android:hint="@string/notes_hint"
+            />
+    </android.support.design.widget.TextInputLayout>
     <com.gc.materialdesign.views.ButtonRectangle
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
@@ -143,7 +149,7 @@
             android:text="Delete"
             android:background="@color/primary_blue"
             android:layout_weight="1"
-            app:rippleSpeed="50"/>
+            />
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/edit_btn"
@@ -152,7 +158,7 @@
             android:text="Edit"
             android:background="@color/primary_blue"
             android:layout_weight="1"
-            app:rippleSpeed="50"/>
+           />
 
 
 

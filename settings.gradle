@@ -1,3 +1,4 @@
 include ':app'
 include ':squarecamera'
+include ':MaterialDesign'
 //include ':about_libraries'

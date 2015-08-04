@@ -221,6 +221,9 @@ public class NursingFeedFragment extends InjectableFragment {
             rightSleepMinutes.setText("" + (int) (feedDao.getRightBreastTime() % 60));
             rightSleepHours.setText("" + (int) (feedDao.getRightBreastTime()/60));
 
+            notes.setText(feedDao.getNotes());
+
+
 
 //            quantityTextView.setText(feedDao.getQuantity().toString());
 //            final String[] values = getResources().getStringArray(R.array.type_array);

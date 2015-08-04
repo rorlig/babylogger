@@ -19,172 +19,94 @@
         android:layout_height="wrap_content"
         android:id="@+id/header"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_growth"
-        android:id="@+id/growth_header_title"
-        android:textColor="@color/primary_green"
-        android:textSize="20sp"
-        android:textAllCaps="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/header"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        style="@style/ListItemDividerShort.Green"
-        android:layout_below="@+id/growth_header_title"
-        android:layout_marginTop="2dp"
-        android:id="@+id/growht_header_divider"/>
-
-    <!--<LinearLayout-->
+    <!--<TextView-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/title_growth"-->
+        <!--android:id="@+id/growth_header_title"-->
+        <!--android:textColor="@color/primary_green"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textAllCaps="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:layout_below="@+id/header"-->
+        <!--/>-->
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--style="@style/ListItemDividerShort.Green"-->
         <!--android:layout_below="@+id/growth_header_title"-->
-        <!--android:id="@+id/weight_layout"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginTop="2dp"-->
+        <!--android:id="@+id/growth_header_divider"/>-->
 
 
-        <!-->-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/txt_weight"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:id="@+id/weight_label"-->
-            <!--android:textColor="@color/primary_green"/>-->
-        <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="&#45;&#45;"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:inputType="number"-->
-            <!--android:maxLength="2"-->
-            <!--android:id="@+id/weight_pounds"-->
-            <!--android:textColor="@color/primary_green"/>-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="lbs"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:id="@+id/weight_pound_label"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:textColor="@color/primary_green"/>-->
-
-        <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="&#45;&#45;"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:inputType="number"-->
-            <!--android:maxLength="2"-->
-            <!--android:id="@+id/weight_ounces"-->
-            <!--android:textColor="@color/primary_green"/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="oz"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:id="@+id/weight_ounces_label"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:textColor="@color/primary_green"/>-->
-
-    <!--</LinearLayout>-->
-
-
-
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/weight_layout"-->
-        <!--android:id="@+id/height_layout"-->
-        <!-->-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/txt_height"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:id="@+id/height_label"-->
-            <!--android:textColor="@color/primary_green"/>-->
-        <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="@string/txt_hint_decimal"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:numeric="decimal"-->
-            <!--android:maxLength="5"-->
-            <!--android:id="@+id/height_inches"-->
-            <!--android:textColor="@color/primary_green"/>-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="inches"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_toRightOf="@+id/height_inches"-->
-            <!--android:id="@+id/height_inches_label"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:textColor="@color/primary_green"/>-->
-
-    <!--</LinearLayout>-->
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/weight_pounds_ounces"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight = "15dp"
-        android:layout_marginLeft = "15dp"
-        android:maxLength="5"
-        android:ems="10"
-        android:hint="@string/weight_title"
-        app:met_floatingLabel="normal"
-        android:layout_below="@+id/growht_header_divider"
+        android:id="@+id/weight_text_input_layout"
+        android:layout_below="@+id/header"
+        >
+        <EditText
+            android:id="@+id/weight_pounds_ounces"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight = "15dp"
+            android:layout_marginLeft = "15dp"
+            android:maxLength="5"
+            android:ems="10"
+            android:hint="@string/weight_title"
+            android:layout_below="@+id/growth_header_divider"
 
-        android:numeric="decimal"
+            android:numeric="decimal"
 
-        />
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/height_inches"
+            />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight = "15dp"
-        android:layout_marginLeft = "15dp"
-        android:maxLength="5"
-        android:ems="10"
-        android:hint="@string/height_title"
-        app:met_floatingLabel="normal"
-        android:layout_below="@+id/weight_pounds_ounces"
+        android:id="@+id/height_text_input_layout"
+        android:layout_below="@+id/weight_text_input_layout"
+        >
+        <EditText
+            android:id="@+id/height_inches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight = "15dp"
+            android:layout_marginLeft = "15dp"
+            android:maxLength="5"
+            android:ems="10"
+            android:hint="@string/height_title"
+            android:layout_below="@+id/weight_pounds_ounces"
 
-        android:numeric="decimal"
+            android:numeric="decimal"
 
-        />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/head_inches"
+            />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight = "15dp"
-        android:layout_marginLeft = "15dp"
-        android:ems="10"
-        android:hint="@string/head_measurement_title"
-        app:met_floatingLabel="normal"
-        android:layout_below="@+id/height_inches"
-        android:maxLength="5"
+        android:id="@+id/head_measure_text_input_layout"
+        android:layout_below="@+id/height_text_input_layout"
+        >
+        <EditText
+            android:id="@+id/head_inches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight = "15dp"
+            android:layout_marginLeft = "15dp"
+            android:ems="10"
+            android:hint="@string/head_measurement_title"
+            android:layout_below="@+id/height_inches"
+            android:maxLength="5"
 
-        android:numeric="decimal"
+            android:numeric="decimal"
 
-        />
+            />
+    </android.support.design.widget.TextInputLayout>
 
 
     <!--<LinearLayout-->
@@ -222,19 +144,22 @@
             <!--android:textColor="@color/primary_green"/>-->
 
     <!--</LinearLayout>-->
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/notes"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight = "15dp"
-        android:layout_marginLeft = "15dp"
-        android:ems="10"
-        android:layout_below="@+id/head_inches"
-        android:hint="NOTES"
-        app:met_floatingLabel="normal"
-        />
-
+        android:id="@+id/notes_text_input_layout"
+        android:layout_below="@+id/head_measure_text_input_layout"
+        >
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight = "15dp"
+            android:layout_marginLeft = "15dp"
+            android:ems="10"
+            android:hint="NOTES"
+            />
+    </android.support.design.widget.TextInputLayout>
 
 
 
