@@ -3,19 +3,20 @@
 <com.rorlig.babylog.ui.widget.NursingFeedView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="90dp"
     >
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/left_panel">
+        android:id="@+id/left_panel"
+        android:orientation="vertical">
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center"
             android:src="@drawable/ic_nursing_blue"
             android:id="@+id/bottle"/>
         <TextView
@@ -26,39 +27,48 @@
             android:id="@+id/diaperChangeTime"
             android:text="hello"
             android:textSize="10sp"
+            android:layout_gravity="center_horizontal"
             android:textColor="@color/gray_cloud"
             android:textStyle="italic"
 
             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="120dp"
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_toRightOf="@+id/left_panel"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
         android:id="@+id/rightPanel">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/list_title_breast_left"
-            android:layout_marginTop="35dp"
             android:textColor="@color/primary_blue"
+            android:layout_weight="1"
+
             android:id="@+id/txtLeft"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/list_title_breast_right"
+            android:layout_weight="1"
+
             android:layout_below="@id/txtLeft"
+
             android:textColor="@color/primary_blue"
             android:id="@+id/txtRight"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_weight="1"
+
             android:id="@+id/notes_layout"
-            android:layout_marginTop="5dp"
+
             android:layout_below="@id/txtRight">
             <TextView
                 android:layout_width="wrap_content"
@@ -78,7 +88,7 @@
         </LinearLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 

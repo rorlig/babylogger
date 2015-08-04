@@ -30,40 +30,61 @@
 
             />
     </RelativeLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/left_panel"
-        android:textColor="@color/primary_blue"
-        android:id="@+id/txt_quantity"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:id="@+id/notes_layout"
-        android:layout_toRightOf="@id/left_panel"
-        android:layout_below="@+id/txt_quantity"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/notes_label"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/primary_blue"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/notes_content"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/primary_blue"
-            />
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/left_panel">
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/row_sleep_start_time"
+            android:layout_marginTop="20dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_quantity"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/primary_blue"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/primary_blue"
+                android:id="@+id/txt_quantity"
+                android:text="@string/incident_none"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:id="@+id/row_sleep_duration"
+            android:layout_below="@id/row_sleep_start_time">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notes_label"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/primary_blue"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/notes_content"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/primary_gray"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
 
 
 

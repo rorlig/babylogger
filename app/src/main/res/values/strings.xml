@@ -197,7 +197,7 @@
     <string name="diaper_texture">Texture: </string>
     <string name="incident_none">None</string>
     <string name="diaper_indicident_none">No Incident</string>
-    <string name="title_quantity">QUANTITY</string>
+    <string name="title_quantity">QUANTITY: </string>
     <string name="breast_feeding_title">BREAST FEEDING</string>
     <string name="basic_information">Basic Information</string>
     <string name="activities_to_log_title">Choose Activities to log</string>
@@ -318,7 +318,7 @@
     <string name="sleep_header">Track Sleep</string>
     <string name="sleep_start_time">Sleep Start Time: </string>
     <string name="sleep_end_time">Sleep End Time: </string>
-    <string name="sleep_duration">Sleep Duration </string>
+    <string name="sleep_duration">Sleep Duration: </string>
     <string name="diaper_log_description_text">Log all the diaper changes.</string>
     <string name="feed_log_description_text">Track both bottle and breast feeds</string>
     <string name="growth_log_description_text">Record everything and chart progress on beautiful graphs</string>

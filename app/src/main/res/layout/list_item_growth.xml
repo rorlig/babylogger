@@ -3,19 +3,19 @@
 <com.rorlig.babylog.ui.widget.GrowthView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     >
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/left_panel">
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_growth_green"
             android:id="@+id/growth"/>
         <TextView
@@ -25,96 +25,107 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/diaperChangeTime"
             android:text="hello"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textColor="@color/gray_cloud"
             android:textStyle="italic"
 
             />
     </RelativeLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/growth_weight"
-        android:layout_marginTop="10dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_toRightOf="@+id/left_panel"
-        android:textColor="@color/primary_green"
-        android:id="@+id/weight_label"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/growth_weight"
+        android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/weight_label"
-        android:textColor="@color/primary_green"
-        android:id="@+id/weight_value"/>
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/growth_weight"
+                android:textColor="@color/primary_green"
+                android:id="@+id/weight_label"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/growth_weight"
+                android:layout_toRightOf="@+id/weight_label"
+                android:textColor="@color/primary_green"
+                android:id="@+id/weight_value"/>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/growth_height"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/left_panel"
-        android:layout_below="@+id/weight_label"
-        android:textColor="@color/primary_green"
-        android:id="@+id/height_label"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/growth_height"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/weight_value"
+                android:textColor="@color/primary_green"
+                android:id="@+id/height_label"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/growth_height"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/height_label"
-        android:layout_below="@+id/weight_value"
-        android:textColor="@color/primary_green"
-        android:id="@+id/height_value"/>
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/growth_head_measurement"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/left_panel"
-        android:layout_below="@+id/height_label"
-        android:textColor="@color/primary_green"
-        android:id="@+id/head_label"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/growth_head_measurement"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/head_label"
-        android:layout_below="@+id/height_value"
-        android:textColor="@color/primary_green"
-        android:id="@+id/headValue"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/growth_height"
+                android:layout_toRightOf="@+id/height_label"
+                android:textColor="@color/primary_green"
+                android:id="@+id/height_value"/>
 
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/notes_label"
-        android:layout_below="@+id/head_label"
-        android:layout_toRightOf="@+id/left_panel"
-        android:textColor="@color/primary_green"
-        android:layout_marginTop="10dp"
-        android:id="@+id/notes_label"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/notes_content"
-        android:layout_marginLeft="3dp"
-        android:textColor="@color/primary_green"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/notes_label"
-        android:layout_below="@+id/head_label"
-        android:text ="test"
-        />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/growth_head_measurement"
+            android:textColor="@color/primary_green"
+            android:id="@+id/head_label"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/growth_head_measurement"
+            android:layout_toRightOf="@+id/head_label"
+            android:textColor="@color/primary_green"
+            android:id="@+id/headValue"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notes_label"
+            android:textColor="@color/primary_green"
+            android:id="@+id/notes_label"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notes_content"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/primary_green"
+            android:layout_toRightOf="@+id/notes_label"
+            android:text ="test"
+            />
+        </RelativeLayout>
+
+    </LinearLayout>
+
 
 
 

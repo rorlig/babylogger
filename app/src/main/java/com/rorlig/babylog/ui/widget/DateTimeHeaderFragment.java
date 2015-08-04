@@ -226,8 +226,15 @@ public class DateTimeHeaderFragment extends InjectableFragment {
 
         @Subscribe
         public void onTimeChanged(TimeSetEvent timeSetEvent){
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR, timeSetEvent.getHourOfDay());
+            calendar.set(Calendar.MINUTE, timeSetEvent.getMinute());
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+            sdf.format(calendar.getTime());
+
+//            calendar.set(Calendar., timeSetEvent.getHourOfDay());
             Log.d(TAG, "timeSetEvent " + timeSetEvent);
-            currentTime.setText(timeSetEvent.getHourOfDay()%12 + ":" + timeSetEvent.getMinute() + " " + (timeSetEvent.getHourOfDay() > 11 ? "PM" : "AM"));
+            currentTime.setText(sdf.format(calendar.getTime()));
             setSpans(dateTimeColor);
         }
     }

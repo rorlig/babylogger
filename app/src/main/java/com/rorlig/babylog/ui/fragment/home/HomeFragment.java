@@ -146,7 +146,7 @@ public class HomeFragment extends InjectableFragment {
 
                 } else {
 
-                    resetImageView();
+                    resetImageViews();
                 }
 
             }
@@ -156,12 +156,9 @@ public class HomeFragment extends InjectableFragment {
         });
     }
 
-    private void resetImageView() {
+    private void resetImageViews() {
         babyImageView.setImageURI(null);
-
         babyImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.boy_normal));
-
-
         profileImageView.setBackgroundColor(getResources().getColor(R.color.gray_cloud));
 
     }
