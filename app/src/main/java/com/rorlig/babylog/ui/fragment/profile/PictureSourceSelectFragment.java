@@ -85,4 +85,14 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
 
 
     }
+
+    /*
+     * delete the current image
+     */
+    @OnClick(R.id.delete)
+    public void onDeleteImage() {
+        ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
+        profileFragment.deleteImage();
+        dismiss();
+    }
 }

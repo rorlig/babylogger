@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -143,6 +144,9 @@ public class HomeFragment extends InjectableFragment {
                             .into(babyImageView);
 
 
+                } else {
+
+                    resetImageView();
                 }
 
             }
@@ -151,6 +155,17 @@ public class HomeFragment extends InjectableFragment {
 
         });
     }
+
+    private void resetImageView() {
+        babyImageView.setImageURI(null);
+
+        babyImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.boy_normal));
+
+
+        profileImageView.setBackgroundColor(getResources().getColor(R.color.gray_cloud));
+
+    }
+
 
 
     @Override

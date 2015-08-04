@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -204,6 +205,8 @@ public class ProfileFragment extends InjectableFragment {
                     .fit()
                     .transform(new CircleTransform())
                     .into(babyPicImageView);
+        } else {
+           resetImageView();
         }
 
 //        String imageStr = preferences.getString("imageUri","");
@@ -218,6 +221,13 @@ public class ProfileFragment extends InjectableFragment {
 //        scopedBus.register(eventListener);
 
         //todo dob...
+
+    }
+
+    private void resetImageView() {
+        babyPicImageView.setImageURI(null);
+
+        babyPicImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.btn_radio_boy));
 
     }
 
@@ -236,6 +246,8 @@ public class ProfileFragment extends InjectableFragment {
         ButterKnife.inject(this, view);
         return view;
     }
+
+
 
 
     private class EventListener {
@@ -316,11 +328,18 @@ public class ProfileFragment extends InjectableFragment {
     }
 
 
+    public void deleteImage() {
+//        preferences.edit().putString("imageUri", "").apply();
+        imageUri = null;
+        resetImageView();
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode  + " data " + data );
+        Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode + " data " + data);
         //Request was successful
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
@@ -509,6 +528,7 @@ public class ProfileFragment extends InjectableFragment {
     private void saveImageUri(Uri imageUri) {
         if (imageUri!=null)
         preferences.edit().putString("imageUri", imageUri.toString()).apply();
+        else preferences.edit().putString("imageUri", "").apply();
     }
 
 }
