@@ -45,7 +45,7 @@
     </RelativeLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_below="@+id/header"
@@ -57,12 +57,24 @@
             android:id="@+id/baby_pic"
             android:layout_gravity="center_vertical"
             android:src="@drawable/btn_radio_boy"
-            android:layout_weight="1"
             android:layout_marginTop="10dp"
             />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:id="@+id/baby_pic_cancel"
+            android:layout_alignTop="@id/baby_pic"
+            android:layout_alignRight="@+id/baby_pic"
+            android:src="@drawable/ic_action_cancel"
+            android:visibility="visible"
+            android:layout_marginTop="10dp"
+            />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_toRightOf="@id/baby_pic"
             android:layout_weight="1">
             <EditText
                 android:layout_width="200dp"
@@ -160,7 +172,7 @@
         </RelativeLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 

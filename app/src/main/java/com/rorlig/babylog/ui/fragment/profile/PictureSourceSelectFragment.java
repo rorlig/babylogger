@@ -66,7 +66,7 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     /*
      * start the camera activity
      */
-    @OnClick(R.id.camera)
+    @OnClick(R.id.camera_select)
     public void onCameraClick() {
         Log.d(TAG, "onCameraClick");
         ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
@@ -77,7 +77,7 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     /*
      * start the gallery application..
      */
-    @OnClick(R.id.gallery)
+    @OnClick(R.id.gallery_select)
     public void onGalleryClick() {
         ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
         profileFragment.handleGalleryEvent();

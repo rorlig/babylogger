@@ -284,7 +284,7 @@
     <string name="title_growth">GROWTH</string>
     <string name="head_measurement_title">HEAD MEASUREMENT (inches)</string>
     <string name="notes_label">Notes:\ </string>
-    <string name="gallery_string_title">GALLERY</string>
+    <string name="gallery_string_title">Choose from Gallery</string>
     <string name="camera_string_title">CAMERA</string>
     <string name="picture_select_header_text">SELECT PICTURE FROM</string>
     <string name="list_title_breast_left">Left:</string>
@@ -352,6 +352,7 @@
     <string name="minutes">Minutes</string>
     <string name="bottle_feed_title">BOTTLE FEED</string>
     <string name="nursing_heading">Nursing Feed</string>
+    <string name="camera_text">Take a Photo</string>
 
 
 </resources>

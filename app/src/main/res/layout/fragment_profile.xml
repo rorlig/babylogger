@@ -126,16 +126,16 @@
 
 
 
-        <DatePicker
-            android:id="@+id/date_picker_birthday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:calendarViewShown="false"
-            android:datePickerMode="spinner"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/birthdayDivider"
-            android:layout_marginTop="10dp"
-            />
+    <DatePicker
+        android:id="@+id/date_picker_birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/birthdayDivider"
+        android:layout_marginTop="10dp"
+        />
 
 
 

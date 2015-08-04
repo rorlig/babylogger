@@ -1,71 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     >
 
 
 
-    <TextView
-        android:layout_width="wrap_content"
+
+
+    <com.andexert.library.RippleView
+        android:id="@+id/gallery_select"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-
-        android:textSize="20sp"
-        android:id="@+id/picture_select_header_text"
-        android:text="@string/picture_select_header_text"
-        android:textColor="@color/primary_dark"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        />
+        android:layout_marginBottom="0dp"
+        rv_centered="true">
 
-    <View style="@style/ListItemDividerShort"
-        android:layout_below="@+id/picture_select_header_text"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"/>
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
 
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/gallery"
-        android:layout_below="@+id/picture_select_header_text"
-        android:layout_width="wrap_content"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_add_picture_gallery_2"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/gallery"
+            android:id="@+id/galleryText"
+            android:layout_centerVertical="true"
+            android:text="@string/gallery_string_title"
+            android:textColor="@color/text_color_main"
+            android:layout_centerHorizontal="true"
+            />
+
+
+
+    </com.andexert.library.RippleView>
+    <com.andexert.library.RippleView
+        android:id="@+id/camera_select"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_add_picture_gallery_2"
         android:layout_centerHorizontal="true"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gallery"
-        android:id="@+id/galleryText"
-        android:text="@string/gallery_string_title"
-        android:textColor="@color/text_color_main"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_below="@+id/gallery_select"
+        rv_centered="true">
 
-    <View style="@style/ListItemDividerShort"
-        android:layout_below="@+id/galleryText"
-        android:layout_marginTop="5dp">
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_picture_camera"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="20dp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/camera"
+            android:id="@+id/cameraText"
+            android:layout_centerVertical="true"
+            android:text="@string/camera_text"
+            android:textColor="@color/text_color_main"
+            android:layout_centerHorizontal="true"
+            />
+
+    </com.andexert.library.RippleView>
+    <com.andexert.library.RippleView
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/camera_select"
+        rv_centered="true">
 
 
-    </View>
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_add_picture_camera"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/galleryText"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/camera"
-        android:id="@+id/cameraText"
-        android:text="@string/camera_string_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/text_color_main"
-        />
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/delete_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_delete"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="20dp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/delete_image"
+            android:id="@+id/delete_text"
+            android:layout_centerVertical="true"
+            android:text="@string/delete"
+            android:textColor="@color/text_color_main"
+            android:layout_centerHorizontal="true"
+            />
+
+        </com.andexert.library.RippleView>
+
 </RelativeLayout>
