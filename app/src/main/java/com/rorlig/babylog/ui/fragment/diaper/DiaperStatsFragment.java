@@ -168,20 +168,21 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
                 case R.id.diaper_change_stats_monthly:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
                     barChart.setMaxVisibleValueCount(5);
-                    barChart.getXAxis().setLabelsToSkip(0);
+//                    barChart.getXAxis().setLabelsToSkip(0);
                     setData(diaperChangeDaoList, DiaperChangeStatsType.MONTHLY);
 
                     break;
                 case R.id.diaper_change_stats_yearly:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonthofYear();
+                    Log.d(TAG, "diaperChangeDaoList " + diaperChangeDaoList.size());
                     barChart.setMaxVisibleValueCount(12);
-                    barChart.getXAxis().setLabelsToSkip(0);
+//                    barChart.getXAxis().setLabelsToSkip(0);
                     setData(diaperChangeDaoList, DiaperChangeStatsType.YEARLY);
                     break;
                 default:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
                     barChart.setMaxVisibleValueCount(7);
-                    barChart.getXAxis().setLabelsToSkip(0);
+//                    barChart.getXAxis().setLabelsToSkip(0);
 
                     setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
             }
@@ -285,14 +286,16 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         startTime.set(Calendar.MINUTE, 0);
         startTime.set(Calendar.SECOND, 0);
         startTime.set(Calendar.MILLISECOND, 0);
-        startTime.add(Calendar.DATE, -(7 * 4 + 1));
+        startTime.add(Calendar.DATE, -(52 * 7 + 1));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
         Calendar endTime = Calendar.getInstance();
-        endTime.set(Calendar.HOUR_OF_DAY, 0);
+        endTime.set(Calendar.HOUR_OF_DAY, 23);
         endTime.set(Calendar.MINUTE, 0);
         endTime.set(Calendar.SECOND, 0);
         endTime.set(Calendar.MILLISECOND, 0);
         endTime.add(Calendar.DATE, 2);
+
+        Log.d(TAG, "getFullListMonthofYear startTime " + startTime.getTime() + " endTime " + endTime.getTime());
 
         for (Date date = startTime.getTime(); startTime.before(endTime);
              startTime.add(Calendar.MONTH, 1), date = startTime.getTime()) {

@@ -168,21 +168,21 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
                 case R.id.sleep_stats_weekly:
                     sleepDaoList =  babyORMLiteUtils.getSleepByDayofWeek();
                     barChart.setMaxVisibleValueCount(7);
-                    barChart.getXAxis().setLabelsToSkip(0);
+//                    barChart.getXAxis().setLabelsToSkip(0);
                     setData(SleepStatsType.WEEKLY);
 
                     break;
                 case R.id.sleep_stats_monthly:
                     sleepDaoList =  babyORMLiteUtils.getSleepByWeekofMonth();
                     barChart.setMaxVisibleValueCount(5);
-                    barChart.getXAxis().setLabelsToSkip(0);
+//                    barChart.getXAxis().setLabelsToSkip(0);
 
                     setData(SleepStatsType.MONTHLY);
                     break;
                 default:
                     sleepDaoList =  babyORMLiteUtils.getSleepByMonthofYear();
                     barChart.setMaxVisibleValueCount(12);
-                    barChart.getXAxis().setLabelsToSkip(0);
+//                    barChart.getXAxis().setLabelsToSkip(0);
 
                     setData(SleepStatsType.YEARLY);
             }
@@ -280,7 +280,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
         startTime.set(Calendar.MINUTE, 0);
         startTime.set(Calendar.SECOND, 0);
         startTime.set(Calendar.MILLISECOND, 0);
-        startTime.add(Calendar.DATE, -(7 * 4 + 1));
+        startTime.add(Calendar.DATE, -(7 * 52 + 1));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
         Calendar endTime = Calendar.getInstance();
         endTime.set(Calendar.HOUR_OF_DAY, 0);
