@@ -51,7 +51,7 @@
         android:layout_below="@+id/header"
         android:id="@+id/diaper_block"
         >
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:id="@+id/baby_pic"

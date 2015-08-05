@@ -84,7 +84,7 @@ public class ProfileFragment extends InjectableFragment {
     DatePicker datePickerBirthday;
 
     @InjectView(R.id.baby_pic)
-    ImageView babyPicImageView;
+    CircleImageView babyPicImageView;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
