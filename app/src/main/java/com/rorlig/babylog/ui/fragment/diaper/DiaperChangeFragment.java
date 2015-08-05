@@ -110,7 +110,7 @@ public class DiaperChangeFragment extends InjectableFragment {
 
     DateTimeHeaderFragment dateTimeHeader;
 
-    private String[] poopDensityLabels = new String[]{"Loose", "Chunky", "Hard","Very Hard"};
+    private String[] poopDensityLabels = new String[]{"Loose", "Seedy", "Chunky","Hard"};
 
 
 //    @InjectView(R.id.gridview)
