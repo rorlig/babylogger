@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babylog.otto.GrowthItemClicked;
+import com.rorlig.babylog.otto.UpdateActionBarEvent;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
@@ -94,6 +95,7 @@ public class GrowthActivity extends InjectableActivity {
 //            showFragment(GrowthFragment.class, "growth_fragment", false);
 //
 //        } else  {
+        if (savedInstanceState==null)
             showFragment(GrowthListFragment.class, "growth_list_fragment", false);
 
 //        }
@@ -192,6 +194,12 @@ public class GrowthActivity extends InjectableActivity {
                     .addToBackStack("main_screen_stack")
                     .commit();
 
+        }
+
+        @Subscribe
+        public void updateActionBar(UpdateActionBarEvent event){
+            Log.d(TAG, "updating action bar");
+            profileImageIcon.setImageDrawable(event.getDrawable());
         }
 
 

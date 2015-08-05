@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,10 +19,16 @@ import com.rorlig.babylog.dagger.ActivityModule;
 import com.rorlig.babylog.dagger.ObjectGraphActivity;
 import com.rorlig.babylog.dagger.ObjectGraphUtils;
 import com.rorlig.babylog.otto.ScopedBus;
+import com.rorlig.babylog.otto.UpdateActionBarEvent;
+import com.rorlig.babylog.utils.AppUtils;
+import com.rorlig.babylog.utils.transform.BlurTransformation;
+import com.rorlig.babylog.utils.transform.CropTransform;
+import com.squareup.otto.Subscribe;
 
 import org.w3c.dom.Text;
 
 import java.util.Arrays;
+import java.util.EventListener;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -52,6 +59,7 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
     private String TAG = "InjectableActivity";
 
     private TextView titleTextView;
+    ImageView profileImageIcon;
 
 
         @Override
@@ -60,34 +68,36 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
        activityGraph.inject(paramObject);
     }
 
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart");
+        updateToolbar();
+        scopedBus.register(this);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+        Log.d(TAG, "onStop");
+        scopedBus.unregister(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,"onCreate");
         setContentView(R.layout.activity_base);
 
 
         activityGraph = ObjectGraphUtils.getApplicationGraph(this).plus(getModules().toArray());
         activityGraph.inject(this);
+        setUpViews();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ImageView profileImageIcon = (ImageView) toolbar.findViewById(R.id.icon_image);
-        titleTextView = (TextView) toolbar.findViewById(R.id.title);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        final String imageUri = preferences.getString("imageUri", "");
-        Log.d(TAG, "imageUri " + imageUri);
-        if (!imageUri.equals("")) {
-            Log.d(TAG, "setting the profile image");
-            profileImageIcon.setImageURI(Uri.parse(imageUri));
-        }
-        profileImageIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
 
-            }
-        });
-        titleTextView.setText(getTitle());
+
     }
 
     @Override
@@ -98,12 +108,15 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
 
     @Override
     protected void onPause() {
+
+        Log.d(TAG, "onPause()");
         super.onPause();
         this.scopedBus.paused();
     }
 
     @Override
     protected void onResume(){
+        Log.d(TAG, "onResume()");
         super.onResume();
         scopedBus.resumed();
     }
@@ -169,28 +182,60 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
             }
         }
     }
-//
-//    /*
-//      * handle play services callback...
-//     */
-//    @Override
-//    public void onConnected(Bundle bundle) {
-//
-//    }
-//
-//    /*
-//     * handle play services callback...
-//     */
-//    @Override
-//    public void onDisconnected() {
-//
-//    }
-//
-//    /*
-//    * handle play services callback...
-//    */
-//    @Override
-//    public void onConnectionFailed(ConnectionResult connectionResult) {
-//
-//    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode== AppUtils.PROFILE_ACTIVITY) {
+            Log.d(TAG, "result from profile activity");
+//            Log.d(TAG, "profile changes " + data.getBooleanExtra("saved_profile", false));
+
+
+            updateToolbar();
+        }
+    }
+
+    protected void setToolbarIconVisibility(boolean isVisible) {
+        if (!isVisible)
+            profileImageIcon.setVisibility(View.GONE);
+        else
+            profileImageIcon.setVisibility(View.VISIBLE);
+    }
+
+
+    private void setUpViews() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        profileImageIcon = (ImageView) toolbar.findViewById(R.id.icon_image);
+        titleTextView = (TextView) toolbar.findViewById(R.id.title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        final String imageUri = preferences.getString("imageUri", "");
+        Log.d(TAG, "imageUri " + imageUri);
+        if (!imageUri.equals("")) {
+            Log.d(TAG, "setting the profile image");
+            profileImageIcon.setImageURI(Uri.parse(imageUri));
+        }
+        profileImageIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getApplicationContext(), ProfileActivity.class), AppUtils.PROFILE_ACTIVITY);
+
+            }
+        });
+        titleTextView.setText(getTitle());
+    }
+
+    private void updateToolbar() {
+        final String imageUri = preferences.getString("imageUri", "");
+
+        Log.d(TAG, "imageUri " + imageUri);
+        if (!imageUri.equals("")) {
+            profileImageIcon.setImageURI(Uri.parse(imageUri));
+        } else {
+            profileImageIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.boy_normal));
+        }
+
+    }
+
+
 }

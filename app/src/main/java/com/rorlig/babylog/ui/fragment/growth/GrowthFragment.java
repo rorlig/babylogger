@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
@@ -106,6 +109,8 @@ public class GrowthFragment extends InjectableFragment {
         Log.d(TAG, " green color " + Integer.toString(R.color.primary_green, 16));
         dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GREEN);
 
+        notes.setOnEditorActionListener(doneActionListener);
+
 
         //initialize views if not creating new feed item
         if (getArguments()!=null) {
@@ -135,6 +140,8 @@ public class GrowthFragment extends InjectableFragment {
             heightInchesEditText.setText(growthDao.getHeight().toString());
             headInchesEditText.setText(growthDao.getHeadMeasurement().toString());
             notes.setText(growthDao.getNotes());
+            dateTimeHeader.setDateTime(growthDao.getDate());
+
 
 
         } catch (SQLException e) {
@@ -158,6 +165,20 @@ public class GrowthFragment extends InjectableFragment {
         return (Integer.toString(poundWeight) + "." + Integer.toString(ounces));
 
     }
+
+    private EditText.OnEditorActionListener doneActionListener = new EditText.OnEditorActionListener(){
+
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            Log.d(TAG, "onEditorAction view " + v.getText() + " actionId " + actionId + " event " + event);
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                createOrEdit();
+                return true;
+            }
+            return false;
+        }
+    };
+
 
     private void setUpTextWatchers() {
 
@@ -299,8 +320,14 @@ public class GrowthFragment extends InjectableFragment {
 
     }
     private void setSaveEnabled() {
-        if (!headMeasureEmpty && !heightEmpty)
+        if (!weightEmpty && !heightEmpty) {
             saveBtn.setEnabled(true);
+            notes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        } else {
+            saveBtn.setEnabled(false);
+            notes.setImeOptions(EditorInfo.IME_ACTION_NONE);
+
+        }
 
     }
 
@@ -400,9 +427,9 @@ public class GrowthFragment extends InjectableFragment {
         String weight = weightEditText.getText().toString();
 
 
+        int indexOfDot = weight.indexOf(".");
 
-
-        Integer weightPounds = Integer.parseInt(weight.substring(0, weight.indexOf(".")));
+        Integer weightPounds = Integer.parseInt(weight.substring(0, indexOfDot==-1? weight.length(): indexOfDot));
 
         Double totalWeight =  weightPounds.doubleValue();
 

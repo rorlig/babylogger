@@ -187,6 +187,8 @@ public class BottleFeedFragment extends InjectableFragment
 
             notes.setText(feedDao.getNotes());
 
+            dateTimeHeader.setDateTime(feedDao.getDate());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

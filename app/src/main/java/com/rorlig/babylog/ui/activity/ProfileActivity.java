@@ -83,6 +83,10 @@ public class ProfileActivity extends InjectableActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setToolbarIconVisibility(false);
+
+        if (savedInstanceState==null)
         showFragment(ProfileFragment.class, "profile_fragment", false);
     }
 
@@ -141,11 +145,17 @@ public class ProfileActivity extends InjectableActivity {
         @Subscribe
         public void onSaveProfileEvent(SavedProfileEvent event) {
 
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("saved_profile", true);
+            setResult(RESULT_OK, returnIntent);
             finish();
         }
 
         @Subscribe
         public void onSkipProfileEvent(SkipProfileEvent event){
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("saved_profile",false);
+            setResult(RESULT_OK,returnIntent);
             finish();
         }
 

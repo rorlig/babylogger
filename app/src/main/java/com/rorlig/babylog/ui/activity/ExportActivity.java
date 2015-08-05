@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
+import com.rorlig.babylog.otto.UpdateActionBarEvent;
 import com.rorlig.babylog.ui.fragment.export.ExportFragment;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
@@ -98,6 +100,12 @@ public class ExportActivity extends InjectableActivity {
 
     private class EventListener {
         private EventListener() {
+        }
+
+        @Subscribe
+        public void updateActionBar(UpdateActionBarEvent event){
+            Log.d(TAG, "updating action bar");
+            profileImageIcon.setImageDrawable(event.getDrawable());
         }
     }
 }

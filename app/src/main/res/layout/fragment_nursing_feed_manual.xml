@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/drawer_filter_background"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -15,32 +15,11 @@
         android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/header">
+        android:id="@+id/header"
+        tools:layout="@layout/header_date_time">
 
     </fragment>
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/nursing_heading"-->
-        <!--android:id="@+id/nursing_header"-->
-        <!--android:textColor="@color/primary_blue"-->
-        <!--android:textSize="20sp"-->
-        <!--android:textAllCaps="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:gravity="center"-->
-        <!--android:layout_marginTop="25dp"-->
-        <!--android:layout_below="@id/header"-->
-        <!--/>-->
-
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--style="@style/ListItemDividerShort.Blue"-->
-        <!--android:layout_below="@+id/nursing_header"-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:id="@+id/nursing_header_divider"/>-->
 
 
     <TextView
@@ -76,6 +55,7 @@
                 android:ems="10"
                 android:hint="@string/hours"
                 android:numeric="decimal"
+                android:imeOptions="actionNext"
 
                 />
         </android.support.design.widget.TextInputLayout>
@@ -96,6 +76,8 @@
                 android:ems="10"
                 android:hint="@string/minutes"
                 android:numeric="decimal"
+                android:imeOptions="actionNext"
+
 
                 />
         </android.support.design.widget.TextInputLayout>
@@ -129,7 +111,7 @@
             android:layout_weight="1"
 
             >
-                <EditText
+            <EditText
                 android:id="@+id/right_sleep_hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,7 +119,9 @@
                 android:ems="10"
                 android:hint="@string/hours"
                 android:numeric="decimal"
-            />
+                android:imeOptions="actionNext"
+
+                />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
@@ -157,6 +141,8 @@
                 android:hint="@string/minutes"
                 android:layout_toRightOf="@+id/right_sleep_hours"
                 android:numeric="decimal"
+                android:imeOptions="actionNext"
+
 
                 />
         </android.support.design.widget.TextInputLayout>
@@ -165,16 +151,16 @@
     </LinearLayout>
 
     <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/notes_header"-->
-        <!--style="@style/ListItemHeader"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="NOTES"-->
-        <!--android:textAllCaps="true"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:textSize="16sp"-->
-        <!--android:layout_below="@+id/quantity_layout"-->
-        <!--android:textColor="@color/primary_blue" />-->
+    <!--android:id="@+id/notes_header"-->
+    <!--style="@style/ListItemHeader"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="NOTES"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:textSize="16sp"-->
+    <!--android:layout_below="@+id/quantity_layout"-->
+    <!--android:textColor="@color/primary_blue" />-->
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -190,6 +176,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/notes_hint"
+            android:singleLine="true"
+            android:imeOptions="actionNone"
             />
     </android.support.design.widget.TextInputLayout>
 

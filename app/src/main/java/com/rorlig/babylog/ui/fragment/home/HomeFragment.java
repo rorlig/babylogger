@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +22,8 @@ import android.widget.TextView;
 
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
+import com.rorlig.babylog.otto.UpdateActionBarEvent;
+import com.rorlig.babylog.otto.UpdateProfileEvent;
 import com.rorlig.babylog.ui.activity.DiaperChangeActivity;
 import com.rorlig.babylog.ui.activity.ExportActivity;
 import com.rorlig.babylog.ui.activity.FeedingActivity;
@@ -28,9 +33,11 @@ import com.rorlig.babylog.ui.activity.ProfileActivity;
 import com.rorlig.babylog.ui.activity.SleepActivity;
 import com.rorlig.babylog.ui.adapter.HomeItemAdapter;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
+import com.rorlig.babylog.utils.AppUtils;
 import com.rorlig.babylog.utils.transform.BlurTransformation;
 import com.rorlig.babylog.utils.transform.CircleTransform;
 import com.rorlig.babylog.utils.transform.CropTransform;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -72,6 +79,7 @@ public class HomeFragment extends InjectableFragment {
 
     @Inject
     SharedPreferences preferences;
+    private ActionBar actionBar;
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -107,12 +115,25 @@ public class HomeFragment extends InjectableFragment {
 
         }
 
+        scopedBus.register(this);
+
 
 
 
     }
 
 
+
+    /*
+     * Unregister from events ...
+     */
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+        scopedBus.unregister(this);
+
+    }
 
 
     @Override
@@ -122,34 +143,18 @@ public class HomeFragment extends InjectableFragment {
         final String imageUri = preferences.getString("imageUri", "");
 
         Log.d(TAG, "imageUri " + imageUri);
+        updateProfileImages();
 //        profileImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 //            @Override
 //            public void onGlobalLayout() {
 //                Log.d(TAG, "here");
-                if (!imageUri.equals("")) {
-
-                    //             load background image in nav drawer
-                    Log.d(TAG, "display metrics dpi " + getResources().getDisplayMetrics().density);
-                    float density = getResources().getDisplayMetrics().density + 1;
-                    picasso.load(Uri.parse(imageUri))
-                            .transform(new CropTransform(profileImageView.getWidth()/density, profileImageView.getHeight()/density))
-                            .transform(new BlurTransformation(getActivity()))
-                            .fit()
-                            .into(profileImageView);
-
-                    // load background image in nav drawer
-                    picasso.load(Uri.parse(imageUri))
-                            .transform(new CircleTransform())
-                            .fit()
-                            .into(babyImageView);
 
 
-                } else {
+//          Log.d(TAG, "UpdateActionBarEvent");
+//          scopedBus.post(new UpdateActionBarEvent(babyImageView));
 
-                    resetImageViews();
-                }
 
-            }
+    }
 
 //        Log.d(TAG, "onResume");
 
@@ -159,10 +164,13 @@ public class HomeFragment extends InjectableFragment {
     private void resetImageViews() {
         Log.d(TAG, "resetImageViews");
         babyImageView.setImageURI(null);
+        babyImageView.setImageDrawable(null);
         babyImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.boy_normal));
         profileImageView.setImageURI(null);
         profileImageView.setImageDrawable(null);
         profileImageView.setBackgroundColor(getResources().getColor(R.color.gray_cloud));
+//        actionBar.setIcon(babyImageView.getDrawable());
+//        actionBar.setLogo(babyImageView.getDrawable());
 
     }
 
@@ -230,6 +238,53 @@ public class HomeFragment extends InjectableFragment {
 //        outState.putParcelableArray("list", homeAdapter.getLogListItem().toArray(new Parcelable[homeAdapter.getLogListItem().size()]));
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode== AppUtils.PROFILE_ACTIVITY) {
+                Log.d(TAG, "result from profile activity");
+                Log.d(TAG, "profile changes " + data.getBooleanExtra("saved_profile", false));
+                if (data.getBooleanExtra("saved_profile", false)) {
+                    updateProfileImages();
+                }
+
+            }
+    }
+
+    private void updateProfileImages() {
+
+        final String imageUri = preferences.getString("imageUri", "");
+
+        Log.d(TAG, "imageUri " + imageUri);
+        if (!imageUri.equals("")) {
+
+            //             load background image in nav drawer
+            Log.d(TAG, "display metrics dpi " + getResources().getDisplayMetrics().density);
+            float density = getResources().getDisplayMetrics().density + 1;
+            picasso.load(Uri.parse(imageUri))
+                    .transform(new CropTransform(profileImageView.getWidth() / density, profileImageView.getHeight() / density))
+                    .transform(new BlurTransformation(getActivity()))
+                    .fit()
+                    .into(profileImageView);
+
+            // load background image in nav drawer
+            babyImageView.setImageDrawable(null);
+            babyImageView.setImageURI(null);
+            babyImageView.setImageURI(Uri.parse(imageUri));
+//                    picasso.load(Uri.parse(imageUri))
+//                            .transform(new CircleTransform())
+//                            .fit()
+//                            .into(babyImageView);
+//                    actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+//                    ImageView profileImageIcon = (ImageView) actionBar.findViewById(R.id.icon_image);
+
+//                    actionBar.setIcon(babyImageView.getDrawable());
+        } else {
+
+            resetImageViews();
+        }
+    }
+
     @OnClick(R.id.diaper_block)
     public void diaperBlockClicked(){
         startActivity(new Intent(getActivity(), DiaperChangeActivity.class));
@@ -254,12 +309,20 @@ public class HomeFragment extends InjectableFragment {
 
     @OnClick(R.id.profile_block)
     public void babyImageClicked() {
-        startActivity(new Intent(getActivity(), ProfileActivity.class));
+        getActivity().startActivityForResult(new Intent(getActivity(), ProfileActivity.class), AppUtils.PROFILE_ACTIVITY);
     }
 
     @OnClick(R.id.sleep_block)
     public void sleepBlockClicked(){
         Log.d(TAG, "sleep block clicked");
         startActivity(new Intent(getActivity(), SleepActivity.class));
+    }
+
+
+    @Subscribe
+    public void onUpdateProfile(UpdateProfileEvent event) {
+        Log.d(TAG, "profile updated");
+        updateProfileImages();
+
     }
 }

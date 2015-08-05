@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -223,6 +225,9 @@ public class NursingFeedFragment extends InjectableFragment {
 
             notes.setText(feedDao.getNotes());
 
+            dateTimeHeader.setDateTime(feedDao.getDate());
+
+
 
 
 //            quantityTextView.setText(feedDao.getQuantity().toString());
@@ -263,6 +268,12 @@ public class NursingFeedFragment extends InjectableFragment {
 
     private void setUpViews() {
         Log.d(TAG, "setUpViews");
+//        leftSleepMinutes.setOnEditorActionListener(doneActionListener);
+//        leftSleepHours.setOnEditorActionListener(doneActionListener);
+//        rightSleepMinutes.setOnEditorActionListener(doneActionListener);
+//        rightSleepHours.setOnEditorActionListener(doneActionListener);
+        notes.setOnEditorActionListener(doneActionListener);
+
     }
 
     private void setUpTextWatchers() {
@@ -441,13 +452,43 @@ public class NursingFeedFragment extends InjectableFragment {
     }
     private void setSaveEnabled() {
         Log.d(TAG, " rightMinutesEmpty " + rightMinutesEmpty + " rightHoursEmpty " + rightHoursEmpty
-        + " leftMinutesEmpty " + leftMinutesEmpty + " leftHoursEmpty " + leftHoursEmpty);
-        if ((!rightMinutesEmpty || !rightHoursEmpty || !leftMinutesEmpty || !leftHoursEmpty))
+                + " leftMinutesEmpty " + leftMinutesEmpty + " leftHoursEmpty " + leftHoursEmpty);
+        if ((!rightMinutesEmpty || !rightHoursEmpty || !leftMinutesEmpty || !leftHoursEmpty)) {
+
+            Log.d(TAG, "setting ime options to done");
+            Log.d(TAG, "setting ime options to done");
+            notes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//            rightSleepMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//            leftSleepHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//            leftSleepMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
             saveBtn.setEnabled(true);
-            else
+
+        } else {
             saveBtn.setEnabled(false);
+            notes.setImeOptions(EditorInfo.IME_ACTION_NONE);
+//            rightSleepMinutes.setImeOptions(EditorInfo.IME_ACTION_NONE);
+//            leftSleepHours.setImeOptions(EditorInfo.IME_ACTION_NONE);
+//            leftSleepMinutes.setImeOptions(EditorInfo.IME_ACTION_NONE);
+
+        }
+
 
     }
+
+    private EditText.OnEditorActionListener doneActionListener = new EditText.OnEditorActionListener(){
+
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            Log.d(TAG, "onEditorAction view " + v.getText() + " actionId " + actionId + " event " + event);
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                createOrEdit();
+                return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -455,6 +496,7 @@ public class NursingFeedFragment extends InjectableFragment {
         ButterKnife.inject(this, view);
         return view;
     }
+
 
 
     private class EventListener {

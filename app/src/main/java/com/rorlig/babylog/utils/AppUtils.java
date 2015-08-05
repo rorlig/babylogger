@@ -24,6 +24,8 @@ public class AppUtils {
     public static final int RESULT_LOAD_IMAGE = 2;
     public static final int RESULT_CROP_IMAGE = 3;
 
+    public static final int PROFILE_ACTIVITY = 1;
+
     public static String getCameraDirectory() {
         String dirPath = "";
         //Case for Moto X

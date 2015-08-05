@@ -62,6 +62,7 @@
             android:layout_below="@+id/growth_header_divider"
 
             android:numeric="decimal"
+            android:imeOptions="actionNext"
 
             />
     </android.support.design.widget.TextInputLayout>
@@ -81,6 +82,8 @@
             android:ems="10"
             android:hint="@string/height_title"
             android:layout_below="@+id/weight_pounds_ounces"
+            android:imeOptions="actionNext"
+
 
             android:numeric="decimal"
 
@@ -101,6 +104,8 @@
             android:ems="10"
             android:hint="@string/head_measurement_title"
             android:layout_below="@+id/height_inches"
+            android:imeOptions="actionNext"
+
             android:maxLength="5"
 
             android:numeric="decimal"
@@ -158,6 +163,8 @@
             android:layout_marginLeft = "15dp"
             android:ems="10"
             android:hint="NOTES"
+            android:imeOptions="actionDone"
+
             />
     </android.support.design.widget.TextInputLayout>
 

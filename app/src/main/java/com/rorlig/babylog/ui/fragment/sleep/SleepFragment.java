@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -258,8 +261,8 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 //    }
 //
     private Long getDuration() {
-        int hour = Integer.parseInt(sleepHours.getText().toString());
-        int minute = Integer.parseInt(sleepMinutes.getText().toString());
+        int hour = sleepHours.getText().equals("")?0:Integer.parseInt(sleepHours.getText().toString());
+        int minute = sleepMinutes.getText().equals("")?0:Integer.parseInt(sleepMinutes.getText().toString());
         return Long.valueOf(hour * 60 + minute);
 
     }
@@ -278,6 +281,19 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
         inflater.inflate(R.menu.menu_main, menu);
     }
 
+
+    private EditText.OnEditorActionListener doneActionListener = new EditText.OnEditorActionListener(){
+
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            Log.d(TAG, "onEditorAction view " + v.getText() + " actionId " + actionId + " event " + event);
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                createOrEdit();
+                return true;
+            }
+            return false;
+        }
+    };
 
 
     private void setUpTextWatchers() {
@@ -375,8 +391,12 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     private void setSaveEnabled() {
             if (!minuteEmpty || !hourEmpty) {
                 saveBtn.setEnabled(true);
+                sleepMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
             } else {
                 saveBtn.setEnabled(false);
+                sleepMinutes.setImeOptions(EditorInfo.IME_ACTION_NONE);
+
             }
     }
 

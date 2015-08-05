@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.UpdateActionBarEvent;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
@@ -142,7 +143,13 @@ public class MilestonesActivity extends InjectableActivity {
         public void onGrowthItemCreated(GrowthItemCreated event) {
 //            Log.d(TAG, "onFeedSavedEvent");
 //            finish();
-            showFragment(GrowthListFragment.class, "growth_list_fragment",false);
+            showFragment(GrowthListFragment.class, "growth_list_fragment", false);
+        }
+
+        @Subscribe
+        public void updateActionBar(UpdateActionBarEvent event){
+            Log.d(TAG, "updating action bar");
+            profileImageIcon.setImageDrawable(event.getDrawable());
         }
 
 

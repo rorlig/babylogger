@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.ItemModel;
 import com.rorlig.babylog.otto.ItemsSelectedEvent;
+import com.rorlig.babylog.otto.UpdateActionBarEvent;
+import com.rorlig.babylog.otto.UpdateProfileEvent;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment;
 import com.rorlig.babylog.utils.AppUtils;
 import com.squareup.otto.Subscribe;
@@ -119,6 +121,20 @@ public class HomeActivity extends InjectableActivity {
 //        }
 //    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //update tool bar...
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode== AppUtils.PROFILE_ACTIVITY) {
+            Log.d(TAG, "result from profile activity");
+//            Log.d(TAG, "profile changes " + data.getBooleanExtra("saved_profile", false));
+            if (data!=null && data.getBooleanExtra("saved_profile", false)) {
+                scopedBus.post(new UpdateProfileEvent());
+            }
+
+        }
+    }
+
 
     private class EventListener {
         private EventListener() {
@@ -130,6 +146,12 @@ public class HomeActivity extends InjectableActivity {
             preferences.edit().putString("name", itemSelectedEvent.getName()).apply();
             preferences.edit().putString("dob", itemSelectedEvent.getDob()).apply();
             showFragment(HomeFragment.class, "home_fragment", false);
+        }
+
+        @Subscribe
+        public void updateActionBar(UpdateActionBarEvent event){
+            Log.d(TAG, "updating action bar");
+            profileImageIcon.setImageDrawable(event.getDrawable());
         }
 
 

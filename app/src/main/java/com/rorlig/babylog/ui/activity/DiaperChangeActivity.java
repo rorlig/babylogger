@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
+import com.rorlig.babylog.otto.UpdateActionBarEvent;
 import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
@@ -123,7 +124,11 @@ public class DiaperChangeActivity extends InjectableActivity {
 //            showFragment(DiaperChangeFragment.class, "diaper_change_fragment", false);
 
 //        } else  {
+
+        //show fragment only if not coming from rotation event...
+        if (savedInstanceState==null) {
             showFragment(DiaperChangeListFragment.class, "diaper_change_list_fragment", false);
+        }
 
 //        }
 //        } else {
@@ -223,6 +228,12 @@ public class DiaperChangeActivity extends InjectableActivity {
                     .commit();
 
 //            showFragment(DiaperChangeFragment.class, "diaper_change", true);
+        }
+
+        @Subscribe
+        public void updateActionBar(UpdateActionBarEvent event){
+            Log.d(TAG, "updating action bar");
+            profileImageIcon.setImageDrawable(event.getDrawable());
         }
     }
 

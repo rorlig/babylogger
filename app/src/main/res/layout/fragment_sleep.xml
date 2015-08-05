@@ -86,6 +86,7 @@
             android:ems="10"
             android:hint="@string/hours"
             android:numeric="decimal"
+            android:imeOptions="actionNext"
 
             />
         </android.support.design.widget.TextInputLayout>
@@ -107,6 +108,8 @@
                 android:ems="10"
                 android:hint="@string/minutes"
                 android:numeric="decimal"
+                android:imeOptions="actionDone"
+
 
                 />
         </android.support.design.widget.TextInputLayout>

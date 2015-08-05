@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.model.feed.FeedType;
 import com.rorlig.babylog.otto.FeedItemClickedEvent;
+import com.rorlig.babylog.otto.UpdateActionBarEvent;
 import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
@@ -83,6 +84,8 @@ public class FeedingActivity extends InjectableActivity {
 //
 //        String intentString = getIntent().getStringExtra("intent");
 //        if (!getIntent().getBooleanExtra("fromNotification", false)) {
+
+        if (savedInstanceState==null)
             showFragment(FeedingListFragment.class, "feeding_list_fragment", false);
 //        } else {
 //            Fragment localFragment =  new FeedingListFragment();
@@ -256,6 +259,12 @@ public class FeedingActivity extends InjectableActivity {
                     .add(R.id.fragment_container, fragment)
                     .addToBackStack("main_screen_stack")
                     .commit();
+        }
+
+        @Subscribe
+        public void updateActionBar(UpdateActionBarEvent event){
+            Log.d(TAG, "updating action bar");
+            profileImageIcon.setImageDrawable(event.getDrawable());
         }
 
 

@@ -15,6 +15,7 @@ import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babylog.otto.SleepItemClicked;
 import com.rorlig.babylog.otto.SleepLogCreated;
+import com.rorlig.babylog.otto.UpdateActionBarEvent;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.otto.events.stats.StatsItemEvent;
 import com.rorlig.babylog.scheduler.TypeFaceManager;
@@ -85,6 +86,7 @@ public class SleepActivity extends InjectableActivity {
         Log.d(TAG, " " +  intentString);
 
 //        if (intentString!=null && intentString.equals("growth_activity")){
+        if (savedInstanceState==null)
             showFragment(SleepListFragment.class, "sleep_fragment", false);
 
 //        } else  {
@@ -188,6 +190,12 @@ public class SleepActivity extends InjectableActivity {
                     .commit();
 
 //            showFragment(DiaperChangeFragment.class, "diaper_change", true);
+        }
+
+        @Subscribe
+        public void updateActionBar(UpdateActionBarEvent event){
+            Log.d(TAG, "updating action bar");
+            profileImageIcon.setImageDrawable(event.getDrawable());
         }
 
     }
