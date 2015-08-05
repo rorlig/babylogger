@@ -34,7 +34,6 @@
             android:text="@string/nursing"
             android:layout_toRightOf="@+id/nursing"
             android:textColor="@color/primary_blue"
-            android:textAllCaps="true"
             android:layout_centerVertical="true"
             />
     </com.andexert.library.RippleView>
@@ -61,7 +60,7 @@
             android:id="@+id/bottle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_bottle_feed_blue"
+            android:src="@drawable/ic_nursing_blue"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
 
@@ -73,7 +72,6 @@
             android:layout_toRightOf="@+id/bottle"
             android:id="@+id/bottleText"
             android:text="@string/bottle"
-            android:textAllCaps="true"
             android:layout_centerVertical="true"
             android:textColor="@color/primary_blue"
             />
