@@ -6,16 +6,19 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
@@ -117,6 +120,8 @@ public class BottleFeedFragment extends InjectableFragment
             id = getArguments().getInt("feed_id");
             initViews(id);
         }
+
+        notes.setOnEditorActionListener(doneActionListener);
 
 //        feedTypeSpinner.setOnItemClickListener(this);
     }
@@ -332,4 +337,17 @@ public class BottleFeedFragment extends InjectableFragment
     private Dao<FeedDao, Integer> createFeedDao() throws SQLException {
         return babyLoggerORMLiteHelper.getFeedDao();
     }
+
+    private EditText.OnEditorActionListener doneActionListener = new EditText.OnEditorActionListener(){
+
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            Log.d(TAG, "onEditorAction view " + v.getText() + " actionId " + actionId + " event " + event);
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                createOrEdit();
+                return true;
+            }
+            return false;
+        }
+    };
 }

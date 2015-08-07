@@ -203,7 +203,7 @@ public class NursingFeedFragment extends InjectableFragment {
         }
 
 
-
+        notes.setOnEditorActionListener(doneActionListener);
 
 //        scopedBus.post(new Feed("Bottle Feed"));
 

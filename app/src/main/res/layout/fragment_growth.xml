@@ -1,214 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:background="@color/drawer_filter_background"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/drawer_filter_background"
     android:clickable="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-
-
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:orientation="vertical">-->
-    <fragment
-        android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+    android:orientation="vertical"
+    >
+    <ScrollView
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/header"/>
+        android:layout_height="0dp"
+        android:background="@color/drawer_filter_background"
+        android:clickable="true"
+        android:layout_weight="1">
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/title_growth"-->
-        <!--android:id="@+id/growth_header_title"-->
-        <!--android:textColor="@color/primary_green"-->
-        <!--android:textSize="20sp"-->
-        <!--android:textAllCaps="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:gravity="center"-->
-        <!--android:layout_marginTop="25dp"-->
-        <!--android:layout_below="@+id/header"-->
-        <!--/>-->
-
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--style="@style/ListItemDividerShort.Green"-->
-        <!--android:layout_below="@+id/growth_header_title"-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:id="@+id/growth_header_divider"/>-->
-
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/weight_text_input_layout"
-        android:layout_below="@+id/header"
-        >
-        <EditText
-            android:id="@+id/weight_pounds_ounces"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight = "15dp"
-            android:layout_marginLeft = "15dp"
-            android:maxLength="5"
-            android:ems="10"
-            android:hint="@string/weight_title"
-            android:layout_below="@+id/growth_header_divider"
-
-            android:numeric="decimal"
-            android:imeOptions="actionNext"
-
-            />
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/height_text_input_layout"
-        android:layout_below="@+id/weight_text_input_layout"
-        >
-        <EditText
-            android:id="@+id/height_inches"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight = "15dp"
-            android:layout_marginLeft = "15dp"
-            android:maxLength="5"
-            android:ems="10"
-            android:hint="@string/height_title"
-            android:layout_below="@+id/weight_pounds_ounces"
-            android:imeOptions="actionNext"
-
-
-            android:numeric="decimal"
-
-            />
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/head_measure_text_input_layout"
-        android:layout_below="@+id/height_text_input_layout"
-        >
-        <EditText
-            android:id="@+id/head_inches"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight = "15dp"
-            android:layout_marginLeft = "15dp"
-            android:ems="10"
-            android:hint="@string/head_measurement_title"
-            android:layout_below="@+id/height_inches"
-            android:imeOptions="actionNext"
-
-            android:maxLength="5"
-
-            android:numeric="decimal"
-
-            />
-    </android.support.design.widget.TextInputLayout>
-
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/height_layout"-->
-        <!--android:id="@+id/measure_layout"-->
-        <!-->-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/head_measurement_title"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:id="@+id/head_label"-->
-            <!--android:textColor="@color/primary_green"/>-->
-        <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="@string/txt_hint_decimal"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:numeric="decimal"-->
-            <!--android:maxLength="5"-->
-            <!--android:id="@+id/head_inches"-->
-            <!--android:textColor="@color/primary_green"/>-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/label_inches"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:id="@+id/head_inches_label"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:textColor="@color/primary_green"/>-->
-
-    <!--</LinearLayout>-->
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/notes_text_input_layout"
-        android:layout_below="@+id/head_measure_text_input_layout"
-        >
-        <EditText
-            android:id="@+id/notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight = "15dp"
-            android:layout_marginLeft = "15dp"
-            android:ems="10"
-            android:hint="NOTES"
-            android:imeOptions="actionDone"
-
-            />
-    </android.support.design.widget.TextInputLayout>
+            android:clickable="true"
+            >
+            <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:orientation="vertical">-->
+            <fragment
+                android:id="@+id/header"
+                android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/header_date_time" />
 
 
 
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/weight_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/header">
+
+                <EditText
+                    android:id="@+id/weight_pounds_ounces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/growth_header_divider"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:ems="10"
+                    android:hint="@string/weight_title"
+                    android:imeOptions="actionNext"
+
+                    android:maxLength="5"
+                    android:numeric="decimal"
+
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/height_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/weight_text_input_layout">
+
+                <EditText
+                    android:id="@+id/height_inches"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/weight_pounds_ounces"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:ems="10"
+                    android:hint="@string/height_title"
+                    android:imeOptions="actionNext"
+                    android:maxLength="5"
+
+
+                    android:numeric="decimal"
+
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/head_measure_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/height_text_input_layout">
+
+                <EditText
+                    android:id="@+id/head_inches"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/height_inches"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:ems="10"
+                    android:hint="@string/head_measurement_title"
+                    android:imeOptions="actionNext"
+
+                    android:maxLength="5"
+
+                    android:numeric="decimal"
+
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+
+
+
+            <!--</LinearLayout>-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/notes_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/head_measure_text_input_layout">
+
+                <EditText
+                    android:id="@+id/notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:ems="10"
+                    android:hint="NOTES"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+    </ScrollView>
     <com.gc.materialdesign.views.ButtonRectangle
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txt_save"
         android:background="@color/primary_green"
-        android:layout_alignParentBottom="true"
+        android:text="@string/txt_save"
         app:rippleSpeed="50"
+        android:visibility="visible"
 
         />
 
     <LinearLayout
+        android:id="@+id/two_button_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/two_button_layout"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/delete_btn"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Delete"
             android:background="@color/primary_green"
+            android:text="Delete"
             android:layout_weight="1"
-            app:rippleSpeed="50"/>
+            app:rippleSpeed="50" />
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/edit_btn"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Edit"
             android:background="@color/primary_green"
+            android:text="Edit"
             android:layout_weight="1"
-            app:rippleSpeed="50"/>
+            app:rippleSpeed="50" />
 
 
     </LinearLayout>
-
-
-</RelativeLayout>
+</LinearLayout>

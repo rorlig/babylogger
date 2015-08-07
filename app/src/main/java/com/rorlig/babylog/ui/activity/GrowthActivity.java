@@ -173,6 +173,7 @@ public class GrowthActivity extends InjectableActivity {
         @Subscribe
         public void onGrowthItemCreated(GrowthItemCreated event) {
             getSupportFragmentManager().popBackStack();
+            closeSoftKeyBoard();
 //            showFragment(GrowthListFragment.class, "growth_list_fragment",false);
         }
 

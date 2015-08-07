@@ -1,186 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/drawer_filter_background"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:orientation="vertical">-->
-    <fragment
-        android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+    android:layout_height="fill_parent">
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/header"
-        tools:layout="@layout/header_date_time">
+        android:layout_height="fill_parent"
+        android:background="@color/drawer_filter_background"
+        android:clickable="true"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-    </fragment>
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/breast_title_left"
-        android:layout_below="@+id/header"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/left_header_title"
-        android:textColor="@color/primary_blue"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/left_breast_value"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/left_header_title">
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/left_sleep_hour_text_input_layout"
-            android:layout_marginRight = "15dp"
-            android:layout_marginLeft = "15dp"
-            android:layout_weight="1"
-
+        <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             >
-            <EditText
-                android:id="@+id/left_sleep_hours"
+            <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:orientation="vertical">-->
+            <fragment
+                android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/header"
+                tools:layout="@layout/header_date_time">
+
+            </fragment>
+
+
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLength="2"
-                android:ems="10"
-                android:hint="@string/hours"
-                android:numeric="decimal"
-                android:imeOptions="actionNext"
+                android:text="@string/breast_title_left"
+                android:layout_below="@+id/header"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/left_header_title"
+                android:textColor="@color/primary_blue"/>
 
-                />
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/left_sleep_minutes_text_input_layout"
-            android:layout_marginRight = "15dp"
-            android:layout_marginLeft = "15dp"
-            android:layout_weight="1"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/left_breast_value"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/left_header_title">
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/left_sleep_hour_text_input_layout"
+                    android:layout_marginRight = "15dp"
+                    android:layout_marginLeft = "15dp"
+                    android:layout_weight="1"
 
-            >
-            <EditText
-                android:id="@+id/left_sleep_minutes"
+                    >
+                    <EditText
+                        android:id="@+id/left_sleep_hours"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLength="2"
+                        android:ems="10"
+                        android:hint="@string/hours"
+                        android:numeric="decimal"
+                        android:imeOptions="actionNext"
+
+                        />
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/left_sleep_minutes_text_input_layout"
+                    android:layout_marginRight = "15dp"
+                    android:layout_marginLeft = "15dp"
+                    android:layout_weight="1"
+
+                    >
+                    <EditText
+                        android:id="@+id/left_sleep_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLength="2"
+                        android:ems="10"
+                        android:hint="@string/minutes"
+                        android:numeric="decimal"
+                        android:imeOptions="actionNext"
+
+
+                        />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLength="2"
-                android:ems="10"
-                android:hint="@string/minutes"
-                android:numeric="decimal"
-                android:imeOptions="actionNext"
+                android:text="@string/breast_title_right"
+                android:layout_below="@+id/left_breast_value"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/right_header_title"
+                android:textColor="@color/primary_blue"/>
 
-
-                />
-        </android.support.design.widget.TextInputLayout>
-
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/breast_title_right"
-        android:layout_below="@+id/left_breast_value"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/right_header_title"
-        android:textColor="@color/primary_blue"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/right_breast_value"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/right_header_title">
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/right_sleep_hour_text_input_layout"
-            android:layout_marginRight = "15dp"
-            android:layout_marginLeft = "15dp"
-            android:layout_weight="1"
-
-            >
-            <EditText
-                android:id="@+id/right_sleep_hours"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="2"
-                android:ems="10"
-                android:hint="@string/hours"
-                android:numeric="decimal"
-                android:imeOptions="actionNext"
+                android:id="@+id/right_breast_value"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:layout_below="@+id/right_header_title">
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/right_sleep_hour_text_input_layout"
+                    android:layout_marginRight = "15dp"
+                    android:layout_marginLeft = "15dp"
+                    android:layout_weight="1"
 
-                />
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/right_sleep_minute_text_input_layout"
-            android:layout_marginRight = "15dp"
-            android:layout_marginLeft = "15dp"
-            android:layout_weight="1"
+                    >
+                    <EditText
+                        android:id="@+id/right_sleep_hours"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLength="2"
+                        android:ems="10"
+                        android:hint="@string/hours"
+                        android:numeric="decimal"
+                        android:imeOptions="actionNext"
 
-            >
-            <EditText
-                android:id="@+id/right_sleep_minutes"
-                android:layout_width="wrap_content"
+                        />
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/right_sleep_minute_text_input_layout"
+                    android:layout_marginRight = "15dp"
+                    android:layout_marginLeft = "15dp"
+                    android:layout_weight="1"
+
+                    >
+                    <EditText
+                        android:id="@+id/right_sleep_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLength="2"
+                        android:ems="10"
+                        android:hint="@string/minutes"
+                        android:layout_toRightOf="@+id/right_sleep_hours"
+                        android:numeric="decimal"
+                        android:imeOptions="actionNext"
+
+
+                        />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:id="@+id/notes_header"-->
+            <!--style="@style/ListItemHeader"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="NOTES"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:textSize="16sp"-->
+            <!--android:layout_below="@+id/quantity_layout"-->
+            <!--android:textColor="@color/primary_blue" />-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="2"
-                android:ems="10"
-                android:hint="@string/minutes"
-                android:layout_toRightOf="@+id/right_sleep_hours"
-                android:numeric="decimal"
-                android:imeOptions="actionNext"
+                android:id="@+id/notes_text_input_layout"
+                android:layout_marginRight = "15dp"
+                android:layout_marginLeft = "15dp"
+                android:layout_below="@+id/right_breast_value"
+
+                >
+                <EditText
+                    android:id="@+id/notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/notes_hint"
+                    android:singleLine="true"
+                    android:imeOptions="actionNone"
+                    />
+            </android.support.design.widget.TextInputLayout>
 
 
-                />
-        </android.support.design.widget.TextInputLayout>
 
 
-    </LinearLayout>
 
-    <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:id="@+id/notes_header"-->
-    <!--style="@style/ListItemHeader"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="NOTES"-->
-    <!--android:textAllCaps="true"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:textSize="16sp"-->
-    <!--android:layout_below="@+id/quantity_layout"-->
-    <!--android:textColor="@color/primary_blue" />-->
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/notes_text_input_layout"
-        android:layout_marginRight = "15dp"
-        android:layout_marginLeft = "15dp"
-        android:layout_below="@+id/right_breast_value"
-
-        >
-        <EditText
-            android:id="@+id/notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/notes_hint"
-            android:singleLine="true"
-            android:imeOptions="actionNone"
-            />
-    </android.support.design.widget.TextInputLayout>
-
+        </RelativeLayout>
+    </ScrollView>
     <com.gc.materialdesign.views.ButtonRectangle
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
@@ -218,7 +236,4 @@
 
 
     </LinearLayout>
-
-
-
-</RelativeLayout>
+</LinearLayout>

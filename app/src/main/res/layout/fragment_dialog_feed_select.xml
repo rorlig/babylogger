@@ -38,19 +38,19 @@
             />
     </com.andexert.library.RippleView>
 
-    <View style="@style/ListItemDividerShort.Blue"
-        android:layout_below="@+id/nursing_ripple"
-        android:id="@+id/nursing_divider"
-        android:layout_marginTop="5dp">
+    <!--<View style="@style/ListItemDividerShort.Blue"-->
+        <!--android:layout_below="@+id/nursing_ripple"-->
+        <!--android:id="@+id/nursing_divider"-->
+        <!--android:layout_marginTop="5dp">-->
 
 
-    </View>
+    <!--</View>-->
 
     <com.andexert.library.RippleView
         android:id="@+id/bottle_ripple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nursing_divider"
+        android:layout_below="@+id/nursing_ripple"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="0dp"

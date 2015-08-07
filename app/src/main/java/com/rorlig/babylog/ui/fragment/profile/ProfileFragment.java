@@ -200,6 +200,7 @@ public class ProfileFragment extends InjectableFragment {
         Log.d(TAG, " imageUri " + imageString);
 //
         if (!imageString.equals("")){
+            Log.d(TAG, "setting imageString into babyPic");
             Uri imageUri = Uri.parse(imageString);
             picasso.load(imageUri)
                     .fit()

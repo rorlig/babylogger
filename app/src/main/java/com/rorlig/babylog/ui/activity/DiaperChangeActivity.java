@@ -178,6 +178,7 @@ public class DiaperChangeActivity extends InjectableActivity {
         public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
             Log.d(TAG, "onDiaperLogCreatedEvent");
             getSupportFragmentManager().popBackStackImmediate();
+            closeSoftKeyBoard();
 //            showFragment(DiaperChangeListFragment.class, "diaper_change_list", false);
 
 //            getFragmentManager().popBackStackImmediate();

@@ -1,5 +1,6 @@
 package com.rorlig.babylog.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ import com.rorlig.babylog.dagger.ObjectGraphActivity;
 import com.rorlig.babylog.dagger.ObjectGraphUtils;
 import com.rorlig.babylog.otto.ScopedBus;
 import com.rorlig.babylog.otto.UpdateActionBarEvent;
+import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.utils.AppUtils;
 import com.rorlig.babylog.utils.transform.BlurTransformation;
 import com.rorlig.babylog.utils.transform.CropTransform;
@@ -209,6 +212,7 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
         titleTextView = (TextView) toolbar.findViewById(R.id.title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         final String imageUri = preferences.getString("imageUri", "");
         Log.d(TAG, "imageUri " + imageUri);
         if (!imageUri.equals("")) {
@@ -237,5 +241,27 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
 
     }
 
+//    @Subscribe
+//    public void onDiaperLogCreated(DiaperLogCreatedEvent event) {
+//        closeSoftKeyBoard();
+//
+//    }
 
-}
+
+
+
+     /*
+     * closes the keyboard
+     */
+    protected void closeSoftKeyBoard(){
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.soft
+        if (getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null) {
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+
+    }
+
+
+
+    }

@@ -1,317 +1,338 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+
+
+
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/drawer_filter_background"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="fill_parent">
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:orientation="vertical">-->
-   <fragment
-       android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content"
-
-       android:id="@+id/header">
-
-   </fragment>
-
-
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/type_header"
-        style="@style/ListItemHeader.Purple"
-        android:text="@string/type"
-        android:textAllCaps="true"
-        android:layout_below="@+id/header"
-        />
-
-
-    <RadioGroup
-            style="@style/RadioGroup"
-            android:id="@+id/diaper_change_type"
-            android:layout_below="@+id/type_header">
-            <RadioButton android:id="@+id/diaper_wet"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_center_purple"
-                android:text="@string/diaper_change_type_wet"
-                android:checked="true"
-                android:textSize="14sp"
-
-                />
-
-             <RadioButton android:id="@+id/diaper_pop"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_center_purple"
-
-                android:text="@string/diaper_change_type_poop"
-                 android:layout_marginLeft="-1dp"
-                android:textSize="14sp"
-
-                />
-
-            <RadioButton android:id="@+id/diaper_both"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_center_purple"
-                android:text="@string/diaper_change_type_both"
-                android:layout_marginLeft="-1dp"
-                android:textSize="14sp"
-
-
-
-                />
-        </RadioGroup>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/poop_type_layout"
-        android:layout_below="@id/diaper_change_type"
-        android:visibility="gone"
-        >
-        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/poop_type"
-            style="@style/ListItemHeader.Purple"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/poop_texture"
-            android:textAllCaps="true"
-             />
-
-
-
-        <SeekBar xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/poop_density"
-            style="@style/ListItemHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textAllCaps="true"
-            android:textSize="16sp"
-
-            android:layout_below="@+id/poop_type"
-            android:textColor="@color/actionbar_background" />
-
-        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/poop_type_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:textSize="16sp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/poop_density"
-            android:textColor="@color/gray_cloud" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/poop_color_layout"
-        android:layout_below="@+id/poop_type_layout"
-        android:visibility="gone"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:fillViewport="true"
         >
 
-        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/poop_color_header"
-            style="@style/ListItemHeader.Purple"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/poop_color_header"
-            android:textAllCaps="true"
-             />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+                <fragment
+                    android:id="@+id/header"
+                    android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+                    android:layout_width="fill_parent"
 
-        <RadioGroup
-            style="@style/RadioGroup"
+                    android:layout_height="wrap_content"
+                    tools:layout="@layout/header_date_time">
 
-            android:id="@+id/poopColorRadioGroup"
-            android:layout_below="@+id/poop_color_header">
-
-            <RadioButton android:id="@+id/poopcolor1"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_colored_1"
-                android:textSize="14sp"
-
-                />
-            <RadioButton android:id="@+id/poopcolor2"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_colored_2"
-                android:layout_marginLeft="2dp"
-                android:textSize="14sp"
-
-                />
-            <RadioButton android:id="@+id/poopcolor3"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_colored_3"
-                android:layout_marginLeft="2dp"
-                android:textSize="14sp"
-                />
-            <RadioButton android:id="@+id/poopcolor4"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_colored_4"
-                android:layout_marginLeft="2dp"
-                android:textSize="14sp"
-                />
-            <RadioButton android:id="@+id/poopcolor5"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_colored_5"
-                android:layout_marginLeft="2dp"
-                android:textSize="14sp"
-                />
-            <RadioButton android:id="@+id/poopcolor6"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_colored_6"
-                android:layout_marginLeft="2dp"
-                android:textSize="14sp"
-                />
-            <RadioButton android:id="@+id/poopcolor7"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_colored_7"
-                android:layout_marginLeft="2dp"
-                android:textSize="14sp"
-                />
-            <RadioButton android:id="@+id/poopcolor8"
-                style="@style/RadioButton"
-                android:background="@drawable/radio_button_colored_8"
-                android:layout_marginLeft="2dp"
-                android:textSize="14sp"
-                />
-        </RadioGroup>
-
-    </RelativeLayout>
+                </fragment>
 
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/accident_header"
-        style="@style/ListItemHeader.Purple"
-        android:text="@string/diaper_indicident"
-        android:textAllCaps="true"
-        android:layout_below="@+id/poop_color_layout"
-         />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/accident_layout_wrapper"
-        android:layout_below="@+id/accident_header">
-        <RadioGroup
-            style="@style/RadioGroup"
-            android:id="@+id/diaper_incident_type"
-            android:layout_below="@+id/type_header">
-
-            <RadioButton
-                android:id="@+id/check_no_incident"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/diaper_indicident_none"
-                android:textColor="@color/primary_purple"
-                android:layout_marginLeft="10dp"
-                android:textSize="10sp"
-
-                android:layout_weight="1"/>
+                <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/type_header"
+                    style="@style/ListItemHeader.Purple"
+                    android:layout_below="@+id/header"
+                    android:text="@string/type"
+                    android:textAllCaps="true" />
 
 
+                <RadioGroup
+                    android:id="@+id/diaper_change_type"
+                    style="@style/RadioGroup"
+                    android:layout_below="@+id/type_header">
 
-            <RadioButton
-                android:id="@+id/check_no_diaper"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/diaper_indicident_no_diaper"
-                android:textColor="@color/primary_purple"
-                android:layout_marginLeft="10dp"
-                android:textSize="10sp"
-                android:layout_weight="1"/>
+                    <RadioButton
+                        android:id="@+id/diaper_wet"
+                        style="@style/RadioButton"
+                        android:background="@drawable/radio_button_center_purple"
+                        android:checked="true"
+                        android:text="@string/diaper_change_type_wet"
+                        android:textSize="14sp"
 
-        <RadioButton
-            android:id="@+id/check_diaper_leak"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/diaper_incident_leak"
-            android:textSize="10sp"
-            android:textColor="@color/primary_purple"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"/>
-        </RadioGroup>
+                        />
 
-    </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/diaper_pop"
+                        style="@style/RadioButton"
+                        android:layout_marginLeft="-1dp"
 
-    <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/notes_header"-->
-        <!--style="@style/ListItemHeader.Purple"-->
-        <!--android:text="NOTES"-->
-        <!--android:textAllCaps="true"-->
-        <!--android:layout_below="@+id/accidentLayoutWrapper"-->
-         <!--/>-->
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/notes_text_input_layout"
-        android:layout_marginRight = "15dp"
-        android:layout_marginLeft = "15dp"
-        android:layout_below="@+id/accident_layout_wrapper"
-        >
-        <EditText
-            android:id="@+id/notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/notes_hint"
-            />
-    </android.support.design.widget.TextInputLayout>
-    <!--<EditText xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/notes"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="Notes"-->
-        <!--android:textSize="14sp"-->
-        <!--android:layout_below="@+id/notes_header"-->
-        <!--android:layout_margin="15dp"-->
-        <!--android:paddingLeft="10dp"-->
-        <!--android:paddingRight="10dp"-->
-        <!--/>-->
+                        android:background="@drawable/radio_button_center_purple"
+                        android:text="@string/diaper_change_type_poop"
+                        android:textSize="14sp"
+
+                        />
+
+                    <RadioButton
+                        android:id="@+id/diaper_both"
+                        style="@style/RadioButton"
+                        android:layout_marginLeft="-1dp"
+                        android:background="@drawable/radio_button_center_purple"
+                        android:text="@string/diaper_change_type_both"
+                        android:textSize="14sp"
+
+
+                        />
+                </RadioGroup>
+
+                <RelativeLayout
+                    android:id="@+id/poop_type_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/diaper_change_type"
+                    android:visibility="gone">
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/poop_type"
+                        style="@style/ListItemHeader.Purple"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/poop_texture"
+                        android:textAllCaps="true" />
+
+
+                    <SeekBar xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/poop_density"
+                        style="@style/ListItemHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/poop_type"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textAllCaps="true"
+
+                        android:textColor="@color/actionbar_background"
+                        android:textSize="16sp" />
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/poop_type_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/poop_density"
+                        android:layout_centerHorizontal="true"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_cloud"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/poop_color_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/poop_type_layout"
+                    android:visibility="gone">
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/poop_color_header"
+                        style="@style/ListItemHeader.Purple"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/poop_color_header"
+                        android:textAllCaps="true" />
+
+                    <RadioGroup
+                        android:id="@+id/poopColorRadioGroup"
+
+                        style="@style/RadioGroup"
+                        android:layout_below="@+id/poop_color_header">
+
+                        <RadioButton
+                            android:id="@+id/poopcolor1"
+                            style="@style/RadioButton"
+                            android:background="@drawable/radio_button_colored_1"
+                            android:textSize="14sp"
+
+                            />
+
+                        <RadioButton
+                            android:id="@+id/poopcolor2"
+                            style="@style/RadioButton"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/radio_button_colored_2"
+                            android:textSize="14sp"
+
+                            />
+
+                        <RadioButton
+                            android:id="@+id/poopcolor3"
+                            style="@style/RadioButton"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/radio_button_colored_3"
+                            android:textSize="14sp" />
+
+                        <RadioButton
+                            android:id="@+id/poopcolor4"
+                            style="@style/RadioButton"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/radio_button_colored_4"
+                            android:textSize="14sp" />
+
+                        <RadioButton
+                            android:id="@+id/poopcolor5"
+                            style="@style/RadioButton"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/radio_button_colored_5"
+                            android:textSize="14sp" />
+
+                        <RadioButton
+                            android:id="@+id/poopcolor6"
+                            style="@style/RadioButton"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/radio_button_colored_6"
+                            android:textSize="14sp" />
+
+                        <RadioButton
+                            android:id="@+id/poopcolor7"
+                            style="@style/RadioButton"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/radio_button_colored_7"
+                            android:textSize="14sp" />
+
+                        <RadioButton
+                            android:id="@+id/poopcolor8"
+                            style="@style/RadioButton"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/radio_button_colored_8"
+                            android:textSize="14sp" />
+                    </RadioGroup>
+
+                </RelativeLayout>
+
+
+                <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/accident_header"
+                    style="@style/ListItemHeader.Purple"
+                    android:layout_below="@+id/poop_color_layout"
+                    android:text="@string/diaper_indicident"
+                    android:textAllCaps="true" />
+
+                <LinearLayout
+                    android:id="@+id/accident_layout_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/accident_header">
+
+                    <RadioGroup
+                        android:id="@+id/diaper_incident_type"
+                        style="@style/RadioGroup"
+                        android:layout_below="@+id/type_header">
+
+                        <RadioButton
+                            android:id="@+id/check_no_incident"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/diaper_indicident_none"
+                            android:textColor="@color/primary_purple"
+
+                            android:textSize="10sp" />
+
+
+                        <RadioButton
+                            android:id="@+id/check_no_diaper"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/diaper_indicident_no_diaper"
+                            android:textColor="@color/primary_purple"
+                            android:textSize="10sp" />
+
+                        <RadioButton
+                            android:id="@+id/check_diaper_leak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/diaper_incident_leak"
+                            android:textColor="@color/primary_purple"
+                            android:textSize="10sp" />
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:id="@+id/notes_header"-->
+                <!--style="@style/ListItemHeader.Purple"-->
+                <!--android:text="NOTES"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:layout_below="@+id/accidentLayoutWrapper"-->
+                <!--/>-->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/notes_text_input_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/accident_layout_wrapper"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginRight="15dp">
+
+                    <EditText
+                        android:id="@+id/notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/notes_hint"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
+
 
     <com.gc.materialdesign.views.ButtonRectangle
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_save_txt"
         android:background="@color/primary_purple"
-        android:layout_alignParentBottom="true"
+        android:text="@string/btn_save_txt"
         app:rippleSpeed="50"
-
         />
+
     <LinearLayout
+        android:id="@+id/two_button_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/two_button_layout"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+
+        android:visibility="gone">
+
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/delete_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Delete"
-            android:background="@color/primary_purple"
             android:layout_weight="1"
-            app:rippleSpeed="50"/>
+            android:background="@color/primary_purple"
+            android:text="Delete"
+            app:rippleSpeed="50" />
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/edit_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit"
-            android:background="@color/primary_purple"
             android:layout_weight="1"
-            app:rippleSpeed="50"/>
+            android:background="@color/primary_purple"
+            android:text="Edit"
+            app:rippleSpeed="50" />
 
 
     </LinearLayout>
+</LinearLayout>
 
 
 
-  </RelativeLayout>
+
+
+
+    <!--<LinearLayout--><!--android:layout_width="fill_parent"--><!--android:layout_height="fill_parent"--><!--android:orientation="vertical">-->
+
+
+

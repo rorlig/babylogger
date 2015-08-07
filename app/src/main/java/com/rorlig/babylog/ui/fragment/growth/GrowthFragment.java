@@ -1,8 +1,8 @@
 package com.rorlig.babylog.ui.fragment.growth;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,11 +23,8 @@ import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
-import com.rorlig.babylog.dao.FeedDao;
 import com.rorlig.babylog.dao.GrowthDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
-import com.rorlig.babylog.model.feed.FeedType;
-import com.rorlig.babylog.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
@@ -89,6 +87,7 @@ public class GrowthFragment extends InjectableFragment {
     private boolean weightEmpty = true;
     private boolean headMeasureEmpty = true;
     private int id = -1;
+    private boolean showEditDelete = false;
 
 
 
@@ -110,6 +109,7 @@ public class GrowthFragment extends InjectableFragment {
         dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GREEN);
 
         notes.setOnEditorActionListener(doneActionListener);
+
 
 
         //initialize views if not creating new feed item
@@ -141,7 +141,14 @@ public class GrowthFragment extends InjectableFragment {
             headInchesEditText.setText(growthDao.getHeadMeasurement().toString());
             notes.setText(growthDao.getNotes());
             dateTimeHeader.setDateTime(growthDao.getDate());
+            weightEmpty = false;
+            heightEmpty = false;
+            if (!headInchesEditText.getText().toString().equals("")) {
+                headMeasureEmpty = false;
+            }
+            showEditDelete = true;
 
+            setSaveEnabled();
 
 
         } catch (SQLException e) {
@@ -211,13 +218,14 @@ public class GrowthFragment extends InjectableFragment {
                 if (str.length() > 0) {
 //                    saveBtn.setEnabled(true);
                     weightEmpty = false;
-                    setSaveEnabled();
 
                 } else {
-                    saveBtn.setEnabled(false);
+
                     weightEmpty = true;
 
                 }
+                setSaveEnabled();
+
             }
 
             @Override
@@ -256,13 +264,14 @@ public class GrowthFragment extends InjectableFragment {
                 if (str.length()>0) {
 //                    saveBtn.setEnabled(true);
                     heightEmpty = false;
-                    setSaveEnabled();
 
                 } else {
                     saveBtn.setEnabled(false);
                     heightEmpty = true;
 
                 }
+                setSaveEnabled();
+
             }
 
             @Override
@@ -299,13 +308,13 @@ public class GrowthFragment extends InjectableFragment {
                     //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
                 }
 
-                if (str.length()>0) {
+                if (str.length() > 0) {
 
 //                    saveBtn.setEnabled(true);
                     headMeasureEmpty = false;
                     setSaveEnabled();
                 } else {
-                    saveBtn.setEnabled(false);
+//                    saveBtn.setEnabled(false);
                     headMeasureEmpty = true;
                 }
             }
@@ -319,8 +328,29 @@ public class GrowthFragment extends InjectableFragment {
 
 
     }
+
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        Log.d(TAG, "onPrepareOptionsMenu");
+        if (!weightEmpty&&!heightEmpty) {
+            Log.d(TAG, "disable the action_add");
+
+            menu.findItem(R.id.action_add).setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_save_white));
+
+        } else {
+            menu.findItem(R.id.action_add).setEnabled(false);
+            menu.findItem(R.id.action_add).setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_save_gray));
+
+        }
+    }
+
     private void setSaveEnabled() {
+
+        getActivity().invalidateOptionsMenu();
+
         if (!weightEmpty && !heightEmpty) {
+
             saveBtn.setEnabled(true);
             notes.setImeOptions(EditorInfo.IME_ACTION_DONE);
         } else {
@@ -334,48 +364,7 @@ public class GrowthFragment extends InjectableFragment {
 
     @OnClick(R.id.save_btn)
     public void saveBtnClicked() {
-
         createOrEdit();
-//        Dao<GrowthDao, Integer> growthDao;
-//        GrowthDao daoObject;
-//        Date date = dateTimeHeader.getEventTime();
-//
-//        String weight = weightEditText.getText().toString();
-//
-//
-//
-//
-//        Integer weightPounds = Integer.parseInt(weight.substring(0, weight.indexOf(".")));
-//
-//        Double totalWeight =  weightPounds.doubleValue();
-//
-//
-//        if (weight.length()>3) {
-//            Integer weightOunces = Integer.parseInt(weight.substring(3));
-//            totalWeight+=weightOunces.doubleValue()/16;
-//        }
-//
-//
-//
-//        Double height  = Double.parseDouble(heightInchesEditText.getText().toString());
-//
-//        Double headMeasure = Double.parseDouble(headInchesEditText.getText().toString());
-//
-//
-//
-//
-//        try {
-//            growthDao = babyLoggerORMLiteHelper.getGrowthDao();
-//
-//
-//            daoObject  = new GrowthDao(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), date);
-//            growthDao.create(daoObject);
-////            feedDao.create(daoObject);
-//            Log.d(TAG, "created objected " + daoObject);
-//            scopedBus.post(new GrowthItemCreated());
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public BabyLoggerORMLiteHelper getBabyLoggerORMLiteHelper() {
@@ -404,11 +393,36 @@ public class GrowthFragment extends InjectableFragment {
 
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected " + item.getItemId());
+        switch (item.getItemId()) {
+
+//            case R.id.action_add:
+//                createOrEdit();
+////                startActivity(new Intent(getActivity(), PrefsActivity.class));
+//                return true;
+            case R.id.action_add:
+                createOrEdit();
+                return true;
+            case R.id.action_delete:
+                onDeleteBtnClicked();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_main, menu);
+        if (!showEditDelete) {
+            inflater.inflate(R.menu.menu_add_item, menu);
+        } else {
+            inflater.inflate(R.menu.menu_edit_delete_item, menu);
+        }
     }
+
 
     private class EventListener {
         public EventListener() {
@@ -443,7 +457,13 @@ public class GrowthFragment extends InjectableFragment {
 
         Double height  = Double.parseDouble(heightInchesEditText.getText().toString());
 
-        Double headMeasure = Double.parseDouble(headInchesEditText.getText().toString());
+        Double headMeasure = -1.0;
+
+        if (!headInchesEditText.getText().toString().equals("")) {
+            headMeasure =  Double.parseDouble(headInchesEditText.getText().toString());
+        }
+
+
 
         return new GrowthDao(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), date);
     }
@@ -474,13 +494,15 @@ public class GrowthFragment extends InjectableFragment {
                 }
 
                 Log.d(TAG, "created objected " + daoObject);
-                scopedBus.post(new GrowthItemCreated());
             }
 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        scopedBus.post(new GrowthItemCreated());
+
     }
 
     /*

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rorlig.babylog"
     android:versionCode="0"
-    android:versionName="1.0.3">
+    android:versionName="1.0.4">
 
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.CAMERA" />
@@ -101,7 +101,7 @@
             android:name=".ui.activity.DiaperChangeActivity"
             android:label="@string/diaper_change_title"
             android:theme="@style/AppTheme.Purple"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustPan|stateHidden"
 
             >
             <meta-data
@@ -131,7 +131,7 @@
             android:theme="@style/AppTheme.Green"
 
             android:parentActivityName=".ui.activity.HomeActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             />
 
 

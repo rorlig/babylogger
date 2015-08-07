@@ -227,9 +227,13 @@ public class FeedingActivity extends InjectableActivity {
         }
 
 
+        /*
+         * event called when an feed item is saved/deleted/edited
+         */
         @Subscribe
-        public void onFeedSavedEvent(FeedItemCreatedEvent event) {
+        public void onFeedItemSaved(FeedItemCreatedEvent event) {
             Log.d(TAG, "onFeedSavedEvent");
+            closeSoftKeyBoard();
 //            finish();
 //            showFragment(FeedingListFragment.class, "feeding_list",false);
 

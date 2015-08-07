@@ -3,6 +3,7 @@ package com.rorlig.babylog.ui.fragment.sleep;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -76,6 +78,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     private boolean minuteEmpty = true;
     private boolean hourEmpty = true;
     private int id = -1;
+    private boolean showEditDelete = false;
 
 
     @Override
@@ -110,7 +113,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
             initViews(id);
         }
 
-
+        sleepMinutes.setOnEditorActionListener(doneActionListener);
 
 
 
@@ -120,7 +123,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     }
 
     private void initViews(int id) {
-        Log.d(TAG, "initViews "   + id);
+        Log.d(TAG, "initViews " + id);
         try {
             SleepDao sleepDao = babyLoggerORMLiteHelper.getSleepDao().queryForId(id);
             Log.d(TAG, sleepDao.toString());
@@ -132,7 +135,13 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
             dateTimeHeader.setDateTime(sleepDao.getDate());
             editDeleteBtn.setVisibility(View.VISIBLE);
             saveBtn.setVisibility(View.GONE);
+            showEditDelete = true;
+//            if (!sleepHours.getText().equals("")){
+//                hourEmpty = false;
+//            }
 
+            hourEmpty = sleepHours.getText().equals("");
+            minuteEmpty = sleepMinutes.getText().equals("");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -183,6 +192,8 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
         ButterKnife.inject(this, view);
         return view;
     }
+
+
 
 
     private void createOrEdit() {
@@ -261,8 +272,8 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 //    }
 //
     private Long getDuration() {
-        int hour = sleepHours.getText().equals("")?0:Integer.parseInt(sleepHours.getText().toString());
-        int minute = sleepMinutes.getText().equals("")?0:Integer.parseInt(sleepMinutes.getText().toString());
+        int hour = sleepHours.getText().toString().equals("")?0:Integer.parseInt(sleepHours.getText().toString());
+        int minute = sleepMinutes.getText().toString().equals("")?0:Integer.parseInt(sleepMinutes.getText().toString());
         return Long.valueOf(hour * 60 + minute);
 
     }
@@ -275,10 +286,45 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_main, menu);
+        if (!showEditDelete) {
+            inflater.inflate(R.menu.menu_add_item, menu);
+        } else {
+            inflater.inflate(R.menu.menu_edit_delete_item, menu);
+        }
+    }
+
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        Log.d(TAG, "onPrepareOptionsMenu");
+        if (!hourEmpty||!minuteEmpty) {
+            Log.d(TAG, "disable the action_add");
+            menu.findItem(R.id.action_add).setEnabled(true);
+            menu.findItem(R.id.action_add).setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_save_white));
+
+        } else {
+            menu.findItem(R.id.action_add).setEnabled(false);
+            menu.findItem(R.id.action_add).setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_save_gray));
+
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected " + item.getItemId());
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                createOrEdit();
+                return true;
+            case R.id.action_delete:
+                onDeleteBtnClicked();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -389,6 +435,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     }
 
     private void setSaveEnabled() {
+            getActivity().invalidateOptionsMenu();
             if (!minuteEmpty || !hourEmpty) {
                 saveBtn.setEnabled(true);
                 sleepMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);

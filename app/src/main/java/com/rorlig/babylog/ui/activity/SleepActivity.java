@@ -155,11 +155,15 @@ public class SleepActivity extends InjectableActivity {
         private EventListener(){
         }
 
+        /*
+         * sleep item created...
+         */
         @Subscribe
         public void onSleepEventCreated(SleepLogCreated event) {
             Log.d(TAG, "onSleepEventCreated");
 //            showFragment(SleepListFragment.class, "sleep_list_fragment", false);
             getSupportFragmentManager().popBackStackImmediate();
+            closeSoftKeyBoard();
 //            finish();
         }
 

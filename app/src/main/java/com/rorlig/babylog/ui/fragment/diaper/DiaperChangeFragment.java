@@ -4,12 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
-import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -39,7 +41,6 @@ import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -71,7 +72,7 @@ public class DiaperChangeFragment extends InjectableFragment {
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
-
+//
     @InjectView(R.id.two_button_layout)
     LinearLayout editDeleteBtn;
 
@@ -130,6 +131,7 @@ public class DiaperChangeFragment extends InjectableFragment {
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
     private Calendar currentDateLong;
     private int id=-1;
+    private boolean showEditDelete = false;
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -190,6 +192,7 @@ public class DiaperChangeFragment extends InjectableFragment {
 
 
 
+        notes.setOnEditorActionListener(doneActionListener);
 
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
@@ -226,7 +229,10 @@ public class DiaperChangeFragment extends InjectableFragment {
             notes.setText(diaperChangeDao.getDiaperChangeNotes());
             setDateTimeHeader(diaperChangeDao);
 
+            showEditDelete = true;
+
 //            saveBtn.setText("Edit");
+
 
             editDeleteBtn.setVisibility(View.VISIBLE);
             saveBtn.setVisibility(View.GONE);
@@ -334,6 +340,26 @@ public class DiaperChangeFragment extends InjectableFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+//            case R.id.action_add:
+//                createOrEdit();
+////                startActivity(new Intent(getActivity(), PrefsActivity.class));
+//                return true;
+            case R.id.action_add:
+                createOrEdit();
+                return true;
+            case R.id.action_delete:
+                onDeleteBtnClicked();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     /*
     * Register to events...
@@ -520,6 +546,16 @@ public class DiaperChangeFragment extends InjectableFragment {
 
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        if (!showEditDelete) {
+            inflater.inflate(R.menu.menu_add_item, menu);
+        } else {
+            inflater.inflate(R.menu.menu_edit_delete_item, menu);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_diaper_change, null);
         ButterKnife.inject(this, view);
@@ -545,4 +581,17 @@ public class DiaperChangeFragment extends InjectableFragment {
 //            currentTime.setText(timeSetEvent.getHourOfDay() + ":" + timeSetEvent.getMinute() + " "  + (timeSetEvent.getHourOfDay()>11?"PM":"AM"));
         }
     }
+
+    private EditText.OnEditorActionListener doneActionListener = new EditText.OnEditorActionListener(){
+
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            Log.d(TAG, "onEditorAction view " + v.getText() + " actionId " + actionId + " event " + event);
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                createOrEdit();
+                return true;
+            }
+            return false;
+        }
+    };
 }

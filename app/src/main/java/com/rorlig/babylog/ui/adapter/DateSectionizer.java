@@ -12,7 +12,7 @@ import com.rorlig.babylog.dao.BaseDao;
 public class DateSectionizer implements Sectionizer<BaseDao> {
     private static final String TODAY = "Today";
     private static final String TWO_DAYS = "Two days ago";
-    private static final String WEEK = "One week ago";
+    private static final String WEEK = "This Week";
     private static final String TWO_WEEK = "Two weeks ago";
     private static final String THREE_WEEK = "Three weeks ago";
     private static final String MONTH = "Last Month";

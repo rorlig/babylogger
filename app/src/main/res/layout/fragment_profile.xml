@@ -42,7 +42,7 @@
         android:layout_below="@+id/header"
         android:id="@+id/diaper_block"
         >
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/baby_pic"
             android:layout_gravity="center_vertical"
@@ -51,10 +51,8 @@
             android:layout_height="100dp"
             android:textColor="@color/primary"
             android:clickable="false"
-            android:layout_centerInParent="true"
             android:src="@drawable/btn_radio_boy"
-            app:border_width="2dp"
-            app:border_color="@color/white"
+
 
 
             />
