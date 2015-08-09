@@ -187,6 +187,9 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
                     setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
             }
 
+            barChart.getXAxis().setDrawLabels(true);
+
+
         } catch (SQLException sqlException) {
             Log.e(TAG, "Exception: " + sqlException);
         }
@@ -237,18 +240,24 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
                     break;
             }
             xVals.add(xValue);
+            BarEntry barEntry = new BarEntry(value, i);
 
-            yVals.add(new BarEntry(value, i));
+            yVals.add(barEntry);
+
             i++;
         }
         barChart.animateY(1000);
         barChart.getXAxis().setSpaceBetweenLabels(10);
+        barChart.getXAxis().setDrawLabels(true);
 
         BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
         set1.setBarSpacePercent(35f);
         set1.setColor(getResources().getColor(R.color.primary_purple));
         set1.setValueTextColor(getResources().getColor(R.color.primary_purple));
         set1.setValueTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        set1.setDrawValues(true);
+
+
 //        set1.setC
         set1.setHighLightColor(getResources().getColor(R.color.primary_dark_purple));
 

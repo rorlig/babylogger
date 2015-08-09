@@ -84,7 +84,7 @@ public class ProfileFragment extends InjectableFragment {
     DatePicker datePickerBirthday;
 
     @InjectView(R.id.baby_pic)
-    CircleImageView babyPicImageView;
+    ImageView babyPicImageView;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
@@ -201,7 +201,7 @@ public class ProfileFragment extends InjectableFragment {
 //
         if (!imageString.equals("")){
             Log.d(TAG, "setting imageString into babyPic");
-            Uri imageUri = Uri.parse(imageString);
+            imageUri = Uri.parse(imageString);
             picasso.load(imageUri)
                     .fit()
                     .transform(new CircleTransform())
@@ -527,6 +527,7 @@ public class ProfileFragment extends InjectableFragment {
 
 
     private void saveImageUri(Uri imageUri) {
+        Log.d(TAG, "saveImageUri " + imageUri);
         if (imageUri!=null)
         preferences.edit().putString("imageUri", imageUri.toString()).apply();
         else preferences.edit().putString("imageUri", "").apply();
