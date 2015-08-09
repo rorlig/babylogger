@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,7 +43,7 @@ import butterknife.InjectView;
  * @author gaurav gupta
  * diaper stats fragment
  */
-public class DiaperStatsFragment extends InjectableFragment implements RadioGroup.OnCheckedChangeListener {
+public class DiaperStatsFragment extends InjectableFragment implements RadioGroup.OnCheckedChangeListener, View.OnDragListener {
 //        implements RadioGroup.OnCheckedChangeListener {
 
     @ForActivity
@@ -95,6 +96,12 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         barChart.setDrawBarShadow(false);
         barChart.setDrawValueAboveBar(true);
 
+        barChart.setDragEnabled(true);
+
+        barChart.setOnDragListener(this);
+//        barChart.setVisibleXRange(3);
+//        barChart.setDragOffsetX(30.0f);
+
         barChart.setDescription("");
 
         // if more than 60 entries are displayed in the chart, no values will be
@@ -105,11 +112,18 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
         barChart.setHorizontalScrollBarEnabled(true);
 
+        barChart.getXAxis().setAvoidFirstLastClipping(true);
+
+        barChart.setDrawValueAboveBar(true);
+
 //        barChart.setBackgroundColor(getResources().getColor(R.color.primary_purple));
 //        barChart.setGridBackgroundColor(getResources().getColor(R.color.primary_purple));
         barChart.getXAxis().setTextColor(getResources().getColor(R.color.primary_dark_purple));
 //        barChart.().setTextColor(getResources().getColor(R.color.white));
         barChart.getLegend().setTextColor(getResources().getColor(R.color.primary_dark_purple));
+
+
+
 
 
 
@@ -121,7 +135,10 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
             diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
             //setData
 //            setData(12, 60);
+            barChart.setMaxVisibleValueCount(7);
+            barChart.getXAxis().setLabelsToSkip(0);
             setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
+
         } catch (SQLException   e) {
             e.printStackTrace();
         }
@@ -168,7 +185,9 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
                 case R.id.diaper_change_stats_monthly:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
                     barChart.setMaxVisibleValueCount(5);
-//                    barChart.getXAxis().setLabelsToSkip(0);
+                    barChart.getXAxis().setSpaceBetweenLabels(20);
+
+                    barChart.getXAxis().setLabelsToSkip(1);
                     setData(diaperChangeDaoList, DiaperChangeStatsType.MONTHLY);
 
                     break;
@@ -176,13 +195,13 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonthofYear();
                     Log.d(TAG, "diaperChangeDaoList " + diaperChangeDaoList.size());
                     barChart.setMaxVisibleValueCount(12);
-//                    barChart.getXAxis().setLabelsToSkip(0);
+                    barChart.getXAxis().setLabelsToSkip(1);
                     setData(diaperChangeDaoList, DiaperChangeStatsType.YEARLY);
                     break;
                 default:
                     diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
                     barChart.setMaxVisibleValueCount(7);
-//                    barChart.getXAxis().setLabelsToSkip(0);
+                    barChart.getXAxis().setLabelsToSkip(0);
 
                     setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
             }
@@ -242,12 +261,13 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
             xVals.add(xValue);
             BarEntry barEntry = new BarEntry(value, i);
 
+
             yVals.add(barEntry);
 
             i++;
         }
         barChart.animateY(1000);
-        barChart.getXAxis().setSpaceBetweenLabels(10);
+        barChart.getXAxis().setSpaceBetweenLabels(20);
         barChart.getXAxis().setDrawLabels(true);
 
         BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
@@ -266,10 +286,19 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
         BarData data = new BarData(xVals, dataSets);
         data.setValueTextColor(getResources().getColor(R.color.primary_dark_purple));
+        barChart.clear();
+
+//        data.setGroupSpace(1000);
         barChart.setData(data);
+        barChart.setDrawValueAboveBar(true);
+//        barChart.setDrawValuesForWholeStack(true);
+        barChart.setHorizontalScrollBarEnabled(true);
+
 //        barChart.setZ
         barChart.notifyDataSetChanged();
         barChart.invalidate();
+
+
     }
 
     private List<String[]> getFullList(List<String[]> diaperChangeDaoList, DiaperChangeStatsType diaperChangeStatsType) {
@@ -467,4 +496,10 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
         }
 
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
+
+        Log.d(TAG, "chart dragged " + event);
+        return false;
+    }
 }
