@@ -27,7 +27,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/milestone_pic"
                 android:layout_width="100dp"
@@ -35,14 +35,10 @@
                 android:textColor="@color/primary"
                 android:clickable="false"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/btn_radio_boy"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/milestone_pic"
-                android:layout_centerHorizontal="true"
-                android:text="@string/add_milestone_pic"
-                android:id="@+id/milestone_pic_txt"/>
+                android:src="@drawable/boy_normal"
+                app:border_width="2dp"
+                app:border_color="@color/wheat"/>
+
 
             <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
@@ -60,7 +56,7 @@
                 android:id="@+id/custom_milestone_text_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/milestone_pic_txt">
+                android:layout_below="@+id/milestone_pic">
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

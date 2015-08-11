@@ -196,11 +196,11 @@ public class SleepActivity extends InjectableActivity {
 //            showFragment(DiaperChangeFragment.class, "diaper_change", true);
         }
 
-        @Subscribe
-        public void updateActionBar(UpdateActionBarEvent event){
-            Log.d(TAG, "updating action bar");
-            profileImageIcon.setImageDrawable(event.getDrawable());
-        }
+//        @Subscribe
+//        public void updateActionBar(UpdateActionBarEvent event){
+//            Log.d(TAG, "updating action bar");
+//            profileImageIcon.setImageDrawable(event.getDrawable());
+//        }
 
     }
 

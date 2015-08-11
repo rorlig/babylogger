@@ -165,10 +165,10 @@ public class DiaperChangeActivity extends InjectableActivity {
         scopedBus.unregister(eventListener);
     }
 
-    private void startActivity(Class<?> paramClass,String paramString){
-        Intent intent = new Intent(this, paramClass);
-        startActivity(intent);
-    }
+//    private void startActivity(Class<?> paramClass,String paramString){
+//        Intent intent = new Intent(this, paramClass);
+//        startActivity(intent);
+//    }
 
     private class EventListener {
         private EventListener(){
@@ -190,13 +190,6 @@ public class DiaperChangeActivity extends InjectableActivity {
                     showFragment(DiaperStatsFragment.class, "diaper_stats_fragment", true);
         }
 
-//        @Subscribe
-//        public void onAddDiaperChangeEvent(AddDiaperChangeEvent diaperChangeEvent){
-////            showFragment(DiaperChangeFragment.class, "diaper_change");
-//            Log.d(TAG, "onAddDiaperChangeEvent");
-//            showFragment(DiaperChangeFragment.class, "diaper_change", false);
-////            startActivity(DiaperChangeActivity.class,"diaper_change");
-//        }
 
 
         @Subscribe
@@ -231,11 +224,11 @@ public class DiaperChangeActivity extends InjectableActivity {
 //            showFragment(DiaperChangeFragment.class, "diaper_change", true);
         }
 
-        @Subscribe
-        public void updateActionBar(UpdateActionBarEvent event){
-            Log.d(TAG, "updating action bar");
-            profileImageIcon.setImageDrawable(event.getDrawable());
-        }
+//        @Subscribe
+//        public void updateActionBar(UpdateActionBarEvent event){
+//            Log.d(TAG, "updating action bar");
+//            profileImageIcon.setImageDrawable(event.getDrawable());
+//        }
     }
 
 

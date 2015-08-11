@@ -208,13 +208,13 @@ public class FeedingListFragment extends InjectableFragment implements  AdapterV
         }
     }
 
-    private void onBackPressed() {
-        Fragment fragment =getFragmentManager().findFragmentByTag("feeding_stack");
-        if(fragment!=null) {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.remove(fragment).commit();
-        }
-    }
+//    private void onBackPressed() {
+//        Fragment fragment =getFragmentManager().findFragmentByTag("feeding_stack");
+//        if(fragment!=null) {
+//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//            transaction.remove(fragment).commit();
+//        }
+//    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

@@ -28,6 +28,8 @@ import com.rorlig.babylog.dao.MilestonesDao;
 import com.rorlig.babylog.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babylog.otto.GrowthItemClicked;
 import com.rorlig.babylog.otto.MilestoneItemClicked;
+import com.rorlig.babylog.otto.MilestoneItemCreated;
+import com.rorlig.babylog.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babylog.otto.events.milestones.MilestoneCancelEvent;
 import com.rorlig.babylog.otto.events.milestones.MilestoneResetEvent;
 import com.rorlig.babylog.otto.events.milestones.MilestoneSaveEvent;
@@ -148,23 +150,6 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         scopedBus.post(new MilestoneItemClicked(milestonesDao));
     }
 
-//    private void itemClicked(AdapterView<?> parent, View view, int position, long id) {
-//        Log.d(TAG, "itemClicked " + position);
-//        MilestonesCompletedFragment milestonesCompletedFragment = MilestonesCompletedFragment.newInstance(position);
-//
-////        Log.d(TAG, "iten at position " + position + " clicked");
-//        MilestonesDao milestonesDao = (MilestonesDao) listView.getItemAtPosition(position);
-////        Log.d(TAG, "growth dao " + growthDao);
-//        scopedBus.post(new MilestoneItemClicked(milestonesDao));
-////        Bundle bundle = new Bundle();
-////        bundle.putInt("position", position);
-////        milestonesCompletedFragment.setArguments(bundle);
-////        milestonesCompletedFragment.show(getFragmentManager(), "milestone_completed");
-////        showFeedSelectFragment(new MilestonesCompletedFragment(), "milestone_complet/ed");
-//
-////        SimpleDialogFragment.createBuilder(getActivity(), getFragmentManager()).setTitle("hello").setMessage("date").setPositiveButtonText("Yes").setNegativeButtonText("No").show();
-//
-//    }
 
 
     @Override
@@ -272,6 +257,17 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         }
 
+
+        @Subscribe
+        public void onMilestoneItemCreated(MilestoneItemCreated event) {
+            getLoaderManager().restartLoader(LOADER_ID, null, MilestoneListFragment.this);
+        }
+
+        @Subscribe
+        public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
+            Log.d(TAG, "onDiaperLogCreatedEvent");
+
+        }
 //        @Subscribe
 //        public void onMileStoneSaved(MilestoneSaveEvent event){
 //            Log.d(TAG, "milestonesaved event " + event);

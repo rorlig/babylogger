@@ -248,6 +248,11 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
 //    }
 
 
+    @Subscribe
+    public void updateActionBar(UpdateActionBarEvent event){
+        Log.d(TAG, "updating action bar");
+        profileImageIcon.setImageDrawable(event.getDrawable());
+    }
 
 
      /*

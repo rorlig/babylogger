@@ -13,6 +13,7 @@ public class DateSectionizer implements Sectionizer<BaseDao> {
     private static final String TODAY = "Today";
     private static final String TWO_DAYS = "Two days ago";
     private static final String WEEK = "This Week";
+    private static final String ONE_WEEK = "One week ago";
     private static final String TWO_WEEK = "Two weeks ago";
     private static final String THREE_WEEK = "Three weeks ago";
     private static final String MONTH = "Last Month";
@@ -20,11 +21,10 @@ public class DateSectionizer implements Sectionizer<BaseDao> {
     private static final String SIX_MONTH = "Six Months ago";
     private static final String YEAR = "Last Year";
 
-    private final long LENGTH_DAY = 24*60*60*1000;
+    private final long LENGTH_DAY = 24 * 60 * 60 * 1000;
 
-    private final long LENGTH_MONTH = 24*60*60;
+    private final long LENGTH_MONTH = 24 * 60 * 60;
     private String TAG = "DiaperChangeSectionizer";
-
 
 
     /**
@@ -41,23 +41,25 @@ public class DateSectionizer implements Sectionizer<BaseDao> {
 //        Log.d(TAG, " currentTime " + currentTime + " diaper change time " + instance.getDate());
         Long diff = currentTime - instance.getDate().getTime();
 //        Log.d(TAG, "diff " + diff);
-        if (diff< LENGTH_DAY) {
+        if (diff < LENGTH_DAY) {
             return TODAY;
-        } else if (diff<2*LENGTH_DAY) {
+        } else if (diff < 2 * LENGTH_DAY) {
             return TWO_DAYS;
-        } else if (diff<LENGTH_DAY*7) {
+        } else if (diff < LENGTH_DAY * 7) {
             return WEEK;
-        } else if (diff<LENGTH_DAY*7*2) {
+        } else if (diff < LENGTH_DAY * 7 * 2) {
+            return ONE_WEEK;
+        } else if (diff < LENGTH_DAY * 7 * 3) {
             return TWO_WEEK;
-        } else if (diff<LENGTH_DAY*7*3) {
+        } else if (diff < LENGTH_DAY * 7 * 4) {
             return THREE_WEEK;
-        } else if (diff<LENGTH_DAY*7*4) {
+        } else if (diff < LENGTH_DAY * 7 * 4 * 2) {
             return MONTH;
-        } else if (diff<LENGTH_DAY*7*4*2){
+        } else if (diff < LENGTH_DAY * 7 * 4 * 6) {
             return TWO_MONTH;
-        } else if (diff<LENGTH_DAY*7*4*6) {
+        } else if (diff < LENGTH_DAY * 7 * 4 * 12) {
             return SIX_MONTH;
-        } else {
+        } else
             return YEAR;
-        }    }
+    }
 }

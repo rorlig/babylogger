@@ -18,6 +18,7 @@ import com.rorlig.babylog.otto.MilestoneItemCreated;
 import com.rorlig.babylog.otto.UpdateActionBarEvent;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
+import com.rorlig.babylog.ui.fragment.diaper.DiaperChangeListFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestoneFragment;
@@ -76,7 +77,10 @@ public class MilestonesActivity extends InjectableActivity {
 //        String intentString = getIntent().getStringExtra("intent");
 //        Log.d(TAG, " " +  intentString);
 
-        showFragment(MilestoneListFragment.class, "milestones_fragment", false);
+        //show fragment only if not coming from rotation event...
+        if (savedInstanceState==null) {
+            showFragment(MilestoneListFragment.class, "milestones_fragment", false);
+        }
 
 
     }
@@ -138,7 +142,7 @@ public class MilestonesActivity extends InjectableActivity {
             Log.d(TAG, "onItemAddedEvent");
             switch (addItemEvent.getItemType()) {
                 case MILESTONE:
-                    showFragment(MilestoneFragment.class, "milestone_fragment", false);
+                    showFragment(MilestoneFragment.class, "milestone_fragment", true);
                     break;
             }
         }
@@ -147,14 +151,17 @@ public class MilestonesActivity extends InjectableActivity {
         public void onMilestoneItemCreated(MilestoneItemCreated event) {
 //            Log.d(TAG, "onFeedSavedEvent");
 //            finish();
-            showFragment(MilestoneListFragment.class, "mile_stone_list", false);
+            getSupportFragmentManager().popBackStackImmediate();
+            closeSoftKeyBoard();
+
+
         }
 
-        @Subscribe
-        public void updateActionBar(UpdateActionBarEvent event){
-            Log.d(TAG, "updating action bar");
-            profileImageIcon.setImageDrawable(event.getDrawable());
-        }
+//        @Subscribe
+//        public void updateActionBar(UpdateActionBarEvent event){
+//            Log.d(TAG, "updating action bar");
+//            profileImageIcon.setImageDrawable(event.getDrawable());
+//        }
 
         @Subscribe
         public void onMilestoneItemClicked(MilestoneItemClicked event) {

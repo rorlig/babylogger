@@ -11,7 +11,7 @@
     <string name="action_remove_from_schedule">Remove from schedule</string>
     <string name="action_remove_note">Remove note</string>
     <string name="action_search">Search</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">About</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_out">Sign out</string>
     <string name="action_sign_up">Sign up</string>
@@ -361,6 +361,7 @@
     <string name="milestone_type_title">Milestone</string>
     <string name="custom_milestone">Milestone</string>
     <string name="hint_notes">Notes</string>
+    <string name="image_milestone">Image MIlestone</string>
 
 
 </resources>

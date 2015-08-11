@@ -53,6 +53,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by gaurav
@@ -84,7 +85,7 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     EditText notes;
 
     @InjectView(R.id.milestone_pic)
-    ImageView mileStoneImageView;
+    CircleImageView mileStoneImageView;
 
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
@@ -610,16 +611,8 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     private void updateImageUri(String imageString){
         Log.d(TAG, "updateImageUri " + imageString);
         if (!imageString.equals("")){
-
             imageUri = Uri.parse(imageString);
             Log.d(TAG, "update the image " + imageUri.toString());
-//            mileStoneImageView.setImageDrawable(null);
-//            babyPicImageView.set
-//            picasso.with(getActivity())
-//                    .load(imageUri)
-//                    .fit()
-////                    .transform(new CircleTransform())
-//                    .into(mileStoneImageView);
             mileStoneImageView.setImageURI(null);
             mileStoneImageView.setImageURI(imageUri);
         }

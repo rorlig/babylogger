@@ -148,11 +148,11 @@ public class HomeActivity extends InjectableActivity {
             showFragment(HomeFragment.class, "home_fragment", false);
         }
 
-        @Subscribe
-        public void updateActionBar(UpdateActionBarEvent event){
-            Log.d(TAG, "updating action bar");
-            profileImageIcon.setImageDrawable(event.getDrawable());
-        }
+//        @Subscribe
+//        public void updateActionBar(UpdateActionBarEvent event){
+//            Log.d(TAG, "updating action bar");
+//            profileImageIcon.setImageDrawable(event.getDrawable());
+//        }
 
 
     }

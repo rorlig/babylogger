@@ -102,10 +102,10 @@ public class ExportActivity extends InjectableActivity {
         private EventListener() {
         }
 
-        @Subscribe
-        public void updateActionBar(UpdateActionBarEvent event){
-            Log.d(TAG, "updating action bar");
-            profileImageIcon.setImageDrawable(event.getDrawable());
-        }
+//        @Subscribe
+//        public void updateActionBar(UpdateActionBarEvent event){
+//            Log.d(TAG, "updating action bar");
+//            profileImageIcon.setImageDrawable(event.getDrawable());
+//        }
     }
 }

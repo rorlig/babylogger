@@ -21,13 +21,13 @@
 
 
         <!--/>-->
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/icon_image"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_mood_black"
-       />
+        android:contentDescription="@string/image_milestone" />
     <TextView
         android:id="@+id/log_item_label"
         android:layout_width="fill_parent"
@@ -47,16 +47,12 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_completed_status"
-            android:text="@string/txt_not_completed"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date_completed"
-            android:layout_below="@+id/text_completed_status"
+            android:text="completed"
         />
 
     </RelativeLayout>

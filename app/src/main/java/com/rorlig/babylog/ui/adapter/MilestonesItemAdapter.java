@@ -2,6 +2,7 @@ package com.rorlig.babylog.ui.adapter;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import java.util.List;
 import java.util.TimeZone;
 
 import javax.inject.Inject;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 //import com.gc.materialdesign.views.CheckBox;
 
@@ -81,53 +84,24 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
             convertView = inflater.inflate(R.layout.list_item_milestones, parent, false);
             viewHolder = new ViewHolder(convertView);
             viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.log_item_label);
-            viewHolder.itemImage = (ImageView) convertView.findViewById(R.id.icon_image);
+            viewHolder.itemImage = (CircleImageView) convertView.findViewById(R.id.icon_image);
             viewHolder.dateCompletionText = (TextView) convertView.findViewById(R.id.date_completed);
-            viewHolder.textCompleted = (TextView) convertView.findViewById(R.id.text_completed_status);
-//            viewHolder.textCompleted.setText();
-
-
-
-//            viewHolder.itemImage.setImageDrawable(context.getResources().getDrawable(iconArr.getResourceId(position,0)));
-
-
-
-
-
-
-
-//            viewHolder.logItemCheckBox.setEnabled(item.isItemChecked());
             Log.d(TAG, "position " + position + " item " + item);
-
-//            if (item.isItemChecked()) {
-//                viewHolder.logItemCheckBox.setEnabled(false);
-//             }
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-//        if (item.isCompleted()) {
-//            viewHolder.itemImage.setImageResource(R.drawable.ic_mood_blue);
-//            viewHolder.textCompleted.setText(R.string.txt_completed);
-//            viewHolder.dateCompletionText.setText(simpleDateFormat.format(item.getCompletionDate()));
-//        } else  {
-//            viewHolder.itemImage.setImageResource(R.drawable.ic_mood_black);
-//            viewHolder.textCompleted.setText(R.string.txt_not_completed);
-//            viewHolder.dateCompletionText.setText(item.getCompletionDateRange());
-//
-//
-//        }
         viewHolder.logItemLabel.setText(item.getTitle());
-        viewHolder.itemImage.setImageURI(Uri.parse(item.getImagePath()));
+        if (item.getImagePath()==null || item.getImagePath().equals("")) {
+            viewHolder.itemImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_mood_black));
+        } else {
+            viewHolder.itemImage.setImageURI(Uri.parse(item.getImagePath()));
+        }
 
-                // Populate the data into the template view using the data object
+        viewHolder.dateCompletionText.setText(simpleDateFormat.format(item.getDate()));
 
-//        if (item.isItemChecked()) {
-//            viewHolder.logItemCheckBox.setEnabled(false);
-//        }
-//        viewHolder.logItemCheckBox.setText(item);
-        // Return the completed view to render on screen
+
         return convertView;
     }
 
@@ -149,12 +123,12 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
         TextView logItemLabel;
 
 
-        ImageView itemImage;
+        CircleImageView itemImage;
 
 
         TextView dateCompletionText;
 
-        TextView textCompleted;
+//        TextView textCompleted;
 
 
         public ViewHolder(View view){
