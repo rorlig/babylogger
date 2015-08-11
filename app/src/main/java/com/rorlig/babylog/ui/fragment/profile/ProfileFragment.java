@@ -33,11 +33,10 @@ import com.rorlig.babylog.otto.events.camera.PictureSelectEvent;
 import com.rorlig.babylog.otto.events.profile.SavedProfileEvent;
 import com.rorlig.babylog.otto.events.profile.SkipProfileEvent;
 import com.rorlig.babylog.otto.events.ui.FragmentCreated;
+import com.rorlig.babylog.ui.PictureInterface;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.utils.AppUtils;
-import com.rorlig.babylog.utils.transform.BlurTransformation;
 import com.rorlig.babylog.utils.transform.CircleTransform;
-import com.rorlig.babylog.utils.transform.CropTransform;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
@@ -49,13 +48,12 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by rorlig on 7/14/14.
  * fragment for baby ic_profile.
  */
-public class ProfileFragment extends InjectableFragment {
+public class ProfileFragment extends InjectableFragment implements PictureInterface {
 
     private static final int RESULT_CROP_IMAGE = 3;
 
@@ -83,7 +81,7 @@ public class ProfileFragment extends InjectableFragment {
     @InjectView(R.id.date_picker_birthday)
     DatePicker datePickerBirthday;
 
-    @InjectView(R.id.baby_pic)
+    @InjectView(R.id.milestone_pic)
     ImageView babyPicImageView;
 
     @InjectView(R.id.save_btn)
@@ -209,20 +207,6 @@ public class ProfileFragment extends InjectableFragment {
         } else {
            resetImageView();
         }
-
-//        String imageStr = preferences.getString("imageUri","");
-//        if (!imageStr.equals("")){
-//            Uri imageUri = Uri.parse(imageStr);
-//
-//            babyPicImageView.setImageURI(imageUri);
-//
-//        }
-
-
-//        scopedBus.register(eventListener);
-
-        //todo dob...
-
     }
 
     private void resetImageView() {
@@ -265,22 +249,6 @@ public class ProfileFragment extends InjectableFragment {
         @Subscribe
         public void onCameraEvent(CameraStartEvent event) {
             handleCameraEvent();
-//            Log.d(TAG, "onCameraEvent");
-//            long callTime = System.currentTimeMillis();
-//            String dir = AppUtils.getCameraDirectory();
-//            File file = new File(dir, callTime + ".jpg");
-//            Uri imageUri = Uri.fromFile(file);
-//            Log.d(TAG, "imageUri " + imageUri);
-////            scopedBus.post(new CameraStartEvent(imageUri));
-//            Log.d(TAG, " getActivity " + getActivity());
-//            Intent startCustomCameraIntent = new Intent(getActivity(), CameraActivity.class);
-//            startCustomCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-////            dismiss();
-//           startActivityForResult(startCustomCameraIntent, AppUtils.RESULT_CAMERA_IMAGE_CAPTURE);
-
-//            imageUri = event.getImageUri();
-//            babyPicImageView.setImageURI(event.getImageUri());
-
         }
 
         @Subscribe
@@ -291,19 +259,10 @@ public class ProfileFragment extends InjectableFragment {
         @Subscribe
         public void onGalleryEvent(GalleryEvent event) {
             handleGalleryEvent();
-//            Log.d(TAG, "onGalleryEvent");
-//
-//            Log.d(TAG, " getActivity " + getActivity());
-//
-//
-//            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//
-//            startActivityForResult(intent, AppUtils.RESULT_LOAD_IMAGE);
         }
     }
 
+    @Override
     public void handleGalleryEvent() {
         Log.d(TAG, "onGalleryEvent");
         Log.d(TAG, " getActivity " + getActivity());
@@ -313,6 +272,7 @@ public class ProfileFragment extends InjectableFragment {
         startActivityForResult(intent, AppUtils.RESULT_LOAD_IMAGE);
     }
 
+    @Override
     public void handleCameraEvent() {
         Log.d(TAG, "onCameraEvent");
         long callTime = System.currentTimeMillis();
@@ -362,7 +322,7 @@ public class ProfileFragment extends InjectableFragment {
     }
 
 
-    @OnClick(R.id.baby_pic)
+    @OnClick(R.id.milestone_pic)
     public void setBabyPicImageViewClicked(){
          pictureSourceSelectFragment = new PictureSourceSelectFragment();
         pictureSourceSelectFragment.setTargetFragment(this,1);

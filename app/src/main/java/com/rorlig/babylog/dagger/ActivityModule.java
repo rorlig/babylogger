@@ -45,6 +45,7 @@ import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthStatsFragment;
 import com.rorlig.babylog.ui.fragment.home.HomeFragment;
+import com.rorlig.babylog.ui.fragment.milestones.MilestoneFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestoneListFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestonesCompletedFragment;
 import com.rorlig.babylog.ui.fragment.preference.InjectablePreferenceFragment;
@@ -116,6 +117,7 @@ import dagger.Provides;
             PrefsFragment.class,
             ExportFragment.class,
             CustomTimePickerFragment.class,
+            MilestoneFragment.class,
             SleepAdapter.class
 
           },
@@ -178,7 +180,6 @@ public class ActivityModule
     TypeFaceManager providesTypeFaceManager(@ForApplication Context context){
         return new TypeFaceManager(context);
     }
-
 
 
 

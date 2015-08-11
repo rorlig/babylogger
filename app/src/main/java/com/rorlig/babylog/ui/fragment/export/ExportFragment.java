@@ -707,7 +707,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         String header =   "\"Date\",\"Milestone\"\n";
         StringBuilder stringBuilder = new StringBuilder();
         for (MilestonesDao milestoneItem: milestonesList) {
-            stringBuilder.append("\"" + milestoneItem.getCompletionDate() + "\",\""
+            stringBuilder.append("\"" + milestoneItem.getDate() + "\",\""
                     + milestoneItem.getTitle() + "\",\"");
         }
         String combinedString = header + stringBuilder.toString();

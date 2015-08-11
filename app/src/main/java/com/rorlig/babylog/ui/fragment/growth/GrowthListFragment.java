@@ -224,6 +224,8 @@ public class GrowthListFragment extends InjectableFragment implements LoaderMana
         }
         growthList = data;
 
+
+
         growthAdapter = new GrowthAdapter(getActivity(), R.layout.list_item_diaper_change, growthList);
 
 //        diaperChangeAdapter.update(diaperChangeDaoList);

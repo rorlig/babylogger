@@ -17,6 +17,7 @@ import com.desmond.squarecamera.CameraActivity;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.otto.GalleryEvent;
 import com.rorlig.babylog.otto.events.camera.CameraStartEvent;
+import com.rorlig.babylog.ui.PictureInterface;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babylog.utils.AppUtils;
 
@@ -79,8 +80,8 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
      */
     @OnClick(R.id.gallery_select)
     public void onGalleryClick() {
-        ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
-        profileFragment.handleGalleryEvent();
+        PictureInterface pictureInterface = (PictureInterface) getTargetFragment();
+        pictureInterface.handleGalleryEvent();
         dismiss();
 
 
@@ -91,8 +92,8 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
      */
     @OnClick(R.id.delete)
     public void onDeleteImage() {
-        ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
-        profileFragment.deleteImage();
+        PictureInterface pictureInterface = (PictureInterface) getTargetFragment();
+        pictureInterface.deleteImage();
         dismiss();
     }
 }

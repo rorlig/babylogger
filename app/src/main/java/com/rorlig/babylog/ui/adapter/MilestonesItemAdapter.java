@@ -1,6 +1,7 @@
 package com.rorlig.babylog.ui.adapter;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,18 +107,19 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if (item.isCompleted()) {
-            viewHolder.itemImage.setImageResource(R.drawable.ic_mood_blue);
-            viewHolder.textCompleted.setText(R.string.txt_completed);
-            viewHolder.dateCompletionText.setText(simpleDateFormat.format(item.getCompletionDate()));
-        } else  {
-            viewHolder.itemImage.setImageResource(R.drawable.ic_mood_black);
-            viewHolder.textCompleted.setText(R.string.txt_not_completed);
-            viewHolder.dateCompletionText.setText(item.getCompletionDateRange());
-
-
-        }
+//        if (item.isCompleted()) {
+//            viewHolder.itemImage.setImageResource(R.drawable.ic_mood_blue);
+//            viewHolder.textCompleted.setText(R.string.txt_completed);
+//            viewHolder.dateCompletionText.setText(simpleDateFormat.format(item.getCompletionDate()));
+//        } else  {
+//            viewHolder.itemImage.setImageResource(R.drawable.ic_mood_black);
+//            viewHolder.textCompleted.setText(R.string.txt_not_completed);
+//            viewHolder.dateCompletionText.setText(item.getCompletionDateRange());
+//
+//
+//        }
         viewHolder.logItemLabel.setText(item.getTitle());
+        viewHolder.itemImage.setImageURI(Uri.parse(item.getImagePath()));
 
                 // Populate the data into the template view using the data object
 

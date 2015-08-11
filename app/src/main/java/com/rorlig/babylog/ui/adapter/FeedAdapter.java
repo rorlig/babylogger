@@ -85,7 +85,7 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
 
     @Override
     public View getView( final int position, View convertView, ViewGroup parent ) {
-        View view = null;
+        View view = convertView;
 
 //        DiaperChangeView view = (DiaperChangeView) convertView;
 //        ViewHolder viewHolder;
@@ -93,7 +93,7 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
 
         int type = getItemViewType(position);
 
-        if (convertView == null) {
+        if (view == null) {
 
             switch (type) {
                 case FEED_BOTTLE:
@@ -107,6 +107,7 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
             }
 
         }
+
         return view;
     }
 

@@ -103,11 +103,13 @@ public class FeedingListFragment extends InjectableFragment implements  AdapterV
 
     @OnClick(R.id.add_breast_feed)
     public void onAddBreastFeedBtnClicked(){
+        collapseFloatingMenuIfOpen();
         scopedBus.post(new AddItemEvent(AddItemTypes.FEED_NURSING));
     }
 
     @OnClick(R.id.add_bottle_feed)
     public void onAddBottleFeedBtnClicked(){
+        collapseFloatingMenuIfOpen();
         scopedBus.post(new AddItemEvent(AddItemTypes.FEED_BOTTLE));
     }
 
@@ -318,7 +320,7 @@ public class FeedingListFragment extends InjectableFragment implements  AdapterV
      * collapse floating menu if open
      */
     private void collapseFloatingMenuIfOpen() {
-        Log.d(TAG, "collapseFloatingMenu");
+        Log.d(TAG, "collapseFloatingMenu  " + floatingActionsMenu.isExpanded());
         if (floatingActionsMenu.isExpanded()) {
             floatingActionsMenu.collapse();
         }

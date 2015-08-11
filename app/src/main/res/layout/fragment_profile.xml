@@ -44,7 +44,7 @@
         >
         <ImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/baby_pic"
+            android:id="@+id/milestone_pic"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:layout_width="100dp"

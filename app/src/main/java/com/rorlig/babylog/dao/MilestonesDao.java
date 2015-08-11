@@ -2,6 +2,7 @@ package com.rorlig.babylog.dao;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.rorlig.babylog.ui.fragment.milestones.Milestones;
 
 import java.util.Date;
 
@@ -17,77 +18,53 @@ public class MilestonesDao extends BaseDao {
     int id;
 
 
-    //range in which milestone is typically done
-    @DatabaseField
-    String completionDateRange;
-
-    //is the milestone completed or not..
-    @DatabaseField
-    boolean completed;
 
 
     //milestone title
     @DatabaseField
     String title;
 
-
-    //date when milestone was completed...
     @DatabaseField
-    Date completionDate;
+    String notes;
+
+
+    @DatabaseField
+    String imagePath;
 
 
     public MilestonesDao() {
+
     }
-
-
-    public MilestonesDao(String completionDateRange,
-                         boolean completed,
-                         String title,
-                         Date completionDate,
-                         Date time) {
-        this.completionDateRange = completionDateRange;
-        this.completed = completed;
+    public MilestonesDao(String title, String notes,
+                         Date time, String imagePath) {
         this.title = title;
-        this.completionDate = completionDate;
+        this.notes  = notes;
         this.date = new Date(time.getTime());
+        this.imagePath = imagePath;
     }
 
-    @Override
-    public String toString() {
-        return "MilestonesDao{" +
-                "id=" + id +
-                ", completionDateRange='" + completionDateRange + '\'' +
-                ", completed=" + completed +
-                ", title='" + title + '\'' +
-                ", completionDate=" + completionDate +
-                "} " + super.toString();
-    }
-
-    public String getCompletionDateRange() {
-        return completionDateRange;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
 
     public String getTitle() {
         return title;
     }
 
-    public Date getCompletionDate() {
-        return completionDate;
+    public int getId() {
+        return id;
     }
 
-    public void setCompletionDate(Date completionDate) {
-        this.completionDate = completionDate;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
-
-
+    public String getImagePath() {
+        return imagePath;
+    }
 }

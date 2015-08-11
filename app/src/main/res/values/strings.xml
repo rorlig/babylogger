@@ -355,6 +355,12 @@
     <string name="camera_text">Take a Photo</string>
     <string name="action_save">SAVE</string>
     <string name="action_edit">EDIT</string>
+    <string name="add_milestone_item">Add Milestone</string>
+    <string name="no_milestone">Start Tracking your child\'s milestones</string>
+    <string name="add_milestone_pic">Add Milestone Picture</string>
+    <string name="milestone_type_title">Milestone</string>
+    <string name="custom_milestone">Milestone</string>
+    <string name="hint_notes">Notes</string>
 
 
 </resources>

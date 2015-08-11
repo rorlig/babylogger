@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
 
     <!--<ProgressBar-->
@@ -23,26 +24,26 @@
         android:id="@+id/itemList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
     <RelativeLayout android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         >
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_growth_green"
+            android:background="@drawable/ic_milestones"
             android:id="@+id/icon_no_growth"
             android:layout_centerInParent="true"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_growth"
+            android:text="@string/no_milestone"
             android:id="@+id/errorText"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/icon_no_growth"/>
@@ -51,14 +52,28 @@
             android:id="@+id/add_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_growth_btn_text"
+            android:text="@string/add_milestone_item"
             android:padding="5dp"
-            android:background="@color/primary_green"
+            android:background="@color/primary_orange"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/errorText"/>
     </RelativeLayout>
 
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_milestone_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_colorNormal="@color/primary_dark_orange"
+        fab:fab_colorPressed="@color/primary_dark_orange"
+        fab:fab_icon="@drawable/ic_add_white"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"/>
     <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
         <!--android:id="@+id/add_growth_item"-->
         <!--android:layout_width="wrap_content"-->

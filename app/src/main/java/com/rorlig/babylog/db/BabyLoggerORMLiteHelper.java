@@ -74,8 +74,8 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, SleepDao.class);
 //            populateDiaperDao();
 //            populateFeedDao();
-            populateGrowthDao();
-            populateMilestoneDao();
+//            populateGrowthDao();
+//            populateMilestoneDao();
 
 
 
@@ -126,27 +126,27 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    private void populateMilestoneDao() {
-//        MilestonesDao milestonesDao = new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, -1L);
-//        DateTime today = new DateTime().withTi();
-
-        try {
-            getMilestonesDao().create(new MilestonesDao("Week 0-4", false, "Responds to Voice", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Week 4-8", false, "Smile to Mom", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Week 0-8", false, "Lifts Head", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Follows objects with eyes", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Reaches for things", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 3-5", false, "Starts Babbling", null,new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Searches for objects", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Sits without support", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 7-10", false, "Responds to name", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 9-12", false, "Stands up with support", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Stands up without support", null, new Date(0)));
-            getMilestonesDao().create(new MilestonesDao("Month 9-15", false, "Walks", null, new Date(0)));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void populateMilestoneDao() {
+////        MilestonesDao milestonesDao = new MilestonesDao("Week 0-4", false, "Responds to Voice", -1L, -1L);
+////        DateTime today = new DateTime().withTi();
+//
+//        try {
+//            getMilestonesDao().create(new MilestonesDao("Month 0-2", false, "Responds to Voice", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 0-2", false, "Smile to Mom", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 0-2", false, "Lifts Head", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 2-5", false, "Follows objects with eyes", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 2-5", false, "Reaches for things", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 2-5", false, "Starts Babbling", null,new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 5-8", false, "Searches for objects", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 5-8", false, "Sits without support", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 5-8", false, "Responds to name", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 8-12", false, "Stands up with support", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 8-12", false, "Stands up without support", null, new Date(0)));
+//            getMilestonesDao().create(new MilestonesDao("Month 12-15", false, "Walks", null, new Date(0)));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {

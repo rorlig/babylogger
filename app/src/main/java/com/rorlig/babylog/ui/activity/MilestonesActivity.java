@@ -12,11 +12,15 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babylog.R;
+import com.rorlig.babylog.otto.GrowthItemClicked;
+import com.rorlig.babylog.otto.MilestoneItemClicked;
+import com.rorlig.babylog.otto.MilestoneItemCreated;
 import com.rorlig.babylog.otto.UpdateActionBarEvent;
 import com.rorlig.babylog.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babylog.otto.events.other.AddItemEvent;
 import com.rorlig.babylog.ui.fragment.growth.GrowthFragment;
 import com.rorlig.babylog.ui.fragment.growth.GrowthListFragment;
+import com.rorlig.babylog.ui.fragment.milestones.MilestoneFragment;
 import com.rorlig.babylog.ui.fragment.milestones.MilestoneListFragment;
 import com.squareup.otto.Subscribe;
 
@@ -133,17 +137,17 @@ public class MilestonesActivity extends InjectableActivity {
         public void onItemAddedEvent(AddItemEvent addItemEvent){
             Log.d(TAG, "onItemAddedEvent");
             switch (addItemEvent.getItemType()) {
-                case GROWTH_LOG:
-                    showFragment(GrowthFragment.class, "growth_fragment", false);
+                case MILESTONE:
+                    showFragment(MilestoneFragment.class, "milestone_fragment", false);
                     break;
             }
         }
 
         @Subscribe
-        public void onGrowthItemCreated(GrowthItemCreated event) {
+        public void onMilestoneItemCreated(MilestoneItemCreated event) {
 //            Log.d(TAG, "onFeedSavedEvent");
 //            finish();
-            showFragment(GrowthListFragment.class, "growth_list_fragment", false);
+            showFragment(MilestoneListFragment.class, "mile_stone_list", false);
         }
 
         @Subscribe
@@ -152,7 +156,20 @@ public class MilestonesActivity extends InjectableActivity {
             profileImageIcon.setImageDrawable(event.getDrawable());
         }
 
+        @Subscribe
+        public void onMilestoneItemClicked(MilestoneItemClicked event) {
+            Log.d(TAG, "diaperChangeItemClicked");
+            MilestoneFragment fragment = new MilestoneFragment();
+            Bundle args = new Bundle();
+            args.putInt("id", event.getModel().getId());
+            fragment.setArguments(args);
+            Log.d(TAG, "adding to back stack ");
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .addToBackStack("main_screen_stack")
+                    .commit();
 
+        }
 
     }
 

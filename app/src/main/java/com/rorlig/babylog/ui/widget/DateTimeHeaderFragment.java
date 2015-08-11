@@ -45,7 +45,7 @@ public class DateTimeHeaderFragment extends InjectableFragment {
     private int dateTimeColor;
 
     public enum DateTimeColor {
-        GREEN, BLUE, GRAY, PURPLE
+        GREEN, BLUE, GRAY, ORANGE, PURPLE
     }
 
 
@@ -191,6 +191,9 @@ public class DateTimeHeaderFragment extends InjectableFragment {
                 break;
             case GRAY:
                 dateTimeColor = getResources().getColor(R.color.primary_gray_dark);
+                break;
+            case ORANGE:
+                dateTimeColor = getResources().getColor(R.color.primary_orange);
                 break;
 
 
