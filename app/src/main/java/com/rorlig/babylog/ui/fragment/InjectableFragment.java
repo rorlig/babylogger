@@ -100,6 +100,19 @@ public class InjectableFragment extends Fragment {
 
     }
 
+    /*
+   * closes the keyboard
+   */
+    protected void closeSoftKeyBoard(){
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.soft
+        if (getActivity().getCurrentFocus()!=null && getActivity().getCurrentFocus().getWindowToken()!=null) {
+            Log.d(TAG, "closing the window");
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
+
+    }
+
 
 
 }

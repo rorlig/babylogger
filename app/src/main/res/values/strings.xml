@@ -353,8 +353,8 @@
     <string name="bottle_feed_title">BOTTLE FEED</string>
     <string name="nursing_heading">Nursing Feed</string>
     <string name="camera_text">Take a Photo</string>
-    <string name="action_save">SAVE</string>
-    <string name="action_edit">EDIT</string>
+    <string name="action_save">Save</string>
+    <string name="action_edit">Edit</string>
     <string name="add_milestone_item">Add Milestone</string>
     <string name="no_milestone">Start Tracking your child\'s milestones</string>
     <string name="add_milestone_pic">Add Milestone Picture</string>

@@ -448,6 +448,7 @@ public class DiaperChangeFragment extends InjectableFragment {
             }
 
             Log.d(TAG, "created objected " + daoObject);
+            closeSoftKeyBoard();
             scopedBus.post(new DiaperLogCreatedEvent());
         } catch (SQLException e) {
             e.printStackTrace();

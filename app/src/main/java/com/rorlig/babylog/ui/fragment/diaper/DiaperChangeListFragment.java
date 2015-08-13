@@ -1,7 +1,9 @@
 package com.rorlig.babylog.ui.fragment.diaper;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -331,6 +333,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         diaperChangeListView.setAdapter(sectionAdapter);
         diaperChangeListView.setOnItemClickListener(this);
+
 //        diaperChangeListView.setOnLongClickListener(new OnLongClickListener() {
 //
 //            @Override
@@ -377,6 +380,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 //
 //        super.onCreateContextMenu(menu, v, menuInfo);
 //    }
+
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {

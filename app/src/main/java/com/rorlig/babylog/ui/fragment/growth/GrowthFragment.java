@@ -500,7 +500,7 @@ public class GrowthFragment extends InjectableFragment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        closeSoftKeyBoard();
         scopedBus.post(new GrowthItemCreated());
 
     }

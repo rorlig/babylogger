@@ -353,6 +353,7 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
                 }
 
                 Log.d(TAG, "created objected " + daoObject);
+                closeSoftKeyBoard();
             }
 
 

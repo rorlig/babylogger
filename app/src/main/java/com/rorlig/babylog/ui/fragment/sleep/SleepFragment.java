@@ -214,6 +214,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
             }
 
             Log.d(TAG, "created objected " + daoObject);
+            closeSoftKeyBoard();
             scopedBus.post(new SleepLogCreated());
         } catch (SQLException e) {
             e.printStackTrace();
