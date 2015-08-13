@@ -182,7 +182,7 @@
 
     <string name="diaper_change_title">Diaper Change</string>
     <string name="feeding_title">Feeding</string>
-    <string name="no_growth">You have not added anything. Get Started!!!</string>
+    <string name="no_growth">Start tracking your young ones growth</string>
     <string name="growth_title">Growth</string>
     <string name="poop_texture">POOP TEXTURE</string>
     <string name="diaper_indicident">INCIDENT</string>
@@ -362,6 +362,7 @@
     <string name="custom_milestone">Milestone</string>
     <string name="hint_notes">Notes</string>
     <string name="image_milestone">Image MIlestone</string>
+    <string name="no_feed">Start logging baby feeds</string>
 
 
 </resources>

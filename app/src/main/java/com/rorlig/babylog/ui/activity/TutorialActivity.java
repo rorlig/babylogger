@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.github.paolorotolo.appintro.AppIntro;
+import com.rorlig.babylog.ui.fragment.profile.ProfileFragment;
 import com.rorlig.babylog.ui.fragment.tutorial.FirstSlide;
 import com.rorlig.babylog.ui.fragment.tutorial.FourthSlide;
 import com.rorlig.babylog.ui.fragment.tutorial.SecondSlide;
@@ -46,14 +47,15 @@ public class TutorialActivity extends AppIntro {
     @Override
     public void onSkipPressed() {
         // Do something when users tap on Skip button.
-        startActivity(new Intent(this, HomeActivity.class));
+        Intent profileIntent = new Intent(this, ProfileActivity.class);
+        profileIntent.putExtra("from_tutorial", true);
+        startActivity(profileIntent);
     }
 
     @Override
     public void onDonePressed() {
-        // Do something when users tap on Done button.
-
-        startActivity(new Intent(this, HomeActivity.class));
-
+        Intent profileIntent = new Intent(this, ProfileActivity.class);
+        profileIntent.putExtra("from_tutorial", true);
+        startActivity(profileIntent);
     }
 }

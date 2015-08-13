@@ -221,14 +221,9 @@ public class DiaperChangeActivity extends InjectableActivity {
                     .addToBackStack("main_screen_stack")
                     .commit();
 
-//            showFragment(DiaperChangeFragment.class, "diaper_change", true);
         }
 
-//        @Subscribe
-//        public void updateActionBar(UpdateActionBarEvent event){
-//            Log.d(TAG, "updating action bar");
-//            profileImageIcon.setImageDrawable(event.getDrawable());
-//        }
+//
     }
 
 

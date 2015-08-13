@@ -10,46 +10,7 @@
 
         tools:context=".MainActivity">
 
-        <ImageView
-            android:id="@+id/profile_block"
-            android:layout_width="fill_parent"
-            android:layout_height="160dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/gray_cloud"
-            android:clickable="true"/>
 
-
-
-
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
-                android:id="@+id/baby_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="40dp"
-                android:layout_centerHorizontal="true"
-                android:clickable="false"
-                android:contentDescription="@string/profile_image_content_description"
-                android:src="@drawable/btn_radio_boy"
-                android:textColor="@color/primary"
-                app:border_width="2dp"
-                app:border_color="@color/white"
-                 />
-
-
-            <TextView
-                android:id="@+id/baby_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/baby_image"
-                android:layout_centerHorizontal="true"
-                android:clickable="false"
-                android:text="@string/edit_profile"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:visibility="visible" />
 
 
         <!--</ImageView>-->
@@ -61,7 +22,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="160dp"
                 android:id="@+id/diaper_block"
-                android:layout_below="@+id/profile_block"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"

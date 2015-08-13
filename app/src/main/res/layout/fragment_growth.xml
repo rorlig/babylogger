@@ -53,7 +53,8 @@
                     android:ems="10"
                     android:hint="@string/weight_title"
                     android:imeOptions="actionNext"
-
+                    android:ellipsize="end"
+                    android:textColorHint="#000000"
                     android:maxLength="5"
                     android:numeric="decimal"
 
@@ -125,10 +126,8 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:ems="10"
-                    android:hint="NOTES"
-                    android:singleLine="true"
+                    android:hint="@string/notes_hint"
                     android:imeOptions="actionDone"
-
                     />
             </android.support.design.widget.TextInputLayout>
 

@@ -55,15 +55,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class HomeFragment extends InjectableFragment {
 
-    @InjectView(R.id.profile_block)
-    ImageView profileImageView;
+//    @InjectView(R.id.profile_block)
+//    ImageView profileImageView;
 
-    @InjectView(R.id.baby_name)
-    TextView babyNameTextView;
+//    @InjectView(R.id.baby_name)
+//    TextView babyNameTextView;
 
 
-    @InjectView(R.id.baby_image)
-    CircleImageView babyImageView;
+//    @InjectView(R.id.baby_image)
+//    CircleImageView babyImageView;
 
     @Inject
     Picasso picasso;
@@ -95,7 +95,7 @@ public class HomeFragment extends InjectableFragment {
         Log.d(TAG, "onStart");
         String name = preferences.getString("name", "");
         if (!name.equals("")) {
-            babyNameTextView.setText("Welcome " + preferences.getString("name", ""));
+//            babyNameTextView.setText("Welcome " + preferences.getString("name", ""));
             String dob = preferences.getString("dob", "");
             if (!dob.equals("")){
                 String[] dateElements = dob.split(",");
@@ -143,7 +143,7 @@ public class HomeFragment extends InjectableFragment {
         final String imageUri = preferences.getString("imageUri", "");
 
         Log.d(TAG, "imageUri " + imageUri);
-        updateProfileImages();
+//        updateProfileImages();
 //        profileImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 //            @Override
 //            public void onGlobalLayout() {
@@ -161,18 +161,18 @@ public class HomeFragment extends InjectableFragment {
 //        });
 //    }
 
-    private void resetImageViews() {
-        Log.d(TAG, "resetImageViews");
-        babyImageView.setImageURI(null);
-        babyImageView.setImageDrawable(null);
-        babyImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.boy_normal));
-        profileImageView.setImageURI(null);
-        profileImageView.setImageDrawable(null);
-        profileImageView.setBackgroundColor(getResources().getColor(R.color.gray_cloud));
-//        actionBar.setIcon(babyImageView.getDrawable());
-//        actionBar.setLogo(babyImageView.getDrawable());
-
-    }
+//    private void resetImageViews() {
+//        Log.d(TAG, "resetImageViews");
+//        babyImageView.setImageURI(null);
+//        babyImageView.setImageDrawable(null);
+//        babyImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.boy_normal));
+//        profileImageView.setImageURI(null);
+//        profileImageView.setImageDrawable(null);
+//        profileImageView.setBackgroundColor(getResources().getColor(R.color.gray_cloud));
+////        actionBar.setIcon(babyImageView.getDrawable());
+////        actionBar.setLogo(babyImageView.getDrawable());
+//
+//    }
 
 
 
@@ -238,52 +238,52 @@ public class HomeFragment extends InjectableFragment {
 //        outState.putParcelableArray("list", homeAdapter.getLogListItem().toArray(new Parcelable[homeAdapter.getLogListItem().size()]));
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode== AppUtils.PROFILE_ACTIVITY) {
-                Log.d(TAG, "result from profile activity");
-                Log.d(TAG, "profile changes " + data.getBooleanExtra("saved_profile", false));
-                if (data.getBooleanExtra("saved_profile", false)) {
-                    updateProfileImages();
-                }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//            if (requestCode== AppUtils.PROFILE_ACTIVITY) {
+//                Log.d(TAG, "result from profile activity");
+//                Log.d(TAG, "profile changes " + data.getBooleanExtra("saved_profile", false));
+//                if (data.getBooleanExtra("saved_profile", false)) {
+//                    updateProfileImages();
+//                }
+//
+//            }
+//    }
 
-            }
-    }
-
-    private void updateProfileImages() {
-
-        final String imageUri = preferences.getString("imageUri", "");
-
-        Log.d(TAG, "imageUri " + imageUri);
-        if (!imageUri.equals("")) {
-
-            //             load background image in nav drawer
-            Log.d(TAG, "display metrics dpi " + getResources().getDisplayMetrics().density);
-            float density = getResources().getDisplayMetrics().density + 1;
-            picasso.load(Uri.parse(imageUri))
-                    .transform(new CropTransform(profileImageView.getWidth() / density, profileImageView.getHeight() / density))
-                    .transform(new BlurTransformation(getActivity()))
-                    .fit()
-                    .into(profileImageView);
-
-            // load background image in nav drawer
-            babyImageView.setImageDrawable(null);
-            babyImageView.setImageURI(null);
-            babyImageView.setImageURI(Uri.parse(imageUri));
-//                    picasso.load(Uri.parse(imageUri))
-//                            .transform(new CircleTransform())
-//                            .fit()
-//                            .into(babyImageView);
-//                    actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//                    ImageView profileImageIcon = (ImageView) actionBar.findViewById(R.id.icon_image);
-
-//                    actionBar.setIcon(babyImageView.getDrawable());
-        } else {
-
-            resetImageViews();
-        }
-    }
+//    private void updateProfileImages() {
+//
+//        final String imageUri = preferences.getString("imageUri", "");
+//
+//        Log.d(TAG, "imageUri " + imageUri);
+//        if (!imageUri.equals("")) {
+//
+//            //             load background image in nav drawer
+//            Log.d(TAG, "display metrics dpi " + getResources().getDisplayMetrics().density);
+//            float density = getResources().getDisplayMetrics().density + 1;
+//            picasso.load(Uri.parse(imageUri))
+//                    .transform(new CropTransform(profileImageView.getWidth() / density, profileImageView.getHeight() / density))
+//                    .transform(new BlurTransformation(getActivity()))
+//                    .fit()
+//                    .into(profileImageView);
+//
+//            // load background image in nav drawer
+//            babyImageView.setImageDrawable(null);
+//            babyImageView.setImageURI(null);
+//            babyImageView.setImageURI(Uri.parse(imageUri));
+////                    picasso.load(Uri.parse(imageUri))
+////                            .transform(new CircleTransform())
+////                            .fit()
+////                            .into(babyImageView);
+////                    actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+////                    ImageView profileImageIcon = (ImageView) actionBar.findViewById(R.id.icon_image);
+//
+////                    actionBar.setIcon(babyImageView.getDrawable());
+//        } else {
+//
+//            resetImageViews();
+//        }
+//    }
 
     @OnClick(R.id.diaper_block)
     public void diaperBlockClicked(){
@@ -307,10 +307,10 @@ public class HomeFragment extends InjectableFragment {
 
 
 
-    @OnClick(R.id.profile_block)
-    public void babyImageClicked() {
-        getActivity().startActivityForResult(new Intent(getActivity(), ProfileActivity.class), AppUtils.PROFILE_ACTIVITY);
-    }
+//    @OnClick(R.id.profile_block)
+//    public void babyImageClicked() {
+//        getActivity().startActivityForResult(new Intent(getActivity(), ProfileActivity.class), AppUtils.PROFILE_ACTIVITY);
+//    }
 
     @OnClick(R.id.sleep_block)
     public void sleepBlockClicked(){
@@ -319,10 +319,10 @@ public class HomeFragment extends InjectableFragment {
     }
 
 
-    @Subscribe
-    public void onUpdateProfile(UpdateProfileEvent event) {
-        Log.d(TAG, "profile updated");
-        updateProfileImages();
-
-    }
+//    @Subscribe
+//    public void onUpdateProfile(UpdateProfileEvent event) {
+//        Log.d(TAG, "profile updated");
+//        updateProfileImages();
+//
+//    }
 }

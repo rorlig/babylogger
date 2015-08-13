@@ -100,10 +100,6 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
 
     private String TAG = "MilestoneFragment";
 
-    private EventListener eventListener = new EventListener();
-    private boolean heightEmpty = true;
-    private boolean weightEmpty = true;
-    private boolean headMeasureEmpty = true;
     private int id = -1;
     private boolean showEditDelete = false;
     private ArrayAdapter<CharSequence> milestoneAdapter;
@@ -159,34 +155,12 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
             editDeleteBtn.setVisibility(View.VISIBLE);
             saveBtn.setVisibility(View.GONE);
 
-            //convert weight to pound.ounces
-
-//            String.val
-//            weightEditText.setText(convertWeightToString(growthDao.getWeight()));
-//            heightInchesEditText.setText(growthDao.getHeight().toString());
-//            headInchesEditText.setText(growthDao.getHeadMeasurement().toString());
             notes.setText(milestonesDao.getNotes());
             dateTimeHeader.setDateTime(milestonesDao.getDate());
             customMilestonesTextView.setText(milestonesDao.getTitle());
 
             Log.d(TAG, "imagePath: " + milestonesDao.getImagePath());
             updateImageUri(milestonesDao.getImagePath());
-//            Uri imageUri  = Uri.parse(milestonesDao.getImagePath());
-//            mileStoneImageView.setImageURI(null);
-
-//            Log.d(TAG, "update the image " + imageUri.toString());
-
-//            picasso.load(imageUri)
-//                    .fit()
-//                    .transform(new CircleTransform())
-//                    .into(mileStoneImageView);
-
-//            mileStoneImageView.setImageURI(imageUri);
-//            weightEmpty = false;
-//            heightEmpty = false;
-//            if (!headInchesEditText.getText().toString().equals("")) {
-//                headMeasureEmpty = false;
-//            }
             showEditDelete = true;
 
             milestoneEmpty = false;
@@ -352,42 +326,6 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     }
 
 
-//    /*
-//   * creates a temporary growth item from the local view values...
-//   */
-//    private GrowthDao createLocalGrowthDao() {
-//
-//        Date date = dateTimeHeader.getEventTime();
-//
-//        String weight = weightEditText.getText().toString();
-//
-//
-//        int indexOfDot = weight.indexOf(".");
-//
-//        Integer weightPounds = Integer.parseInt(weight.substring(0, indexOfDot==-1? weight.length(): indexOfDot));
-//
-//        Double totalWeight =  weightPounds.doubleValue();
-//
-//
-//        if (weight.length()>3) {
-//            Integer weightOunces = Integer.parseInt(weight.substring(3));
-//            totalWeight+=weightOunces.doubleValue()/16;
-//        }
-//
-//
-//
-//        Double height  = Double.parseDouble(heightInchesEditText.getText().toString());
-//
-//        Double headMeasure = -1.0;
-//
-//        if (!headInchesEditText.getText().toString().equals("")) {
-//            headMeasure =  Double.parseDouble(headInchesEditText.getText().toString());
-//        }
-//
-//
-//
-//        return new GrowthDao(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), date);
-//    }
 
     @OnClick(R.id.edit_btn)
     public void onEditBtnClicked(){

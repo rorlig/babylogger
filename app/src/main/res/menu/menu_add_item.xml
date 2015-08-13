@@ -6,7 +6,7 @@
         android:id="@+id/action_add"
         android:orderInCategory="100"
         android:icon="@drawable/ic_action_save_white"
-        apps:showAsAction="ifRoom" />
+        apps:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="200"

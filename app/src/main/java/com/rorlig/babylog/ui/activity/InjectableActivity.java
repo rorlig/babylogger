@@ -262,6 +262,7 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 //        imm.soft
         if (getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null) {
+            Log.d(TAG, "closing the window");
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
 

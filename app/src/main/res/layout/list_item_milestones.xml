@@ -38,7 +38,8 @@
         android:layout_marginLeft="10dp"
         android:textColor="@color/primary_dark_material_dark"
         android:layout_height="wrap_content"
-    />
+        android:singleLine="true"
+        />
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

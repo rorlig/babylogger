@@ -142,14 +142,16 @@ public class MilestonesActivity extends InjectableActivity {
             Log.d(TAG, "onItemAddedEvent");
             switch (addItemEvent.getItemType()) {
                 case MILESTONE:
+
                     showFragment(MilestoneFragment.class, "milestone_fragment", true);
+
                     break;
             }
         }
 
         @Subscribe
         public void onMilestoneItemCreated(MilestoneItemCreated event) {
-//            Log.d(TAG, "onFeedSavedEvent");
+            Log.d(TAG, "onMilestoneItemCreated");
 //            finish();
             getSupportFragmentManager().popBackStackImmediate();
             closeSoftKeyBoard();

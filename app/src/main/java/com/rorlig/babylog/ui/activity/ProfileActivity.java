@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -82,7 +83,11 @@ public class ProfileActivity extends InjectableActivity {
 
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (getIntent()!=null&&!getIntent().getBooleanExtra("from_tutorial",false)) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setToolbarIconVisibility(false);
 
@@ -155,7 +160,8 @@ public class ProfileActivity extends InjectableActivity {
         public void onSkipProfileEvent(SkipProfileEvent event){
             Intent returnIntent = new Intent();
             returnIntent.putExtra("saved_profile",false);
-            setResult(RESULT_OK,returnIntent);
+            setResult(RESULT_OK, returnIntent);
+            startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
             finish();
         }
 

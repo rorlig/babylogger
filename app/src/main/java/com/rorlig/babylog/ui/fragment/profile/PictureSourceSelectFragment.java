@@ -70,8 +70,8 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     @OnClick(R.id.camera_select)
     public void onCameraClick() {
         Log.d(TAG, "onCameraClick");
-        ProfileFragment profileFragment = (ProfileFragment) getTargetFragment();
-        profileFragment.handleCameraEvent();
+        PictureInterface pictureInterface = (PictureInterface) getTargetFragment();
+        pictureInterface.handleCameraEvent();
         dismiss();
     }
 

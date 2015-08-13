@@ -164,6 +164,8 @@
                 android:id="@+id/notes_content"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/primary_purple"
+                android:singleLine="true"
+
                 />
 
         </LinearLayout>

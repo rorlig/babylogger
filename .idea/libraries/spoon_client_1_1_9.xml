@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="spoon-client-1.1.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.spoon/spoon-client/1.1.9/1adb65d40c680ee8f7fe473292b43c213605735a/spoon-client-1.1.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.spoon/spoon-client/1.1.9/7cf49bdf9818fb0d3c49505687dd6446678f7ba/spoon-client-1.1.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -124,7 +124,7 @@
             android:layout_marginLeft="3dp"
             android:textColor="@color/primary_green"
             android:layout_toRightOf="@+id/notes_label"
-            android:text ="test"
+            android:singleLine="true"
             />
         </RelativeLayout>
 
