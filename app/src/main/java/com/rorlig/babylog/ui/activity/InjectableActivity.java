@@ -31,6 +31,7 @@ import com.squareup.otto.Subscribe;
 import org.w3c.dom.Text;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.EventListener;
 import java.util.List;
 
@@ -62,7 +63,13 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
     private String TAG = "InjectableActivity";
 
     private TextView titleTextView;
+
+
     ImageView profileImageIcon;
+
+    TextView babyNameTextView;
+
+    TextView babyAgeTextView;
 
 
         @Override
@@ -210,15 +217,30 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         profileImageIcon = (ImageView) toolbar.findViewById(R.id.icon_image);
         titleTextView = (TextView) toolbar.findViewById(R.id.title);
+//        babyAgeTextView = (TextView) toolbar.findViewById(R.id.baby_age);
+        babyNameTextView  = (TextView) toolbar.findViewById(R.id.baby_name);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         final String imageUri = preferences.getString("imageUri", "");
-        Log.d(TAG, "imageUri " + imageUri);
+        final String babyName = preferences.getString("name", "");
+//        final String dob = preferences.getString("dob", "");
+
+        Log.d(TAG, "imageUri " + imageUri + " babyName " + babyName);
+
+//        if (!babyName.equals("")) {
+//            babyNameTextView.setText(babyName);
+//        }
+
+//        if (!dob.equals("")) {
+//            babyAgeTextView.setText(dobString(dob));
+//        }
         if (!imageUri.equals("")) {
             Log.d(TAG, "setting the profile image");
             profileImageIcon.setImageURI(Uri.parse(imageUri));
         }
+
         profileImageIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,12 +254,25 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
     private void updateToolbar() {
         final String imageUri = preferences.getString("imageUri", "");
 
+        final String babyName = preferences.getString("name", "");
+//        final String dob = preferences.getString("dob", "");
+
         Log.d(TAG, "imageUri " + imageUri);
         if (!imageUri.equals("")) {
             profileImageIcon.setImageURI(Uri.parse(imageUri));
         } else {
             profileImageIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.boy_normal));
         }
+
+//        if (!babyName.equals("")) {
+//            babyNameTextView.setText(babyName);
+//        }
+
+//        if (!dob.equals("")) {
+//            babyAgeTextView.setText(dobString(dob));
+//        }
+
+
 
     }
 
@@ -268,6 +303,22 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
 
     }
 
-
-
+    private String dobString(String dob) {
+//        if (!dob.equals("")){
+            String[] dateElements = dob.split(",");
+            Log.d(TAG,"" + dateElements.length);
+            Log.d(TAG, dateElements[0]);
+            int year = Integer.parseInt(dateElements[0]);
+            int month = Integer.parseInt(dateElements[1]);
+            int day = Integer.parseInt(dateElements[2]);
+            Log.d(TAG, " year "  + year + " month " + month + " day " + day);
+            Calendar c = Calendar.getInstance();
+            c.set(year,month,day);
+            Log.d(TAG, "time " + c.getTimeInMillis());
+            long diff = System.currentTimeMillis() - c.getTimeInMillis();
+            long days = diff/(86400*1000);
+            Log.d(TAG, "days old " + days);
+//        }
+        return days + "days old ";
     }
+}

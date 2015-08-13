@@ -197,7 +197,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         int day = c.get(Calendar.DAY_OF_MONTH);
         dateEndYearTextView.setText("" + year);
         dateEndMonthTextView.setText((month<10? "0" + month: "" + month));
-        dateEndDayTextView.setText("" + day);
+        dateEndDayTextView.setText(day<10? "0" + day:"" + day);
 
     }
 
@@ -210,7 +210,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         int day = c.get(Calendar.DAY_OF_MONTH);
         dateStartYearTextView.setText("" + year);
         dateStartMonthTextView.setText((month < 10 ? "0" + month : "" + month));
-        dateStartDayTextView.setText("" + day);
+        dateStartDayTextView.setText(day<10? "0" + day:"" + day);
 
 
     }

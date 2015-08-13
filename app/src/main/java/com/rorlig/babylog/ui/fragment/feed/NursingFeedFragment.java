@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -166,6 +168,7 @@ public class NursingFeedFragment extends InjectableFragment {
     private int notification_id=0;
     private boolean leftHoursEmpty = true, leftMinutesEmpty  = true, rightHoursEmpty = true, rightMinutesEmpty  = true;
     private int id = -1;
+    private boolean showEditDelete = false;
 //    private SoundManager soundMgr;
 //    private CompositeSubscription subscriptions;
 //    private Subscription leftSubscription;
@@ -182,8 +185,8 @@ public class NursingFeedFragment extends InjectableFragment {
         dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
         dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
 
-        saveBtn.setEnabled(false);
 
+        setSaveEnabled();
 
 
 
@@ -228,7 +231,7 @@ public class NursingFeedFragment extends InjectableFragment {
             dateTimeHeader.setDateTime(feedDao.getDate());
 
 
-
+            showEditDelete = true;
 
 //            quantityTextView.setText(feedDao.getQuantity().toString());
 //            final String[] values = getResources().getStringArray(R.array.type_array);
@@ -342,7 +345,7 @@ public class NursingFeedFragment extends InjectableFragment {
 //                    //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
 //                }
 
-                if (str.length()>0) {
+                if (str.length() > 0) {
 //                    saveBtn.setEnabled(true);
                     leftMinutesEmpty = false;
 
@@ -381,7 +384,7 @@ public class NursingFeedFragment extends InjectableFragment {
 
                 Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
 
-                if (str.length()>0) {
+                if (str.length() > 0) {
 
 //                    saveBtn.setEnabled(true);
                     rightHoursEmpty = false;
@@ -450,7 +453,23 @@ public class NursingFeedFragment extends InjectableFragment {
 
 
     }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        Log.d(TAG, "onPrepareOptionsMenu");
+        if ((!rightMinutesEmpty || !rightHoursEmpty || !leftMinutesEmpty || !leftHoursEmpty)) {
+            Log.d(TAG, "disable the action_add");
+            menu.findItem(R.id.action_add).setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_save_white));
+
+        } else {
+            menu.findItem(R.id.action_add).setEnabled(false);
+
+        }
+    }
+
     private void setSaveEnabled() {
+        getActivity().invalidateOptionsMenu();
+
         Log.d(TAG, " rightMinutesEmpty " + rightMinutesEmpty + " rightHoursEmpty " + rightHoursEmpty
                 + " leftMinutesEmpty " + leftMinutesEmpty + " leftHoursEmpty " + leftHoursEmpty);
         if ((!rightMinutesEmpty || !rightHoursEmpty || !leftMinutesEmpty || !leftHoursEmpty)) {
@@ -468,10 +487,6 @@ public class NursingFeedFragment extends InjectableFragment {
         } else {
             saveBtn.setEnabled(false);
             notes.setImeOptions(EditorInfo.IME_ACTION_NONE);
-//            rightSleepMinutes.setImeOptions(EditorInfo.IME_ACTION_NONE);
-//            leftSleepHours.setImeOptions(EditorInfo.IME_ACTION_NONE);
-//            leftSleepMinutes.setImeOptions(EditorInfo.IME_ACTION_NONE);
-
         }
 
 
@@ -516,7 +531,29 @@ public class NursingFeedFragment extends InjectableFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_base, menu);
+        if (!showEditDelete) {
+            inflater.inflate(R.menu.menu_add_item, menu);
+        } else {
+            inflater.inflate(R.menu.menu_edit_delete_item, menu);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+//            case R.id.action_add:
+//                createOrEdit();
+////                startActivity(new Intent(getActivity(), PrefsActivity.class));
+//                return true;
+            case R.id.action_add:
+                createOrEdit();
+                return true;
+            case R.id.action_delete:
+                onDeleteBtnClicked();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

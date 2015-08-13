@@ -3,6 +3,7 @@ package com.rorlig.babylog.ui.fragment.feed;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -87,6 +89,10 @@ public class BottleFeedFragment extends InjectableFragment
 
     private int id =-1;
 
+    private boolean showEditDelete = false;
+    private boolean quantityEmpty = true;
+
+
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
@@ -101,7 +107,7 @@ public class BottleFeedFragment extends InjectableFragment
 // Apply the adapter to the spinner
         feedTypeSpinner.setAdapter(feedAdapter);
 
-        saveBtn.setEnabled(false);
+//        saveBtn.setEnabled(false);
 
 
         scopedBus.post(new FragmentCreated("Bottle Feed"));
@@ -122,6 +128,8 @@ public class BottleFeedFragment extends InjectableFragment
         }
 
         notes.setOnEditorActionListener(doneActionListener);
+
+        setSaveEnabled();
 
 //        feedTypeSpinner.setOnItemClickListener(this);
     }
@@ -156,10 +164,13 @@ public class BottleFeedFragment extends InjectableFragment
                 }
 
                 if (str.length() > 0) {
-                    saveBtn.setEnabled(true);
+                    quantityEmpty = false;
                 } else {
-                    saveBtn.setEnabled(false);
+                    quantityEmpty = true;
+
                 }
+
+                setSaveEnabled();
             }
 
             @Override
@@ -194,6 +205,8 @@ public class BottleFeedFragment extends InjectableFragment
 
             dateTimeHeader.setDateTime(feedDao.getDate());
 
+            showEditDelete = true;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -224,8 +237,31 @@ public class BottleFeedFragment extends InjectableFragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_main, menu);
+        if (!showEditDelete) {
+            inflater.inflate(R.menu.menu_add_item, menu);
+        } else {
+            inflater.inflate(R.menu.menu_edit_delete_item, menu);
+        }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+//            case R.id.action_add:
+//                createOrEdit();
+////                startActivity(new Intent(getActivity(), PrefsActivity.class));
+//                return true;
+            case R.id.action_add:
+                createOrEdit();
+                return true;
+            case R.id.action_delete:
+                onDeleteBtnClicked();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -331,6 +367,34 @@ public class BottleFeedFragment extends InjectableFragment
             e.printStackTrace();
         }
 
+
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        Log.d(TAG, "onPrepareOptionsMenu");
+        if (!quantityEmpty) {
+            Log.d(TAG, "disable the action_add");
+            menu.findItem(R.id.action_add).setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_save_white));
+
+        } else {
+            menu.findItem(R.id.action_add).setEnabled(false);
+
+        }
+    }
+
+    private void setSaveEnabled() {
+
+        getActivity().invalidateOptionsMenu();
+
+        if (!quantityEmpty) {
+            saveBtn.setEnabled(true);
+            notes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        } else {
+            saveBtn.setEnabled(false);
+            notes.setImeOptions(EditorInfo.IME_ACTION_NONE);
+
+        }
 
     }
 
