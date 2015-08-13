@@ -81,10 +81,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/design/22.2.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.3/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.3/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.4/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.5.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.getbase/floatingactionbutton/1.9.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.amlcurran.showcaseview/library/5.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.paolorotolo/appintro/1.4.0/jars" />
@@ -116,17 +116,17 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="ormlite-android-4.48" level="project" />
     <orderEntry type="library" exported="" name="design-22.2.1" level="project" />
+    <orderEntry type="library" exported="" name="crashlytics-2.5.1" level="project" />
     <orderEntry type="library" exported="" name="floatingactionbutton-1.9.0" level="project" />
     <orderEntry type="library" exported="" name="android-cropimage-1.1.0" level="project" />
     <orderEntry type="library" exported="" name="easycamera-0.0.1" level="project" />
+    <orderEntry type="library" exported="" name="answers-1.3.1" level="project" />
+    <orderEntry type="library" exported="" name="crashlytics-core-2.3.4" level="project" />
     <orderEntry type="library" exported="" name="circleimageview-1.3.0" level="project" />
-    <orderEntry type="library" exported="" name="answers-1.3.0" level="project" />
-    <orderEntry type="library" exported="" name="crashlytics-core-2.3.3" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="javawriter-2.1.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="javax.annotation-api-1.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="espresso-idling-resource-2.2" level="project" />
     <orderEntry type="library" exported="" name="library-5.0.0" level="project" />
-    <orderEntry type="library" exported="" name="crashlytics-2.5.0" level="project" />
     <orderEntry type="library" exported="" name="dagger-compiler-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="ocpsoft-pretty-time-1.0.7" level="project" />
     <orderEntry type="library" exported="" name="rxjava-1.0.12" level="project" />
@@ -150,8 +150,8 @@
     <orderEntry type="library" exported="" name="library-1.3" level="project" />
     <orderEntry type="library" exported="" name="retrofit-mock-1.3.0" level="project" />
     <orderEntry type="library" exported="" name="okhttp-1.3.0" level="project" />
-    <orderEntry type="library" exported="" name="jackson-core-asl-1.9.13" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.1.1" level="project" />
+    <orderEntry type="library" exported="" name="jackson-core-asl-1.9.13" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="jsr305-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="MPAndroidChart-v2.1.0" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
