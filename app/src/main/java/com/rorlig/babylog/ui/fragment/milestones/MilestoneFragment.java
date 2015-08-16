@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.android.camera.CropImageIntentBuilder;
 import com.desmond.squarecamera.CameraActivity;
 import com.gc.materialdesign.views.Button;
+import com.gc.materialdesign.views.ButtonFlat;
 import com.j256.ormlite.dao.Dao;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
@@ -86,7 +87,10 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     EditText notes;
 
     @InjectView(R.id.milestone_pic)
-    CircleImageView mileStoneImageView;
+    ImageView mileStoneImageView;
+
+    @InjectView(R.id.add_image_button)
+    android.widget.Button addImageButton;
 
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
@@ -144,6 +148,7 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
 //        mileStoneImageView.setBackgroundColor(Color.CYAN);
 
         setUpTextWatchers();
+
 
 
     }
@@ -274,6 +279,7 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "onViewCreated");
+
 
     }
 
@@ -434,8 +440,9 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     }
 
     private void resetImageView() {
+        addImageButton.setText("Add Picture");
         mileStoneImageView.setImageURI(null);
-        mileStoneImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.boy_normal));
+        mileStoneImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_action_profile));
     }
 
 
@@ -467,6 +474,15 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
 
     @OnClick(R.id.milestone_pic)
     public void setBabyPicImageViewClicked(){
+        addPicture();
+    }
+
+    @OnClick(R.id.add_image_button)
+    public void addImageButtonClicked(){
+        addPicture();
+    }
+
+    private void addPicture() {
         pictureSourceSelectFragment = new PictureSourceSelectFragment();
         Bundle args = new Bundle();
         args.putInt("color", R.color.orange_transparent);
@@ -560,6 +576,7 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
 //            mileStoneImageView.setColorFilter(Color.CYAN);
             mileStoneImageView.setImageURI(null);
             mileStoneImageView.setImageURI(imageUri);
+            addImageButton.setText("Change Picture");
         }
     }
 

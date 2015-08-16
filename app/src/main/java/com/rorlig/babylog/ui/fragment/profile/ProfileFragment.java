@@ -19,12 +19,12 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.camera.CropImageIntentBuilder;
 import com.desmond.squarecamera.CameraActivity;
 import com.gc.materialdesign.views.Button;
+import com.gc.materialdesign.views.ButtonFlat;
 import com.rorlig.babylog.R;
 import com.rorlig.babylog.dagger.ForActivity;
 import com.rorlig.babylog.otto.CroppedImageEvent;
@@ -37,7 +37,6 @@ import com.rorlig.babylog.otto.events.ui.FragmentCreated;
 import com.rorlig.babylog.ui.PictureInterface;
 import com.rorlig.babylog.ui.fragment.InjectableFragment;
 import com.rorlig.babylog.utils.AppUtils;
-import com.rorlig.babylog.utils.transform.CircleTransform;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
@@ -82,14 +81,14 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     @InjectView(R.id.date_picker_birthday)
     DatePicker datePickerBirthday;
 
-    @InjectView(R.id.milestone_pic)
+    @InjectView(R.id.baby_pic)
     ImageView babyPicImageView;
 
-    @InjectView(R.id.add_picture)
-    RelativeLayout addPictureLayout;
+//    @InjectView(R.id.add_picture)
+//    RelativeLayout addPictureLayout;
 
-    @InjectView(R.id.add_image_text)
-    TextView addImageTextView;
+    @InjectView(R.id.add_image_button)
+    android.widget.Button addButton;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
@@ -207,12 +206,14 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
         if (!imageString.equals("")){
             Log.d(TAG, "setting imageString into babyPic");
             imageUri = Uri.parse(imageString);
-            picasso.load(imageUri)
-                    .fit()
-                    .transform(new CircleTransform())
-                    .into(babyPicImageView);
 
-            addImageTextView.setVisibility(View.GONE);
+            updateImageUri(imageString);
+//            picasso.load(imageUri)
+//                    .fit()
+//                    .transform(new CircleTransform())
+//                    .into(babyPicImageView);
+
+            addButton.setText("Change Picture");
         } else {
            resetImageView();
         }
@@ -221,9 +222,11 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     private void resetImageView() {
         babyPicImageView.setImageURI(null);
 
-        babyPicImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_add_picture_new));
+        babyPicImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_action_profile));
 
-        addImageTextView.setVisibility(View.VISIBLE);
+        addButton.setVisibility(View.VISIBLE);
+
+        addButton.setText("Add Picture");
 
 
     }
@@ -255,7 +258,7 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
         @Subscribe
         public void pictureSelectedEvent(PictureSelectEvent event) {
             Log.d(TAG, "pictureSelectEvent");
-            babyPicImageView.setImageURI(event.getImageUri());
+            updateImageUri(event.getImageUri().toString());
         }
 
         @Subscribe
@@ -334,12 +337,25 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     }
 
 
-    @OnClick(R.id.add_picture)
+    @OnClick(R.id.add_image_button)
+    public void setBabyImageButtonClicked(){
+        imageClicked();
+
+    }
+
+    @OnClick(R.id.baby_pic)
     public void setBabyPicImageViewClicked(){
-         pictureSourceSelectFragment = new PictureSourceSelectFragment();
+        imageClicked();
+    }
+
+
+    private void imageClicked() {
+        pictureSourceSelectFragment = new PictureSourceSelectFragment();
         pictureSourceSelectFragment.setTargetFragment(this,1);
         pictureSourceSelectFragment.show(getActivity().getSupportFragmentManager(), "picture_select_fragment");
+
     }
+
 
 
     @OnClick(R.id.save_btn)
@@ -494,7 +510,8 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 //                            .into(babyPicImageView);
             babyPicImageView.setImageURI(null);
             babyPicImageView.setImageURI(imageUri);
-            addImageTextView.setVisibility(View.GONE);
+            addButton.setText("Change Picture");
+//            addButton.setVisibility(View.GONE);
         }
     }
 
