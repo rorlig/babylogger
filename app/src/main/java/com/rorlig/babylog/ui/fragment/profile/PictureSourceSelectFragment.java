@@ -1,27 +1,20 @@
 package com.rorlig.babylog.ui.fragment.profile;
 
-import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.graphics.SurfaceTexture;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.desmond.squarecamera.CameraActivity;
 import com.rorlig.babylog.R;
-import com.rorlig.babylog.otto.GalleryEvent;
-import com.rorlig.babylog.otto.events.camera.CameraStartEvent;
 import com.rorlig.babylog.ui.PictureInterface;
 import com.rorlig.babylog.ui.fragment.InjectableDialogFragment;
-import com.rorlig.babylog.utils.AppUtils;
-
-import java.io.File;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -40,6 +33,22 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
 
     @InjectView(R.id.gallery)
     ImageView galleryImageView;
+
+    @InjectView(R.id.delete_image)
+    ImageView deleteImageView;
+
+    @InjectView(R.id.gallery_text)
+    TextView galleryTextView;
+
+    @InjectView(R.id.camera_text)
+    TextView cameraTextView;
+
+
+    @InjectView(R.id.delete_text)
+    TextView deleteTextView;
+
+
+
     private String TAG = "PictureSourceSelectFragment";
     private SurfaceTexture surface;
 
@@ -51,6 +60,18 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         surface = new SurfaceTexture(1);
+        if (getArguments()!=null) {
+            int color = getArguments().getInt("color");
+
+            changeImageViewColor(cameraImageView, color);
+            changeImageViewColor(galleryImageView, color);
+            changeImageViewColor(deleteImageView, color);
+            galleryTextView.setTextColor(getResources().getColor(color));
+            cameraTextView.setTextColor(getResources().getColor(color));
+            deleteTextView.setTextColor(getResources().getColor(color));
+
+
+        }
     }
 
     @Override
@@ -95,5 +116,12 @@ public class PictureSourceSelectFragment extends InjectableDialogFragment {
         PictureInterface pictureInterface = (PictureInterface) getTargetFragment();
         pictureInterface.deleteImage();
         dismiss();
+    }
+
+    private void changeImageViewColor(ImageView imageView, int color) {
+        Resources res = getActivity().getResources();
+//        final ImageView image = (ImageView) findViewById(R.id.imageId);
+        final int newColor = res.getColor(color);
+        imageView.setColorFilter(newColor, PorterDuff.Mode.SRC_ATOP);
     }
 }

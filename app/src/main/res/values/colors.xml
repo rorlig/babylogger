@@ -985,6 +985,8 @@
     <color name="vivid_tangerine">#FFA089</color>
     <color name="neon_carrot">#FFA343</color>
     <color name="orange">#FFA500</color>
+    <color name="orange_transparent">#FFFFA500</color>
+
     <color name="cantaloupe">#FFA62F</color>
     <color name="carnation_pink_three">#FFA6C9</color>
     <color name="chrome_yellow">#FFA700</color>

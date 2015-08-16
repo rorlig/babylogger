@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -140,6 +141,7 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
             id = getArguments().getInt("id");
             initViews(id);
         }
+//        mileStoneImageView.setBackgroundColor(Color.CYAN);
 
         setUpTextWatchers();
 
@@ -466,6 +468,9 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     @OnClick(R.id.milestone_pic)
     public void setBabyPicImageViewClicked(){
         pictureSourceSelectFragment = new PictureSourceSelectFragment();
+        Bundle args = new Bundle();
+        args.putInt("color", R.color.orange_transparent);
+        pictureSourceSelectFragment.setArguments(args);
         pictureSourceSelectFragment.setTargetFragment(this, 1);
         pictureSourceSelectFragment.show(getActivity().getSupportFragmentManager(), "picture_select_fragment");
     }
@@ -552,6 +557,7 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
         if (!imageString.equals("")){
             imageUri = Uri.parse(imageString);
             Log.d(TAG, "update the image " + imageUri.toString());
+//            mileStoneImageView.setColorFilter(Color.CYAN);
             mileStoneImageView.setImageURI(null);
             mileStoneImageView.setImageURI(imageUri);
         }

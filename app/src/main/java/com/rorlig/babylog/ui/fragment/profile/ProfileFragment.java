@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.camera.CropImageIntentBuilder;
@@ -83,6 +84,12 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 
     @InjectView(R.id.milestone_pic)
     ImageView babyPicImageView;
+
+    @InjectView(R.id.add_picture)
+    RelativeLayout addPictureLayout;
+
+    @InjectView(R.id.add_image_text)
+    TextView addImageTextView;
 
     @InjectView(R.id.save_btn)
     Button saveBtn;
@@ -204,6 +211,8 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
                     .fit()
                     .transform(new CircleTransform())
                     .into(babyPicImageView);
+
+            addImageTextView.setVisibility(View.GONE);
         } else {
            resetImageView();
         }
@@ -212,7 +221,10 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     private void resetImageView() {
         babyPicImageView.setImageURI(null);
 
-        babyPicImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.btn_radio_boy));
+        babyPicImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_add_picture_new));
+
+        addImageTextView.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -322,7 +334,7 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     }
 
 
-    @OnClick(R.id.milestone_pic)
+    @OnClick(R.id.add_picture)
     public void setBabyPicImageViewClicked(){
          pictureSourceSelectFragment = new PictureSourceSelectFragment();
         pictureSourceSelectFragment.setTargetFragment(this,1);
@@ -476,12 +488,13 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
             imageUri = Uri.parse(imageString);
             Log.d(TAG, "update the image " + imageUri.toString());
 //            babyPicImageView.set
-            picasso.load(imageUri)
-                    .fit()
-                    .transform(new CircleTransform())
-                            .into(babyPicImageView);
-//            babyPicImageView.setImageURI(null);
-//            babyPicImageView.setImageURI(imageUri);
+//            picasso.load(imageUri)
+//                    .fit()
+//                    .transform(new CircleTransform())
+//                            .into(babyPicImageView);
+            babyPicImageView.setImageURI(null);
+            babyPicImageView.setImageURI(imageUri);
+            addImageTextView.setVisibility(View.GONE);
         }
     }
 

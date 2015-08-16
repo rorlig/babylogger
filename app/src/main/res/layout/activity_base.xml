@@ -19,8 +19,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/icon_image"
-            android:src="@drawable/ic_action_profile"
-            app:border_width="2dp"
+            android:src="@drawable/ic_baby_profile_gray"
+            app:border_width="3dp"
             app:border_color="@color/white"
             />
         <TextView

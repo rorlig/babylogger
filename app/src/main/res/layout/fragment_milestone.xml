@@ -30,14 +30,16 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/milestone_pic"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:textColor="@color/primary"
+
                 android:clickable="false"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/boy_normal"
+                android:src="@drawable/ic_add_picture_new"
                 app:border_width="2dp"
-                app:border_color="@color/wheat"/>
+                app:border_color="@color/orange"
+                />
 
 
             <!--<TextView-->

@@ -261,7 +261,7 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
         if (!imageUri.equals("")) {
             profileImageIcon.setImageURI(Uri.parse(imageUri));
         } else {
-            profileImageIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.boy_normal));
+            profileImageIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_baby_profile));
         }
 
 //        if (!babyName.equals("")) {
