@@ -319,13 +319,15 @@
     <string name="sleep_start_time">Sleep Start Time: </string>
     <string name="sleep_end_time">Sleep End Time: </string>
     <string name="sleep_duration">Sleep Duration: </string>
-    <string name="diaper_log_description_text">Log all the diaper changes.</string>
-    <string name="feed_log_description_text">Track both bottle and breast feeds</string>
-    <string name="growth_log_description_text">Record everything and chart progress on beautiful graphs</string>
-    <string name="milestone_log_description_text">Capture each milestone of your child</string>
+
+    <string name="diaper_log_description_text">Diaper Changes</string>
+
+    <string name="feed_log_description_text">Bottle and Breast Feeds</string>
+    <string name="growth_log_description_text">Growth</string>
+    <string name="milestone_log_description_text">Milestones and Memories</string>
     <string name="diaper_description_title">Log Diaper Changes</string>
     <string name="btn_save_txt">Save</string>
-    <string name="sleep_description_text">Sleep too much or too little? </string>
+    <string name="sleep_description_text">Sleep </string>
     <string name="height_title">Height (Inches)</string>
     <string name="title_activity_sleep">Sleep</string>
     <string name="fab_title_bottle">Bottle Feed</string>
@@ -363,6 +365,7 @@
     <string name="hint_notes">Notes</string>
     <string name="image_milestone">Image MIlestone</string>
     <string name="no_feed">Start logging baby feeds</string>
+    <string name="action_profile">Profile</string>
 
 
 </resources>

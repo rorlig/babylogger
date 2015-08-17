@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00BCD4"
     android:layout_weight="10"
     android:id="@+id/main">
 
@@ -12,41 +11,31 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:paddingLeft="32dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:fontFamily="sans-serif-thin"
-        android:textColor="#ffffff"
         android:paddingRight="32dp"
-        android:textSize="28sp"
-        android:text="Slide 2 title"/>
+        android:textSize="24sp"
+        android:text="Enter information on simple beautiful forms"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_weight="5">
+        android:layout_marginBottom="10dp"
+        android:layout_weight="6">
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:src="@drawable/ic_feed_normal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/forms_diaper_change"
             />
     </LinearLayout>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="#ffffff"
-        android:paddingLeft="64dp"
-        android:paddingRight="64dp"
-        android:textSize="16sp"
-        android:text="Loooooooooooooooo[...]ooooooooong descreption here"/>
-    <TextView
         android:layout_width="fill_parent"
-        android:layout_height="64dp" />
+        android:layout_height="80dp" />
+
 </LinearLayout>
