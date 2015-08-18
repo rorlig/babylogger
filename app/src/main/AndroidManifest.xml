@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rorlig.babyapp"
     android:versionCode="0"
-    android:versionName="1.0.9">
+    android:versionName="@string/version_number_summary">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -56,6 +56,8 @@
             android:name=".ui.activity.ProfileActivity"
             android:parentActivityName=".ui.activity.HomeActivity"
             android:windowSoftInputMode="adjustPan"
+            android:label="Profile"
+
 
             >
             <meta-data
@@ -71,6 +73,9 @@
 
             android:theme="@style/AppTheme.Orange"
             android:windowSoftInputMode="adjustPan"
+            android:title="@string/milestone_type_title"
+            android:label="Milestones"
+
 
             >
             <meta-data
@@ -84,6 +89,10 @@
             android:parentActivityName=".ui.activity.HomeActivity"
             android:theme="@style/AppTheme.Gray"
             android:windowSoftInputMode="adjustPan"
+            android:title="@string/sleep_description_text"
+            android:label="Sleep"
+
+
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -95,6 +104,8 @@
             android:name=".ui.activity.DiaperChangeActivity"
             android:theme="@style/AppTheme.Purple"
             android:windowSoftInputMode="adjustPan|stateHidden"
+            android:title="@string/diaper_change_title"
+            android:label="Diaper Change"
 
             >
             <meta-data
@@ -108,10 +119,12 @@
             android:parentActivityName=".ui.activity.HomeActivity"
             android:theme="@style/AppTheme.Blue"
             android:title="@string/feeding_title"
-            android:windowSoftInputMode="adjustPan">
-            <!--<meta-data-->
-            <!--android:name="android.support.PARENT_ACTIVITY"-->
-            <!--android:value=".ui.activity.BabyLogActivity" />-->
+            android:windowSoftInputMode="adjustPan"
+            android:label="Feeding"
+            >
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.activity.HomeActivity" />
         </activity>
         <!-- Parent activity meta-data to support 4.0 and lower -->
 
@@ -122,6 +135,8 @@
             android:theme="@style/AppTheme.Green"
 
             android:title="@string/growth_title"
+            android:label="Growth"
+
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
 
@@ -129,6 +144,8 @@
             android:name=".ui.activity.PrefsActivity"
             android:parentActivityName=".ui.activity.HomeActivity"
             android:theme="@style/AppTheme"
+            android:label="Preferences"
+
 
             android:title="@string/prefs_title" />
 

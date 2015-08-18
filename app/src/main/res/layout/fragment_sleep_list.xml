@@ -28,7 +28,7 @@
         android:id="@+id/sleep_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         />
 
     <RelativeLayout android:id="@+id/empty_view"
@@ -40,7 +40,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_sleep_normal"
+            android:background="@drawable/ic_sleep_circle"
             android:id="@+id/icon_no_diaper_change"
             android:layout_centerInParent="true"
             />

@@ -9,10 +9,11 @@
         <Preference
             android:title="@string/version_number_title"
             android:summary="@string/version_number_summary"
+            android:key="version_number"
             />
-        <Preference
-            android:title="@string/more_settings_toc"
-            android:key="@string/more_settings_toc"
-            />
+        <!--<Preference-->
+            <!--android:title="@string/more_settings_toc"-->
+            <!--android:key="@string/more_settings_toc"-->
+            <!--/>-->
     </PreferenceCategory>
 </PreferenceScreen>

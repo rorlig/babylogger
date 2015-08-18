@@ -1,6 +1,7 @@
 package com.rorlig.babyapp.utils;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
@@ -82,6 +83,11 @@ public class AppUtils {
     public static Drawable getDrawableFromUri(Uri uri, Context context) throws FileNotFoundException {
         InputStream inputStream = context.getContentResolver().openInputStream(uri);
         return Drawable.createFromStream(inputStream, uri.toString() );
+    }
+
+    public static String getPackageVersionName(Context context) throws PackageManager.NameNotFoundException {
+        return context.getPackageManager()
+                .getPackageInfo(context.getPackageName(), 0).versionName;
     }
 
 }
