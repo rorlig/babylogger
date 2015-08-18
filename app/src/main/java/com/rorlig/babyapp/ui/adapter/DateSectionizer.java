@@ -19,7 +19,7 @@ public class DateSectionizer implements Sectionizer<BaseDao> {
     private static final String MONTH = "Last Month";
     private static final String TWO_MONTH = "Two Months ago";
     private static final String SIX_MONTH = "Six Months ago";
-    private static final String YEAR = "Last Year";
+    private static final String YEAR = "Over a Year ago";
 
     private final long LENGTH_DAY = 24 * 60 * 60 * 1000;
 
