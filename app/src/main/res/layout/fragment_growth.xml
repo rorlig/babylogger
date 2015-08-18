@@ -127,6 +127,7 @@
                     android:layout_marginRight="15dp"
                     android:ems="10"
                     android:hint="@string/notes_hint"
+                    android:singleLine="true"
                     android:imeOptions="actionDone"
                     />
             </android.support.design.widget.TextInputLayout>

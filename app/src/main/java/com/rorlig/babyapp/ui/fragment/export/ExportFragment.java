@@ -596,7 +596,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
      */
 
     private Uri createFeedListToCSV(List<FeedDao> feedList) {
-        String header =   "\"Date\",\"Type\",\"Item\",\"Quantity\",\"Left Breast Time\",\"Right Breast Time\",\"Notes\"\n";
+        String header =   "\"Date\",\"Type\",\"Item\",\"Quantity\",\"Left Breast Time (min) \",\"Right Breast Time (min)\",\"Notes\"\n";
         StringBuilder stringBuilder = new StringBuilder();
         for (FeedDao feedItem: feedList) {
             stringBuilder.append("\"" + feedItem.getDate() + "\",\""
@@ -654,7 +654,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
             stringBuilder.append("\"" + growthItem.getDate() + "\",\""
                     + growthItem.getWeight() + "\",\""
                     + growthItem.getHeight() + "\",\"" + growthItem.getHeadMeasurement() + "\",\""
-                    + "\",\"" + growthItem.getNotes() + "\"\n");
+                    + growthItem.getNotes() + "\"\n");
 
 
         }
@@ -703,7 +703,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         StringBuilder stringBuilder = new StringBuilder();
         for (MilestonesDao milestoneItem: milestonesList) {
             stringBuilder.append("\"" + milestoneItem.getDate() + "\",\""
-                    + milestoneItem.getTitle() + "\",\"");
+                    + milestoneItem.getTitle() + "\"\n");
         }
         String combinedString = header + stringBuilder.toString();
         Log.d(TAG, "combined " + combinedString);

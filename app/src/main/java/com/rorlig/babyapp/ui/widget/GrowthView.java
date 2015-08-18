@@ -68,7 +68,7 @@ public class GrowthView extends RelativeLayout {
     }
 
     private void bindModel() {
-        headTextView.setText(model.getHeadMeasurement() + " inches");
+        headTextView.setText(model.getHeadMeasurement()!=-1?model.getHeadMeasurement() + " inches": "");
         heightTextView.setText(model.getHeight() + " inches");
         weightTextView.setText(model.getWeight() + " pounds");
         textViewTime.setText(simpleDateFormat.format(new Date(model.getDate().getTime())));
