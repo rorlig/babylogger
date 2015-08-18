@@ -15,7 +15,7 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_out">Sign out</string>
     <string name="action_sign_up">Sign up</string>
-    <string name="app_name">Baby Logger</string>
+    <string name="app_name">Baby App</string>
     <string name="auth_client_needs_enabling_title">An application requires Google Play Services to be enabled.</string>
     <string name="auth_client_needs_installation_title">An application requires installation of Google Play Services.</string>
     <string name="auth_client_needs_update_title">An application requires an update for Google Play Services.</string>

@@ -1,36 +1,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rorlig.babylog"
+    package="com.rorlig.babyapp"
     android:versionCode="0"
-    android:versionName="1.0.8">
+    android:versionName="1.0.9">
 
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
-
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
 
     <!--<uses-permission android:name="android.permission.VIBRATE" />-->
 
-    <application android:allowBackup="true"
-        android:label="@string/app_name"
-        android:name=".BabyLoggerApplication"
-        android:theme="@style/AppTheme"
+    <application
+        android:name="com.rorlig.babyapp.BabyLoggerApplication"
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher_1"
-
-        >
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
 
         <activity
             android:name=".ui.activity.LandingActivity"
-            android:label="BabyLogger"
-            android:title="@string/app_name"
             android:launchMode="singleTop"
             android:noHistory="true"
-            >
+            android:title="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,17 +37,13 @@
 
         </activity>
 
-        <activity android:name=".ui.activity.TutorialActivity"
-            android:noHistory="true"
-            >
-        </activity>
         <activity
-            android:name=".ui.activity.HomeActivity">
-        </activity>
-        <activity android:name=".ui.activity.ExportActivity"
-            android:parentActivityName=".ui.activity.HomeActivity"
-            android:label="@string/export_header"
-            >
+            android:name=".ui.activity.TutorialActivity"
+            android:noHistory="true" />
+        <activity android:name=".ui.activity.HomeActivity" />
+        <activity
+            android:name=".ui.activity.ExportActivity"
+            android:parentActivityName=".ui.activity.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.HomeActivity" />
@@ -59,22 +52,21 @@
         </activity>
 
 
-        <activity android:name=".ui.activity.ProfileActivity"
-            android:label="@string/profile_title"
+        <activity
+            android:name=".ui.activity.ProfileActivity"
             android:parentActivityName=".ui.activity.HomeActivity"
             android:windowSoftInputMode="adjustPan"
 
             >
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.activity.HomeActivity" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.HomeActivity" />
             >
         </activity>
 
 
-
-        <activity android:name=".ui.activity.MilestonesActivity"
-            android:label="@string/title_activity_milestones"
+        <activity
+            android:name=".ui.activity.MilestonesActivity"
             android:parentActivityName=".ui.activity.HomeActivity"
 
             android:theme="@style/AppTheme.Orange"
@@ -87,12 +79,11 @@
             >
         </activity>
 
-        <activity android:name=".ui.activity.SleepActivity"
-            android:label="@string/title_activity_sleep"
+        <activity
+            android:name=".ui.activity.SleepActivity"
             android:parentActivityName=".ui.activity.HomeActivity"
             android:theme="@style/AppTheme.Gray"
             android:windowSoftInputMode="adjustPan"
-
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -102,7 +93,6 @@
 
         <activity
             android:name=".ui.activity.DiaperChangeActivity"
-            android:label="@string/diaper_change_title"
             android:theme="@style/AppTheme.Purple"
             android:windowSoftInputMode="adjustPan|stateHidden"
 
@@ -110,67 +100,60 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.HomeActivity" />
-         </activity>
+        </activity>
 
 
         <activity
             android:name=".ui.activity.FeedingActivity"
-            android:label="Feeding"
-            android:title="@string/feeding_title"
-            android:theme="@style/AppTheme.Blue"
             android:parentActivityName=".ui.activity.HomeActivity"
+            android:theme="@style/AppTheme.Blue"
+            android:title="@string/feeding_title"
             android:windowSoftInputMode="adjustPan">
             <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.activity.BabyLogActivity" />-->
+            <!--android:name="android.support.PARENT_ACTIVITY"-->
+            <!--android:value=".ui.activity.BabyLogActivity" />-->
         </activity>
-            <!-- Parent activity meta-data to support 4.0 and lower -->
+        <!-- Parent activity meta-data to support 4.0 and lower -->
 
 
         <activity
             android:name=".ui.activity.GrowthActivity"
-            android:label="Growth"
-            android:title="@string/growth_title"
+            android:parentActivityName=".ui.activity.HomeActivity"
             android:theme="@style/AppTheme.Green"
 
-            android:parentActivityName=".ui.activity.HomeActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
+            android:title="@string/growth_title"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
 
         <activity
             android:name=".ui.activity.PrefsActivity"
-            android:label="@string/prefs_title"
-            android:title="@string/prefs_title"
+            android:parentActivityName=".ui.activity.HomeActivity"
             android:theme="@style/AppTheme"
 
-            android:parentActivityName=".ui.activity.HomeActivity"/>
+            android:title="@string/prefs_title" />
 
 
         <activity
             android:name=".ui.activity.LicenseActivity"
-            android:label="@string/action_licenses"
-            android:title="@string/action_licenses"
+            android:parentActivityName=".ui.activity.HomeActivity"
             android:theme="@style/AppTheme"
 
-            android:parentActivityName=".ui.activity.HomeActivity"/>
+            android:title="@string/action_licenses" />
 
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.activity.BabyLogActivity" >-->
-         <!--</meta-data>-->
-        <activity android:name="com.desmond.squarecamera.CameraActivity"/>
-        <activity android:name="com.android.camera.CropImage"/>
+        <!--<meta-data-->
+        <!--android:name="android.support.PARENT_ACTIVITY"-->
+        <!--android:value=".ui.activity.BabyLogActivity" >-->
+        <!--</meta-data>-->
+        <activity android:name="com.desmond.squarecamera.CameraActivity" />
+        <activity android:name="com.android.camera.CropImage" />
 
-        <service android:name=".service.StopWatchService"/>
-
-        
+        <service android:name=".service.StopWatchService" />
 
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="af156a584b800d79ad188965d4aca77b501fe6f0" />
-    </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
+    </application>
 </manifest>

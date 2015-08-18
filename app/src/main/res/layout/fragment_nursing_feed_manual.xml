@@ -24,7 +24,7 @@
             <!--android:layout_height="fill_parent"-->
             <!--android:orientation="vertical">-->
             <fragment
-                android:name="com.rorlig.babylog.ui.widget.DateTimeHeaderFragment"
+                android:name="com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/header"
