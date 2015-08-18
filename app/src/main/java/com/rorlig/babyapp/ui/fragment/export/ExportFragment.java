@@ -810,9 +810,9 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uri);
-        sendIntent.setType("text/plain");
+        sendIntent.setType("message/rfc822");
         sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
-                new String[]{"guptgaurav@gmail.com"});
+                new String[]{});
 
         startActivity(Intent.createChooser(sendIntent, "Send Email"));
         getActivity().finish();

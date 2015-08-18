@@ -302,8 +302,8 @@ public class BabyLoggerORMUtils {
     public List<MilestonesDao> getMilestoneList(Date startTime, Date endTime) throws SQLException {
         Log.d(TAG, " startTime " + startTime + " endTime " + endTime);
         QueryBuilder<MilestonesDao, Integer> queryBuilder = getMilestonesDao().queryBuilder().orderBy("date", false);
-        queryBuilder.where().lt("completionDate", endTime)
-                .and().gt("completionDate", startTime);
+        queryBuilder.where().lt("date", endTime)
+                .and().gt("date", startTime);
         return queryBuilder.query();
     }
 
