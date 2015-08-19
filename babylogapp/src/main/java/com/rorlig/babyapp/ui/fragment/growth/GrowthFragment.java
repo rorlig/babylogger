@@ -447,9 +447,17 @@ public class GrowthFragment extends InjectableFragment {
         Double totalWeight =  weightPounds.doubleValue();
 
 
-        if (weight.length()>3) {
-            Integer weightOunces = Integer.parseInt(weight.substring(3));
-            totalWeight+=weightOunces.doubleValue()/16;
+        Log.d(TAG, "indexOfDot " + indexOfDot);
+
+
+        if (weight.length()>indexOfDot) {
+            try {
+                Integer weightOunces = Integer.parseInt(weight.substring(indexOfDot+1));
+                totalWeight+=weightOunces.doubleValue()/16;
+            } catch (NumberFormatException e) {
+
+            }
+
         }
 
 
