@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/drawer_filter_background"
+    android:clickable="true"
+    android:orientation="vertical"
+    >
+    <fragment
+        android:id="@+id/header"
+        android:name="com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/header_date_time" />
+
+    <ScrollView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:background="@color/drawer_filter_background"
+        android:clickable="true"
+        android:layout_weight="1">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/milestone_pic"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/light_gray"
+                android:src="@drawable/ic_action_profile"
+
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_image_button"
+                android:layout_below="@+id/milestone_pic"
+                android:text="@string/add_picture_dialog_title"
+                android:layout_marginLeft="10dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/primary_orange"
+                style="?android:attr/borderlessButtonStyle"
+
+
+
+
+
+
+                />
+
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                <!--android:id="@+id/milestone_pic"-->
+                <!--android:layout_width="96dp"-->
+                <!--android:layout_height="96dp"-->
+                <!--android:textColor="@color/primary"-->
+
+                <!--android:clickable="false"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:src="@drawable/ic_add_picture_new"-->
+                <!--app:border_width="2dp"-->
+                <!--app:border_color="@color/orange"-->
+                <!--/>-->
+
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/milestone_pic_txt"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:textSize="16sp"-->
+                <!--android:id="@+id/milestone_type_title"-->
+                <!--android:text="@string/milestone_type_title"/>-->
+
+            <!-- custom milestone -->
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/custom_milestone_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/add_image_button">
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:singleLine="true"
+                    android:id="@+id/custom_milestone_text"
+                    android:hint="@string/custom_milestone"
+                    android:imeOptions="actionNext"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                 />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <!--<Spinner-->
+                <!--android:id="@+id/milestone_spinner"-->
+                <!--android:layout_toRightOf="@+id/milestone_type_title"-->
+                <!--android:layout_below="@+id/milestone_pic_txt"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:text = "hello"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <!--<CheckBox-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="30dp"-->
+                <!--android:layout_below="@id/custom_milestone_text"-->
+                <!--android:id="@+id/custom_milestone_checkbox"/>-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@+id/custom_milestone_checkbox"-->
+                <!--android:layout_marginTop="38dp"-->
+                <!--android:layout_below="@+id/custom_milestone_text"-->
+                <!--android:text="@string/custom_milestone"/>-->
+
+
+            <!--</LinearLayout>-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/notes_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_milestone_text_layout">
+
+                <EditText
+                    android:id="@+id/notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:ems="10"
+                    android:hint="@string/hint_notes"
+                    android:singleLine="true"
+                    android:imeOptions="actionNone"
+
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+    </ScrollView>
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_orange"
+        android:text="@string/txt_save"
+        app:rippleSpeed="50"
+        android:visibility="visible"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/two_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/delete_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_orange"
+            android:text="Delete"
+            android:layout_weight="1"
+            app:rippleSpeed="50" />
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/edit_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_orange"
+            android:text="Edit"
+            android:layout_weight="1"
+            app:rippleSpeed="50" />
+
+
+    </LinearLayout>
+</LinearLayout>

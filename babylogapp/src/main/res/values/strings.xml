@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="about_text">Proudly brought to you by</string>
+    <string name="about_visit_website"><u>Visit our website</u></string>
+    <string name="action_about">About</string>
+    <string name="action_add_to_schedule">Add to schedule</string>
+    <string name="action_edit_note">Edit note</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_licenses">Licenses</string>
+    <string name="action_remove_from_schedule">Remove from schedule</string>
+    <string name="action_remove_note">Remove note</string>
+    <string name="action_search">Search</string>
+    <string name="action_settings">About</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_out">Sign out</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="app_name">Baby App</string>
+    <string name="auth_client_needs_enabling_title">An application requires Google Play Services to be enabled.</string>
+    <string name="auth_client_needs_installation_title">An application requires installation of Google Play Services.</string>
+    <string name="auth_client_needs_update_title">An application requires an update for Google Play Services.</string>
+    <string name="auth_client_play_services_err_notification_msg">Google Play services error</string>
+    <string name="auth_client_requested_by_msg">Requested by <g id="app_name">%1$s</g></string>
+    <string name="auth_client_using_bad_version_title">An application attempted to use a bad version of Google Play Services.</string>
+    <string name="authentication_in_progress">Signing in…</string>
+    <string name="common_google_play_services_enable_button">Enable Google Play services</string>
+    <string name="common_google_play_services_enable_text">"This app won't work unless you enable Google Play services."</string>
+    <string name="common_google_play_services_enable_title">Enable Google Play services</string>
+    <string name="common_google_play_services_install_button">Get Google Play services</string>
+    <string name="common_google_play_services_install_text_phone">"This app won't run without Google Play services, which are missing from your phone."</string>
+    <string name="common_google_play_services_install_text_tablet">"This app won't run without Google Play services, which are missing from your tablet."</string>
+    <string name="common_google_play_services_install_title">Get Google Play services</string>
+    <string name="common_google_play_services_unknown_issue">Unknown issue with Google Play services.</string>
+    <string name="common_google_play_services_unsupported_text">Google Play services, which some of your applications rely on, is not supported by your device. Please contact the manufacturer for assistance.</string>
+    <string name="common_google_play_services_unsupported_title">Google Play services</string>
+    <string name="common_google_play_services_update_button">Update</string>
+    <string name="common_google_play_services_update_text">"This app won't run unless you update Google Play services."</string>
+    <string name="common_google_play_services_update_title">Update Google Play services</string>
+    <string name="common_signin_button_text">Sign in</string>
+    <string name="common_signin_button_text_long">Sign in with Google</string>
+    <string name="day_label">Day %1$d</string>
+    <string name="label_login">Log in</string>
+    <string name="label_no_account_yet"><u>"Don't have an account yet?"</u></string>
+    <string name="label_register">Sign up.</string>
+    <string name="menu_item_info">Info (Auth Test)</string>
+    <string name="menu_item_map">Map</string>
+    <string name="menu_item_notes">Notes</string>
+    <string name="menu_item_presentations">Presentations</string>
+    <string name="menu_item_schedule">Schedule</string>
+    <string name="menu_item_speakers">Speakers</string>
+    <string name="menu_item_tagcloud">Tagcloud</string>
+    <string name="menu_item_my_profile">My Profile</string>
+    <string name="menu_item_nearby_events">Events Nearby</string>
+    <string name="menu_item_my_events">My Events</string>
+    <string name="menu_item_messages">Private Messages</string>
+    <string name="menu_item_board">Message Boards</string>
+    <string name="menu_item_about">About</string>
+    <string name="filter_item_classes">Classes</string>
+    <string name="filter_item_comedy">Comedy</string>
+    <string name="filter_item_performing_arts">Performing Arts</string>
+    <string name="filter_item_conferences">Conferences</string>
+    <string name="filter_item_other_events">Other Events</string>
+    <string name="filter_item_other_entertainment">Other Entertainment</string>
+    <string name="filter_item_social">Social Events</string>
+    <string name="filter_item_food">Food/Wine</string>
+    <string name="filter_item_networking">Networking</string>
+    <string name="filter_item_music">Music</string>
+    <string name="filter_item_business">Business</string>
+    <string name="filter_item_fundraisers">Fundraisers</string>
+    <string name="filter_item_festivals">Festivals</string>
+    <string name="filter_item_religion">Religion</string>
+    <string name="filter_item_sports">Sports</string>
+    <string name="filter_item_movies">Movies</string>
+    <string name="filter_item_endurance">Endurance</string>
+    <string name="filter_item_travel">Travel</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="only_noted_label">Only noted</string>
+    <string name="only_scheduled_label">Only scheduled</string>
+    <string name="presentation_finished">Ended</string>
+    <string name="presentation_header_time">Day <g id="day">%1$d</g> | <g id="date">%2$s</g></string>
+    <string name="presentation_live">NOW LIVE <g id="date">%1$s</g> remaining</string>
+    <string name="presentation_live_substring">NOW LIVE</string>
+    <string name="presentation_speakers">Speakers</string>
+    <string name="presentation_time">Day <g id="day">%1$d</g> | <g id="date">%2$s</g></string>
+    <string name="presentation_time_no_day"><g id="date">%2$s</g></string>
+    <string name="presentation_topics">Topics</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_first_name">First name</string>
+    <string name="prompt_last_name">Last name</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_username">Username</string>
+    <string name="remaining_time_format_h_mm"><g id="hours">%1$d</g>:<g id="minutes">%2$02d</g></string>
+    <string name="remind_log_in_message">Signing up and/or logging in allows you to store your schedule in the cloud and sync it across your devices and on the web.</string>
+    <string name="search_hint">Search sessions</string>
+    <string name="session_notification_in_room">In <g id="room_name">%1$s</g></string>
+    <string name="session_notification_text_1">starting in <g id="remaining_time">%1$d</g> min.</string>
+    <string name="settings_about_version">Version <g id="version">%1$s</g></string>
+    <string name="settings_account">Account</string>
+    <string name="settings_account_not_signed_in">Not signed in</string>
+    <string name="settings_account_signed_in_as">Signed in as <g id="email">%1$s</g></string>
+    <string name="settings_debug">Debug</string>
+    <string name="settings_debug_date">Date</string>
+    <string name="settings_debug_time">Time</string>
+    <string name="settings_debug_use_mock_time">Use mock date</string>
+    <string name="settings_debug_use_mock_time_off">Not using mock date</string>
+    <string name="settings_debug_use_mock_time_on">Using mock date</string>
+    <string name="settings_devoxx_account">Devoxx account</string>
+    <string name="settings_event">Event</string>
+    <string name="settings_event_no_event_selected">No event selected</string>
+    <string name="settings_general">General settings</string>
+    <string name="settings_greet_notifications">Greet Notifications</string>
+    <string name="settings_notification">Notifications</string>
+    <string name="settings_connected_networks">Connected Networks</string>
+    <string name="settings_content_privacy">How Others See Your Content</string>
+    <string name="settings_about">About Greet</string>
+    <string name="messaging_preferences_title">Messaging Preferences</string>
+    <string name="messaging_preferences_summary">See who can see your messages</string>
+    <string name="photo_preferences_title">Photo Preferences</string>
+    <string name="photo_preferences_summary">See who can see your pictures</string>
+    <string name="profile_preferences_title">Profile Preferences</string>
+    <string name="profile_preferences_summary">See who can see your profile</string>
+    <string name="settings_miscellaneous">Miscellaneous</string>
+    <string name="settings_build_version">Build Version</string>
+    <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_terms">Terms and Conditions</string>
+    <string name="settings_reminders">Reminders</string>
+    <string name="settings_reminders_10mins">10 minutes</string>
+    <string name="settings_reminders_15mins">15 minutes</string>
+    <string name="settings_reminders_30mins">Half an hour</string>
+    <string name="settings_reminders_5mins">5 minutes</string>
+    <string name="settings_reminders_60mins">An hour</string>
+    <string name="settings_reminders_never">Never</string>
+    <string name="snooze_x_min">Snooze <g id="remaining_time">%1$d</g> min.</string>
+    <string name="speaker_presentations">Presentations</string>
+    <string name="time_and_room"><g id="date">%1$s</g> | <g id="room">%2$s</g></string>
+    <string name="title_about">About</string>
+    <string name="title_edit_note">Edit note</string>
+    <string name="title_login">Login</string>
+    <string name="title_presentation_detail">Presentation info</string>
+    <string name="title_presentations">Presentations</string>
+    <string name="title_search">Search</string>
+    <string name="title_search_query">Search for \"&lt;b><g id="query">%1$s</g>&lt;b>\"</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_sign_up">Sign up</string>
+    <string name="title_speaker_detail">Speaker info</string>
+    <string name="track_and_type"><g id="track">%1$s</g> | <g id="type">%2$s</g></string>
+    <string name="track_and_type_and_room"><g id="track">%1$s</g> | <g id="type">%2$s</g> | <g id="type">%3$s</g></string>
+    <string name="checkin">Check In</string>
+    <string name="facebook">Facebook</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="google">Google</string>
+    <string name="font_proximanova_black">fonts/proximanova_black.ttf</string>
+    <string name="font_proximanova_bold">fonts/proximanova_bold.ttf</string>
+    <string name="font_proximanova_bold_italic">fonts/proximanova_bold_italic.ttf</string>
+    <string name="font_proximanova_extrabold">fonts/proximanova_extrabold.ttf</string>
+    <string name="font_proximanova_light">fonts/proximanova_light.ttf</string>
+    <string name="font_proximanova_light_italic">fonts/proximanova_light_italic.ttf</string>
+    <string name="font_proximanova_regular">fonts/proximanova_regular.ttf</string>
+    <string name="font_proximanova_regular_italic">fonts/proximanova_regular_italic.ttf</string>
+    <string name="font_proximanova_semi_bold">fonts/proximanova_semi_bold.ttf</string>
+    <string name="font_proximanova_semi_bold_italic">fonts/proximanova_semi_bold_italic.ttf</string>
+    <string name="font_bree_light">fonts/bree_light.ttf</string>
+    <string name="facebook_app_id">133190603531923</string>
+    <string name="check_in_with">Check in With</string>
+    <string name="add_photos_label">Add Photos</string>
+    <string name="action_switch_view">Switch View</string>
+    <string name="take_picture">\t Take Photo</string>
+    <string name="attach_picture">\t Attach Picture</string>
+    <string name="add_picture_dialog_title">Add Picture</string>
+    <string name="title_activity_map">Share Location</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_share">Share</string>
+    <string name="new_message_board">New Message Board</string>
+    <string name="message_board_title_hint">Message Board Title</string>
+    <string name="add_message_hint">Type Message</string>
+    <string name="message_board_title">Message Board Title</string>
+    <string name="error_no_checkin_events">You have not checked into any events yet</string>
+    <string name="error_not_checkedIn">Please check in first</string>
+    <string name="no_diaper_change">You have not yet logged a diaper change!!!</string>
+    <string name="no_sleep">Get started with tracking your baby\'s sleep</string>
+
+    <string name="diaper_change_title">Diaper Change</string>
+    <string name="feeding_title">Feeding</string>
+    <string name="no_growth">Start tracking your young ones growth</string>
+    <string name="growth_title">Growth</string>
+    <string name="poop_texture">POOP TEXTURE</string>
+    <string name="diaper_indicident">INCIDENT</string>
+    <string name="diaper_indicident_no_diaper">No Diaper</string>
+    <string name="diaper_incident_leak">Diaper Leak</string>
+    <string name="poop_color_header">POOP COLOR</string>
+    <string name="diaper_wet">Wet</string>
+    <string name="diaper_poop">Poop</string>
+    <string name="diaper_color">Color:</string>
+    <string name="diaper_notes">Notes: </string>
+    <string name="diaper_incident">Incident: </string>
+    <string name="diaper_texture">Texture: </string>
+    <string name="incident_none">None</string>
+    <string name="diaper_indicident_none">No Incident</string>
+    <string name="title_quantity">QUANTITY: </string>
+    <string name="breast_feeding_title">BREAST FEEDING</string>
+    <string name="basic_information">Basic Information</string>
+    <string name="activities_to_log_title">Choose Activities to log</string>
+    <string name="fab_title_feeding">Feeding</string>
+    <string name="fab_title_diaper_change">Diaper Change</string>
+    <string name="fab_title_growth">Growth</string>
+    <string name="fab_title_milestones">Milestones</string>
+    <string name="fab_title_sleep">Sleep</string>
+    <string name="add_diaperchange_btn_txt">Add DiaperChange Log</string>
+    <string name="add_growth_btn_text">Add Growth Item</string>
+    <string name="add_feed_btn_text">Add Feed Item</string>
+    <string name="add_feed_btn_txt">Add Feed Item</string>
+
+
+
+
+    <!-- stopwatch stuff -->
+
+    <string name="app_name_caps">USW</string>
+    <string name="message_stopped">Stopped</string>
+    <string name="timer_title">Set Countdown Timer</string>
+    <string name="timer_start">OK</string>
+    <string name="timer_cancel">Cancel</string>
+
+    <string name="save_time">save date</string>
+    <string name="splittimes">Split Times</string>
+    <string name="lap_time_recorded">Lap Time Recorded</string>
+    <string name="delete">Delete</string>
+    <string name="stopwatch">STOPWATCH</string>
+    <string name="countdown">COUNTDOWN</string>
+    <string name="laptimes">LAP TIMES</string>
+
+    <string name="hours">Hours</string>
+    <string name="mins">Mins</string>
+    <string name="secs">Secs</string>
+    <string name="play_store_uri">http://play.google.com/store/apps/details?id=com.geekyouup.android.ustopwatch</string>
+    <string name="countdown_complete">Countdown Complete!</string>
+    <string name="default_time">00:00:00.000</string>
+    <string name="_0">0</string>
+
+    <string name="times">Times</string>
+    <string name="reset_button">Reset Button</string>
+    <string name="clear_laps">Clear Laps</string>
+    <string name="rateapp">Rate app</string>
+    <string name="settings">Settings</string>
+    <string name="clearlaps">Clear all laps</string>
+    <string name="start">START</string>
+    <string name="pause">PAUSE</string>
+    <string name="reset">RESET</string>
+    <string name="lap">LAP</string>
+
+    <string name="contentdesc_start_sw">Start/Pause Stopwatch</string>
+    <string name="contentdesc_start_cd">Start/Pause Countdown</string>
+    <string name="contentdesc_reset">Reset</string>
+    <string name="contentdesc_laptime">Save Lap Time</string>
+
+    <string name="settings_settings">SETTINGS</string>
+    <string name="settings_libraries">LIBRARIES</string>
+    <string name="settings_sound_secs">Sound for Seconds</string>
+    <string name="settings_vibrate">Vibrations</string>
+    <string name="settings_endless_alert">Extra Long Alert</string>
+    <string name="settings_animations">Hand Animations</string>
+    <string name="settings_about_text">The Ultimate Stopwatch, developed by Rich \'GeekYouUp\' Hyndman and designed by marie-schweiz.de</string>
+    <string name="settings_libraries_text">ActionBarSherlock by Jake Warton\nhttp://actionbarsherlock.com/</string>
+    <string name="diaper_change_type_poop">Poop</string>
+    <string name="diaper_change_type_wet">Wet</string>
+    <string name="diaper_change_type_both">Both</string>
+    <string name="stopwatch_start_text">Start</string>
+    <string name="stopwatch_stop_text">Stop</string>
+    <string name="stopwatch_reset_text">Reset</string>
+    <string name="nursing_save_txt">Save</string>
+    <string name="title_breast">BREAST FEEDING</string>
+    <string name="breast_title_left">LEFT BREAST</string>
+
+    <string name="breast_title_right">RIGHT BREAST</string>
+    <string name="label_inches">inches</string>
+    <string name="txt_save">Save</string>
+    <string name="txt_hint_decimal">--.--</string>
+    <string name="txt_weight">WEIGHT:</string>
+    <string name="txt_height">HEIGHT:</string>
+    <string name="edit_profile">Personalize</string>
+    <string name="action_stats">Statistics</string>
+    <string name="txt_not_completed">Not Completed</string>
+    <string name="title_growth">GROWTH</string>
+    <string name="head_measurement_title">HEAD MEASUREMENT (inches)</string>
+    <string name="notes_label">Notes:\ </string>
+    <string name="gallery_string_title">Choose from Gallery</string>
+    <string name="camera_string_title">CAMERA</string>
+    <string name="picture_select_header_text">SELECT PICTURE FROM</string>
+    <string name="list_title_breast_left">Left:</string>
+    <string name="list_title_breast_right">Right:</string>
+    <string name="profile_image_content_description">Profile Image</string>
+    <string name="profile_title">Profile</string>
+    <string name="prefs_title">Preferences</string>
+    <string name="txt_completed">Completed</string>
+    <string name="title_activity_milestones">Milestones</string>
+    <string name="diaper_change_statistics">Diaper Change Statistics</string>
+    <string name="diaper_change_stats_title_day">Day</string>
+    <string name="diaper_change_stats_title_week">Week</string>
+    <string name="diaper_change_stats_title_month">Month</string>
+    <string name="feed_statistics">Feed Statistics</string>
+    <string name="feed_stats_type_bottle_title">Bottle</string>
+    <string name="feed_stats_type_breast_title">Breast</string>
+    <string name="growth_stats_title">Growth Stats</string>
+    <string name="sleep_stats_title">Sleep Stats</string>
+    <string name="growth_stats_weight">Weight</string>
+    <string name="growth_stats_height">Height</string>
+    <string name="growth_stats_head_measurement">HM</string>
+    <string name="choose_feed_type">CHOOSE FEED TYPE</string>
+    <string name="action_export">Export</string>
+    <string name="text_select_date">Select Date</string>
+    <string name="export_header">Export</string>
+    <string name="date_range_start">Date Range Start</string>
+    <string name="date_range_end">Date Range End</string>
+    <string name="choose_activities">Choose Things to export</string>
+    <string name="export">Export</string>
+    <string name="text_toast_no_items_selected_for_export">Please Select at least one item to export</string>
+    <string name="sleep_header">Track Sleep</string>
+    <string name="sleep_start_time">Sleep Start Time: </string>
+    <string name="sleep_end_time">Sleep End Time: </string>
+    <string name="sleep_duration">Sleep Duration: </string>
+
+    <string name="diaper_log_description_text">Diaper Changes</string>
+
+    <string name="feed_log_description_text">Bottle and Breast Feeds</string>
+    <string name="growth_log_description_text">Growth</string>
+    <string name="milestone_log_description_text">Milestones and Memories</string>
+    <string name="diaper_description_title">Log Diaper Changes</string>
+    <string name="btn_save_txt">Save</string>
+    <string name="sleep_description_text">Sleep </string>
+    <string name="height_title">Height (Inches)</string>
+    <string name="title_activity_sleep">Sleep</string>
+    <string name="fab_title_bottle">Bottle Feed</string>
+    <string name="fab_title_nursing">Nursing Feed</string>
+    <string name="add_sleep">Log Sleep Item</string>
+    <string name="stats_weekly">Week</string>
+    <string name="stats_month">Month</string>
+    <string name="stats_year">Year</string>
+    <string name="growth_weight">Weight:\ </string>
+    <string name="growth_height">Height:\ </string>
+    <string name="growth_head_measurement">Head Measurement:\ </string>
+    <string name="weight_title">Weight (Pounds.Ounces)</string>
+    <string name="choose_milestone_date">Choose Milestone Date</string>
+    <string name="default_feed_quantity">00.00</string>
+    <string name="unit_oz">oz</string>
+    <string name="notes_hint">NOTES</string>
+    <string name="nursing">Nursing</string>
+    <string name="bottle">Bottle</string>
+    <string name="type">Type</string>
+    <string name="preference_about">About</string>
+    <string name="version_number_title">Version Number</string>
+    <string name="version_number_summary">1.11</string>
+    <string name="more_settings_toc">Terms and Conditions</string>
+    <string name="minutes">Minutes</string>
+    <string name="bottle_feed_title">BOTTLE FEED</string>
+    <string name="nursing_heading">Nursing Feed</string>
+    <string name="camera_text">Take a Photo</string>
+    <string name="action_save">Save</string>
+    <string name="action_edit">Edit</string>
+    <string name="add_milestone_item">Add Milestone</string>
+    <string name="no_milestone">Start Tracking your child\'s milestones</string>
+    <string name="add_milestone_pic">Add Milestone Picture</string>
+    <string name="milestone_type_title">Milestone</string>
+    <string name="custom_milestone">Milestone</string>
+    <string name="hint_notes">Notes</string>
+    <string name="image_milestone">Image MIlestone</string>
+    <string name="no_feed">Start logging baby feeds</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_tutorial">Tutorial</string>
+
+
+</resources>

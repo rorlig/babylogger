@@ -1,0 +1,211 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+
+    }
+
+
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.0'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+        classpath 'io.fabric.tools:gradle:1.19.2'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.0'
+
+        //spoon
+        classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.0.2'
+
+    }
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
+    maven {
+        url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+
+    maven {
+        url 'http://lorenzo.villani.me/android-cropimage/'
+    }
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+apply plugin: 'me.tatarka.retrolambda'
+
+apply plugin: 'spoon'
+
+//// This section is optional
+//spoon {
+//    // for debug output
+//    debug = true
+//}
+
+
+
+dependencies {
+    compile 'com.android.support:support-v4:23.0.0'
+    compile 'com.squareup.dagger:dagger:1.2.0'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.0'
+    compile 'com.squareup.okhttp:okhttp:1.3.0'
+    compile 'com.squareup.picasso:picasso:2.1.1'
+    compile 'com.squareup.retrofit:retrofit:1.5.1'
+    debugCompile 'com.squareup.retrofit:retrofit-mock:1.3.0'
+    compile 'com.jakewharton:butterknife:4.0.1'
+    compile 'com.squareup:otto:1.3.4'
+
+//    compile 'com.fasterxml.jackson.core:jackson-core:2.6.0-rc2'
+
+    compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+//    compile 'com.google.android.gms:play-services:3.2.+'
+    compile 'com.google.guava:guava:15.0+'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile  'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.j256.ormlite:ormlite-core:4.48'
+    compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
+
+    //sectioned adapters
+    compile 'com.mobsandgeeks:adapter-kit:0.5.3'
+
+    //about library to include licensing and other information
+//    compile 'com.tundem.aboutlibraries:library:2.2.0@aar'
+
+    //
+
+    compile 'com.getbase:floatingactionbutton:1.9.0'
+
+    compile 'com.android.support:appcompat-v7:23.0.0'
+//    compile ('com.github.navasmdc:MaterialDesign:1.5@aar'){
+//        transitive = true;
+//    }
+
+//    compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
+
+//    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    compile 'com.github.traex.rippleeffect:library:1.3'
+
+//    compile 'com.github.markushi:circlebutton:1.1'
+
+
+    compile 'com.github.amlcurran.showcaseview:library:5.0.0'
+
+
+
+//    compile 'com.avast:android-styled-dialogs:2.2.0'
+
+    //graphs
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.0'
+
+
+    // joda-time
+    compile 'joda-time:joda-time:2.7' // for joda
+
+    //tutorial view...
+    compile 'com.github.paolorotolo:appintro:1.4.0'
+
+
+    //easy camera
+    compile 'net.bozho.easycamera:easycamera:0.0.1:aar@aar'
+
+
+
+    compile 'me.villani.lorenzo.android:android-cropimage:1.1.0'
+
+    compile 'de.hdodenhof:circleimageview:1.3.0'
+
+
+    compile project(':squarecamera')
+    compile project(':MaterialDesign')
+    compile('com.mikepenz:aboutlibraries:5.0.9@aar') {
+        transitive = true
+    }
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.1@aar') {
+        transitive = true;
+    }
+
+
+
+//    compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
+
+
+
+    compile 'com.android.support:design:23.0.0'
+
+    compile 'io.reactivex:rxandroid:0.25.0'
+
+
+
+
+    // Testing-only dependencies
+
+    androidTestCompile 'com.android.support.test:runner:0.3'
+    androidTestCompile 'com.android.support.test:rules:0.3'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
+
+    //Spoon
+    androidTestCompile 'com.squareup.spoon:spoon-client:1.1.9'
+
+
+
+    androidTestCompile 'com.android.support:support-annotations:23.0.0'
+
+
+
+
+
+
+
+
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "22.0.1"
+
+
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 23
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+
+
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'LICENSE.txt'
+    }
+
+
+
+}
