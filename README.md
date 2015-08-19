@@ -11,6 +11,7 @@
 + Tutorial screen : - Change UI
 + Transparent Toolbar - migrate to toolbar from actionbar
 + Sleep Tracking
++ The app launch site is thebabyapp.com - build on bootstrap theme I purchased from wrapbootstrap (not sharing that code due to license issues)
 
 
 
@@ -22,7 +23,7 @@
 
 ## Stretch Goals 
 + Adding Multiple Baby Tracking.
-+ Backing up to cloud via Parse or Personal Server 
++ Backing up to cloud via Parse or Personal Server : - This is probably coming in a week or two. Parse is pretty awesome
 + Web component for the application. 
 + Equivalent IOS Application. 
 + Reminders
