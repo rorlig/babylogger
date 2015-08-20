@@ -94,6 +94,9 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 
     @Inject
     Picasso picasso;
+
+    @InjectView(R.id.skip_btn)
+    Button skipBtn;
 //    @InjectView(R.id.gridview)
 //    GridView actionsList;
 
@@ -215,6 +218,16 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
             addButton.setText("Change Picture");
         } else {
            resetImageView();
+        }
+
+        if (getArguments()!=null) {
+            Log.d(TAG, "arguments is not null " + getArguments());
+           if (getArguments().getBoolean("from_tutorial")) {
+                Log.d(TAG, "from_tutorial");
+                skipBtn.setVisibility(View.GONE);
+           }
+        } else  {
+            Log.d(TAG, "getArguments is null");
         }
     }
 
@@ -395,7 +408,7 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 
     }
 
-    @OnClick(R.id.skipBtn)
+    @OnClick(R.id.skip_btn)
     public void skipBtnClicked(){
         Log.d(TAG, "skipBtnClicked()");
         scopedBus.post(new SkipProfileEvent());

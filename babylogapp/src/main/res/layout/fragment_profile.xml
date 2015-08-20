@@ -205,13 +205,14 @@
         android:layout_alignParentBottom="true">
 
         <com.gc.materialdesign.views.ButtonRectangle
-            android:id="@+id/skipBtn"
+            android:id="@+id/skip_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Skip"
             android:background="#1E88E5"
             android:layout_weight="1"
             app:rippleSpeed="50"
+
 
             />
 

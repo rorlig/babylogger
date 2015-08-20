@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dao.DiaperChangeDao;
 import com.rorlig.babyapp.model.diaper.DiaperChangeEnum;
@@ -117,6 +118,8 @@ public class DiaperChangeView extends RelativeLayout {
 
     public void setModel(DiaperChangeDao diaperChangeDao) {
         this.diaperChangeDao = diaperChangeDao;
+
+        Log.d(TAG, new Gson().toJson(diaperChangeDao));
         bindModel();
     }
 

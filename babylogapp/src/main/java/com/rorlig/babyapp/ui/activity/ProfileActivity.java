@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,15 +76,35 @@ public class ProfileActivity extends InjectableActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
 
-        if (getIntent()!=null&&!getIntent().getBooleanExtra("from_tutorial",false)) {
+        boolean fromTutorial = getIntent().getBooleanExtra("from_tutorial",false);
+        Log.d(TAG, "fromTutorial: " + fromTutorial);
+
+        ProfileFragment profileFragment = new ProfileFragment();
+        if (!fromTutorial) {
+            Log.d(TAG, "from_tutorial");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+//            Fragment localFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+
+
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("from_tutorial", fromTutorial);
+            profileFragment.setArguments(bundle);
         }
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setToolbarIconVisibility(false);
 
-        if (savedInstanceState==null)
-        showFragment(ProfileFragment.class, "profile_fragment", false);
+        if (savedInstanceState==null) {
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, profileFragment)
+                    .commit();
+//            showFragment(ProfileFragment.class, "profile_fragment", false);
+        }
     }
 
 

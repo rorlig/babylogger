@@ -33,11 +33,23 @@ public class LandingActivity extends InjectableActivity {
 
         boolean tutorial_shown = preferences.getBoolean("tutorial_shown", false);
 
-        if (tutorial_shown) {
-            startActivity(new Intent(this, HomeActivity.class));
+        boolean profile_created = false;
+
+        String babyName = preferences.getString("name", "");
+        if (babyName.length()>0) {
+            profile_created = true;
+        }
+
+
+        if (!tutorial_shown) {
+            startActivity(new Intent(this, TutorialActivity.class));
+        } else if (!profile_created) {
+            Intent profileIntent = new Intent(this, ProfileActivity.class);
+            profileIntent.putExtra("from_tutorial", true);
+            startActivity(profileIntent);
         }
         else {
-            startActivity(new Intent(this, TutorialActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
         }
 
     }

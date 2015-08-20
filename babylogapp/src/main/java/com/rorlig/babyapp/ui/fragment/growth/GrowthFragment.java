@@ -447,7 +447,7 @@ public class GrowthFragment extends InjectableFragment {
         Double totalWeight =  weightPounds.doubleValue();
 
 
-        Log.d(TAG, "indexOfDot " + indexOfDot);
+        Log.d(TAG, "indexOfeDot " + indexOfDot);
 
 
         if (weight.length()>indexOfDot) {
