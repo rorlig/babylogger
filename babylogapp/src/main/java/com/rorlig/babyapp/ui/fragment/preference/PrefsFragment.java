@@ -4,9 +4,12 @@ package com.rorlig.babyapp.ui.fragment.preference;
  * Created by Gaurav Gupta on 12/31/13.
  */
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.provider.Browser;
 import android.util.Log;
 
 import com.rorlig.babyapp.R;
@@ -36,6 +39,39 @@ public class PrefsFragment extends InjectablePreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_general);
+
+
+        // Create listener for more settings button
+        Preference termsAndConditions = findPreference(getString(R.string.string_toc));
+        if (termsAndConditions != null) {
+            termsAndConditions
+                    .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference arg0) {
+                            Uri uri = Uri.parse(getString(R.string.toc_link));
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            intent.putExtra(Browser.EXTRA_APPLICATION_ID, getActivity().getPackageName());
+                            startActivity(intent);
+                            return true;
+                        }
+                    });
+        }
+
+        // Create listener for more settings button
+        Preference privacy = findPreference(getString(R.string.settings_privacy));
+        if (privacy != null) {
+            privacy
+                    .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference arg0) {
+                            Uri uri = Uri.parse(getString(R.string.privacy_link));
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            intent.putExtra(Browser.EXTRA_APPLICATION_ID, getActivity().getPackageName());
+                            startActivity(intent);
+                            return true;
+                        }
+                    });
+        }
 
 
 
