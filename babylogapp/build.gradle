@@ -165,6 +165,12 @@ dependencies {
     androidTestCompile 'com.android.support:support-annotations:23.0.0'
 
 
+    //parse
+
+    compile 'com.parse.bolts:bolts-android:1.2.1'
+    compile 'com.parse:parse-android:1.10.0'
+
+
 
 
 

@@ -367,6 +367,10 @@
     <string name="no_feed">Start logging baby feeds</string>
     <string name="action_profile">Profile</string>
     <string name="action_tutorial">Tutorial</string>
+    <string name="txt_forgot_password">Forgot Password</string>
+    <string name="txt_sign_up">Sign up</string>
+    <string name="txt_login">Login</string>
+    <string name="txt_reset">Reset Password</string>
 
 
 </resources>
