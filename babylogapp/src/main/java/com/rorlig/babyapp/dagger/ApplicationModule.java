@@ -12,7 +12,6 @@ import com.rorlig.babyapp.BabyLoggerApplication;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.otto.BusProvider;
 import com.rorlig.babyapp.otto.ScopedBus;
-import com.rorlig.babyapp.service.StopWatchService;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Downloader;
 import com.squareup.picasso.OkHttpDownloader;
@@ -33,8 +32,7 @@ import dagger.Provides;
  */
 
 @Module(injects= {
-                BabyLoggerApplication.class,
-                StopWatchService.class
+                BabyLoggerApplication.class
             }, library=true)
 public class ApplicationModule
 {
