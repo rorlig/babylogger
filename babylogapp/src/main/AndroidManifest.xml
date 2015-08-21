@@ -166,7 +166,9 @@
         <activity android:name="com.desmond.squarecamera.CameraActivity" />
         <activity android:name="com.android.camera.CropImage" />
 
-
+        <activity android:name=".ui.activity.LoginActivity"
+            android:theme="@style/AppTheme"
+            ></activity>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="af156a584b800d79ad188965d4aca77b501fe6f0" />

@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
     android:orientation="vertical"
     >
 
@@ -107,7 +106,7 @@
         android:layout_below="@+id/signup_btn"
         android:layout_marginLeft = "10dp"
         android:layout_marginTop="10dp"
-        android:id="@+id/text_login"
+        android:id="@+id/btn_login"
         android:layout_centerHorizontal="true"
         android:text="Already have an account? "
 
@@ -119,7 +118,7 @@
         android:layout_below="@+id/signup_btn"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/text_login"
+        android:layout_toRightOf="@+id/btn_login"
         android:textColor="@color/primary"
         />
 

@@ -14,6 +14,7 @@ import com.rorlig.babyapp.ui.activity.GrowthActivity;
 import com.rorlig.babyapp.ui.activity.HomeActivity;
 import com.rorlig.babyapp.ui.activity.LandingActivity;
 import com.rorlig.babyapp.ui.activity.LicenseActivity;
+import com.rorlig.babyapp.ui.activity.LoginActivity;
 import com.rorlig.babyapp.ui.activity.MilestonesActivity;
 import com.rorlig.babyapp.ui.activity.PrefsActivity;
 import com.rorlig.babyapp.ui.activity.ProfileActivity;
@@ -27,8 +28,11 @@ import com.rorlig.babyapp.ui.adapter.HomeItemAdapter;
 import com.rorlig.babyapp.ui.adapter.LogItemAdapter;
 import com.rorlig.babyapp.ui.adapter.MilestonesItemAdapter;
 import com.rorlig.babyapp.ui.adapter.SleepAdapter;
+import com.rorlig.babyapp.ui.fragment.auth.ForgotFragment;
 import com.rorlig.babyapp.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.ui.fragment.auth.LoginFragment;
+import com.rorlig.babyapp.ui.fragment.auth.SignUpFragment;
 import com.rorlig.babyapp.ui.fragment.about.LicensesFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.CustomTimePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
@@ -70,6 +74,7 @@ import dagger.Provides;
  */
 @Module(injects={
             LandingActivity.class,
+            LoginActivity.class,
             HomeActivity.class,
             DiaperChangeActivity.class,
             GrowthActivity.class,
@@ -118,6 +123,9 @@ import dagger.Provides;
             ExportFragment.class,
             CustomTimePickerFragment.class,
             MilestoneFragment.class,
+            LoginFragment.class,
+            ForgotFragment.class,
+            SignUpFragment.class,
             SleepAdapter.class
 
           },

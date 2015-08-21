@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
+import com.parse.ParseUser;
 
 import javax.inject.Inject;
 
@@ -48,7 +49,11 @@ public class LandingActivity extends InjectableActivity {
             profileIntent.putExtra("from_tutorial", true);
             startActivity(profileIntent);
         }
-        else {
+        else if (ParseUser.getCurrentUser()==null) {
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            loginIntent.putExtra("from_tutorial", true);
+            startActivity(loginIntent);
+        } else {
             startActivity(new Intent(this, HomeActivity.class));
         }
 
