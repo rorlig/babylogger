@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.auth.ForgotBtnClickedEvent;
 import com.rorlig.babyapp.otto.auth.SignupBtnClickedEvent;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -29,9 +31,14 @@ public class LoginFragment extends InjectableFragment {
     private String TAG = "LoginFragment";
 
 
+    @InjectView(R.id.skip_message)
+    TextView skipMessageTextView;
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+//        skipMessageTextView.setText(AppUtils.getSpannable(skipMessageTextView.getText().toString()));
     }
 
 
@@ -55,6 +62,11 @@ public class LoginFragment extends InjectableFragment {
 
         scopedBus.post(new SignupBtnClickedEvent());
 
+
+    }
+
+    @OnClick(R.id.btn_login)
+    public void btnLoginClicked(){
 
     }
 }

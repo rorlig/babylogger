@@ -80,6 +80,7 @@ public class AppUtils {
     }
 
 
+
     public static Drawable getDrawableFromUri(Uri uri, Context context) throws FileNotFoundException {
         InputStream inputStream = context.getContentResolver().openInputStream(uri);
         return Drawable.createFromStream(inputStream, uri.toString() );
