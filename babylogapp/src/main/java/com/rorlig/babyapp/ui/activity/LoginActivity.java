@@ -1,13 +1,17 @@
 package com.rorlig.babyapp.ui.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.ItemModel;
 import com.rorlig.babyapp.otto.auth.ForgotBtnClickedEvent;
+import com.rorlig.babyapp.otto.auth.LoginSkippedEvent;
+import com.rorlig.babyapp.otto.auth.LoginSuccessEvent;
 import com.rorlig.babyapp.otto.auth.SignupBtnClickedEvent;
 import com.rorlig.babyapp.ui.fragment.auth.ForgotFragment;
 import com.rorlig.babyapp.ui.fragment.auth.LoginFragment;
@@ -144,14 +148,24 @@ public class LoginActivity extends InjectableActivity {
 
         @Subscribe
         public void onSignupEvent(SignupBtnClickedEvent signupBtnClickedEvent){
+            Log.d(TAG,"onSignupEvent" );
             showFragment(SignUpFragment.class, "login_fragment", true);
-
         }
 
         @Subscribe
         public void onForgotEvent(ForgotBtnClickedEvent forgotBtnClickedEvent){
-            showFragment(ForgotFragment.class, "login_fragment", true);
+            Log.d(TAG,"onForgotEvent" );
+            showFragment(ForgotFragment.class, "forgot_fragment", true);
+        }
 
+        @Subscribe
+        public void onLoginSuccessEvent(LoginSuccessEvent event){
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+        }
+
+        @Subscribe
+        public void onLoginSkipEvent(LoginSkippedEvent event) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
         }
 
 //        @Subscribe

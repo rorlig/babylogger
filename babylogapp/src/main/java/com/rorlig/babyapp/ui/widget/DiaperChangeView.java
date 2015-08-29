@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dao.DiaperChangeDao;
 import com.rorlig.babyapp.model.diaper.DiaperChangeEnum;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-
+import com.rorlig.babyapp.model.diaper.DiaperChangeColorType;
 /**
  * @author gaurav gupta
  */
@@ -51,7 +51,7 @@ public class DiaperChangeView extends RelativeLayout {
 //    @InjectView(R.id.row2)
     LinearLayout row2;
 
-    private DiaperChangeDao diaperChangeDao;
+    protected DiaperChange diaperChange;
     private String TAG = "DiaperChangeView";
 
 
@@ -116,32 +116,31 @@ public class DiaperChangeView extends RelativeLayout {
     }
 
 
-    public void setModel(DiaperChangeDao diaperChangeDao) {
-        this.diaperChangeDao = diaperChangeDao;
-
-        Log.d(TAG, new Gson().toJson(diaperChangeDao));
+    public void setModel(DiaperChange diaperChange) {
+        this.diaperChange = diaperChange;
+        Log.d(TAG, new Gson().toJson(diaperChange));
         bindModel();
     }
 
     private void bindModel() {
-        Log.d(TAG, diaperChangeDao.toString());
-        textViewTime.setText(simpleDateFormat.format(new Date(diaperChangeDao.getDate().getTime())));
+        Log.d(TAG, diaperChange.toString());
+        textViewTime.setText(simpleDateFormat.format(diaperChange.getDiaperChangeDate()));
         setPoopColor();
         setPoopTexture();
         setDiaperIncidentType();
         setDiaperChangeType();
 
-        notesContent.setText(diaperChangeDao.getDiaperChangeNotes()!=null ? "" + diaperChangeDao.getDiaperChangeNotes(): "");
+        notesContent.setText(diaperChange.getDiaperChangeNotes()!=null ? "" + diaperChange.getDiaperChangeNotes(): "");
 
     }
 
     private void setDiaperChangeType() {
 
 //        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP) {
-//            if (diaperChangeDao.getDiaperChangeEventType()== DiaperChangeEnum.BOTH) {
+//            if (DiaperChange.getDiaperChangeEventType()== DiaperChangeEnum.BOTH) {
 //                diaperWetChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
 //                diaperPoopChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
-//            } else if (diaperChangeDao.getDiaperChangeEventType()==DiaperChangeEnum.WET){
+//            } else if (DiaperChange.getDiaperChangeEventType()==DiaperChangeEnum.WET){
 //                diaperWetChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_selected));
 //                diaperPoopChecked.setImageDrawable(context.getDrawable(R.drawable.ic_action_tick_unselected));
 //                row2.setVisibility(View.GONE);
@@ -151,11 +150,11 @@ public class DiaperChangeView extends RelativeLayout {
 //            }
 //        } else {
 
-        Log.d(TAG, "diaperChange Type " + diaperChangeDao.getDiaperChangeEventType());
-            if (diaperChangeDao.getDiaperChangeEventType()==(DiaperChangeEnum.BOTH)) {
+        Log.d(TAG, "diaperChange Type " + diaperChange.getDiaperChangeEventType());
+            if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.BOTH)) {
                 diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
                 diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
-            } else if (diaperChangeDao.getDiaperChangeEventType()==DiaperChangeEnum.WET){
+            } else if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.WET)){
                 diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
                 diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
                 row2.setVisibility(View.GONE);
@@ -169,32 +168,37 @@ public class DiaperChangeView extends RelativeLayout {
 
 
     private void setPoopColor() {
-        if (diaperChangeDao.getPoopColor()!=null) {
-            switch (diaperChangeDao.getPoopColor()) {
-                case COLOR_1:
+        if (diaperChange.getPoopColor()!=null) {
+            switch (diaperChange.getPoopColor()) {
+                case "COLOR_1":
                     poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_1));
                     break;
-                case COLOR_2:
+                case "COLOR_2":
                     poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_2));
                     break;
-                case COLOR_3:
+                case "COLOR_3":
                     poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_3));
                     break;
-                case COLOR_4:
+                case "COLOR_4":
                     poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_4));
                     break;
-                case COLOR_5:
+                case "COLOR_5":
                     poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_5));
                     break;
-                case COLOR_6:
+                case "COLOR_6":
                     poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_6));
                     break;
-                case COLOR_7:
+                case "COLOR_7":
                     poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_7));
                     break;
-                case COLOR_8:
+                case "COLOR_8":
                     poopColor.setBackgroundColor(context.getResources().getColor(R.color.poop_color_8));
                     break;
+                default:
+                    poopColor.setBackgroundColor(context.getResources().getColor(R.color.white));
+                break;
+
+
 
             }
         } else poopColor.setBackgroundColor(context.getResources().getColor(R.color.white));
@@ -202,16 +206,16 @@ public class DiaperChangeView extends RelativeLayout {
     }
 
     private void setPoopTexture() {
-        if (diaperChangeDao.getPoopTexture()!=null) {
-            textViewPoopTexture.setText(diaperChangeDao.getPoopTexture().toString());
+        if (diaperChange.getPoopTexture()!=null) {
+            textViewPoopTexture.setText(diaperChange.getPoopTexture().toString());
         } else {
             textViewPoopTexture.setText("N/A");
         }
     }
 
     private void setDiaperIncidentType() {
-        if (diaperChangeDao.getDiaperChangeIncidentType()!=null) {
-            incidentDetails.setText(diaperChangeDao.getDiaperChangeIncidentType().toString());
+        if (diaperChange.getDiaperChangeIncidentType()!=null) {
+            incidentDetails.setText(diaperChange.getDiaperChangeIncidentType().toString());
         }
 
     }

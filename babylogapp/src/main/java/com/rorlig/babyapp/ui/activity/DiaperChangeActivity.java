@@ -204,7 +204,7 @@ public class DiaperChangeActivity extends InjectableActivity {
             Log.d(TAG, "diaperChangeItemClicked");
             DiaperChangeFragment fragment = new DiaperChangeFragment();
             Bundle args = new Bundle();
-            args.putInt("diaper_change_id", event.getDiaperChangeDao().getId());
+            args.putString("diaper_change_id", event.getDiaperChange().getObjectId());
             fragment.setArguments(args);
 
             Log.d(TAG, "adding to back stack ");

@@ -373,6 +373,12 @@
     <string name="txt_reset">Reset Password</string>
     <string name="skip_message">By creating on account or using this app you are agreeing to our terms and conditions and our privacy policy. </string>
     <string name="txt_skip">Skip</string>
+    <string name="no_email">Please enter email address</string>
+    <string name="no_password">Please enter password</string>
+    <string name="not_valid_email">Please enter a valid email</string>
+    <string name="txt_reset_request">Reset Request Send</string>
+    <string name="no_first_name">Please Enter First Name</string>
+    <string name="no_last_name">Please Enter Last Name</string>
 
 
 </resources>

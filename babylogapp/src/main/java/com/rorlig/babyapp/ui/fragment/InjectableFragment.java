@@ -122,5 +122,12 @@ public class InjectableFragment extends Fragment {
     }
 
 
+    protected boolean isValidEmail(final CharSequence target) {
+        if (target == null)
+            return false;
+
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
 
 }

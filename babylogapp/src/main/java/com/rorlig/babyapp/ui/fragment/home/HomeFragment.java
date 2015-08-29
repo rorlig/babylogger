@@ -161,7 +161,19 @@ public class HomeFragment extends InjectableFragment {
 
 
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_home, null);
+        ButterKnife.inject(this, view);
+        return view;
+    }
 
 
 

@@ -68,6 +68,7 @@ public class ProfileActivity extends InjectableActivity {
     public static Uri imageUri;
     private File croppedImageFile;
     private Uri croppedImage;
+    private boolean fromTutorial;
 
 
     @Override
@@ -76,7 +77,7 @@ public class ProfileActivity extends InjectableActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
 
-        boolean fromTutorial = getIntent().getBooleanExtra("from_tutorial",false);
+        fromTutorial = getIntent().getBooleanExtra("from_tutorial",false);
         Log.d(TAG, "fromTutorial: " + fromTutorial);
 
         ProfileFragment profileFragment = new ProfileFragment();
@@ -161,20 +162,24 @@ public class ProfileActivity extends InjectableActivity {
 
         @Subscribe
         public void onSaveProfileEvent(SavedProfileEvent event) {
-
+            Log.d(TAG, "onSavedProfileEvent");
             Intent returnIntent = new Intent();
             returnIntent.putExtra("saved_profile", true);
             setResult(RESULT_OK, returnIntent);
-            startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+            if (fromTutorial) {
+                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+            } else {
+                startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+            }
             finish();
         }
 
         @Subscribe
         public void onSkipProfileEvent(SkipProfileEvent event){
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("saved_profile",false);
+            returnIntent.putExtra("saved_profile", false);
             setResult(RESULT_OK, returnIntent);
-            startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+
             finish();
         }
 

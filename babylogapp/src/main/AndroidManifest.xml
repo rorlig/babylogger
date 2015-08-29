@@ -42,7 +42,8 @@
         <activity
             android:name=".ui.activity.TutorialActivity"
             android:noHistory="true" />
-        <activity android:name=".ui.activity.HomeActivity" />
+        <activity android:name=".ui.activity.HomeActivity"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".ui.activity.ExportActivity"
             android:parentActivityName=".ui.activity.HomeActivity">
@@ -168,7 +169,9 @@
 
         <activity android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme"
-            ></activity>
+            android:launchMode="singleTop"
+            android:noHistory="true"
+            />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="af156a584b800d79ad188965d4aca77b501fe6f0" />

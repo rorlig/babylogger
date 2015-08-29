@@ -6,9 +6,12 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseConfig;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.rorlig.babyapp.dagger.ApplicationModule;
 import com.rorlig.babyapp.dagger.ObjectGraphApplication;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
 
 import java.util.Arrays;
 import java.util.List;
@@ -61,15 +64,25 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
         Parse.enableLocalDatastore(this);
 
         // Register subclasses...
+        ParseObject.registerSubclass(DiaperChange.class);
+
+        // Register subclasses...
 //        ParseObject.registerSubclass(DiaperChange.class);
         // Add your initialization code here
         Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
+
+        ParseUser.enableRevocableSessionInBackground();
 
 //        ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.
         // defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
+
+        Parse.setLogLevel(Parse.LOG_LEVEL_VERBOSE);
+
+
+
 //        configureJobManager();
 //        ACRA.init(this);
 

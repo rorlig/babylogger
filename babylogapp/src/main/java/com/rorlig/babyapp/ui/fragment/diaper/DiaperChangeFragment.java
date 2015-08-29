@@ -22,6 +22,13 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
+import com.parse.DeleteCallback;
+import com.parse.GetCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.DiaperChangeDao;
@@ -33,6 +40,7 @@ import com.rorlig.babyapp.model.diaper.DiaperIncident;
 import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.TimePickerFragment;
@@ -138,7 +146,7 @@ public class DiaperChangeFragment extends InjectableFragment {
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
     private Calendar currentDateLong;
-    private int id=-1;
+    private String id;
     private boolean showEditDelete = false;
 
     @Override
@@ -204,7 +212,8 @@ public class DiaperChangeFragment extends InjectableFragment {
 
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getInt("diaper_change_id");
+            id = getArguments().getString("diaper_change_id");
+            Log.d(TAG, "id of the object " + id);
             initViews(id);
         }
 
@@ -217,78 +226,84 @@ public class DiaperChangeFragment extends InjectableFragment {
 //        scopedBus.post(new UpNavigationEvent);
     }
 
-    private void initViews(int id) {
-        Log.d(TAG, "initViews "   + id);
-        try {
-            DiaperChangeDao diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao().queryForId(id);
-            Log.d(TAG, diaperChangeDao.toString());
+    private void initViews(String id) {
+        Log.d(TAG, "initViews " + id);
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+        query.fromLocalDatastore();
 
-            setDiaperChangeType(diaperChangeDao);
+        query.getInBackground(id, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                DiaperChange diaperChange = (DiaperChange) object;
+                setDiaperChangeType(diaperChange);
+                setDiaperEventTypeVisibility(diaperChange);
+                setDiaperIncidentType(diaperChange);
+                notes.setText(diaperChange.getDiaperChangeNotes());
+                setDateTimeHeader(diaperChange);
 
-            if (diaperChangeDao.getDiaperChangeEventType()!=DiaperChangeEnum.WET) {
-                poopTypeLayout.setVisibility(View.VISIBLE);
-                poopColorLayout.setVisibility(View.VISIBLE);
-                setDiaperChangePoopColor(diaperChangeDao);
-                setDiaperChangePoopType(diaperChangeDao);
-                setPoopTexture(diaperChangeDao);
-            }
-
-            setDiaperIncidentType(diaperChangeDao);
-            notes.setText(diaperChangeDao.getDiaperChangeNotes());
-            setDateTimeHeader(diaperChangeDao);
-
-            showEditDelete = true;
+                showEditDelete = true;
 
 //            saveBtn.setText("Edit");
 
 
-            editDeleteBtn.setVisibility(View.VISIBLE);
-            saveBtn.setVisibility(View.GONE);
+                editDeleteBtn.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.GONE);
 
+            }
+        });
+//            DiaperChangeDao diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao().queryForId(id);
+//            Log.d(TAG, diaperChangeDao.toString());
+//
+//            setDiaperChangeType(diaperChange);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//            if (diaperChangeDao.getDiaperChangeEventType()!=DiaperChangeEnum.WET) {
+//                poopTypeLayout.setVisibility(View.VISIBLE);
+//                poopColorLayout.setVisibility(View.VISIBLE);
+//                setDiaperChangePoopColor(diaperChangeDao);
+//                setDiaperChangePoopType(diaperChangeDao);
+//                setPoopTexture(diaperChangeDao);
+//            }
+
 
     }
 
-    private void setDateTimeHeader(DiaperChangeDao diaperChangeDao) {
+    private void setDateTimeHeader(DiaperChange diaperChangeDao) {
         Log.d(TAG, "setDateTimeHeader");
-        dateTimeHeader.setDateTime(diaperChangeDao.getDate());
+        dateTimeHeader.setDateTime(diaperChangeDao.getDiaperChangeDate());
     }
 
-    private void setDiaperChangePoopType(DiaperChangeDao diaperChangeDao) {
-        switch (diaperChangeDao.getPoopTexture()) {
+    private void setDiaperChangePoopType(DiaperChange diaperChange) {
+        switch (diaperChange.getPoopTexture()) {
 
         }
     }
 
-    private void setDiaperChangePoopColor(DiaperChangeDao diaperChangeDao) {
+    private void setDiaperChangePoopColor(DiaperChange diaperChange) {
 
 
-        switch (diaperChangeDao.getPoopColor()) {
-            case COLOR_1:
+        switch (diaperChange.getPoopColor()) {
+            case "COLOR_1":
                 diaperChangeColor.check(R.id.poopcolor1);
                 break;
-            case COLOR_2:
+            case "COLOR_2":
                 diaperChangeColor.check(R.id.poopcolor2);
                 break;
-            case COLOR_3:
+            case "COLOR_3":
                 diaperChangeColor.check(R.id.poopcolor3);
                 break;
-            case COLOR_4:
+            case "COLOR_4":
                 diaperChangeColor.check(R.id.poopcolor4);
                 break;
-            case COLOR_5:
+            case "COLOR_5":
                 diaperChangeColor.check(R.id.poopcolor5);
                 break;
-            case COLOR_6:
+            case "COLOR_6":
                 diaperChangeColor.check(R.id.poopcolor6);
                 break;
-            case COLOR_7:
+            case "COLOR_7":
                 diaperChangeColor.check(R.id.poopcolor7);
                 break;
-            case COLOR_8:
+            case "COLOR_8":
                 diaperChangeColor.check(R.id.poopcolor8);
                 break;
             default:
@@ -300,46 +315,57 @@ public class DiaperChangeFragment extends InjectableFragment {
         }
     }
 
-    private void setDiaperChangeType(DiaperChangeDao diaperChangeDao) {
-        switch (diaperChangeDao.getDiaperChangeEventType()) {
-            case POOP:
+    private void setDiaperChangeType(DiaperChange diaperChange) {
+        switch (diaperChange.getDiaperChangeEventType()) {
+            case "Poop":
                 diaperChangeType.check(R.id.diaper_pop);
                 break;
-            case WET:
+            case "Wet":
                 diaperChangeType.check(R.id.diaper_wet);
                 break;
-            case BOTH:
+            case "Both":
                 diaperChangeType.check(R.id.diaper_both);
                 break;
         }
     }
 
+    private void setDiaperEventTypeVisibility(DiaperChange diaperChange) {
 
-    private void setDiaperIncidentType(DiaperChangeDao diaperChangeDao) {
+        if (!diaperChange.getDiaperChangeEventType().equals("Wet")) {
+            poopTypeLayout.setVisibility(View.VISIBLE);
+            poopColorLayout.setVisibility(View.VISIBLE);
+            setDiaperChangePoopColor(diaperChange);
+            setDiaperChangePoopType(diaperChange);
+            setPoopTexture(diaperChange);
+        }
+    }
+
+
+    private void setDiaperIncidentType(DiaperChange diaperChangeDao) {
         switch (diaperChangeDao.getDiaperChangeIncidentType()) {
-            case NONE:
+            case "NONE":
                 diaperIncidentType.check(R.id.check_no_incident);
                 break;
-            case NO_DIAPER:
+            case "NO_DIAPER":
                 diaperIncidentType.check(R.id.check_no_diaper);
                 break;
-            case DIAPER_LEAK:
+            case "DIAPER_LEAK":
                 diaperIncidentType.check(R.id.check_diaper_leak);
         }
     }
 
-    private void setPoopTexture(DiaperChangeDao diaperChangeDao) {
-        switch (diaperChangeDao.getPoopTexture()) {
-            case LOOSE:
+    private void setPoopTexture(DiaperChange diaperChange) {
+        switch (diaperChange.getPoopTexture()) {
+            case "LOOSE":
                 poopDensitySeekBar.setProgress(0);
                 break;
-            case SEEDY:
+            case "SEEDY":
                 poopDensitySeekBar.setProgress(25);
                 break;
-            case CHUNKY:
+            case "CHUNKY":
                 poopDensitySeekBar.setProgress(50);
                 break;
-            case HARD:
+            case "HARD":
                 poopDensitySeekBar.setProgress(75);
                 break;
         }
@@ -420,51 +446,100 @@ public class DiaperChangeFragment extends InjectableFragment {
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
         Log.d(TAG, "delete btn clicked");
-        DiaperChangeDao daoObject;
-        try {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+            query.fromLocalDatastore();
 
-            daoObject = createDiaperChangeDao();
-            Dao<DiaperChangeDao, Integer> diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao();
+            query.getInBackground(id, new GetCallback<ParseObject>() {
 
-            if (id!=-1) {
-                Log.d(TAG, "updating it");
-                daoObject.setId(id);
-                diaperChangeDao.delete(daoObject);
-            }
-            scopedBus.post(new DiaperLogCreatedEvent());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+                        @Override
+                        public void done(ParseObject object, ParseException e) {
+
+                            object.deleteEventually(new DeleteCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                }
+                            });
+                            scopedBus.post(new DiaperLogCreatedEvent());
+
+                        }
+                    }
+            );
     }
 
     private void createOrEdit() {
         Dao<DiaperChangeDao, Integer> diaperChangeDao;
         DiaperChangeDao daoObject;
+        final DiaperChange tempDiaperChangeObject;
         try {
 
             daoObject = createDiaperChangeDao();
+
+            tempDiaperChangeObject = createParseObject();
+
+
             diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao();
 
-            if (id!=-1) {
+            if (id!=null) {
                 Log.d(TAG, "updating it");
-                daoObject.setId(id);
+//                daoObject.setId(id);
                 diaperChangeDao.update(daoObject);
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+                query.fromLocalDatastore();
+                query.getInBackground(id, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        DiaperChange diaperChange = (DiaperChange) object;
+                        diaperChange.setDiaperChangeNotes(tempDiaperChangeObject.getDiaperChangeNotes());
+                        diaperChange.setDiaperChangeEventType(tempDiaperChangeObject.getDiaperChangeEventType());
+                        diaperChange.setDiaperChangeDate(tempDiaperChangeObject.getDiaperChangeDate());
+                        diaperChange.setDiaperChangeIncidentType(tempDiaperChangeObject.getDiaperChangeIncidentType());
+                        if (!tempDiaperChangeObject.getDiaperChangeEventType().equals("Wet")){
+                            diaperChange.setPoopTexture(tempDiaperChangeObject.getPoopTexture());
+                            diaperChange.setPoopColor(tempDiaperChangeObject.getPoopColor());
+                        }
+                        saveEventually(diaperChange);
+                    }
+                });
+//                diaperChange.setObjectId(id);
+
             } else {
                 Log.d(TAG, "creating it");
-
+                saveEventually(tempDiaperChangeObject);
                 diaperChangeDao.create(daoObject);
             }
 
             Log.d(TAG, "created objected " + daoObject);
             closeSoftKeyBoard();
             scopedBus.post(new DiaperLogCreatedEvent());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /*
+     * saves the diaper change object locally or the cloud eventually...
+     * //todo if the network is not connected ... dismiss the screen..
+     */
+    private void saveEventually(final DiaperChange diaperChange) {
+        diaperChange.pinInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.d(TAG, "pinning new object");
+                diaperChange.saveEventually(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d(TAG, "saving locally");
 
+                    }
+                });
+            }
+        });
+    }
 
+    /*
+     * creates a local object
+     */
     private DiaperChangeDao createDiaperChangeDao() {
         DiaperChangeDao daoObject = null;
         switch (diaperChangeType.getCheckedRadioButtonId()) {
@@ -482,6 +557,25 @@ public class DiaperChangeFragment extends InjectableFragment {
                 break;
         }
         return daoObject;
+    }
+
+    private DiaperChange createParseObject(){
+        DiaperChange diaperChange = null;
+        switch (diaperChangeType.getCheckedRadioButtonId()) {
+            case R.id.diaper_wet:
+                diaperChange = new DiaperChange(DiaperChangeEnum.WET, null, null, getDiaperIncident(), notes.getText().toString(), dateTimeHeader.getEventTime());
+                break;
+            case R.id.diaper_both:
+
+                diaperChange = new DiaperChange(DiaperChangeEnum.BOTH, getDiaperChangeTexture(), getDiaperColor(),
+                        getDiaperIncident(), notes.getText().toString(),dateTimeHeader.getEventTime() );
+                break;
+            default:
+                diaperChange = new DiaperChange(DiaperChangeEnum.POOP, getDiaperChangeTexture(), getDiaperColor(),
+                        getDiaperIncident(), notes.getText().toString(),dateTimeHeader.getEventTime() );
+                break;
+        }
+        return diaperChange;
     }
 
     private DiaperChangeColorType getDiaperColor() {

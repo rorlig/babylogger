@@ -63,11 +63,25 @@
 
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_skip"
+        android:layout_below="@+id/btn_login"
+        android:id="@+id/btn_skip"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/primary_gray"
+
+        />
+
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_login"
+        android:layout_below="@+id/btn_skip"
         android:layout_marginTop="10dp"
         android:id="@+id/skip_message"
         android:layout_marginLeft="10dp"

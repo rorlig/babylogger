@@ -8,10 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
+import com.parse.ParseUser;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.ItemModel;
 import com.rorlig.babyapp.otto.ItemsSelectedEvent;
 import com.rorlig.babyapp.otto.UpdateProfileEvent;
+import com.rorlig.babyapp.otto.auth.LoginSuccessEvent;
+import com.rorlig.babyapp.ui.fragment.auth.LoginFragment;
 import com.rorlig.babyapp.ui.fragment.home.HomeFragment;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
@@ -38,7 +41,12 @@ public class HomeActivity extends InjectableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        showFragment(HomeFragment.class, "home_fragment", false);
+        Log.d(TAG,"onCreate");
+//        if (ParseUser.getCurrentUser()==null) {
+//            showFragment(LoginFragment.class,"login_frament", false);
+//        } else {
+            showFragment(HomeFragment.class, "home_fragment", false);
+//        }
     }
 
     @Override
@@ -149,6 +157,11 @@ public class HomeActivity extends InjectableActivity {
             preferences.edit().putString("dob", itemSelectedEvent.getDob()).apply();
             showFragment(HomeFragment.class, "home_fragment", false);
         }
+
+//        @Subscribe
+//        public void onLoginSuccessEvent(LoginSuccessEvent event){
+//            showFragment(HomeFragment.class, "home_fragment", false);
+//        }
 
 //        @Subscribe
 //        public void updateActionBar(UpdateActionBarEvent event){

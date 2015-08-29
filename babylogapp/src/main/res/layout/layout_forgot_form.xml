@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:text="@string/txt_reset"
         android:layout_below="@+id/email_text_input_layout"
-        android:id="@+id/login_btn"
+        android:id="@+id/btn_reset"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
