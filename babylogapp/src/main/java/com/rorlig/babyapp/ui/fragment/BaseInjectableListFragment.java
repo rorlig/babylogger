@@ -26,7 +26,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
-        updateListView();
+//        updateListView();
     }
 
     public void updateListView() {
@@ -35,13 +35,18 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 
     private void populateLocalStore() {
         final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
-        query.fromLocalDatastore();
         query.orderByDescending("createdAt");
+        query.fromLocalDatastore();
+//        query.fromPin(parseClassName);
+
+//        Log.d(TAG, " isCached " + query.fromPin(parseClassName));
+
+//        ParseObject.pin
         query.findInBackground(
                 new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, com.parse.ParseException e) {
-                        Log.d(TAG, "got list from the cache");
+                        Log.d(TAG, "got list from the cache " + e);
                         if (e == null) {
                             Log.d(TAG, "number of items " + objects.size());
                             if (objects.size() == 0) {
@@ -64,6 +69,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         Log.d(TAG, "populateFromNetwork");
         final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
         query.orderByDescending("createdAt");
+
         query.findInBackground(
                 new FindCallback<ParseObject>() {
                     @Override
@@ -78,7 +84,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
                             ParseObject.unpinAllInBackground(parseClassName, data, new DeleteCallback() {
                                 @Override
                                 public void done(com.parse.ParseException e) {
-                                    Log.d(TAG, "deleted diapers pin " + e);
+                                    Log.d(TAG, "deleted " + parseClassName + " pin " + e);
                                 }
 
                             });

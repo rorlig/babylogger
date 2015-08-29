@@ -184,18 +184,14 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
         query.fromLocalDatastore();
 
         query.getInBackground(id, new GetCallback<ParseObject>() {
-
                     @Override
                     public void done(ParseObject object, ParseException e) {
-
-                        object.deleteEventually(new DeleteCallback() {
+                        object.deleteInBackground(new DeleteCallback() {
                             @Override
                             public void done(ParseException e) {
                                 scopedBus.post(new SleepLogCreated());
                             }
-
                         });
-
                     }
                 }
         );

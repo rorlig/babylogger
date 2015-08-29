@@ -430,12 +430,12 @@ public class DiaperChangeFragment extends InjectableFragment {
                         @Override
                         public void done(ParseObject object, ParseException e) {
 
-                            object.deleteEventually(new DeleteCallback() {
+                            object.deleteInBackground(new DeleteCallback() {
                                 @Override
                                 public void done(ParseException e) {
+                                    scopedBus.post(new DiaperLogCreatedEvent());
                                 }
                             });
-                            scopedBus.post(new DiaperLogCreatedEvent());
 
                         }
                     }
