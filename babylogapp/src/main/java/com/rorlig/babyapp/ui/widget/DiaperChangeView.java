@@ -149,10 +149,10 @@ public class DiaperChangeView extends RelativeLayout {
 //        } else {
 
         Log.d(TAG, "diaperChange Type " + diaperChange.getDiaperChangeEventType());
-            if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.BOTH)) {
+            if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.BOTH.toString())) {
                 diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
                 diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
-            } else if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.WET)){
+            } else if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.WET.toString())){
                 diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
                 diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
                 row2.setVisibility(View.GONE);
