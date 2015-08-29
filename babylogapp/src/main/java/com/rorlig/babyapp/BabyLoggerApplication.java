@@ -12,6 +12,10 @@ import com.parse.ParseUser;
 import com.rorlig.babyapp.dagger.ApplicationModule;
 import com.rorlig.babyapp.dagger.ObjectGraphApplication;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
+import com.rorlig.babyapp.parse_dao.Feed;
+import com.rorlig.babyapp.parse_dao.Growth;
+import com.rorlig.babyapp.parse_dao.Milestones;
+import com.rorlig.babyapp.parse_dao.Sleep;
 
 import java.util.Arrays;
 import java.util.List;
@@ -65,6 +69,18 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
 
         // Register subclasses...
         ParseObject.registerSubclass(DiaperChange.class);
+
+        ParseObject.registerSubclass(Feed.class);
+
+        ParseObject.registerSubclass(Growth.class);
+
+        ParseObject.registerSubclass(Milestones.class);
+
+        ParseObject.registerSubclass(Sleep.class);
+
+
+
+
 
         // Register subclasses...
 //        ParseObject.registerSubclass(DiaperChange.class);
