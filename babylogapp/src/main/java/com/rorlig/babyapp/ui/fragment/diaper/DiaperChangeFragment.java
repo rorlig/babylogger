@@ -80,12 +80,6 @@ public class DiaperChangeFragment extends InjectableFragment {
     @Inject
     Context context;
 
-//    @InjectView(R.id.currentDate)
-//    TextView currentDate;
-//
-//    @InjectView(R.id.currentTime)
-//    TextView currentTime;
-
     @InjectView(R.id.save_btn)
     Button saveBtn;
 //
@@ -130,15 +124,6 @@ public class DiaperChangeFragment extends InjectableFragment {
     private String[] poopDensityLabels = new String[]{"Loose", "Seedy", "Chunky","Hard"};
 
 
-//    @InjectView(R.id.gridview)
-//    GridView actionsList;
-
-//    @InjectView(R.id.menu_header)
-//    TextView menuHeader;
-
-
-//    Typeface typeface;
-
     private String TAG = "DiaperChangeFragment";
 
     private EventListener eventListener = new EventListener();
@@ -155,14 +140,6 @@ public class DiaperChangeFragment extends InjectableFragment {
 
 
 
-//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-//                "fonts/proximanova_light.ttf");
-
-//        ActionBar actionBar = getActivity().getActionBar();
-//
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setDisplayShowHomeEnabled(true);
 
         poopDensitySeekBar.setMax(99);
         poopDensitySeekBar.setProgress(0); // Set it to zero so it will start at the left-most edge
