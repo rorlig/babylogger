@@ -1,12 +1,8 @@
 package com.rorlig.babyapp.parse_dao;
 
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
-import com.rorlig.babyapp.dao.BaseDao;
 import com.rorlig.babyapp.model.feed.FeedType;
 
 import java.util.Date;

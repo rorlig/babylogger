@@ -1,6 +1,5 @@
 package com.rorlig.babyapp.ui.fragment.auth;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
@@ -21,7 +20,6 @@ import com.rorlig.babyapp.otto.auth.LoginSkippedEvent;
 import com.rorlig.babyapp.otto.auth.LoginSuccessEvent;
 import com.rorlig.babyapp.otto.auth.SignupBtnClickedEvent;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
-import com.rorlig.babyapp.utils.AppUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

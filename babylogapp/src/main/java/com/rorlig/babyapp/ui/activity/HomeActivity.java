@@ -8,13 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
-import com.parse.ParseUser;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.ItemModel;
 import com.rorlig.babyapp.otto.ItemsSelectedEvent;
 import com.rorlig.babyapp.otto.UpdateProfileEvent;
-import com.rorlig.babyapp.otto.auth.LoginSuccessEvent;
-import com.rorlig.babyapp.ui.fragment.auth.LoginFragment;
 import com.rorlig.babyapp.ui.fragment.home.HomeFragment;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;

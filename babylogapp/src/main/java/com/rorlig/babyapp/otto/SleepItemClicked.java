@@ -1,18 +1,18 @@
 package com.rorlig.babyapp.otto;
 
-import com.rorlig.babyapp.dao.SleepDao;
+import com.rorlig.babyapp.parse_dao.Sleep;
 
 /**
  * @author gaurav gupta
  */
 public class SleepItemClicked {
-    private final SleepDao sleepDao;
+    private final Sleep sleep;
 
-    public SleepItemClicked(SleepDao sleepDao) {
-        this.sleepDao = sleepDao;
+    public SleepItemClicked(Sleep sleep) {
+        this.sleep = sleep;
     }
 
-    public SleepDao getSleepDao() {
-        return sleepDao;
+    public Sleep getSleepDao() {
+        return sleep;
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,10 +21,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
-import com.parse.DeleteCallback;
-import com.parse.FindCallback;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.BaseDao;
@@ -39,7 +35,7 @@ import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
@@ -61,7 +57,7 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of diaper changes
  */
-public class DiaperChangeListFragment extends InjectableFragment implements AdapterView.OnItemClickListener {
+public class DiaperChangeListFragment extends BaseInjectableListFragment implements AdapterView.OnItemClickListener {
 
     @ForActivity
     @Inject
@@ -102,6 +98,13 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
     private EventListener eventListener = new EventListener();
 
     PreparedQuery<DiaperChangeDao> queryBuilder;
+
+    public DiaperChangeListFragment() {
+        super("Diaper");
+    }
+//    public DiaperChangeListFragment(String parseClassName) {
+//        super("DiaperChange");
+//    }
 
 
     @Override
@@ -154,75 +157,76 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
     }
 
-    private void updateListView() {
-       populateLocalStore();
+//    private void updateListView() {
+//       populateLocalStore();
+//
+//    }
 
-    }
-
-    private void populateLocalStore() {
-        Log.d(TAG, "populateLocalStore");
-
-        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
-        query.fromLocalDatastore();
-        query.orderByDescending("createdAt");
-        query.findInBackground(
-                new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
-                        Log.d(TAG, "got list from the cache");
-                        if (e == null) {
-                            Log.d(TAG, "number of items " + objects.size());
-                            if (objects.size() == 0) {
-                                populateFromNetwork(objects);
-                            } else {
-                                setListResults(objects);
-
-                            }
-                        } else {
-                            Log.d(TAG, "exception " + e);
-                        }
-                    }
-                }
-
-
-        );
-
-    }
-
-
-    private void populateFromNetwork(final List<ParseObject> data) {
-        Log.d(TAG, "populateFromNetwork");
-        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
-        query.orderByDescending("createdAt");
-        query.findInBackground(
-                new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
-                        Log.d(TAG, "got list from the network");
-                        if (e == null) {
-                            Log.d(TAG, "number of items " + objects.size());
-//                            if(objects.size()==0) {
-//                                populateFromNetwork();
+//    private void populateLocalStore() {
+//        Log.d(TAG, "populateLocalStore");
+//
+//        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+//        query.fromLocalDatastore();
+//        query.orderByDescending("createdAt");
+//        query.findInBackground(
+//                new FindCallback<ParseObject>() {
+//                    @Override
+//                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                        Log.d(TAG, "got list from the cache");
+//                        if (e == null) {
+//                            Log.d(TAG, "number of items " + objects.size());
+//                            if (objects.size() == 0) {
+//                                populateFromNetwork(objects);
 //                            } else {
+//                                setListResults(objects);
+//
+//                            }
+//                        } else {
+//                            Log.d(TAG, "exception " + e);
+//                        }
+//                    }
+//                }
+//
+//
+//        );
+//
+//    }
 
-                            ParseObject.unpinAllInBackground("Diapers", data, new DeleteCallback() {
-                                @Override
-                                public void done(com.parse.ParseException e) {
-                                    Log.d(TAG, "deleted diapers pin " + e);
-                                }
 
-                            });
-                            ParseObject.pinAllInBackground("Diapers", objects);
-                            setListResults(objects);
-                        } else {
-                            Log.d(TAG, "exception " + e);
-                        }
-                    }
-                }
-        );
-    }
+//    private void populateFromNetwork(final List<ParseObject> data) {
+//        Log.d(TAG, "populateFromNetwork");
+//        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+//        query.orderByDescending("createdAt");
+//        query.findInBackground(
+//                new FindCallback<ParseObject>() {
+//                    @Override
+//                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                        Log.d(TAG, "got list from the network");
+//                        if (e == null) {
+//                            Log.d(TAG, "number of items " + objects.size());
+////                            if(objects.size()==0) {
+////                                populateFromNetwork();
+////                            } else {
+//
+//                            ParseObject.unpinAllInBackground("Diapers", data, new DeleteCallback() {
+//                                @Override
+//                                public void done(com.parse.ParseException e) {
+//                                    Log.d(TAG, "deleted diapers pin " + e);
+//                                }
+//
+//                            });
+//                            ParseObject.pinAllInBackground("Diapers", objects);
+//                            setListResults(objects);
+//                        } else {
+//                            Log.d(TAG, "exception " + e);
+//                        }
+//                    }
+//                }
+//        );
+//    }
 
-    private void setListResults(List<ParseObject> objects) {
+    @Override
+    protected void setListResults(List<ParseObject> objects) {
         diaperChangeList = objects;
 
         diaperChangeAdapter = new DiaperChangeAdapter(getActivity(),
@@ -247,9 +251,6 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-//        currentTime.setText(today.hour + ":" + today.minute + ":" + today.second);
     }
 
 

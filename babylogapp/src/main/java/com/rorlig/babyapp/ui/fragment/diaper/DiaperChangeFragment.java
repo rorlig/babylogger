@@ -24,7 +24,6 @@ import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
 import com.parse.DeleteCallback;
 import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;

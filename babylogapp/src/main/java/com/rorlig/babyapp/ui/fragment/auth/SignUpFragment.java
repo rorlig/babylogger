@@ -14,8 +14,6 @@ import com.parse.SignUpCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 
-import org.w3c.dom.Text;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;

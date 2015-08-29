@@ -1,12 +1,8 @@
 package com.rorlig.babyapp.parse_dao;
 
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
-import com.rorlig.babyapp.dao.BaseDao;
 
 import java.util.Date;
 
@@ -14,7 +10,7 @@ import java.util.Date;
  * @author gaurav gupta
  * Sleep Dao
  */
-@ParseClassName("Parse")
+@ParseClassName("Sleep")
 public class Sleep extends ParseObject {
 
 
@@ -33,9 +29,12 @@ public class Sleep extends ParseObject {
 
     public Sleep(Date sleepStartTime,
                  Long duration, Date date) {
-        this.sleepStartTime = sleepStartTime;
-        this.duration = duration;
-        this.logCreationDate = new Date(date.getTime());
+        setSleepStartTime(sleepStartTime);
+        setDuration(duration);
+        setLogCreationDate(date);
+//        this.sleepStartTime = sleepStartTime;
+//        this.duration = duration;
+//        this.logCreationDate = new Date(date.getTime());
     }
 
 

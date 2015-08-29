@@ -1,6 +1,5 @@
 package com.rorlig.babyapp.parse_dao;
 
-import com.j256.ormlite.field.DatabaseField;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.model.diaper.DiaperChangeColorType;

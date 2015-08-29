@@ -6,7 +6,6 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.parse.Parse;
 import com.parse.ParseACL;
-import com.parse.ParseConfig;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.rorlig.babyapp.dagger.ApplicationModule;

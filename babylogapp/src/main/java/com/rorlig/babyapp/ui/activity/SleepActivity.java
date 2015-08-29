@@ -176,7 +176,7 @@ public class SleepActivity extends InjectableActivity {
             Log.d(TAG, "onSleepItemClicked");
             SleepFragment fragment = new SleepFragment();
             Bundle args = new Bundle();
-            args.putInt("sleep_id", event.getSleepDao().getId());
+            args.putString("sleep_id", event.getSleepDao().getObjectId());
             fragment.setArguments(args);
 
             Log.d(TAG, "adding to back stack ");

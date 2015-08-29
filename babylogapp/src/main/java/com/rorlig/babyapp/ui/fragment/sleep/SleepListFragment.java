@@ -2,8 +2,6 @@ package com.rorlig.babyapp.ui.fragment.sleep;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +17,7 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.BaseDao;
@@ -30,16 +29,14 @@ import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.ui.adapter.DateSectionizer;
-import com.rorlig.babyapp.ui.adapter.SleepAdapter;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.parse_dao.Sleep;
+import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter;
+import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -54,26 +51,14 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of sleep logs
  */
-public class SleepListFragment extends InjectableFragment
-        implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<List<SleepDao>> {
+public class SleepListFragment extends BaseInjectableListFragment
+        implements AdapterView.OnItemClickListener
+//        , LoaderManager.LoaderCallbacks<List<SleepDao>>
+    {
 
     @ForActivity
     @Inject
     Context context;
-
-//    @InjectView(R.id.currentDate)
-//    TextView currentDate;
-//
-//    @InjectView(R.id.currentTime)
-//    TextView currentTime;
-
-
-
-//    @InjectView(R.id.gridview)
-//    GridView actionsList;
-
-//    @InjectView(R.id.menu_header)
-//    TextView menuHeader;
 
     @InjectView(R.id.sleep_list)
     ListView sleepListView;
@@ -84,37 +69,16 @@ public class SleepListFragment extends InjectableFragment
     @InjectView(R.id.errorText)
     TextView errorText;
 
-
-//    @InjectView(R.id.diaper_bar_chart)
-//    BarChart barChart;
-
-
-
-
-
     @InjectView(R.id.add_sleep_item)
     FloatingActionButton btnAddSleep;
 
 
     private BabyLoggerORMUtils babyORMLiteUtils;
-    private List<SleepDao> sleepList;
+    private List<ParseObject> sleepList;
     private SleepAdapter sleepAdapter;
     private SimpleSectionAdapter<BaseDao> sectionAdapter;
     private int LOADER_ID=2;
 
-    @OnClick(R.id.add_sleep_item)
-    public void onSleepAddItemClicked(){
-//        scopedBus.post(new AddDiaperChangeEvent());
-
-        scopedBus.post(new AddItemEvent(AddItemTypes.SLEEP_LOG));
-    }
-
-    @OnClick(R.id.add_item)
-    public void onAddItem(){
-//        scopedBus.post(new AddDiaperChangeEvent());
-
-        scopedBus.post(new AddItemEvent(AddItemTypes.SLEEP_LOG));
-    }
 
     private String TAG = "SleepListFragment";
 
@@ -122,48 +86,21 @@ public class SleepListFragment extends InjectableFragment
 
     PreparedQuery<SleepDao> queryBuilder;
 
+    public SleepListFragment() {
+        super("Sleep");
+    }
 
-    @Override
+
+        @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-//                "fonts/proximanova_light.ttf");
-
-//        sleepListView.setEmptyView(emptyView);
-
-//        btnDiaperChange.setTypeface(typeface);
-
-//        errorText.setTypeface(typeface);
-
         scopedBus.post(new FragmentCreated("Diaper Change List"));
 
+        updateListView();
 
 
-        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
-        try {
-            queryBuilder = babyORMLiteUtils.getSleepDao().queryBuilder().orderBy("date", false).prepare();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        sleepList = new ArrayList<SleepDao>();
-        Log.d(TAG, "number of diaper changes " + sleepList.size());
-        sleepAdapter = new SleepAdapter(getActivity(), R.layout.list_item_diaper_change, sleepList);
-        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-                sleepAdapter, R.layout.section_header_gray, R.id.title,
-                new DateSectionizer());
-        sleepListView.setAdapter(sectionAdapter);
-        sleepListView.setOnItemClickListener(this);
 
-        getLoaderManager().initLoader(LOADER_ID, null, this);
-
-        try {
-            sleepList =  babyORMLiteUtils.getSleepList();
-//            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
 
 
@@ -172,7 +109,8 @@ public class SleepListFragment extends InjectableFragment
 
 
 
-    @Override
+
+        @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -197,7 +135,7 @@ public class SleepListFragment extends InjectableFragment
 
         super.onStart();
         Log.d(TAG, "onStart");
-        getLoaderManager().restartLoader(LOADER_ID, null, this);
+//        getLoaderManager().restartLoader(LOADER_ID, null, this);
         scopedBus.register(eventListener);
     }
 
@@ -242,55 +180,83 @@ public class SleepListFragment extends InjectableFragment
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "item clicked at position " + position + " id " + id);
-        SleepDao sleepDao = (SleepDao) sleepListView.getItemAtPosition(position);
-        Log.d(TAG, "diaperchange dao " + sleepDao);
-        scopedBus.post(new SleepItemClicked(sleepDao));
+        Sleep sleep = (Sleep) sleepListView.getItemAtPosition(position);
+        Log.d(TAG, "diaperchange dao " + sleep);
+        scopedBus.post(new SleepItemClicked(sleep));
     }
 
+//    @Override
+//    public Loader<List<SleepDao>> onCreateLoader(int i, Bundle bundle) {
+//        Log.d(TAG, "create Loader");
+//
+//        return new SleepLoader(getActivity());
+//
+//    }
+
+//    @Override
+//    public void onLoadFinished(Loader<List<SleepDao>> loader, List<SleepDao> data) {
+//
+//        Log.d(TAG, "loader finished");
+//
+//        if (data.size()>0) {
+//            emptyView.setVisibility(View.GONE);
+////            barChart.setVisibility(View.VISIBLE);
+//
+//            sleepListView.setVisibility(View.VISIBLE);
+//        } else {
+//            emptyView.setVisibility(View.VISIBLE);
+//            sleepListView.setVisibility(View.GONE);
+//
+//        }
+//
+//        sleepList = data;
+//
+//        sleepAdapter = new SleepAdapter(getActivity(), R.layout.list_item_sleep, sleepList);
+//
+////        diaperChangeAdapter.update(diaperChangeDaoList);
+//
+//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
+//                sleepAdapter, R.layout.section_header_gray, R.id.title,
+//                new DateSectionizer());
+//
+//        sleepListView.setAdapter(sectionAdapter);
+//
+//    }
+//
+//    @Override
+//    public void onLoaderReset(Loader<List<SleepDao>> loader) {
+//
+//    }
+
+
     @Override
-    public Loader<List<SleepDao>> onCreateLoader(int i, Bundle bundle) {
-        Log.d(TAG, "create Loader");
+    protected void setListResults(List<ParseObject> objects) {
+        sleepList = objects;
 
-        return new SleepLoader(getActivity());
-
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<SleepDao>> loader, List<SleepDao> data) {
-
-        Log.d(TAG, "loader finished");
-
-        if (data.size()>0) {
-            emptyView.setVisibility(View.GONE);
-//            barChart.setVisibility(View.VISIBLE);
-
+        sleepAdapter = new SleepAdapter(getActivity(),
+                R.layout.list_item_diaper_change, sleepList);
+        sleepAdapter.update(sleepList);
+        sleepListView.setAdapter(sleepAdapter);
+        if (sleepList.size() > 0) {
             sleepListView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            sleepListView.setOnItemClickListener(this);
         } else {
-            emptyView.setVisibility(View.VISIBLE);
             sleepListView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
 
         }
-
-        sleepList = data;
-
-        sleepAdapter = new SleepAdapter(getActivity(), R.layout.list_item_sleep, sleepList);
-
-//        diaperChangeAdapter.update(diaperChangeDaoList);
-
-        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-                sleepAdapter, R.layout.section_header_gray, R.id.title,
-                new DateSectionizer());
-
-        sleepListView.setAdapter(sectionAdapter);
-
     }
 
-    @Override
-    public void onLoaderReset(Loader<List<SleepDao>> loader) {
-
+    @OnClick(R.id.add_sleep_item)
+    public void onSleepAddItemClicked(){
+        scopedBus.post(new AddItemEvent(AddItemTypes.SLEEP_LOG));
     }
 
-
+    @OnClick(R.id.add_item)
+    public void onAddItem(){
+        scopedBus.post(new AddItemEvent(AddItemTypes.SLEEP_LOG));
+    }
 
     private String getDateRangeForWeek(int weekNumber){
         Log.d(TAG, "weekNumber " + weekNumber);
@@ -314,7 +280,8 @@ public class SleepListFragment extends InjectableFragment
         @Subscribe
         public void onSleepEventCreated(SleepLogCreated event) {
             Log.d(TAG, "onSleepEventCreated");
-            getLoaderManager().restartLoader(LOADER_ID, null, SleepListFragment.this);
+            updateListView();
+//            getLoaderManager().restartLoader(LOADER_ID, null, SleepListFragment.this);
         }
 
 

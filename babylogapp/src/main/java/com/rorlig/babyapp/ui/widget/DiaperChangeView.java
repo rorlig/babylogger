@@ -15,9 +15,7 @@ import com.rorlig.babyapp.model.diaper.DiaperChangeEnum;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimeZone;
-import com.rorlig.babyapp.model.diaper.DiaperChangeColorType;
 /**
  * @author gaurav gupta
  */

@@ -21,7 +21,6 @@ import com.rorlig.babyapp.ui.activity.FeedingActivity;
 import com.rorlig.babyapp.ui.activity.GrowthActivity;
 import com.rorlig.babyapp.ui.activity.MilestonesActivity;
 import com.rorlig.babyapp.ui.activity.SleepActivity;
-import com.rorlig.babyapp.ui.activity.TutorialActivity;
 import com.rorlig.babyapp.ui.adapter.HomeItemAdapter;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.squareup.picasso.Picasso;
