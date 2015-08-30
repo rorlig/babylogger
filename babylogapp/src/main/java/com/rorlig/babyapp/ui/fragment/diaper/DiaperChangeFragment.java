@@ -40,6 +40,7 @@ import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
+import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.TimePickerFragment;
@@ -73,7 +74,7 @@ import static com.rorlig.babyapp.model.diaper.DiaperChangeColorType.NOT_SPECIFIE
  * Created by rorlig on 7/14/14.
  * fragment class to track of diaper events....
  */
-public class DiaperChangeFragment extends InjectableFragment {
+public class DiaperChangeFragment extends BaseCreateLogFragment {
 
     @ForActivity
     @Inject
@@ -132,6 +133,10 @@ public class DiaperChangeFragment extends InjectableFragment {
     private Calendar currentDateLong;
     private String id;
     private boolean showEditDelete = false;
+
+    public DiaperChangeFragment() {
+        super("Diaper");
+    }
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -421,28 +426,10 @@ public class DiaperChangeFragment extends InjectableFragment {
 
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
-        Log.d(TAG, "delete btn clicked");
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
-            query.fromLocalDatastore();
-
-            query.getInBackground(id, new GetCallback<ParseObject>() {
-
-                        @Override
-                        public void done(ParseObject object, ParseException e) {
-
-                            object.deleteInBackground(new DeleteCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    scopedBus.post(new DiaperLogCreatedEvent());
-                                }
-                            });
-
-                        }
-                    }
-            );
+        delete(id);
     }
 
-    private void createOrEdit() {
+    public void createOrEdit() {
         Dao<DiaperChangeDao, Integer> diaperChangeDao;
         DiaperChangeDao daoObject;
         final DiaperChange tempDiaperChangeObject;

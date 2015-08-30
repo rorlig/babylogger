@@ -15,6 +15,7 @@ import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.feed.FeedType;
 import com.rorlig.babyapp.otto.FeedItemClickedEvent;
 import com.rorlig.babyapp.otto.events.feed.FeedItemCreatedEvent;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.scheduler.TypeFaceManager;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
@@ -221,7 +222,7 @@ public class FeedingActivity extends InjectableActivity {
          * event called when an feed item is saved/deleted/edited
          */
         @Subscribe
-        public void onFeedItemSaved(FeedItemCreatedEvent event) {
+        public void onFeedItemSaved(ItemCreatedOrChanged event) {
             Log.d(TAG, "onFeedSavedEvent");
             closeSoftKeyBoard();
 //            finish();
@@ -235,14 +236,14 @@ public class FeedingActivity extends InjectableActivity {
         public void onFeedItemClickedEvent(FeedItemClickedEvent event) {
             Log.d(TAG, "onFeedItemClickedEvent" + event.getFeedDao());
             Fragment fragment;
-            if (event.getFeedDao().getFeedType()== FeedType.BOTTLE) {
+            if (event.getFeedDao().getFeedType().equals(FeedType.BOTTLE.toString())) {
                 fragment = new BottleFeedFragment();
             } else {
                 fragment = new NursingFeedFragment();
             }
 //            DiaperChangeFragment fragment = new DiaperChangeFragment();
             Bundle args = new Bundle();
-            args.putInt("feed_id", event.getFeedDao().getId());
+            args.putString("feed_id", event.getFeedDao().getObjectId());
             fragment.setArguments(args);
 
             Log.d(TAG, "adding to back stack ");

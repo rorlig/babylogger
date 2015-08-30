@@ -60,7 +60,7 @@
 
                     >
                     <EditText
-                        android:id="@+id/left_sleep_hours"
+                        android:id="@+id/left_breast_hours"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLength="2"
@@ -81,7 +81,7 @@
 
                     >
                     <EditText
-                        android:id="@+id/left_sleep_minutes"
+                        android:id="@+id/left_breast_minutes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLength="2"
@@ -124,7 +124,7 @@
 
                     >
                     <EditText
-                        android:id="@+id/right_sleep_hours"
+                        android:id="@+id/right_breast_hours"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLength="2"
@@ -145,13 +145,13 @@
 
                     >
                     <EditText
-                        android:id="@+id/right_sleep_minutes"
+                        android:id="@+id/right_breast_minutes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLength="2"
                         android:ems="10"
                         android:hint="@string/minutes"
-                        android:layout_toRightOf="@+id/right_sleep_hours"
+                        android:layout_toRightOf="@+id/right_breast_hours"
                         android:numeric="decimal"
                         android:imeOptions="actionNext"
 

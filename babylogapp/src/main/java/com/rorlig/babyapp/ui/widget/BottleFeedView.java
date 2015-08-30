@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dao.FeedDao;
+import com.rorlig.babyapp.parse_dao.Feed;
 
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
@@ -16,7 +17,7 @@ import java.util.TimeZone;
  */
 public class BottleFeedView extends RelativeLayout {
 
-    private FeedDao model;
+    private Feed model;
     private SimpleDateFormat simpleDateFormat;
 
 
@@ -54,14 +55,14 @@ public class BottleFeedView extends RelativeLayout {
         simpleDateFormat = new SimpleDateFormat("MMM d, ''yy h:mm a");
         simpleDateFormat.setTimeZone(TimeZone.getDefault());
     }
-    public void setModel(FeedDao model) {
+    public void setModel(Feed model) {
         this.model = model;
         bindModel();
     }
 
     private void bindModel() {
         txtQuantity.setText(model.getQuantity().toString() + " oz of " + model.getFeedItem());
-        textViewTime.setText(simpleDateFormat.format(model.getDate()));
+        textViewTime.setText(simpleDateFormat.format(model.getLogCreationDate()));
         notesTextView.setText(model.getNotes());
     }
 

@@ -2,8 +2,6 @@ package com.rorlig.babyapp.ui.fragment.growth;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,19 +21,15 @@ import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.BaseDao;
-import com.rorlig.babyapp.dao.GrowthDao;
 import com.rorlig.babyapp.otto.GrowthItemClicked;
-import com.rorlig.babyapp.otto.events.growth.GrowthItemCreated;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.Growth;
-import com.rorlig.babyapp.ui.adapter.DateSectionizer;
-import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -257,7 +251,7 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
         }
 
         @Subscribe
-        public void onGrowthItemCreated(GrowthItemCreated event) {
+        public void onGrowthItemCreated(ItemCreatedOrChanged event) {
             updateListView();
 //            getLoaderManager().restartLoader(LOADER_ID, null, GrowthListFragment.this);
 //            showFragment(GrowthListFragment.class, "growth_list_fragment",false);

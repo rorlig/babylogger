@@ -1,10 +1,6 @@
 package com.rorlig.babyapp.ui.fragment.feed;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -25,13 +21,19 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.j256.ormlite.dao.Dao;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.FeedDao;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.model.feed.FeedType;
-import com.rorlig.babyapp.otto.events.feed.FeedItemCreatedEvent;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
+import com.rorlig.babyapp.parse_dao.Feed;
+import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
 import java.sql.SQLException;
@@ -49,7 +51,7 @@ import butterknife.OnClick;
 /**
  * Created by rorlig on 7/14/14.
  */
-public class NursingFeedFragment extends InjectableFragment {
+public class NursingFeedFragment extends BaseCreateLogFragment {
 
     Chronometer chronometer;
 
@@ -58,18 +60,18 @@ public class NursingFeedFragment extends InjectableFragment {
     Context context;
 
 
-    @InjectView(R.id.left_sleep_hours)
-    EditText leftSleepHours;
+    @InjectView(R.id.left_breast_hours)
+    EditText leftBreastFeedHours;
 
-    @InjectView(R.id.left_sleep_minutes)
-    EditText leftSleepMinutes;
+    @InjectView(R.id.left_breast_minutes)
+    EditText leftBreastFeedMinutes;
 
 
-    @InjectView(R.id.right_sleep_hours)
-    EditText rightSleepHours;
+    @InjectView(R.id.right_breast_hours)
+    EditText rightBreastFeedHours;
 
-    @InjectView(R.id.right_sleep_minutes)
-    EditText rightSleepMinutes;
+    @InjectView(R.id.right_breast_minutes)
+    EditText rightBreastFeedMinutes;
 
 
     @InjectView(R.id.notes)
@@ -81,75 +83,22 @@ public class NursingFeedFragment extends InjectableFragment {
 
     @InjectView(R.id.two_button_layout)
     LinearLayout editDeleteBtn;
-////    @InjectView(R.id.minute)
-//    TextView minuteLTextView;
-//
-//
-//
-////    @InjectView(R.id.second)
-//    TextView secondLTextView;
-//
-//
-//
-////    @InjectView(R.id.hour)
-//    TextView hourRTextView;
-//
-//
-//    TextView minuteRTextView;
-//
-//
-//
-//    //    @InjectView(R.id.second)
-//    TextView secondRTextView;
-//
-//
-//
-//    //    @InjectView(R.id.hour)
-//    TextView hourLTextView;
-////
-////
-////    TextView leftTextView;
-////
-////    TextView rightTextView;
-////    @InjectView(R.id.leftStopWatch)
-////    RelativeLayout leftStopWatch;
-////
-////    @InjectView(R.id.rightStopWatch)
-////    RelativeLayout rightStopWatch;
-//
-////    @InjectView(R.id.gridview)
-////    GridView actionsList;
-//
-////    @InjectView(R.id.menu_header)
-////    TextView menuHeader;
-//
-
-//    Typeface typeface;
 
     private String TAG = "NursingFeedFragment";
 
     private EventListener eventListener = new EventListener();
-    private long startTime;
-//    private boolean leftStarted = false;
-//    private boolean rightStarted = false;
-//    private TextView rightTextView;
-//    private TextView leftTextView;
+
     private DateTimeHeaderFragment dateTimeHeader;
 
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
-    private NotificationManager notificationManager;
-    private Intent intent;
-    private PendingIntent pIntent;
-    private Notification notification;
-    private int notification_id=0;
     private boolean leftHoursEmpty = true, leftMinutesEmpty  = true, rightHoursEmpty = true, rightMinutesEmpty  = true;
-    private int id = -1;
+    private String id;
     private boolean showEditDelete = false;
-//    private SoundManager soundMgr;
-//    private CompositeSubscription subscriptions;
-//    private Subscription leftSubscription;
-//    private Subscription rightSubscription;
+
+    public NursingFeedFragment() {
+        super("Feed");
+    }
 
 //    @SuppressLint("NewApi")
     @Override
@@ -178,7 +127,7 @@ public class NursingFeedFragment extends InjectableFragment {
         //initialize views if not creating new feed item
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getInt("feed_id");
+            id = getArguments().getString("feed_id");
             initViews(id);
         }
 
@@ -189,41 +138,38 @@ public class NursingFeedFragment extends InjectableFragment {
 
     }
 
-    private void initViews(int id) {
+    private void initViews(String id) {
         Log.d(TAG, "initViews " + id);
-        try {
-            FeedDao feedDao = babyLoggerORMLiteHelper.getFeedDao().queryForId(id);
-            Log.d(TAG, feedDao.toString());
-            editDeleteBtn.setVisibility(View.VISIBLE);
-            saveBtn.setVisibility(View.GONE);
-            leftSleepMinutes.setText("" + (int) (feedDao.getLeftBreastTime() % 60));
-            leftSleepHours.setText("" + (int) (feedDao.getLeftBreastTime()/60));
+
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+        query.fromLocalDatastore();
+
+        query.getInBackground(id, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                Feed feed = (Feed) object;
+
+                leftBreastFeedMinutes.setText("" + (int) (feed.getLeftBreastTime() % 60));
+                leftBreastFeedHours.setText("" + (int) (feed.getLeftBreastTime() / 60));
 
 
-            rightSleepMinutes.setText("" + (int) (feedDao.getRightBreastTime() % 60));
-            rightSleepHours.setText("" + (int) (feedDao.getRightBreastTime()/60));
+                rightBreastFeedMinutes.setText("" + (int) (feed.getRightBreastTime() % 60));
+                rightBreastFeedHours.setText("" + (int) (feed.getRightBreastTime() / 60));
 
-            notes.setText(feedDao.getNotes());
+                notes.setText(feed.getNotes());
 
-            dateTimeHeader.setDateTime(feedDao.getDate());
+                dateTimeHeader.setDateTime(feed.getLogCreationDate());
+
+                showEditDelete = true;
+//            saveBtn.setText("Edit");
 
 
-            showEditDelete = true;
+                editDeleteBtn.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.GONE);
 
-//            quantityTextView.setText(feedDao.getQuantity().toString());
-//            final String[] values = getResources().getStringArray(R.array.type_array);
-//            int index = 0;
-//            for (String value : values) {
-//                if (value.equals(feedDao.getFeedItem())) {
-//                    feedTypeSpinner.setSelection(index);
-//                    break;
-//                }
-//                index++;
-//            }
+            }
+        });
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -232,8 +178,8 @@ public class NursingFeedFragment extends InjectableFragment {
 
         Log.d(TAG, "onViewCreated");
 
-        notificationManager = (NotificationManager)
-                getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+//        notificationManager = (NotificationManager)
+//                getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
 
 //        subscriptions = new CompositeSubscription();
@@ -248,23 +194,23 @@ public class NursingFeedFragment extends InjectableFragment {
 
     private void setUpViews() {
         Log.d(TAG, "setUpViews");
-//        leftSleepMinutes.setOnEditorActionListener(doneActionListener);
-//        leftSleepHours.setOnEditorActionListener(doneActionListener);
-//        rightSleepMinutes.setOnEditorActionListener(doneActionListener);
-//        rightSleepHours.setOnEditorActionListener(doneActionListener);
+//        leftBreastFeedMinutes.setOnEditorActionListener(doneActionListener);
+//        leftBreastFeedHours.setOnEditorActionListener(doneActionListener);
+//        rightBreastFeedMinutes.setOnEditorActionListener(doneActionListener);
+//        rightBreastFeedHours.setOnEditorActionListener(doneActionListener);
         notes.setOnEditorActionListener(doneActionListener);
 
     }
 
     private void setUpTextWatchers() {
 
-        leftSleepHours.addTextChangedListener(new TextWatcher() {
+        leftBreastFeedHours.addTextChangedListener(new TextWatcher() {
             int len = 0;
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d(TAG, "beforeTextChanged ");
-                String str = leftSleepHours.getText().toString();
+                String str = leftBreastFeedHours.getText().toString();
                 len = str.length();
             }
 
@@ -272,7 +218,7 @@ public class NursingFeedFragment extends InjectableFragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d(TAG, "onTextChanged ");
 
-                String str = leftSleepHours.getText().toString();
+                String str = leftBreastFeedHours.getText().toString();
 
                 Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
 
@@ -296,13 +242,13 @@ public class NursingFeedFragment extends InjectableFragment {
             }
         });
 
-        leftSleepMinutes.addTextChangedListener(new TextWatcher() {
+        leftBreastFeedMinutes.addTextChangedListener(new TextWatcher() {
             int len = 0;
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d(TAG, "beforeTextChanged ");
-                String str = leftSleepMinutes.getText().toString();
+                String str = leftBreastFeedMinutes.getText().toString();
                 len = str.length();
             }
 
@@ -310,7 +256,7 @@ public class NursingFeedFragment extends InjectableFragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d(TAG, "onTextChanged ");
 
-                String str = leftSleepMinutes.getText().toString();
+                String str = leftBreastFeedMinutes.getText().toString();
 
                 Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
 //
@@ -343,13 +289,13 @@ public class NursingFeedFragment extends InjectableFragment {
         });
 
 
-        rightSleepHours.addTextChangedListener(new TextWatcher() {
+        rightBreastFeedHours.addTextChangedListener(new TextWatcher() {
             int len = 0;
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d(TAG, "beforeTextChanged ");
-                String str = rightSleepHours.getText().toString();
+                String str = rightBreastFeedHours.getText().toString();
                 len = str.length();
             }
 
@@ -357,7 +303,7 @@ public class NursingFeedFragment extends InjectableFragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d(TAG, "onTextChanged ");
 
-                String str = rightSleepHours.getText().toString();
+                String str = rightBreastFeedHours.getText().toString();
 
                 Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
 
@@ -383,13 +329,13 @@ public class NursingFeedFragment extends InjectableFragment {
 
 
 
-        rightSleepMinutes.addTextChangedListener(new TextWatcher() {
+        rightBreastFeedMinutes.addTextChangedListener(new TextWatcher() {
             int len = 0;
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d(TAG, "beforeTextChanged ");
-                String str = rightSleepMinutes.getText().toString();
+                String str = rightBreastFeedMinutes.getText().toString();
                 len = str.length();
             }
 
@@ -397,7 +343,7 @@ public class NursingFeedFragment extends InjectableFragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d(TAG, "onTextChanged ");
 
-                String str = rightSleepMinutes.getText().toString();
+                String str = rightBreastFeedMinutes.getText().toString();
 
                 Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
 
@@ -409,7 +355,7 @@ public class NursingFeedFragment extends InjectableFragment {
 //                    //Toast.makeText(getBaseContext(), "add minus", Toast.LENGTH_SHORT).show();
 //                }
 
-                if (str.length()>0) {
+                if (str.length() > 0) {
 
 //                    saveBtn.setEnabled(true);
                     rightMinutesEmpty = false;
@@ -419,7 +365,9 @@ public class NursingFeedFragment extends InjectableFragment {
                     rightMinutesEmpty = true;
                 }
                 setSaveEnabled();
-            };
+            }
+
+            ;
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -454,9 +402,9 @@ public class NursingFeedFragment extends InjectableFragment {
             Log.d(TAG, "setting ime options to done");
             Log.d(TAG, "setting ime options to done");
             notes.setImeOptions(EditorInfo.IME_ACTION_DONE);
-//            rightSleepMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
-//            leftSleepHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
-//            leftSleepMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//            rightBreastFeedMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//            leftBreastFeedHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//            leftBreastFeedMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
 
             saveBtn.setEnabled(true);
@@ -574,8 +522,8 @@ public class NursingFeedFragment extends InjectableFragment {
 //
 //            daoObject  = new FeedDao(FeedType.BREAST,
 //                    "" , -1.0,
-//                    getDuration(leftSleepHours, leftSleepMinutes),
-//                    getDuration(rightSleepHours, rightSleepMinutes), notes.getText().toString(),
+//                    getDuration(leftBreastFeedHours, leftBreastFeedMinutes),
+//                    getDuration(rightBreastFeedHours, rightBreastFeedMinutes), notes.getText().toString(),
 //                    date);
 //            feedDao.create(daoObject);
 //            Log.d(TAG, "created object " + daoObject);
@@ -591,31 +539,64 @@ public class NursingFeedFragment extends InjectableFragment {
 
     /*
     */
-    private void createOrEdit() {
-        Dao<FeedDao, Integer> feedDao;
-        try {
-
-            feedDao = createFeedDao();
-            FeedDao daoObject = createLocalFeedDao();
-
-            if (daoObject!=null) {
-                if (id!=-1) {
-                    Log.d(TAG, "updating it");
-                    daoObject.setId(id);
-                    feedDao.update(daoObject);
-                } else {
-                    Log.d(TAG, "creating it");
-                    feedDao.create(daoObject);
+    public void createOrEdit() {
+        final Feed tempFeedItem = createLocalFeed();
+        if (id!=null) {
+            Log.d(TAG, "updating it");
+//                daoObject.setId(id);
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+            query.fromLocalDatastore();
+            query.getInBackground(id, new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, ParseException e) {
+                    Feed feed = (Feed) object;
+                    feed.setLeftBreastTime(tempFeedItem.getLeftBreastTime());
+                    feed.setLogCreationDate(tempFeedItem.getLogCreationDate());
+                    feed.setRightBreastTime(tempFeedItem.getRightBreastTime());
+                    feed.setNotes(tempFeedItem.getNotes());
+                    feed.setQuantity(tempFeedItem.getQuantity());
+                    feed.setFeedItem(tempFeedItem.getFeedItem());
+                    saveEventually(feed);
                 }
+            });
+//                diaperChange.setObjectId(id);
 
-                Log.d(TAG, "created objected " + daoObject);
-                scopedBus.post(new FeedItemCreatedEvent());
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            Log.d(TAG, "creating it");
+            saveEventually(tempFeedItem);
+//                diaperChangeDao.create(daoObject);
         }
+
+//            Log.d(TAG, "created objected " + daoObject);
+        closeSoftKeyBoard();
+        scopedBus.post(new ItemCreatedOrChanged("Feed"));
+    }
+
+    private Feed createLocalFeed() {
+        Date date = dateTimeHeader.getEventTime();
+
+        return new Feed(FeedType.BREAST,
+                "" , -1.0,
+                getDuration(leftBreastFeedHours, leftBreastFeedMinutes),
+                getDuration(rightBreastFeedHours, rightBreastFeedMinutes), notes.getText().toString(),
+                date);
+    }
+
+
+    private void saveEventually(final Feed feed) {
+        feed.pinInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.d(TAG, "pinning new object");
+                feed.saveEventually(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d(TAG, "saving locally");
+
+                    }
+                });
+            }
+        });
     }
 
     @OnClick(R.id.edit_btn)
@@ -635,8 +616,8 @@ public class NursingFeedFragment extends InjectableFragment {
 
         return new FeedDao(FeedType.BREAST,
                         "" , -1.0,
-                        getDuration(leftSleepHours, leftSleepMinutes),
-                        getDuration(rightSleepHours, rightSleepMinutes), notes.getText().toString(),
+                        getDuration(leftBreastFeedHours, leftBreastFeedMinutes),
+                        getDuration(rightBreastFeedHours, rightBreastFeedMinutes), notes.getText().toString(),
                         date);
 
     }
@@ -646,26 +627,9 @@ public class NursingFeedFragment extends InjectableFragment {
      */
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
-        Log.d(TAG, "delete btn clicked");
-        Dao<FeedDao, Integer> daoObject;
-
-        try {
-
-            daoObject = createFeedDao();
-
-            if (id!=-1) {
-                Log.d(TAG, "updating it");
-                daoObject.deleteById(id);
-            }
-            scopedBus.post(new FeedItemCreatedEvent());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        delete(id);
     }
 
-    private Dao<FeedDao, Integer> createFeedDao() throws SQLException {
-        return babyLoggerORMLiteHelper.getFeedDao();
-    }
 
     private Long getDuration(EditText hoursTextView, EditText minutesTextView) {
         String hoursText = hoursTextView.getText().toString().equals("")?"0":hoursTextView.getText().toString();

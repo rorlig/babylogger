@@ -47,14 +47,13 @@ public class Feed extends ParseObject {
                 Long rightBreastTime,
                 String notes,
                 Date date) {
-        this.feedType = feedType;
-        this.feedItem = feedItem;
-        this.quantity = quantity;
-        this.leftBreastTime = leftBreastTime;
-        this.rightBreastTime = rightBreastTime;
-        this.logCreationDate = new Date(date.getTime());
-//        this.date = new Date(time.getTime());
-        this.notes = notes;
+        setFeedItem(feedItem);
+        setFeedType(feedType);
+        setNotes(notes);
+        setQuantity(quantity);
+        setLeftBreastTime(leftBreastTime);
+        setRightBreastTime(rightBreastTime);
+        setLogCreationDate(date);
     }
 
 
@@ -71,12 +70,12 @@ public class Feed extends ParseObject {
                 "} " + super.toString();
     }
 
-    public FeedType getFeedType() {
-        return (FeedType) get("feedType");
+    public String getFeedType() {
+        return getString("feedType");
     }
 
     public void setFeedType(FeedType feedType) {
-        put("feedType", feedType);
+        put("feedType", feedType.toString());
     }
 
     public String getFeedItem() {

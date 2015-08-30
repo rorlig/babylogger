@@ -1,4 +1,4 @@
-package com.rorlig.babyapp.ui.adapter;
+package com.rorlig.babyapp.ui.adapter.parse;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.ocpsoft.pretty.time.PrettyTime;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dao.FeedDao;
 import com.rorlig.babyapp.model.feed.FeedType;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
+import com.rorlig.babyapp.parse_dao.Feed;
 import com.rorlig.babyapp.ui.activity.InjectableActivity;
 import com.rorlig.babyapp.ui.widget.BottleFeedView;
 import com.rorlig.babyapp.ui.widget.NursingFeedView;
@@ -28,43 +31,20 @@ import javax.inject.Inject;
  * Created by admin on 4/22/14.
  * todo the UI requires considerable skinning....
  */
-public class FeedAdapter extends ArrayAdapter<FeedDao> {
+public class FeedAdapter extends BaseParseAdapter<ParseObject> {
 
     private static final int FEED_BOTTLE = 0;
     private static final int FEED_NURSING = 1;
-    private final PrettyTime prettyTime;
-    private final SimpleDateFormat simpleDateFormat;
-    private Context context;
-    private List<FeedDao> feedDaoList;
 
 
     private String TAG="FeedAdapter";
 
-    private LayoutInflater mInflater;
-
-
-
-    @Inject
-    Picasso picasso;
-
-
-
-
-    public FeedAdapter(Activity activity, int textViewResourceId, List<FeedDao> feedDao) {
-        super(activity.getApplicationContext(), textViewResourceId, feedDao);
-        Log.d(TAG, "constructor FeedAdapter");
-        this.feedDaoList = new ArrayList<FeedDao>(feedDao);
-        this.context = activity.getApplicationContext();
-        ((InjectableActivity)activity).inject(this);
-        prettyTime = new PrettyTime();
-        simpleDateFormat = new SimpleDateFormat("MMM d, ''yy h:mm a");
-        Log.d(TAG, "default time zone 0" + TimeZone.getDefault());
-        simpleDateFormat.setTimeZone(TimeZone.getDefault());
-        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-
-
+    public FeedAdapter(Activity activity,
+                               int textViewResourceId,
+                               List<ParseObject> parseObjectList) {
+        super(activity, textViewResourceId, parseObjectList);
     }
+
 
     @Override
     public int getViewTypeCount() {
@@ -74,7 +54,7 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
 
     @Override
     public int getItemViewType(int position) {
-        if (feedDaoList.get(position).getFeedType()==FeedType.BOTTLE) {
+        if (((Feed)parseObjectList.get(position)).getFeedType().equals(FeedType.BOTTLE.toString())) {
             return FEED_BOTTLE;
         } else {
             return FEED_NURSING;
@@ -113,7 +93,7 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
 
     private View getNursingView(int position, View convertView, ViewGroup parent) {
 
-        final FeedDao feedDao = feedDaoList.get(position);
+        final Feed feedDao = (Feed)parseObjectList.get(position);
 
 //        if (convertView == null) {
         LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -152,13 +132,13 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
     }
 
     private View getBottleFeedView(int position, View convertView, ViewGroup parent) {
-        final FeedDao feedDao = feedDaoList.get(position);
+        final Feed feed = (Feed) parseObjectList.get(position);
 
 //        if (convertView == null) {
             LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflator.inflate(R.layout.list_item_bottle_feeding, parent, false);
             BottleFeedView view = (BottleFeedView) convertView;
-            view.setModel(feedDao);
+            view.setModel(feed);
 //            viewHolder = new ViewHolder(view);
 //        }
 //        if(convertView == null) {
@@ -186,16 +166,16 @@ public class FeedAdapter extends ArrayAdapter<FeedDao> {
 
 
     @Override
-    public int getCount() {
-        return feedDaoList.size();
+    public Feed getItem(int position) {
+        return (Feed) parseObjectList.get(position);
     }
 
-    public void update(List<FeedDao> feedDaoList) {
-        Log.d(TAG, "update");
-        this.feedDaoList = new ArrayList<FeedDao>(feedDaoList);
-        notifyDataSetInvalidated();
-        notifyDataSetChanged();
-    }
+//    public void update(List<FeedDao> feedDaoList) {
+//        Log.d(TAG, "update");
+//        this.feedDaoList = new ArrayList<FeedDao>(feedDaoList);
+//        notifyDataSetInvalidated();
+//        notifyDataSetChanged();
+//    }
 
 
 //    public static class NursingFeedViewHolder extends ViewHolder{

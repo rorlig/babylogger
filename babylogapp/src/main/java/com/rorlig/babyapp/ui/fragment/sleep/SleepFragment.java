@@ -33,8 +33,10 @@ import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.SleepDao;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.otto.SleepLogCreated;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.Sleep;
+import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
@@ -50,7 +52,7 @@ import butterknife.OnClick;
 /**
  * Created by rorlig on 7/14/14.
  */
-public class SleepFragment extends InjectableFragment implements TimePickerDialog.OnTimeSetListener {
+public class SleepFragment extends BaseCreateLogFragment implements TimePickerDialog.OnTimeSetListener {
 
     @ForActivity
     @Inject
@@ -85,6 +87,10 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     private boolean hourEmpty = true;
     private String id;
     private boolean showEditDelete = false;
+
+    public SleepFragment() {
+        super("Sleep");
+    }
 
 
     @Override
@@ -177,24 +183,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
-        Log.d(TAG, "delete btn clicked");
-
-        Log.d(TAG, "delete btn clicked");
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Sleep");
-        query.fromLocalDatastore();
-
-        query.getInBackground(id, new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(ParseObject object, ParseException e) {
-                        object.deleteInBackground(new DeleteCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                scopedBus.post(new SleepLogCreated());
-                            }
-                        });
-                    }
-                }
-        );
+      delete(id);
     }
 
 
@@ -213,19 +202,12 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
 
 
+    @Override
+    public void createOrEdit() {
 
-    private void createOrEdit() {
-
-        Dao<SleepDao, Integer> sleepDao;
-        Sleep sleepObject;
         final Sleep tempSleepObject;
 
         tempSleepObject = createSleepObject();
-
-//            tempDiaperChangeObject = createParseObject();
-
-
-//            diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao();
 
         if (id!=null) {
             Log.d(TAG, "updating it");
@@ -252,7 +234,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
 //            Log.d(TAG, "created objected " + daoObject);
         closeSoftKeyBoard();
-        scopedBus.post(new SleepLogCreated());
+        scopedBus.post(new ItemCreatedOrChanged("Sleep"));
 
     }
 

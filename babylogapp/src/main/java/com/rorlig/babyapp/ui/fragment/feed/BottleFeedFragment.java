@@ -24,13 +24,23 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.FeedDao;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.model.feed.FeedType;
 import com.rorlig.babyapp.otto.events.feed.FeedItemCreatedEvent;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
+import com.rorlig.babyapp.parse_dao.Feed;
+import com.rorlig.babyapp.parse_dao.Sleep;
+import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
@@ -46,7 +56,7 @@ import butterknife.OnClick;
 /**
  * Created by rorlig on 7/14/14.
  */
-public class BottleFeedFragment extends InjectableFragment
+public class BottleFeedFragment extends BaseCreateLogFragment
                                 implements AdapterView.OnItemClickListener {
 
 
@@ -85,10 +95,14 @@ public class BottleFeedFragment extends InjectableFragment
 
     DateTimeHeaderFragment dateTimeHeader;
 
-    private int id =-1;
+    private String id;
 
     private boolean showEditDelete = false;
     private boolean quantityEmpty = true;
+
+    public BottleFeedFragment() {
+        super("Feed");
+    }
 
 
     @Override
@@ -121,7 +135,7 @@ public class BottleFeedFragment extends InjectableFragment
         //initialize views if not creating new feed item
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getInt("feed_id");
+            id = getArguments().getString("feed_id");
             initViews(id);
         }
 
@@ -180,34 +194,40 @@ public class BottleFeedFragment extends InjectableFragment
     }
 
     // initialize views based on
-    private void initViews(int id) {
+    private void initViews(String id) {
         Log.d(TAG, "initViews " + id);
-        try {
-            FeedDao feedDao = babyLoggerORMLiteHelper.getFeedDao().queryForId(id);
-            Log.d(TAG, feedDao.toString());
-            editDeleteBtn.setVisibility(View.VISIBLE);
-            saveBtn.setVisibility(View.GONE);
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+        query.fromLocalDatastore();
 
-            quantityTextView.setText(feedDao.getQuantity().toString());
-            final String[] values = getResources().getStringArray(R.array.type_array);
-            int index = 0;
-            for (String value : values) {
-                if (value.equals(feedDao.getFeedItem())) {
-                    feedTypeSpinner.setSelection(index);
-                    break;
+        query.getInBackground(id, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                Feed feed = (Feed) object;
+
+                quantityTextView.setText(feed.getQuantity().toString());
+                final String[] values = getResources().getStringArray(R.array.type_array);
+                int index = 0;
+                for (String value : values) {
+                    if (value.equals(feed.getFeedItem())) {
+                        feedTypeSpinner.setSelection(index);
+                        break;
+                    }
+                    index++;
                 }
-                index++;
+
+                notes.setText(feed.getNotes());
+
+                dateTimeHeader.setDateTime(feed.getLogCreationDate());
+
+                showEditDelete = true;
+//            saveBtn.setText("Edit");
+
+
+                editDeleteBtn.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.GONE);
+
             }
-
-            notes.setText(feedDao.getNotes());
-
-            dateTimeHeader.setDateTime(feedDao.getDate());
-
-            showEditDelete = true;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     @Override
@@ -317,31 +337,78 @@ public class BottleFeedFragment extends InjectableFragment
 
     /*
      */
-    private void createOrEdit() {
-        Dao<FeedDao, Integer> feedDao;
-        try {
+    public void createOrEdit() {
 
-            feedDao = createFeedDao();
-            FeedDao daoObject = createLocalFeedDao();
-
-            if (daoObject!=null) {
-                if (id!=-1) {
-                    Log.d(TAG, "updating it");
-                    daoObject.setId(id);
-                    feedDao.update(daoObject);
-                } else {
-                    Log.d(TAG, "creating it");
-                    feedDao.create(daoObject);
+        final Feed tempFeedItem = createLocalFeed();
+        if (id!=null) {
+            Log.d(TAG, "updating it with id " + id);
+//                daoObject.setId(id);
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+            query.fromLocalDatastore();
+            query.getInBackground(id, new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, ParseException e) {
+                    Log.d(TAG, "parse object " + object + " exception " + e);
+                    Feed feed = (Feed) object;
+                    feed.setLeftBreastTime(tempFeedItem.getLeftBreastTime());
+                    feed.setLogCreationDate(tempFeedItem.getLogCreationDate());
+                    feed.setRightBreastTime(tempFeedItem.getRightBreastTime());
+                    feed.setNotes(tempFeedItem.getNotes());
+                    feed.setQuantity(tempFeedItem.getQuantity());
+                    feed.setFeedItem(tempFeedItem.getFeedItem());
+                    saveEventually(feed);
                 }
+            });
+//                diaperChange.setObjectId(id);
 
-                Log.d(TAG, "created objected " + daoObject);
-                scopedBus.post(new FeedItemCreatedEvent());
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            Log.d(TAG, "creating it");
+            saveEventually(tempFeedItem);
+//                diaperChangeDao.create(daoObject);
         }
+
+//            Log.d(TAG, "created objected " + daoObject);
+        closeSoftKeyBoard();
+        scopedBus.post(new ItemCreatedOrChanged("Feed"));
+
+    }
+
+    private void saveEventually(final Feed feed) {
+        feed.pinInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.d(TAG, "pinning new object");
+                feed.saveEventually(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d(TAG, "saving locally");
+
+                    }
+                });
+            }
+        });
+    }
+
+
+    private Feed createLocalFeed() {
+        String quantityText = quantityTextView.getText().toString();
+
+        Log.d(TAG, "value of quantity " + quantityText);
+
+
+        if (quantityText.trim().equals("")) {
+            quantityTextView.setError("Quantity cannot be blank");
+            return null;
+        }
+
+        Date date = dateTimeHeader.getEventTime();
+
+        return new Feed(FeedType.BOTTLE,
+                feedTypeSpinner.getSelectedItem().toString(),
+                Double.parseDouble(quantityTextView.getText().toString()),
+                -1L,
+                -1L, notes.getText().toString(),
+                date);
     }
 
     /*
@@ -349,23 +416,8 @@ public class BottleFeedFragment extends InjectableFragment
      */
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
-        Log.d(TAG, "delete btn clicked");
-        Dao<FeedDao, Integer> daoObject;
-
-        try {
-
-            daoObject = createFeedDao();
-
-            if (id!=-1) {
-                Log.d(TAG, "updating it");
-                daoObject.deleteById(id);
-            }
-            scopedBus.post(new FeedItemCreatedEvent());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
+        Log.d(TAG, "deleting id " + id);
+        delete(id);
     }
 
     @Override

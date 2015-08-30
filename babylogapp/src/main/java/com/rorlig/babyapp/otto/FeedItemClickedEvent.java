@@ -1,19 +1,20 @@
 package com.rorlig.babyapp.otto;
 
 import com.rorlig.babyapp.dao.FeedDao;
+import com.rorlig.babyapp.parse_dao.Feed;
 
 /**
  * @author gaurav gupta
  */
 public class FeedItemClickedEvent {
 
-    private final FeedDao feedDao;
+    private final Feed feedDao;
 
-    public FeedItemClickedEvent(FeedDao feedDao) {
+    public FeedItemClickedEvent(Feed feedDao) {
        this.feedDao = feedDao;
     }
 
-    public FeedDao getFeedDao() {
+    public Feed getFeedDao() {
         return feedDao;
     }
 }

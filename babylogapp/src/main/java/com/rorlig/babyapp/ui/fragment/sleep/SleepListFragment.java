@@ -25,6 +25,7 @@ import com.rorlig.babyapp.dao.SleepDao;
 import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.SleepItemClicked;
 import com.rorlig.babyapp.otto.SleepLogCreated;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
@@ -278,7 +279,7 @@ public class SleepListFragment extends BaseInjectableListFragment
         }
 
         @Subscribe
-        public void onSleepEventCreated(SleepLogCreated event) {
+        public void onSleepEventCreated(ItemCreatedOrChanged event) {
             Log.d(TAG, "onSleepEventCreated");
             updateListView();
 //            getLoaderManager().restartLoader(LOADER_ID, null, SleepListFragment.this);
