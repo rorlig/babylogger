@@ -12,19 +12,14 @@ import java.util.Date;
 @ParseClassName("Growth")
 public class Growth extends ParseObject {
 
-
-
-
     //weight of the baby
     Double weight;
 
     //head measurement
     Double headMeasurement;
 
-
     //height measurement
     Double height;
-
 
     //notes
     String notes;
@@ -37,11 +32,16 @@ public class Growth extends ParseObject {
     }
 
     public Growth(Double weight, Double height, Double headMeasurement, String notes, Date date) {
-        this.weight = weight;
-        this.height = height;
-        this.headMeasurement = headMeasurement;
-        this.logCreationDate = new Date(date.getTime());
-        this.notes = notes;
+//        this.weight = weight;
+        setWeight(weight);
+//        this.height = height;
+        setHeight(height);
+//        this.headMeasurement = headMeasurement;
+        setHeadMeasurement(headMeasurement);
+//        this.logCreationDate = new Date(date.getTime());
+        setLogCreationDate(date);
+//        this.notes = notes;
+        setNotes(notes);
     }
 
 

@@ -182,7 +182,7 @@ public class GrowthActivity extends InjectableActivity {
             Log.d(TAG, "diaperChangeItemClicked");
             GrowthFragment fragment = new GrowthFragment();
             Bundle args = new Bundle();
-            args.putInt("growth_id", event.getGrowthDao().getId());
+            args.putString("growth_id", event.getGrowthDao().getObjectId());
             fragment.setArguments(args);
             Log.d(TAG, "adding to back stack ");
             getSupportFragmentManager().beginTransaction()

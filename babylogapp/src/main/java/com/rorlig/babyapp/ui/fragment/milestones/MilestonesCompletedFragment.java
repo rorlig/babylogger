@@ -43,6 +43,7 @@ public class MilestonesCompletedFragment extends InjectableDialogFragment {
 
     public MilestonesCompletedFragment() {
         // Empty constructor required for DialogFragment
+
     }
 
 

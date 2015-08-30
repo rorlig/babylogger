@@ -20,12 +20,22 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
+import com.parse.DeleteCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
+import com.rorlig.babyapp.dao.DiaperChangeDao;
 import com.rorlig.babyapp.dao.GrowthDao;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
+import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babyapp.otto.events.growth.GrowthItemCreated;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
+import com.rorlig.babyapp.parse_dao.Growth;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
@@ -85,7 +95,7 @@ public class GrowthFragment extends InjectableFragment {
     private boolean heightEmpty = true;
     private boolean weightEmpty = true;
     private boolean headMeasureEmpty = true;
-    private int id = -1;
+    private String id;
     private boolean showEditDelete = false;
 
 
@@ -114,7 +124,7 @@ public class GrowthFragment extends InjectableFragment {
         //initialize views if not creating new feed item
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getInt("growth_id");
+            id = getArguments().getString("growth_id");
             initViews(id);
         }
 
@@ -123,36 +133,43 @@ public class GrowthFragment extends InjectableFragment {
 
     }
 
-    private void initViews(int id) {
+    private void initViews(String id) {
 
         Log.d(TAG, "initViews " + id);
-        try {
-            GrowthDao growthDao = babyLoggerORMLiteHelper.getGrowthDao().queryForId(id);
-            Log.d(TAG, growthDao.toString());
-            editDeleteBtn.setVisibility(View.VISIBLE);
-            saveBtn.setVisibility(View.GONE);
+        //            GrowthDao growthDao = babyLoggerORMLiteHelper.getGrowthDao().queryForId(id);
+//            Log.d(TAG, growthDao.toString());
+        editDeleteBtn.setVisibility(View.VISIBLE);
+        saveBtn.setVisibility(View.GONE);
 
-            //convert weight to pound.ounces
+
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Growth");
+        query.fromLocalDatastore();
+
+        query.getInBackground(id, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        Growth growth = (Growth) object;
+                        weightEditText.setText(convertWeightToString(growth.getWeight()));
+                        heightInchesEditText.setText(growth.getHeight().toString());
+                        headInchesEditText.setText(growth.getHeadMeasurement().toString());
+                        notes.setText(growth.getNotes());
+                        dateTimeHeader.setDateTime(growth.getLogCreationDate());
+                        weightEmpty = false;
+                        heightEmpty = false;
+                        if (!headInchesEditText.getText().toString().equals("")) {
+                            headMeasureEmpty = false;
+                        }
+                    }
+                });
+
+        //convert weight to pound.ounces
 
 //            String.val
-            weightEditText.setText(convertWeightToString(growthDao.getWeight()));
-            heightInchesEditText.setText(growthDao.getHeight().toString());
-            headInchesEditText.setText(growthDao.getHeadMeasurement().toString());
-            notes.setText(growthDao.getNotes());
-            dateTimeHeader.setDateTime(growthDao.getDate());
-            weightEmpty = false;
-            heightEmpty = false;
-            if (!headInchesEditText.getText().toString().equals("")) {
-                headMeasureEmpty = false;
-            }
-            showEditDelete = true;
 
-            setSaveEnabled();
+        showEditDelete = true;
 
+        setSaveEnabled();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -485,19 +502,39 @@ public class GrowthFragment extends InjectableFragment {
      */
     private void createOrEdit() {
         Dao<GrowthDao, Integer> growthDao;
-        try {
+//        DiaperChangeDao daoObject;
+        final Growth tempGrowthObject;
 
+        try {
+            tempGrowthObject = createGrowthParseDao();
             growthDao = createGrowthDao();
             GrowthDao daoObject = createLocalGrowthDao();
 
             if (daoObject!=null) {
-                if (id!=-1) {
+                if (id!=null) {
                     Log.d(TAG, "updating it");
-                    daoObject.setId(id);
-                    growthDao.update(daoObject);
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Growth");
+                    query.fromLocalDatastore();
+                    query.getInBackground(id, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject object, ParseException e) {
+                            Growth growth = (Growth) object;
+                            growth.setWeight(tempGrowthObject.getWeight());
+                            growth.setHeight(tempGrowthObject.getHeight());
+                            growth.setHeadMeasurement(tempGrowthObject.getHeadMeasurement());
+                            growth.setLogCreationDate(tempGrowthObject.getLogCreationDate());
+                            growth.setNotes(tempGrowthObject.getNotes());
+                            saveEventually(growth);
+                        }
+                    });
+
+//                    daoObject.setId(id);
+//                    growthDao.update(daoObject);
                 } else {
                     Log.d(TAG, "creating it");
-                    growthDao.create(daoObject);
+                    saveEventually(tempGrowthObject);
+
+//                    growthDao.create(daoObject);
                 }
 
                 Log.d(TAG, "created objected " + daoObject);
@@ -512,26 +549,70 @@ public class GrowthFragment extends InjectableFragment {
 
     }
 
+    private void saveEventually(final Growth growthObject) {
+        growthObject.pinInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.d(TAG, "pinning new object");
+                growthObject.saveEventually(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d(TAG, "saving locally");
+
+                    }
+                });
+            }
+        });
+    }
+
+    private Growth createGrowthParseDao() {
+        Date date = dateTimeHeader.getEventTime();
+        String weight = weightEditText.getText().toString();
+        int indexOfDot = weight.indexOf(".");
+        Integer weightPounds = Integer.parseInt(weight.substring(0, indexOfDot==-1? weight.length(): indexOfDot));
+        Double totalWeight =  weightPounds.doubleValue();
+        Log.d(TAG, "indexOfeDot " + indexOfDot);
+        if (weight.length()>indexOfDot) {
+            try {
+                Integer weightOunces = Integer.parseInt(weight.substring(indexOfDot+1));
+                totalWeight+=weightOunces.doubleValue()/16;
+            } catch (NumberFormatException e) {
+
+            }
+        }
+        Double height  = Double.parseDouble(heightInchesEditText.getText().toString());
+        Double headMeasure = -1.0;
+        if (!headInchesEditText.getText().toString().equals("")) {
+            headMeasure =  Double.parseDouble(headInchesEditText.getText().toString());
+        }
+        return new Growth(totalWeight, height, headMeasure, notesContentTextView.getText().toString(), date);
+    }
+
+
     /*
      * deletes the feed item...
      */
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
         Log.d(TAG, "delete btn clicked");
-        Dao<GrowthDao, Integer> daoObject;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Growth");
+        query.fromLocalDatastore();
 
-        try {
+        query.getInBackground(id, new GetCallback<ParseObject>() {
 
-            daoObject = createGrowthDao();
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        Log.d(TAG, "done finding growth item to delete");
+                        object.deleteInBackground(new DeleteCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                scopedBus.post(new GrowthItemCreated());
+                            }
+                        });
 
-            if (id!=-1) {
-                Log.d(TAG, "updating it");
-                daoObject.deleteById(id);
-            }
-            scopedBus.post(new GrowthItemCreated());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+                    }
+                }
+        );
     }
 
     private Dao<GrowthDao, Integer> createGrowthDao() throws SQLException {

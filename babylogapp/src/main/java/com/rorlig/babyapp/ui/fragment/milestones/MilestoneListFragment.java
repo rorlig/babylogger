@@ -20,6 +20,7 @@ import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.j256.ormlite.dao.Dao;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.BaseDao;
@@ -33,6 +34,7 @@ import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.ui.adapter.MilestonesItemAdapter;
+import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.squareup.otto.Subscribe;
 
@@ -50,7 +52,7 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of growth items
  */
-public class MilestoneListFragment extends InjectableFragment implements LoaderManager.LoaderCallbacks<List<MilestonesDao>>, AdapterView.OnItemClickListener {
+public class MilestoneListFragment extends BaseInjectableListFragment implements LoaderManager.LoaderCallbacks<List<MilestonesDao>>, AdapterView.OnItemClickListener {
 
     @ForActivity
     @Inject
@@ -84,6 +86,11 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
     private Dao<MilestonesDao, Integer> milestoneDaoHelper;
+
+    public MilestoneListFragment() {
+        super("Milestone");
+    }
+
 
     @OnClick(R.id.add_item)
     public void onMilestoneAddItemClicked(){
@@ -127,6 +134,11 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
 //        getActivity().getActionBar().setTitle("Diaper Change List");
 
+
+    }
+
+    @Override
+    protected void setListResults(List<ParseObject> objects) {
 
     }
 

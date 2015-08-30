@@ -1,4 +1,4 @@
-package com.rorlig.babyapp.ui.adapter;
+package com.rorlig.babyapp.ui.adapter.parse;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,8 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ocpsoft.pretty.time.PrettyTime;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dao.GrowthDao;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
+import com.rorlig.babyapp.parse_dao.Growth;
 import com.rorlig.babyapp.ui.activity.InjectableActivity;
 import com.rorlig.babyapp.ui.widget.GrowthView;
 
@@ -23,34 +26,16 @@ import java.util.TimeZone;
 /**
  * Created by rorlig on 6/9/15.
  */
-public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
+public class GrowthAdapter extends BaseParseAdapter<ParseObject> {
 
 
     private final String TAG = "GrowthAdapter";
-    private LayoutInflater mInflater;
-    private SimpleDateFormat simpleDateFormat;
-    private PrettyTime prettyTime;
-    private Context context;
-    private List<GrowthDao> growthDaoList;
-
-    public GrowthAdapter(Context context, int resource) {
-        super(context, resource);
-    }
-
-    public GrowthAdapter(Activity activity, int textViewResourceId, List<GrowthDao> growthDao) {
-        super(activity.getApplicationContext(), textViewResourceId, growthDao);
-        Log.d(TAG, "constructor GrowthAdapter");
-        this.growthDaoList = new ArrayList<GrowthDao>(growthDao);
-        this.context = activity.getApplicationContext();
-        ((InjectableActivity)activity).inject(this);
-        prettyTime = new PrettyTime();
-        simpleDateFormat = new SimpleDateFormat("MMM d, ''yy h:mm a");
-        Log.d(TAG, "default time zone 0" + TimeZone.getDefault());
-        simpleDateFormat.setTimeZone(TimeZone.getDefault());
-        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
-
+    public GrowthAdapter(Activity activity,
+                               int textViewResourceId,
+                               List<ParseObject> parseObjectList) {
+        super(activity, textViewResourceId, parseObjectList);
     }
 
 
@@ -64,13 +49,13 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
         GrowthView view = (GrowthView) convertView;
 
 
-        final GrowthDao growthDao = growthDaoList.get(position);
+        final ParseObject growth = parseObjectList.get(position);
 
 
         if(view == null) {
             LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = (GrowthView) inflator.inflate(R.layout.list_item_growth, parent, false);
-            view.setModel(growthDao);
+            view.setModel(growth);
         }
 //        final GrowthDao growthDao = growthDaoList.get(position);
 //
@@ -97,17 +82,18 @@ public class GrowthAdapter extends ArrayAdapter<GrowthDao>{
 
 
 
+
     @Override
-    public int getCount() {
-        return growthDaoList.size();
+    public Growth getItem(int position) {
+        return (Growth) parseObjectList.get(position);
     }
 
-    public void update(List<GrowthDao> growthDaoList) {
-        Log.d(TAG, "update");
-        this.growthDaoList = new ArrayList<GrowthDao>(growthDaoList);
-        notifyDataSetInvalidated();
-        notifyDataSetChanged();
-    }
+//    public void update(List<GrowthDao> growthDaoList) {
+//        Log.d(TAG, "update");
+//        this.growthDaoList = new ArrayList<GrowthDao>(growthDaoList);
+//        notifyDataSetInvalidated();
+//        notifyDataSetChanged();
+//    }
 
 
 
