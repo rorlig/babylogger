@@ -13,7 +13,7 @@ import java.util.Date;
  * @author gaurav gupta
  */
 @ParseClassName("Diaper")
-public class DiaperChange extends ParseObject {
+public class DiaperChange extends BabyLogBaseParseObject {
 
     //diaper change event type
     DiaperChangeEnum diaperChangeEventType;
@@ -30,8 +30,8 @@ public class DiaperChange extends ParseObject {
     //diaper change notes
     String diaperChangeNotes;
 
-    //time at which the diaper was changed ...
-    Date diaperChangeDate;
+//    //time at which the diaper was changed ...
+//    Date logCreationDate;
 
 
     public DiaperChange() {
@@ -49,16 +49,9 @@ public class DiaperChange extends ParseObject {
         setPoopColor(poopColor);
         setDiaperChangeIncidentType(diaperChangeIncidentType);
         setDiaperChangeNotes(diaperChangeNotes);
-        setDiaperChangeDate(date);
+        setLogCreationDate(date);
     }
 
-    public void setDiaperChangeDate(Date date) {
-        put("diaperChangeTime", date);
-    }
-
-    public Date getDiaperChangeDate() {
-        return getDate("diaperChangeTime");
-    }
 
     public String getDiaperChangeNotes() {
         return getString("diaperChangeNotes");
@@ -130,7 +123,7 @@ public class DiaperChange extends ParseObject {
                 ", poopColor=" + poopColor +
                 ", diaperChangeIncidentType=" + diaperChangeIncidentType +
                 ", diaperChangeNotes='" + diaperChangeNotes + '\'' +
-                ", diaperChangeDate=" + diaperChangeDate +
+                ", logCreationDate=" + logCreationDate +
                 "} " + super.toString();
     }
 

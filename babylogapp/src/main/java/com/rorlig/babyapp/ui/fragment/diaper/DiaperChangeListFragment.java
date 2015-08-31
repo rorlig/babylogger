@@ -33,7 +33,9 @@ import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
+import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
@@ -86,7 +88,7 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
     private BabyLoggerORMUtils babyORMLiteUtils;
     private List<ParseObject> diaperChangeList;
     private DiaperChangeAdapter diaperChangeAdapter;
-    private SimpleSectionAdapter<BaseDao> sectionAdapter;
+    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
     private int LOADER_ID=2;
     private List<String[]> diaperChangeDaoList;
 
@@ -232,7 +234,11 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
         diaperChangeAdapter = new DiaperChangeAdapter(getActivity(),
                 R.layout.list_item_diaper_change, diaperChangeList);
         diaperChangeAdapter.update(diaperChangeList);
-        diaperChangeListView.setAdapter(diaperChangeAdapter);
+
+        sectionAdapter = new SimpleSectionAdapter<BabyLogBaseParseObject>(context,
+                diaperChangeAdapter, R.layout.section_header, R.id.title,
+                new DateSectionizer());
+        diaperChangeListView.setAdapter(sectionAdapter);
         if (diaperChangeList.size() > 0) {
             diaperChangeListView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);

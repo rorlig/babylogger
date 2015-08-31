@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
-import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -41,7 +40,6 @@ import com.rorlig.babyapp.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.TimePickerFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
@@ -250,7 +248,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 
     private void setDateTimeHeader(DiaperChange diaperChangeDao) {
         Log.d(TAG, "setDateTimeHeader");
-        dateTimeHeader.setDateTime(diaperChangeDao.getDiaperChangeDate());
+        dateTimeHeader.setDateTime(diaperChangeDao.getLogCreationDate());
     }
 
     private void setDiaperChangePoopType(DiaperChange diaperChange) {
@@ -454,7 +452,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
                         DiaperChange diaperChange = (DiaperChange) object;
                         diaperChange.setDiaperChangeNotes(tempDiaperChangeObject.getDiaperChangeNotes());
                         diaperChange.setDiaperChangeEventType(tempDiaperChangeObject.getDiaperChangeEventType());
-                        diaperChange.setDiaperChangeDate(tempDiaperChangeObject.getDiaperChangeDate());
+                        diaperChange.setLogCreationDate(tempDiaperChangeObject.getLogCreationDate());
                         diaperChange.setDiaperChangeIncidentType(tempDiaperChangeObject.getDiaperChangeIncidentType());
                         if (!tempDiaperChangeObject.getDiaperChangeEventType().equals("Wet")){
                             diaperChange.setPoopTexture(tempDiaperChangeObject.getPoopTexture());
@@ -468,7 +466,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
             } else {
                 Log.d(TAG, "creating it");
                 saveEventually(tempDiaperChangeObject);
-                diaperChangeDao.create(daoObject);
+//                diaperChangeDao.create(daoObject);
             }
 
             Log.d(TAG, "created objected " + daoObject);

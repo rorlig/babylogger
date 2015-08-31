@@ -30,7 +30,9 @@ import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.parse_dao.Sleep;
+import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
@@ -77,7 +79,7 @@ public class SleepListFragment extends BaseInjectableListFragment
     private BabyLoggerORMUtils babyORMLiteUtils;
     private List<ParseObject> sleepList;
     private SleepAdapter sleepAdapter;
-    private SimpleSectionAdapter<BaseDao> sectionAdapter;
+    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
     private int LOADER_ID=2;
 
 
@@ -237,7 +239,10 @@ public class SleepListFragment extends BaseInjectableListFragment
         sleepAdapter = new SleepAdapter(getActivity(),
                 R.layout.list_item_diaper_change, sleepList);
         sleepAdapter.update(sleepList);
-        sleepListView.setAdapter(sleepAdapter);
+        sectionAdapter = new SimpleSectionAdapter<BabyLogBaseParseObject>(context,
+                sleepAdapter, R.layout.section_header_gray, R.id.title,
+                new DateSectionizer());
+        sleepListView.setAdapter(sectionAdapter);
         if (sleepList.size() > 0) {
             sleepListView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);

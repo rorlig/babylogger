@@ -122,7 +122,7 @@ public class DiaperChangeView extends RelativeLayout {
 
     private void bindModel() {
         Log.d(TAG, diaperChange.toString());
-        textViewTime.setText(simpleDateFormat.format(diaperChange.getDiaperChangeDate()));
+        textViewTime.setText(simpleDateFormat.format(diaperChange.getLogCreationDate()));
         setPoopColor();
         setPoopTexture();
         setDiaperIncidentType();

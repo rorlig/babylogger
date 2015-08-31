@@ -27,7 +27,9 @@ import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.parse_dao.Growth;
+import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
@@ -73,7 +75,7 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
 
     private int LOADER_ID = 4;
     private List<ParseObject> growthList;
-    private SimpleSectionAdapter<BaseDao> sectionAdapter;
+    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
     private GrowthAdapter growthAdapter;
 
 //    Typeface typeface;
@@ -124,7 +126,11 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
         growthAdapter = new GrowthAdapter(getActivity(),
                 R.layout.list_item_diaper_change, growthList);
         growthAdapter.update(growthList);
-        listView.setAdapter(growthAdapter);
+
+        sectionAdapter = new SimpleSectionAdapter<BabyLogBaseParseObject>(context,
+                growthAdapter, R.layout.section_header_green, R.id.title,
+                new DateSectionizer());
+        listView.setAdapter(sectionAdapter);
         if (growthList.size() > 0) {
             listView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);

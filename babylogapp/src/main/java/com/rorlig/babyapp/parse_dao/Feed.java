@@ -12,7 +12,7 @@ import java.util.Date;
  * Feed Dao
  */
 @ParseClassName("Feed")
-public class Feed extends ParseObject {
+public class Feed extends BabyLogBaseParseObject {
 
     //Feed type - bottle or breast
     FeedType feedType;
@@ -34,8 +34,8 @@ public class Feed extends ParseObject {
 
     String notes;
 
-    //time at which the log was changed ...
-    Date logCreationDate;
+//    //time at which the log was changed ...
+//    Date logCreationDate;
 
     public Feed() {
     }
@@ -118,11 +118,11 @@ public class Feed extends ParseObject {
         put("notes", notes);
     }
 
-    public Date getLogCreationDate() {
-        return getDate("logCreationDate");
-    }
-
-    public void setLogCreationDate(Date logCreationDate) {
-        put("logCreationDate", logCreationDate);
-    }
+//    public Date getLogCreationDate() {
+//        return getDate("logCreationDate");
+//    }
+//
+//    public void setLogCreationDate(Date logCreationDate) {
+//        put("logCreationDate", logCreationDate);
+//    }
 }

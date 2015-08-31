@@ -35,7 +35,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 
     private void populateLocalStore() {
         final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
-        query.orderByDescending("createdAt");
+        query.orderByDescending("logCreationDate");
         query.fromLocalDatastore();
 //        query.fromPin(parseClassName);
 

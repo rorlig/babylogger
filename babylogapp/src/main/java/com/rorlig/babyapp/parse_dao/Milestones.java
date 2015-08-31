@@ -1,8 +1,10 @@
 package com.rorlig.babyapp.parse_dao;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Date;
  * Milestone Dao
  */
 @ParseClassName("Milestone")
-public class Milestones extends ParseObject {
+public class Milestones extends BabyLogBaseParseObject {
 
 
 
@@ -24,9 +26,10 @@ public class Milestones extends ParseObject {
     String imagePath;
 
 
-    //time at which the log was changed ...
-    Date logCreationDate;
+//    //time at which the log was changed ...
+//    Date logCreationDate;
 
+    ParseFile parseFile;
 
 
     public Milestones() {
@@ -34,12 +37,27 @@ public class Milestones extends ParseObject {
 
     }
     public Milestones(String title, String notes,
-                      Date time, String imagePath) {
-        this.title = title;
-        this.notes  = notes;
-        this.logCreationDate = new Date(time.getTime());
-        this.imagePath = imagePath;
+                      Date time, String imagePath, ParseFile parseFile) {
+        setTitle(title);
+        setNotes(notes);
+        setLogCreationDate(time);
+        setImagePath(imagePath);
+        setParseFile(parseFile);
+//        this.title = title;
+//        this.notes  = notes;
+//        this.logCreationDate = new Date(time.getTime());
+//        this.imagePath = imagePath;
     }
+
+    public void setParseFile(final ParseFile parseFile) {
+        if (parseFile!=null)
+        put("imageFile", parseFile);
+    }
+
+    public ParseFile getParseFile() {
+       return getParseFile("imageFile");
+    }
+
 
 
     public String getTitle() {
@@ -68,13 +86,13 @@ public class Milestones extends ParseObject {
         put("imagePath", imagePath);
     }
 
-    public Date getLogCreationDate() {
-        return getDate("logCreationDate");
-    }
-
-    public void setLogCreationDate(Date logCreationDate) {
-        put("logCreationDate", logCreationDate);
-    }
+//    public Date getLogCreationDate() {
+//        return getDate("logCreationDate");
+//    }
+//
+//    public void setLogCreationDate(Date logCreationDate) {
+//        put("logCreationDate", logCreationDate);
+//    }
 
     @Override
     public String toString() {

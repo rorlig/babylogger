@@ -11,7 +11,7 @@ import java.util.Date;
  * Sleep Dao
  */
 @ParseClassName("Sleep")
-public class Sleep extends ParseObject {
+public class Sleep extends BabyLogBaseParseObject {
 
 
 
@@ -22,7 +22,7 @@ public class Sleep extends ParseObject {
     Long duration;
 
     //time at which the log was changed ...
-    Date logCreationDate;
+//    Date logCreationDate;
 
     public Sleep() {
     }
@@ -55,13 +55,13 @@ public class Sleep extends ParseObject {
         put("duration", duration);
     }
 
-    public Date getLogCreationDate() {
-        return getDate("logCreationDate");
-    }
-
-    public void setLogCreationDate(Date logCreationDate) {
-        put("logCreationDate", logCreationDate);
-    }
+//    public Date getLogCreationDate() {
+//        return getDate("logCreationDate");
+//    }
+//
+//    public void setLogCreationDate(Date logCreationDate) {
+//        put("logCreationDate", logCreationDate);
+//    }
 
 
     @Override

@@ -2,14 +2,16 @@ package com.rorlig.babyapp.ui.adapter;
 
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.ocpsoft.pretty.time.PrettyTime;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.dao.BaseDao;
+import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 
 /**
  * Created by rorlig on 8/24/14.
  * @author gaurav gupta
  * diaper change sectionizer
  */
-public class DateSectionizer implements Sectionizer<BaseDao> {
+public class DateSectionizer implements Sectionizer<BabyLogBaseParseObject> {
     private static final String TODAY = "Today";
     private static final String TWO_DAYS = "Two days ago";
     private static final String WEEK = "This Week";
@@ -34,12 +36,12 @@ public class DateSectionizer implements Sectionizer<BaseDao> {
      * @return section title for the given instance.
      */
     @Override
-    public String getSectionTitleForItem(BaseDao instance) {
+    public String getSectionTitleForItem(BabyLogBaseParseObject instance) {
         PrettyTime prettyTime = new PrettyTime();
 
         Long currentTime = System.currentTimeMillis();
 //        Log.d(TAG, " currentTime " + currentTime + " diaper change time " + instance.getDate());
-        Long diff = currentTime - instance.getDate().getTime();
+        Long diff = currentTime - instance.getLogCreationDate().getTime();
 //        Log.d(TAG, "diff " + diff);
         if (diff < LENGTH_DAY) {
             return TODAY;
@@ -60,6 +62,5 @@ public class DateSectionizer implements Sectionizer<BaseDao> {
         } else if (diff < LENGTH_DAY * 7 * 4 * 12) {
             return SIX_MONTH;
         } else
-            return YEAR;
-    }
+            return YEAR;    }
 }

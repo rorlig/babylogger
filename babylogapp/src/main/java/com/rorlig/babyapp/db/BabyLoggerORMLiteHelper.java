@@ -63,24 +63,18 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
-        try {
-            Log.i(BabyLoggerORMLiteHelper.class.getName(), "onCreate");
-            TableUtils.createTable(connectionSource, DiaperChangeDao.class);
-            TableUtils.createTable(connectionSource, FeedDao.class);
-            TableUtils.createTable(connectionSource, GrowthDao.class);
-            TableUtils.createTable(connectionSource, MilestonesDao.class);
-            TableUtils.createTable(connectionSource, SleepDao.class);
+        Log.i(BabyLoggerORMLiteHelper.class.getName(), "onCreate");
+//            TableUtils.createTable(connectionSource, DiaperChangeDao.class);
+//            TableUtils.createTable(connectionSource, FeedDao.class);
+//            TableUtils.createTable(connectionSource, GrowthDao.class);
+//            TableUtils.createTable(connectionSource, MilestonesDao.class);
+//            TableUtils.createTable(connectionSource, SleepDao.class);
 //            populateDiaperDao();
 //            populateFeedDao();
-            populateGrowthDao();
+//        populateGrowthDao();
 //            populateMilestoneDao();
 
 
-
-        } catch (SQLException e) {
-            Log.e(BabyLoggerORMLiteHelper.class.getName(), "Can't create database", e);
-            throw new RuntimeException(e);
-        }
     }
 
     private void populateGrowthDao() {

@@ -10,7 +10,7 @@ import java.util.Date;
  * Growth Dao
  */
 @ParseClassName("Growth")
-public class Growth extends ParseObject {
+public class Growth extends BabyLogBaseParseObject {
 
     //weight of the baby
     Double weight;
@@ -24,8 +24,8 @@ public class Growth extends ParseObject {
     //notes
     String notes;
 
-    //time at which the log was changed ...
-    Date logCreationDate;
+//    //time at which the log was changed ...
+//    Date logCreationDate;
 
 
     public Growth() {
@@ -89,12 +89,12 @@ public class Growth extends ParseObject {
         put("notes", notes);
     }
 
-
-    public Date getLogCreationDate() {
-        return getDate("logCreationDate");
-    }
-
-    public void setLogCreationDate(Date logCreationDate) {
-        put("logCreationDate", logCreationDate);
-    }
+//
+//    public Date getLogCreationDate() {
+//        return getDate("logCreationDate");
+//    }
+//
+//    public void setLogCreationDate(Date logCreationDate) {
+//        put("logCreationDate", logCreationDate);
+//    }
 }

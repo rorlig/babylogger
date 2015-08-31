@@ -48,6 +48,7 @@ import butterknife.OnClick;
  * Created by gaurav
  * Growth element..
  */
+
 public class GrowthFragment extends BaseCreateLogFragment {
 
     @ForActivity

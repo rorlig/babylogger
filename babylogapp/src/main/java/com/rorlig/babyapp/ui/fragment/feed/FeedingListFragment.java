@@ -33,6 +33,7 @@ import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.parse_dao.Feed;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
@@ -93,7 +94,7 @@ public class FeedingListFragment extends BaseInjectableListFragment
     private int LOADER_ID=3;
     private List<ParseObject> feedList;
     private FeedAdapter feedAdapter;
-    private SimpleSectionAdapter<BaseDao> sectionAdapter;
+    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
 
 
     public FeedingListFragment() {
@@ -162,7 +163,10 @@ public class FeedingListFragment extends BaseInjectableListFragment
         feedAdapter = new FeedAdapter(getActivity(),
                 R.layout.list_item_diaper_change, feedList);
         feedAdapter.update(feedList);
-        feedListView.setAdapter(feedAdapter);
+        sectionAdapter = new SimpleSectionAdapter<BabyLogBaseParseObject>(context,
+                feedAdapter, R.layout.section_header_blue, R.id.title,
+                new DateSectionizer());
+        feedListView.setAdapter(sectionAdapter);
         if (feedList.size() > 0) {
             feedListView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);

@@ -1,6 +1,7 @@
-package com.rorlig.babyapp.ui.adapter;
+package com.rorlig.babyapp.ui.adapter.parse;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -10,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dao.MilestonesDao;
+import com.rorlig.babyapp.parse_dao.Milestones;
+import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.ui.activity.InjectableActivity;
 import com.squareup.otto.Bus;
 
@@ -28,10 +32,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by rorlig on 5/29/15.
  */
-public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
+public class MilestonesItemAdapter extends BaseParseAdapter<ParseObject> {
 
-    private final String TAG = "LogItemAdapter";
-    private final Activity context;
+    private final String TAG = "MilestonesItemAdapter";
+    private final Context context;
     private final SimpleDateFormat simpleDateFormat;
 
     //    private final int[] itemStates;
@@ -43,24 +47,16 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
     Bus bus;
 
 
-    /**
-     * Constructor
-     * @param context  The current context.
-     * @param resource The resource ID for a layout file containing a TextView to use when
-     * @param logListItem
-     */
-    public MilestonesItemAdapter(Activity context, int resource, List<MilestonesDao> logListItem) {
-        super(context, R.layout.list_item_home);
-            this.context = context;
-            this.logListItem = logListItem;
-
+    public MilestonesItemAdapter(Activity activity,
+                       int textViewResourceId,
+                       List<ParseObject> parseObjectList) {
+        super(activity, textViewResourceId, parseObjectList);
+        this.context = activity.getApplicationContext();
         simpleDateFormat = new SimpleDateFormat("MMM d");
-        Log.d(TAG, "default time zone 0" + TimeZone.getDefault());
         simpleDateFormat.setTimeZone(TimeZone.getDefault());
 
-            Log.d(TAG, ""  + this.logListItem);
-                ((InjectableActivity)context).inject(this);
     }
+
 
 
 
@@ -75,7 +71,10 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        final MilestonesDao item = logListItem.get(position);
+//        final MilestonesDao item = logListItem.get(position);
+
+        final Milestones milestoneModel = (Milestones) (parseObjectList.get(position));
+
 
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -85,38 +84,33 @@ public class MilestonesItemAdapter extends ArrayAdapter<MilestonesDao> {
             viewHolder.logItemLabel = (TextView) convertView.findViewById(R.id.log_item_label);
             viewHolder.itemImage = (CircleImageView) convertView.findViewById(R.id.icon_image);
             viewHolder.dateCompletionText = (TextView) convertView.findViewById(R.id.date_completed);
-            Log.d(TAG, "position " + position + " item " + item);
+//            Log.d(TAG, "position " + position + " item " + item);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.logItemLabel.setText(item.getTitle());
-        if (item.getImagePath()==null || item.getImagePath().equals("")) {
+        viewHolder.logItemLabel.setText(milestoneModel.getTitle());
+        if (milestoneModel.getImagePath()==null || milestoneModel.getImagePath().equals("")) {
             viewHolder.itemImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_mood_black));
         } else {
-            viewHolder.itemImage.setImageURI(Uri.parse(item.getImagePath()));
+            viewHolder.itemImage.setImageURI(Uri.parse(milestoneModel.getImagePath()));
         }
 
-        viewHolder.dateCompletionText.setText(simpleDateFormat.format(item.getDate()));
+        viewHolder.dateCompletionText.setText(simpleDateFormat.format(milestoneModel.getLogCreationDate()));
 
 
         return convertView;
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public int getCount() {
-
-        return logListItem.size();
+    public Milestones getItem(int position) {
+        return (Milestones) parseObjectList.get(position);
     }
 
     /*
-               *  View Holder class for individual list items
-               */
+    *  View Holder class for individual list items
+    */
     public  class ViewHolder {
 
         TextView logItemLabel;
