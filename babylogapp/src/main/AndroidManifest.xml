@@ -43,7 +43,7 @@
             android:name=".ui.activity.TutorialActivity"
             android:noHistory="true" />
         <activity android:name=".ui.activity.HomeActivity"
-            android:launchMode="singleInstance"/>
+           />
         <activity
             android:name=".ui.activity.ExportActivity"
             android:parentActivityName=".ui.activity.HomeActivity">
@@ -169,7 +169,6 @@
 
         <activity android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme"
-            android:launchMode="singleTop"
             android:noHistory="true"
             />
         <meta-data

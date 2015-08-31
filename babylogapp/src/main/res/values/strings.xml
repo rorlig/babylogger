@@ -379,6 +379,7 @@
     <string name="txt_reset_request">Reset Request Send</string>
     <string name="no_first_name">Please Enter First Name</string>
     <string name="no_last_name">Please Enter Last Name</string>
+    <string name="action_logout">Logout</string>
 
 
 </resources>

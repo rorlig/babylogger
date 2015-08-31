@@ -31,4 +31,10 @@
         android:orderInCategory="400"
         android:title="@string/action_tutorial"
         apps:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="@string/action_logout"
+        apps:showAsAction="never" />
 </menu>
