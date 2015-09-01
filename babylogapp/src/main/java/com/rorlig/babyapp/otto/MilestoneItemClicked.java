@@ -1,6 +1,5 @@
 package com.rorlig.babyapp.otto;
 
-import com.rorlig.babyapp.dao.MilestonesDao;
 import com.rorlig.babyapp.parse_dao.Milestones;
 
 /**

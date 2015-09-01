@@ -24,7 +24,6 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.BaseDao;
 import com.rorlig.babyapp.dao.DiaperChangeDao;
 import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;

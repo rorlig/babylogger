@@ -21,8 +21,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.gc.materialdesign.views.Button;
-import com.j256.ormlite.dao.Dao;
-import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -30,14 +28,11 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.SleepDao;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
-import com.rorlig.babyapp.otto.SleepLogCreated;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
 import java.util.Calendar;

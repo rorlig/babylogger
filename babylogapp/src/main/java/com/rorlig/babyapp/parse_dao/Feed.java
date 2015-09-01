@@ -2,7 +2,6 @@ package com.rorlig.babyapp.parse_dao;
 
 
 import com.parse.ParseClassName;
-import com.parse.ParseObject;
 import com.rorlig.babyapp.model.feed.FeedType;
 
 import java.util.Date;

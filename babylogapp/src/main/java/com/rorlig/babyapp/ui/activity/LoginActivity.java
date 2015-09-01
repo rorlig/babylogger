@@ -7,6 +7,10 @@ import android.util.Log;
 import android.view.Menu;
 
 import com.google.gson.Gson;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.ItemModel;
 import com.rorlig.babyapp.otto.auth.ForgotBtnClickedEvent;
@@ -160,7 +164,17 @@ public class LoginActivity extends InjectableActivity {
 
         @Subscribe
         public void onLoginSuccessEvent(LoginSuccessEvent event){
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Baby");
+            query.getFirstInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, ParseException e) {
+                    if (object==null) {
+                        startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    }
+                }
+            });
         }
 
         @Subscribe

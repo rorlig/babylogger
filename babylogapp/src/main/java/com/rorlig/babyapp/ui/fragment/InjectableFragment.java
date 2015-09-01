@@ -2,6 +2,7 @@ package com.rorlig.babyapp.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -33,7 +34,8 @@ import butterknife.ButterKnife;
 public class InjectableFragment extends Fragment {
 
     private static final String TAG = "InjectableFragment";
-
+    @Inject
+    public SharedPreferences preferences;
     @Inject
     public ScopedBus scopedBus;
 
@@ -106,6 +108,7 @@ public class InjectableFragment extends Fragment {
                     @Override
                     public void done(ParseException e) {
                         Log.d(TAG, "logging out from parse");
+                        preferences.edit().putString("name", "").apply();
                         Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
                         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

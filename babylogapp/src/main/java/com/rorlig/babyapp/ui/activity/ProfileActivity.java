@@ -164,11 +164,11 @@ public class ProfileActivity extends InjectableActivity {
             Intent returnIntent = new Intent();
             returnIntent.putExtra("saved_profile", true);
             setResult(RESULT_OK, returnIntent);
-            if (fromTutorial) {
-                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
-            } else {
+//            if (fromTutorial) {
+//                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+//            } else {
                 startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
-            }
+//            }
             finish();
         }
 

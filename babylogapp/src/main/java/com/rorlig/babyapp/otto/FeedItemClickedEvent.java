@@ -1,6 +1,5 @@
 package com.rorlig.babyapp.otto;
 
-import com.rorlig.babyapp.dao.FeedDao;
 import com.rorlig.babyapp.parse_dao.Feed;
 
 /**

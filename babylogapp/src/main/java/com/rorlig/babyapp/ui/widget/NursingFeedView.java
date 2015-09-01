@@ -6,7 +6,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dao.FeedDao;
 import com.rorlig.babyapp.parse_dao.Feed;
 
 import java.text.SimpleDateFormat;

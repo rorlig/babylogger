@@ -9,8 +9,6 @@ import com.rorlig.babyapp.otto.BusProvider;
 import com.rorlig.babyapp.otto.DiaperStatsEvent;
 import com.squareup.otto.Bus;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

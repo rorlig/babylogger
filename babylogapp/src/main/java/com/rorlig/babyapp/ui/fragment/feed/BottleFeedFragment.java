@@ -34,14 +34,10 @@ import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.FeedDao;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.model.feed.FeedType;
-import com.rorlig.babyapp.otto.events.feed.FeedItemCreatedEvent;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.parse_dao.Feed;
-import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
 import java.sql.SQLException;

@@ -7,11 +7,9 @@ import android.widget.TextView;
 
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dao.GrowthDao;
 import com.rorlig.babyapp.parse_dao.Growth;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimeZone;
 
 /**

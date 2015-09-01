@@ -24,6 +24,11 @@ import android.widget.TextView;
 import com.android.camera.CropImageIntentBuilder;
 import com.desmond.squarecamera.CameraActivity;
 import com.gc.materialdesign.views.Button;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.otto.CroppedImageEvent;
@@ -33,6 +38,7 @@ import com.rorlig.babyapp.otto.events.camera.PictureSelectEvent;
 import com.rorlig.babyapp.otto.events.profile.SavedProfileEvent;
 import com.rorlig.babyapp.otto.events.profile.SkipProfileEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.Baby;
 import com.rorlig.babyapp.ui.PictureInterface;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.utils.AppUtils;
@@ -125,17 +131,30 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 
         Log.d(TAG, "onActivityCreated");
 
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Baby");
+
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (object!=null) {
+                    Baby baby = (Baby) object;
+                    babyNameTextView.setText(baby.getName());
+
+                }
+            }
+        });
+
 
 //        typeface=Typeface.createFromAsset(getActivity().getAssets(),
 //                "fonts/proximanova_light.ttf");
 
         scopedBus.post(new FragmentCreated("Profile "));
 
-        String babyName = preferences.getString("name","");
-        if (babyName.length()==0) {
-            saveBtn.setEnabled(false);
-        }
-        babyNameTextView.setText(babyName);
+//        String babyName = preferences.getString("name","");
+//        if (babyName.length()==0) {
+//            saveBtn.setEnabled(false);
+//        }
+//        babyNameTextView.setText(babyName);
 
         if (pictureSourceSelectFragment!=null && pictureSourceSelectFragment.isVisible()){
             pictureSourceSelectFragment.dismiss();
@@ -395,6 +414,19 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
             preferences.edit().putString("dob", dob).apply();
             saveImageUri(imageUri);
             scopedBus.post(new SavedProfileEvent());
+
+
+            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Baby");
+
+            Baby baby = new Baby(babyName,dob, imageUri==null?"":imageUri.toString(), null);
+
+            baby.saveEventually(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    Log.d(TAG, "baby saved");
+                }
+            });
+
 
 
         }

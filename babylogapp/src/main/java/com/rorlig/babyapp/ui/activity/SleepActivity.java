@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.SleepItemClicked;
-import com.rorlig.babyapp.otto.SleepLogCreated;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;

@@ -1,7 +1,6 @@
 package com.rorlig.babyapp.ui.activity;
 
 import android.app.ActionBar;
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.MilestoneItemClicked;
-import com.rorlig.babyapp.otto.MilestoneItemCreated;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.ui.fragment.milestones.MilestoneFragment;

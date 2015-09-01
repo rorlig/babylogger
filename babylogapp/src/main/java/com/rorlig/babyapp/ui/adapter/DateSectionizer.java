@@ -2,8 +2,6 @@ package com.rorlig.babyapp.ui.adapter;
 
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.ocpsoft.pretty.time.PrettyTime;
-import com.parse.ParseObject;
-import com.rorlig.babyapp.dao.BaseDao;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 
 /**

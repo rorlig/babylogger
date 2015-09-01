@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.j256.ormlite.dao.Dao;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -36,7 +35,6 @@ import com.rorlig.babyapp.parse_dao.Feed;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
-import java.sql.SQLException;
 import java.util.Date;
 
 import javax.inject.Inject;

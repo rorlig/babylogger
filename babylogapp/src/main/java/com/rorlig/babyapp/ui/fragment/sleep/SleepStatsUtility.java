@@ -6,14 +6,11 @@ import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.rorlig.babyapp.otto.BusProvider;
-import com.rorlig.babyapp.otto.DiaperStatsEvent;
 import com.rorlig.babyapp.otto.SleepStatsEvent;
-import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
 import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 

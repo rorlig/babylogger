@@ -4,19 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dao.MilestonesDao;
 import com.rorlig.babyapp.parse_dao.Milestones;
-import com.rorlig.babyapp.parse_dao.Sleep;
-import com.rorlig.babyapp.ui.activity.InjectableActivity;
 import com.squareup.otto.Bus;
 
 import java.text.SimpleDateFormat;

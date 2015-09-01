@@ -2,7 +2,6 @@ package com.rorlig.babyapp.parse_dao;
 
 
 import com.parse.ParseClassName;
-import com.parse.ParseObject;
 
 import java.util.Date;
 

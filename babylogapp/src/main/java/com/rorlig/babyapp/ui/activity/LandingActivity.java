@@ -44,15 +44,15 @@ public class LandingActivity extends InjectableActivity {
 
         if (!tutorial_shown) {
             startActivity(new Intent(this, TutorialActivity.class));
-        } else if (!profile_created) {
-            Intent profileIntent = new Intent(this, ProfileActivity.class);
-            profileIntent.putExtra("from_tutorial", true);
-            startActivity(profileIntent);
         }
         else if (ParseUser.getCurrentUser()==null) {
             Intent loginIntent = new Intent(this, LoginActivity.class);
             loginIntent.putExtra("from_tutorial", true);
             startActivity(loginIntent);
+        } else if (!profile_created) {
+            Intent profileIntent = new Intent(this, ProfileActivity.class);
+            profileIntent.putExtra("from_tutorial", true);
+            startActivity(profileIntent);
         } else {
             startActivity(new Intent(this, HomeActivity.class));
         }
