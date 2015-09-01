@@ -53,8 +53,9 @@ public class GrowthView extends RelativeLayout {
         weightTextView = (TextView) findViewById(R.id.weight_value);
         heightTextView = (TextView) findViewById(R.id.height_value);
         headTextView = (TextView) findViewById(R.id.headValue);
-        textViewTime = (TextView) findViewById(R.id.diaperChangeTime);
+        textViewTime = (TextView) findViewById(R.id.time);
         notesContentTextView = (TextView) findViewById(R.id.notes_content);
+
 
     }
 
@@ -71,7 +72,7 @@ public class GrowthView extends RelativeLayout {
         headTextView.setText(model.getHeadMeasurement()!=-1?model.getHeadMeasurement() + " inches": "");
         heightTextView.setText(model.getHeight() + " inches");
         weightTextView.setText(model.getWeight() + " pounds");
-//        textViewTime.setText(simpleDateFormat.format(new Date(model.getLogCreationDate())));
+        textViewTime.setText(simpleDateFormat.format(model.getLogCreationDate()));
         notesContentTextView.setText(model.getNotes());
 
     }

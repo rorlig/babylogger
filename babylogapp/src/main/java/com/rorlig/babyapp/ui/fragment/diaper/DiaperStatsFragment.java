@@ -20,8 +20,10 @@ import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.db.BabyLoggerORMUtils;
+import com.rorlig.babyapp.otto.DiaperStatsEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -79,6 +81,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
     private BabyLoggerORMUtils babyORMLiteUtils;
     private List<String[]> diaperChangeDaoList;
+    private EventListener eventListener = new EventListener();
 
 
     @Override
@@ -130,18 +133,15 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 //        barChart.set();
 
 
-        try {
-            Log.d(TAG, "get the data by day");
-            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
-            //setData
-//            setData(12, 60);
-            barChart.setMaxVisibleValueCount(7);
-            barChart.getXAxis().setLabelsToSkip(0);
-            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
+        Log.d(TAG, "get the data by day");
+        DiaperStatsUtility.getDiapersByDayofWeek();
 
-        } catch (SQLException   e) {
-            e.printStackTrace();
-        }
+//            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
+        //setData
+//            setData(12, 60);
+        barChart.setMaxVisibleValueCount(7);
+        barChart.getXAxis().setLabelsToSkip(0);
+//            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
 
         diaperChangeRadioGroup.setOnCheckedChangeListener(this);
 
@@ -177,41 +177,61 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         inflater.inflate(R.menu.menu_main, menu);
     }
 
+
+    /*
+  * Register to events...
+  */
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart");
+        scopedBus.register(eventListener);
+    }
+
+    /*
+     * Unregister from events ...
+     */
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+        scopedBus.unregister(eventListener);
+
+    }
+
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-        try {
-            switch (checkedId) {
-                case R.id.diaper_change_stats_monthly:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
-                    barChart.setMaxVisibleValueCount(5);
-                    barChart.getXAxis().setSpaceBetweenLabels(20);
+        switch (checkedId) {
+            case R.id.diaper_change_stats_monthly:
+                DiaperStatsUtility.getDiapersByWeekofMonth();
+//                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
+                barChart.setMaxVisibleValueCount(5);
+                barChart.getXAxis().setSpaceBetweenLabels(20);
 
-                    barChart.getXAxis().setLabelsToSkip(1);
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.MONTHLY);
+                barChart.getXAxis().setLabelsToSkip(1);
+//                    setData(diaperChangeDaoList, DiaperChangeStatsType.MONTHLY);
 
-                    break;
-                case R.id.diaper_change_stats_yearly:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonthofYear();
-                    Log.d(TAG, "diaperChangeDaoList " + diaperChangeDaoList.size());
-                    barChart.setMaxVisibleValueCount(12);
-                    barChart.getXAxis().setLabelsToSkip(1);
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.YEARLY);
-                    break;
-                default:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
-                    barChart.setMaxVisibleValueCount(7);
-                    barChart.getXAxis().setLabelsToSkip(0);
+                break;
+            case R.id.diaper_change_stats_yearly:
+                DiaperStatsUtility.getDiapersByMonthofYear();
 
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
-            }
-
-            barChart.getXAxis().setDrawLabels(true);
-
-
-        } catch (SQLException sqlException) {
-            Log.e(TAG, "Exception: " + sqlException);
+//                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonthofYear();
+                Log.d(TAG, "diaperChangeDaoList " + diaperChangeDaoList.size());
+                barChart.setMaxVisibleValueCount(12);
+                barChart.getXAxis().setLabelsToSkip(1);
+//                    setData(diaperChangeDaoList, DiaperChangeStatsType.YEARLY);
+                break;
+            default:
+                DiaperStatsUtility.getDiapersByDayofWeek();
+//                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
+                barChart.setMaxVisibleValueCount(7);
+                barChart.getXAxis().setLabelsToSkip(0);
+//                    setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
         }
+
+        barChart.getXAxis().setDrawLabels(true);
+
 
     }
 
@@ -245,19 +265,19 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
             Integer value = Integer.parseInt(diaperChangeResult[1]);
             String xValue = diaperChangeResult[0];
-            switch (diaperChangeStatsType) {
-                case WEEKLY:
-                    break;
-                case MONTHLY:
-//                    xValue = diaperChangeResult[0];
-                    break;
-                case YEARLY:
-//                    Log.d(TAG, diaperChangeResult[0].substring(5));
-//                    xValue = mMonths[Integer.parseInt(diaperChangeResult[0].substring(5))-1];
-
-
-                    break;
-            }
+//            switch (diaperChangeStatsType) {
+//                case WEEKLY:
+//                    break;
+//                case MONTHLY:
+////                    xValue = diaperChangeResult[0];
+//                    break;
+//                case YEARLY:
+////                    Log.d(TAG, diaperChangeResult[0].substring(5));
+////                    xValue = mMonths[Integer.parseInt(diaperChangeResult[0].substring(5))-1];
+//
+//
+//                    break;
+//            }
             xVals.add(xValue);
             BarEntry barEntry = new BarEntry(value, i);
 
@@ -501,5 +521,13 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
         Log.d(TAG, "chart dragged " + event);
         return false;
+    }
+
+    private class EventListener {
+        @Subscribe
+        public void onDiaperChangeStatsEvent(DiaperStatsEvent event){
+            diaperChangeDaoList = event.getList();
+            setData(diaperChangeDaoList, event.getDiaperChangeStatsType());
+        }
     }
 }
