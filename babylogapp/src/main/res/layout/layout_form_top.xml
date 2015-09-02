@@ -16,6 +16,13 @@
             android:id="@+id/image"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_why_signup"
+            android:id="@+id/txt_why_signup"
+            android:layout_below="@+id/image"/>
+
     </RelativeLayout>
 
 

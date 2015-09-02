@@ -2,6 +2,7 @@ package com.rorlig.babyapp.ui.fragment.auth;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,16 +20,23 @@ import com.rorlig.babyapp.otto.auth.ForgotBtnClickedEvent;
 import com.rorlig.babyapp.otto.auth.LoginSkippedEvent;
 import com.rorlig.babyapp.otto.auth.LoginSuccessEvent;
 import com.rorlig.babyapp.otto.auth.SignupBtnClickedEvent;
+import com.rorlig.babyapp.ui.activity.LoginActivity;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+
+import org.w3c.dom.Text;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import it.sephiroth.android.library.tooltip.TooltipManager;
 
 /**
  * @author gaurav gupta
  */
-public class LoginFragment extends InjectableFragment {
+public class LoginFragment extends InjectableFragment implements TooltipManager.onTooltipClosingCallback {
 
     @InjectView(R.id.btn_forgot_password)
     Button forgotPasswordBtn;
@@ -53,13 +61,68 @@ public class LoginFragment extends InjectableFragment {
     @InjectView(R.id.password)
     TextView passwordTextView;
 
+    @InjectView(R.id.txt_why_signup)
+    TextView signupTextView;
+
     private ProgressDialog dialog;
+
+    private String termAndConditions = "terms and conditions";
+
+    private String privacy = "privacy policy";
+
+    Pattern pattern2 = Pattern.compile("[a-zA-Z]+");
+
+
+    Linkify.MatchFilter termsAndConditionMatchFilter = new Linkify.MatchFilter() {
+        @Override
+        public boolean acceptMatch(CharSequence cs, int start, int end) {
+            int startIndex = getString(R.string.skip_message).indexOf(termAndConditions);
+            int endIndex = startIndex + termAndConditions.length();
+            return start>=startIndex&&end<=endIndex;
+        }
+    };
+
+    Linkify.MatchFilter privacyMatchFilter = new Linkify.MatchFilter() {
+        @Override
+        public boolean acceptMatch(CharSequence cs, int start, int end) {
+            int startIndex = getString(R.string.skip_message).indexOf(privacy);
+            int endIndex = startIndex + privacy.length();
+            return start>=startIndex&&end<=endIndex;
+        }
+    };
+
+
+    Linkify.TransformFilter blankTransform = new Linkify.TransformFilter() {
+        @Override
+        public String transformUrl(Matcher match, String url) {
+            return ""; //remove the $ sign
+        }
+    };
+//    TooltipManager manager = TooltipManager.getInstance();
+
+    @Override
+    public void onActivityCreated(Bundle paramBundle) {
+        super.onActivityCreated(paramBundle);
+//        manager.create(getActivity(), 0)
+//                .anchor(signupTextView, TooltipManager.Gravity.RIGHT)
+//                .closePolicy(TooltipManager.ClosePolicy.TouchOutside, 3000)
+//                .text(R.string.hello_world)
+//                .toggleArrow(true)
+//                .maxWidth(400)
+//                .showDelay(300)
+//                .withCallback(this)
+//                .show();
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         emailTextInputLayout.setErrorEnabled(true);
         passwordTextInputLayout.setErrorEnabled(true);
+
+        Linkify.addLinks(skipMessageTextView, pattern2, getString(R.string.toc_link), termsAndConditionMatchFilter, blankTransform);
+        Linkify.addLinks(skipMessageTextView, pattern2, getString(R.string.privacy_link), privacyMatchFilter, blankTransform);
+
 //        skipMessageTextView.setText(AppUtils.getSpannable(skipMessageTextView.getText().toString()));
     }
 
@@ -143,4 +206,8 @@ public class LoginFragment extends InjectableFragment {
     }
 
 
+    @Override
+    public void onClosing(int i, boolean b, boolean b1) {
+        Log.d(TAG, "onClosing");
+    }
 }

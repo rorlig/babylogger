@@ -176,6 +176,10 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.2.1'
     compile 'com.parse:parse-android:1.10.0'
 
+    //tooltip
+    compile 'it.sephiroth.android.library.targettooltip:target-tooltip-library:1.2.9@aar'
+
+
 
 
 
