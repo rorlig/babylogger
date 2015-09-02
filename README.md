@@ -19,9 +19,9 @@
 
 + Sleep Cloud Functions calling and caching.
 + Add Links to Privacy, Terms and Conditions on the Login Page.
-+ Milestone Images
-+ Baby Images
-+ SignUp screen login ...
++ Milestone Images ..
++ Baby Images..
++ Cloud function to export and email it out ...
 
 
 

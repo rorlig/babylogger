@@ -22,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.j256.ormlite.stmt.PreparedQuery;
+import com.parse.FindCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.DiaperChangeDao;
@@ -33,9 +36,11 @@ import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.model.ItemModel;
 import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.adapter.ExportItemAdapter;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
+import com.rorlig.babyapp.ui.widget.RangeTimePickerDialog;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
@@ -305,64 +310,76 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
             Uri feedsUri = null;
 //            Uri milestonesUri = null;
             if (isItemSelected(ExportItem.DIAPER)) {
-                try {
-                    List<DiaperChangeDao> diaperChangeList = babyORMLiteUtils.getDiaperChangeList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  diaperChangeList.size());
-                    if (diaperChangeList.size()>0)
-                        diaperChangeUri  = createDiaperListToCSV(diaperChangeList);
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                Log.d(TAG, " startTime " + getStartTime() + " endTime " + getEndTime());
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+                query.whereGreaterThanOrEqualTo("logCreationDate", getStartTime() );
+                query.whereLessThanOrEqualTo("logCreationDate", getEndTime());
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                        Log.d(TAG, "find diapers callback");
+                        if (objects != null) {
+                            Log.d(TAG, "object size " + objects.size());
+                            Uri diaperChangeUri = createDiaperListToCSV(objects);
+                        }
+                    }
+                });
+
+//                    List<DiaperChangeDao> diaperChangeList = babyORMLiteUtils.getDiaperChangeList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " +  diaperChangeList.size());
+//                    if (diaperChangeList.size()>0)
+//                        diaperChangeUri  = createDiaperListToCSV(diaperChangeList);
 
             }
 
-            if (isItemSelected(ExportItem.FEED)) {
-                try {
-                    List<FeedDao> feedList = babyORMLiteUtils.getFeedList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  feedList.size());
-                    if (feedList.size()>0)
-                        feedsUri  = createFeedListToCSV(feedList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (isItemSelected(ExportItem.GROWTH)) {
-                try {
-                    List<GrowthDao> growthList = babyORMLiteUtils.getGrowthList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  growthList.size());
-                    if (growthList.size()>0)
-                        growthUri  = createGrowthListToCSV(growthList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (isItemSelected(ExportItem.MILESTONE)) {
-                try {
-                    List<MilestonesDao> milestonesList = babyORMLiteUtils.getMilestoneList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  milestonesList.size());
-
-                    if (milestonesList.size()>0)
-                        milestoneUri = createMilestoneListToCSV(milestonesList);
-//                    if (milestonesList.size()>0)
+//            if (isItemSelected(ExportItem.FEED)) {
+//                try {
+//                    List<FeedDao> feedList = babyORMLiteUtils.getFeedList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " +  feedList.size());
+//                    if (feedList.size()>0)
+//                        feedsUri  = createFeedListToCSV(feedList);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            if (isItemSelected(ExportItem.GROWTH)) {
+//                try {
+//                    List<GrowthDao> growthList = babyORMLiteUtils.getGrowthList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " +  growthList.size());
+//                    if (growthList.size()>0)
 //                        growthUri  = createGrowthListToCSV(growthList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (isItemSelected(ExportItem.SLEEP)) {
-                try {
-                    List<SleepDao> sleepList = babyORMLiteUtils.getSleepList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  sleepList.size());
-                    if (sleepList.size()>0)
-                        sleepUri  = createSleepListToCSV(sleepList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            if (isItemSelected(ExportItem.MILESTONE)) {
+//                try {
+//                    List<MilestonesDao> milestonesList = babyORMLiteUtils.getMilestoneList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " +  milestonesList.size());
+//
+//                    if (milestonesList.size()>0)
+//                        milestoneUri = createMilestoneListToCSV(milestonesList);
+////                    if (milestonesList.size()>0)
+////                        growthUri  = createGrowthListToCSV(growthList);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            if (isItemSelected(ExportItem.SLEEP)) {
+//                try {
+//                    List<SleepDao> sleepList = babyORMLiteUtils.getSleepList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " + sleepList.size());
+//                    if (sleepList.size()>0)
+//                        sleepUri  = createSleepListToCSV(sleepList);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
 
 
@@ -538,15 +555,16 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
      * @return Uri to the file location.
      */
 
-    private Uri createDiaperListToCSV(List<DiaperChangeDao> diaperChangeList) {
+    private Uri createDiaperListToCSV(List<ParseObject> diaperChangeList) {
         String header =   "\"Date\",\"Diaper Change Event Type\",\"Poop Texture\",\"Poop Color\",\"Diaper Incident\",\"Notes\"\n";
         StringBuilder stringBuilder = new StringBuilder();
-        for (DiaperChangeDao diaperChangeDao: diaperChangeList) {
-            stringBuilder.append("\"" + diaperChangeDao.getDate() + "\",\""
-                    + diaperChangeDao.getDiaperChangeEventType() + "\",\""
-                    + diaperChangeDao.getPoopTexture() + "\",\"" + diaperChangeDao.getPoopTexture() + "\",\""
-                    + diaperChangeDao.getPoopColor() + "\",\"" + diaperChangeDao.getDiaperChangeIncidentType()
-                    + "\",\"" + diaperChangeDao.getDiaperChangeNotes() + "\"\n");
+        for (ParseObject object: diaperChangeList) {
+            DiaperChange diaperChange = (DiaperChange) object;
+            stringBuilder.append("\"" + diaperChange.getLogCreationDate() + "\",\""
+                    + diaperChange.getDiaperChangeEventType() + "\",\""
+                    + diaperChange.getPoopTexture() + "\",\"" + diaperChange.getPoopTexture() + "\",\""
+                    + diaperChange.getPoopColor() + "\",\"" + diaperChange.getDiaperChangeIncidentType()
+                    + "\",\"" + diaperChange.getDiaperChangeNotes() + "\"\n");
 
 
         }
