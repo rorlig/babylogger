@@ -383,5 +383,9 @@
     <string name="tutorial_shown">tutorial_shown</string>
     <string name="from_tutorial">from_tutorial</string>
 
+    <string name="settings_privacy">Privacy</string>
+    <string name="string_toc">TOC</string>
+    <string name="toc_link">http://thebabyapp.com/page_terms.html</string>
+    <string name="privacy_link">http://thebabyapp.com/page_privacy.html</string>
 
 </resources>
