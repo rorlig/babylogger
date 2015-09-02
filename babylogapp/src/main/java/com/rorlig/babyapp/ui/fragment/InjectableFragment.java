@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.parse.LogOutCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ObjectGraphActivity;
@@ -23,6 +26,7 @@ import com.rorlig.babyapp.ui.activity.LicenseActivity;
 import com.rorlig.babyapp.ui.activity.LoginActivity;
 import com.rorlig.babyapp.ui.activity.PrefsActivity;
 import com.rorlig.babyapp.ui.activity.TutorialActivity;
+import com.rorlig.babyapp.utils.AppConstants;
 
 import javax.inject.Inject;
 
@@ -108,7 +112,7 @@ public class InjectableFragment extends Fragment {
                     @Override
                     public void done(ParseException e) {
                         Log.d(TAG, "logging out from parse");
-                        preferences.edit().putString("name", "").apply();
+                        clearUserInfo();
                         Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
                         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -117,14 +121,31 @@ public class InjectableFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+    /*
+     * clears the user information...
+     */
+    private void clearUserInfo() {
+        preferences.edit().putString("name", "").apply();
+        preferences.edit().putString("imageUri", "").apply();
+        preferences.edit().putString("baby_sex","").apply();
+        preferences.edit().putString("dob","").apply();
+        preferences.edit().putString(AppConstants.DIAPER_CHANGES_BY_DAY_OF_THE_WEEK, "").apply();
+        preferences.edit().putString(AppConstants.DIAPER_CHANGES_BY_MONTH_OF_YEAR, "").apply();
+        preferences.edit().putString(AppConstants.DIAPER_CHANGES_BY_WEEK_OF_MONTH, "").apply();
+        try {
+            ParseObject.unpinAll();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //clear the caches of the stored results...
+//        ParseQuery.clearAllCachedResults();
+    }
 
     /*
      * called when the fragment comes back on the top on pop from the fragment stack..
      */
     public void onFragmentResume() {
-
         Log.d(TAG, "onFragment Resume ");
-
     }
 
     /*

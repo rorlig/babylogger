@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.github.paolorotolo.appintro.AppIntro;
+import com.parse.ParseUser;
+import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.ui.fragment.tutorial.FirstSlide;
 import com.rorlig.babyapp.ui.fragment.tutorial.FourthSlide;
 import com.rorlig.babyapp.ui.fragment.tutorial.SecondSlide;
 import com.rorlig.babyapp.ui.fragment.tutorial.ThirdSlide;
+import com.rorlig.babyapp.utils.AppConstants;
 
 /**
  * Created by rorlig on 6/16/15.
@@ -39,36 +42,37 @@ public class TutorialActivity extends AppIntro {
         // NOTE: you will probably need to ask VIBRATE permesssion in Manifest
         setVibrate(false);
 
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("tutorial_shown", true).apply();
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(getString(R.string.tutorial_shown), true).apply();
 //        setVibrateIntensity(30);
     }
 
     @Override
     public void onSkipPressed() {
 
-       if (getIntent()!=null && getIntent().getExtras()!=null){
-           finish();
-       } else {
-
-           // Do something when users tap on Skip button.
-           Intent profileIntent = new Intent(this, ProfileActivity.class);
-           profileIntent.putExtra("from_tutorial", true);
-           startActivity(profileIntent);
-
-       }
+        handleNext();
 
     }
 
     @Override
     public void onDonePressed() {
+      handleNext();
+    }
+
+    private void handleNext(){
         if (getIntent()!=null && getIntent().getExtras()!=null){
             finish();
         } else {
 
             // Do something when users tap on Skip button.
-            Intent profileIntent = new Intent(this, ProfileActivity.class);
-            profileIntent.putExtra("from_tutorial", true);
-            startActivity(profileIntent);
+            if (ParseUser.getCurrentUser()==null) {
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.putExtra("from_tutorial", true);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+            }
+
 
         }
     }

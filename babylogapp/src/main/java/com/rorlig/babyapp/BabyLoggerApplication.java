@@ -16,6 +16,7 @@ import com.rorlig.babyapp.parse_dao.Feed;
 import com.rorlig.babyapp.parse_dao.Growth;
 import com.rorlig.babyapp.parse_dao.Milestones;
 import com.rorlig.babyapp.parse_dao.Sleep;
+import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -100,6 +101,7 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
         Parse.setLogLevel(Parse.LOG_LEVEL_VERBOSE);
 
 
+        DualCacheContextUtils.setContext(getApplicationContext());
 
 //        configureJobManager();
 //        ACRA.init(this);

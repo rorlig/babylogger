@@ -5,8 +5,10 @@ import android.util.Log;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.otto.BusProvider;
 import com.rorlig.babyapp.otto.DiaperStatsEvent;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
@@ -27,50 +29,59 @@ public class DiaperStatsUtility {
     public static void getDiapersByDayofWeek(){
         Map<String, String> params = new HashMap<String, String>();
 
-        ParseCloud.callFunctionInBackground("diaperChangesByDayofWeek",
+        ParseCloud.callFunctionInBackground(AppConstants.DIAPER_CHANGES_BY_DAY_OF_THE_WEEK,
                 params, new FunctionCallback<Object>() {
                     @Override
                     public void done(Object object, ParseException e) {
-                        Log.d(TAG, "diaperChangesByDayofWeek " + object + " e " + e);
-                        HashMap mp = (HashMap) object;
-                        List<String[]> list = new ArrayList<String[]>();
-                        Iterator it = mp.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pair = (Map.Entry)it.next();
-                            Log.d(TAG, pair.getKey() + " = " + pair.getValue());
-                            String str[] = new String [2];
-                            str[0] = (String) pair.getKey();
-                            str[1] = String.valueOf(pair.getValue());
-                            list.add(str);
+//                        Log.d(TAG, "diaperChangesByDayofWeek " + object + " e " + e);
+
+                        if (e==null) {
+                            HashMap mp = (HashMap) object;
+                            List<String[]> list = new ArrayList<String[]>();
+                            Iterator it = mp.entrySet().iterator();
+                            while (it.hasNext()) {
+                                Map.Entry pair = (Map.Entry)it.next();
+                                Log.d(TAG, pair.getKey() + " = " + pair.getValue());
+                                String str[] = new String [2];
+                                str[0] = (String) pair.getKey();
+                                str[1] = String.valueOf(pair.getValue());
+                                list.add(str);
 //                            it.remove(); // avoids a ConcurrentModificationException
+                            }
+
+                            bus.post(new DiaperStatsEvent(list, DiaperChangeStatsType.WEEKLY) );
                         }
 
-                        bus.post(new DiaperStatsEvent(list, DiaperChangeStatsType.WEEKLY) );
                     }
                 });
     }
 
 
     public static void getDiapersByWeekofMonth(){
-        ParseCloud.callFunctionInBackground("diaperChangesByWeekofMonth",
+
+        ParseCloud.callFunctionInBackground(AppConstants.DIAPER_CHANGES_BY_WEEK_OF_MONTH,
                 new HashMap<String, String>(), new FunctionCallback<Object>() {
                     @Override
                     public void done(Object object, ParseException e) {
-                        Log.d(TAG, "diaperChangesByWeekofMonth " + object  + " type " + object.getClass());
-                        HashMap mp = (HashMap) object;
-                        List<String[]> list = new ArrayList<String[]>();
-                        Iterator it = mp.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pair = (Map.Entry)it.next();
-                            Log.d(TAG, pair.getKey() + " = " + pair.getValue());
-                            String str[] = new String [2];
-                            str[0] = (String) pair.getKey();
-                            str[1] = String.valueOf(pair.getValue());
-                            list.add(str);
-//                            it.remove(); // avoids a ConcurrentModificationException
+//                        Log.d(TAG, "diaperChangesByWeekofMonth " + object + " type " + object.getClass());
+                        if (e==null) {
+
+
+                            HashMap mp = (HashMap) object;
+                            List<String[]> list = new ArrayList<String[]>();
+                            Iterator it = mp.entrySet().iterator();
+                            while (it.hasNext()) {
+                                Map.Entry pair = (Map.Entry)it.next();
+                                Log.d(TAG, pair.getKey() + " = " + pair.getValue());
+                                String str[] = new String [2];
+                                str[0] = (String) pair.getKey();
+                                str[1] = String.valueOf(pair.getValue());
+                                list.add(str);
+                            }
+
+                            bus.post(new DiaperStatsEvent(list, DiaperChangeStatsType.MONTHLY));
                         }
 
-                        bus.post(new DiaperStatsEvent(list, DiaperChangeStatsType.MONTHLY));
 
                     }
                 });
@@ -78,25 +89,27 @@ public class DiaperStatsUtility {
 
 
     public static void getDiapersByMonthofYear(){
-        ParseCloud.callFunctionInBackground("diaperChangesByMonthofYear",
+        ParseCloud.callFunctionInBackground(AppConstants.DIAPER_CHANGES_BY_MONTH_OF_YEAR,
                 new HashMap<String, String>(), new FunctionCallback<Object>() {
                     @Override
                     public void done(Object object, ParseException e) {
-                        Log.d(TAG, "diaperChangesByMonthofYear" + object );
-                        HashMap mp = (HashMap) object;
-                        List<String[]> list = new ArrayList<String[]>();
-                        Iterator it = mp.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pair = (Map.Entry)it.next();
-                            Log.d(TAG, pair.getKey() + " = " + pair.getValue());
-                            String str[] = new String [2];
-                            str[0] = (String) pair.getKey();
-                            str[1] = String.valueOf(pair.getValue());
-                            list.add(str);
+//                        Log.d(TAG, "diaperChangesByMonthofYear" + object);
+                        if (e==null) {
+                            HashMap mp = (HashMap) object;
+                            List<String[]> list = new ArrayList<String[]>();
+                            Iterator it = mp.entrySet().iterator();
+                            while (it.hasNext()) {
+                                Map.Entry pair = (Map.Entry)it.next();
+                                Log.d(TAG, pair.getKey() + " = " + pair.getValue());
+                                String str[] = new String [2];
+                                str[0] = (String) pair.getKey();
+                                str[1] = String.valueOf(pair.getValue());
+                                list.add(str);
 //                            it.remove(); // avoids a ConcurrentModificationException
+                            }
+                            bus.post(new DiaperStatsEvent(list, DiaperChangeStatsType.YEARLY));
                         }
 
-                        bus.post(new DiaperStatsEvent(list, DiaperChangeStatsType.YEARLY));
                     }
                 });
     }

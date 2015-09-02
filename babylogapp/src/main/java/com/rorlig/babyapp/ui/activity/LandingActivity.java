@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import com.google.gson.Gson;
 import com.parse.ParseUser;
+import com.rorlig.babyapp.R;
+import com.rorlig.babyapp.utils.AppConstants;
 
 import javax.inject.Inject;
 
@@ -32,7 +34,7 @@ public class LandingActivity extends InjectableActivity {
 
         super.onCreate(savedInstanceState);
 
-        boolean tutorial_shown = preferences.getBoolean("tutorial_shown", false);
+        boolean tutorial_shown = preferences.getBoolean(getString(R.string.tutorial_shown), false);
 
         boolean profile_created = false;
 
@@ -47,12 +49,8 @@ public class LandingActivity extends InjectableActivity {
         }
         else if (ParseUser.getCurrentUser()==null) {
             Intent loginIntent = new Intent(this, LoginActivity.class);
-            loginIntent.putExtra("from_tutorial", true);
+            loginIntent.putExtra(getString(R.string.from_tutorial), true);
             startActivity(loginIntent);
-        } else if (!profile_created) {
-            Intent profileIntent = new Intent(this, ProfileActivity.class);
-            profileIntent.putExtra("from_tutorial", true);
-            startActivity(profileIntent);
         } else {
             startActivity(new Intent(this, HomeActivity.class));
         }
