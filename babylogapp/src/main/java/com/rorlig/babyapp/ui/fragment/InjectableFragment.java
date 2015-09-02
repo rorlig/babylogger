@@ -21,11 +21,13 @@ import com.parse.ParseUser;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ObjectGraphActivity;
 import com.rorlig.babyapp.otto.ScopedBus;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.activity.InjectableActivity;
 import com.rorlig.babyapp.ui.activity.LicenseActivity;
 import com.rorlig.babyapp.ui.activity.LoginActivity;
 import com.rorlig.babyapp.ui.activity.PrefsActivity;
 import com.rorlig.babyapp.ui.activity.TutorialActivity;
+import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
 import com.rorlig.babyapp.utils.AppConstants;
 
 import javax.inject.Inject;
@@ -125,13 +127,14 @@ public class InjectableFragment extends Fragment {
      * clears the user information...
      */
     private void clearUserInfo() {
+        Log.d(TAG, "clearUserInfo");
         preferences.edit().putString("name", "").apply();
         preferences.edit().putString("imageUri", "").apply();
         preferences.edit().putString("baby_sex","").apply();
         preferences.edit().putString("dob","").apply();
-        preferences.edit().putString(AppConstants.DIAPER_CHANGES_BY_DAY_OF_THE_WEEK, "").apply();
-        preferences.edit().putString(AppConstants.DIAPER_CHANGES_BY_MONTH_OF_YEAR, "").apply();
-        preferences.edit().putString(AppConstants.DIAPER_CHANGES_BY_WEEK_OF_MONTH, "").apply();
+        preferences.edit().putString(DiaperChangeStatsType.WEEKLY.getValue(), "").apply();
+        preferences.edit().putString(DiaperChangeStatsType.MONTHLY.getValue(), "").apply();
+        preferences.edit().putString(DiaperChangeStatsType.YEARLY.getValue(), "").apply();
         try {
             ParseObject.unpinAll();
         } catch (ParseException e) {

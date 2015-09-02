@@ -18,11 +18,10 @@
 ## Todo
 
 + Sleep Cloud Functions calling and caching.
-+ Remove Skip Button.
 + Add Links to Privacy, Terms and Conditions on the Login Page.
-+ Growth call the results in reverse order for graphing data.
 + Milestone Images
 + Baby Images
++ SignUp screen login ...
 
 
 

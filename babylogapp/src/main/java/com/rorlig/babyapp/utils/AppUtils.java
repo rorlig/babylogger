@@ -16,6 +16,8 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 
+import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -108,12 +110,12 @@ public class AppUtils {
 
         Log.d(TAG, "invalidateDiaperChangeCaches");
         PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putString(AppConstants.DIAPER_CHANGES_BY_WEEK_OF_MONTH,"").apply();
+                .edit().putString(DiaperChangeStatsType.WEEKLY.getValue(),"").apply();
 
         PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putString(AppConstants.DIAPER_CHANGES_BY_DAY_OF_THE_WEEK,"").apply();
+                .edit().putString(DiaperChangeStatsType.MONTHLY.getValue(),"").apply();
 
         PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putString(AppConstants.DIAPER_CHANGES_BY_MONTH_OF_YEAR,"").apply();
+                .edit().putString(DiaperChangeStatsType.YEARLY.getValue(),"").apply();
     }
 }

@@ -252,7 +252,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
                 if (AppUtils.isNetworkAvailable(getActivity())
                         && !isDiaperChangeCached(DiaperChangeStatsType.YEARLY)) {
-                    DiaperStatsUtility.getDiapersByWeekofMonth();
+                    DiaperStatsUtility.getDiapersByMonthofYear();
                 } else {
                     getDiaperChangeStatsOffline(DiaperChangeStatsType.YEARLY);
 

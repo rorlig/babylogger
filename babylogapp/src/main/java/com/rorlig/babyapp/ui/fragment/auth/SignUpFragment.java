@@ -118,4 +118,9 @@ public class SignUpFragment extends InjectableFragment {
         });
     }
 
+    @OnClick(R.id.txt_login)
+    public void onBtnLoginClicked() {
+        getFragmentManager().popBackStackImmediate();
+    }
+
 }

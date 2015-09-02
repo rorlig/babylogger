@@ -131,11 +131,11 @@ public class LoginFragment extends InjectableFragment {
         });
     }
 
-    @OnClick(R.id.btn_skip)
-    public void btnSkipClicked(){
-        scopedBus.post(new LoginSkippedEvent());
-
-    }
+//    @OnClick(R.id.btn_skip)
+//    public void btnSkipClicked(){
+//        scopedBus.post(new LoginSkippedEvent());
+//
+//    }
 
     protected void showToast(int id) {
         Toast.makeText(getActivity(), getString(id), Toast.LENGTH_SHORT).show();
