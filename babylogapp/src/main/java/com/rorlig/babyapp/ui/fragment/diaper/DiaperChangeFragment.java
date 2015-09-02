@@ -43,6 +43,7 @@ import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.TimePickerFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
@@ -491,6 +492,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
                     @Override
                     public void done(ParseException e) {
                         Log.d(TAG, "saving locally");
+                        AppUtils.invalidateDiaperChangeCaches(context);
 
                     }
                 });

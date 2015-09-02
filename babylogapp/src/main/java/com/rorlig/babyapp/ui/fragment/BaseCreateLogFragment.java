@@ -1,5 +1,6 @@
 package com.rorlig.babyapp.ui.fragment;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.parse.DeleteCallback;
@@ -7,13 +8,20 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.rorlig.babyapp.dagger.ForApplication;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
+import com.rorlig.babyapp.utils.AppUtils;
+
+import javax.inject.Inject;
 
 /**
  * @author gaurav gupta
  */
 public abstract class BaseCreateLogFragment extends InjectableFragment{
 
+    @ForApplication
+    @Inject
+    Context context;
 
     private final String parseClassName;
     private String TAG = "BaseCreateLogFragment";
@@ -36,6 +44,7 @@ public abstract class BaseCreateLogFragment extends InjectableFragment{
                         object.deleteInBackground(new DeleteCallback() {
                             @Override
                             public void done(ParseException e) {
+                                AppUtils.invalidateDiaperChangeCaches(context);
                                 scopedBus.post(new ItemCreatedOrChanged(parseClassName));
                             }
                         });

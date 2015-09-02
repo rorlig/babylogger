@@ -28,6 +28,7 @@ import com.rorlig.babyapp.dao.DiaperChangeDao;
 import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
@@ -494,6 +495,13 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
         @Subscribe
         public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
             Log.d(TAG, "onDiaperLogCreatedEvent");
+            updateListView();
+        }
+
+
+        @Subscribe
+        public void onDiaperChangeItemChange(ItemCreatedOrChanged event) {
+            Log.d(TAG, "onDiaperChangeItemChange");
             updateListView();
         }
 

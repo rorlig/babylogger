@@ -7,10 +7,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.support.design.widget.TextInputLayout;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 
 import java.io.File;
@@ -28,6 +31,7 @@ public class AppUtils {
     public static final int RESULT_CROP_IMAGE = 3;
 
     public static final int PROFILE_ACTIVITY = 1;
+    private static String TAG = "AppUtils";
 
     public static String getCameraDirectory() {
         String dirPath = "";
@@ -98,5 +102,18 @@ public class AppUtils {
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
+    }
+
+    public static void invalidateDiaperChangeCaches(Context context) {
+
+        Log.d(TAG, "invalidateDiaperChangeCaches");
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(AppConstants.DIAPER_CHANGES_BY_WEEK_OF_MONTH,"").apply();
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(AppConstants.DIAPER_CHANGES_BY_DAY_OF_THE_WEEK,"").apply();
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(AppConstants.DIAPER_CHANGES_BY_MONTH_OF_YEAR,"").apply();
     }
 }
