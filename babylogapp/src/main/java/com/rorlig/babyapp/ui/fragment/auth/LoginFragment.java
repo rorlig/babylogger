@@ -31,13 +31,12 @@ import java.util.regex.Pattern;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import it.sephiroth.android.library.tooltip.TooltipManager;
+//import it.sephiroth.android.library.tooltip.TooltipManager;
 
 /**
  * @author gaurav gupta
  */
-public class LoginFragment extends InjectableFragment implements TooltipManager.onTooltipClosingCallback {
-
+public class LoginFragment extends InjectableFragment {
     @InjectView(R.id.btn_forgot_password)
     Button forgotPasswordBtn;
 
@@ -206,8 +205,5 @@ public class LoginFragment extends InjectableFragment implements TooltipManager.
     }
 
 
-    @Override
-    public void onClosing(int i, boolean b, boolean b1) {
-        Log.d(TAG, "onClosing");
-    }
+
 }

@@ -22,7 +22,7 @@
 + Sleep Cloud Functions calling and caching.
 + Milestone Images ..
 + Baby Images..
-+ Cloud function to export and email it out ...
++ Cloud function to export and email it out or maybe do it on device but requires multiple network calls..
 
 
 
