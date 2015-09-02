@@ -16,6 +16,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.common.collect.Lists;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
@@ -109,7 +110,7 @@ public class GrowthStatsFragment extends BaseInjectableListFragment implements R
 
     @Override
     protected void setListResults(List<ParseObject> objects) {
-        growthList =  objects;
+        growthList = Lists.reverse(objects);
         //setData
         setData(growthList, GrowthStatTab.WEIGHT);
 
