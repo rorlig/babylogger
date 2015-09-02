@@ -135,6 +135,7 @@ public class InjectableFragment extends Fragment {
         try {
             ParseObject.unpinAll();
         } catch (ParseException e) {
+            Log.d(TAG, "ParseException " + e);
             e.printStackTrace();
         }
         //clear the caches of the stored results...
