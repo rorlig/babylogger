@@ -14,6 +14,7 @@ import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dao.MilestonesDao;
 import com.rorlig.babyapp.parse_dao.Milestones;
 import com.squareup.otto.Bus;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -41,6 +42,9 @@ public class MilestonesItemAdapter extends BaseParseAdapter<ParseObject> {
 
     @Inject
     Bus bus;
+
+    @Inject
+    Picasso picasso;
 
 
     public MilestonesItemAdapter(Activity activity,
@@ -90,7 +94,8 @@ public class MilestonesItemAdapter extends BaseParseAdapter<ParseObject> {
         if (milestoneModel.getImagePath()==null || milestoneModel.getImagePath().equals("")) {
             viewHolder.itemImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_mood_black));
         } else {
-            viewHolder.itemImage.setImageURI(Uri.parse(milestoneModel.getImagePath()));
+            picasso.with(context).load(milestoneModel.getParseFile().getUrl()).into(viewHolder.itemImage);
+//            viewHolder.itemImage.setImageURI(milestoneModel.getParseFile().getUrl());
         }
 
         viewHolder.dateCompletionText.setText(simpleDateFormat.format(milestoneModel.getLogCreationDate()));

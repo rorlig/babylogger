@@ -25,7 +25,9 @@ import com.android.camera.CropImageIntentBuilder;
 import com.desmond.squarecamera.CameraActivity;
 import com.gc.materialdesign.views.Button;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
@@ -45,11 +47,17 @@ import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 
 import javax.inject.Inject;
 
+import bolts.Continuation;
+import bolts.Task;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -123,6 +131,8 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     private Uri imageUri;
     private File croppedImageFile;
     private Uri croppedImage;
+    private Baby baby;
+    private String dob;
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
@@ -137,24 +147,19 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (object!=null) {
-                    Baby baby = (Baby) object;
+                    baby = (Baby) object;
                     babyNameTextView.setText(baby.getName());
-
+                    dob = baby.getDob();
+                    setDob(dob);
+                    setBabySex();
+                    setImage(baby);
                 }
             }
         });
 
 
-//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-//                "fonts/proximanova_light.ttf");
 
         scopedBus.post(new FragmentCreated("Profile "));
-
-//        String babyName = preferences.getString("name","");
-//        if (babyName.length()==0) {
-//            saveBtn.setEnabled(false);
-//        }
-//        babyNameTextView.setText(babyName);
 
         if (pictureSourceSelectFragment!=null && pictureSourceSelectFragment.isVisible()){
             pictureSourceSelectFragment.dismiss();
@@ -250,6 +255,35 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
         }
     }
 
+    private void setImage(Baby baby) {
+//        Log.d(TAG, "parseFile " + parseFile.getUrl());
+        if (baby.getParseFile()!=null && baby.getParseFile().getUrl()!=null)
+            picasso.load(baby.getParseFile().getUrl()).into(babyPicImageView);
+    }
+
+    private void setBabySex() {
+
+
+    }
+
+    private void setDob(String dob) {
+        if (!dob.equals("")){
+            String[] dateElements = dob.split(",");
+            Log.d(TAG,"" + dateElements.length);
+            Log.d(TAG, dateElements[0]);
+
+            try {
+                int year = Integer.parseInt(dateElements[0]);
+                int month = Integer.parseInt(dateElements[1]);
+                int day = Integer.parseInt(dateElements[2]);
+                Log.d(TAG, " year "  + year + " month " + month + " day " + day);
+                datePickerBirthday.updateDate(year, month, day);
+            } catch (NumberFormatException ex){
+                Log.e(TAG, "NumberFormatException " + ex);
+            }
+        }
+    }
+
     private void resetImageView() {
         babyPicImageView.setImageURI(null);
 
@@ -258,6 +292,8 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
         addButton.setVisibility(View.VISIBLE);
 
         addButton.setText("Add Picture");
+
+        imageUri  = null;
 
 
     }
@@ -392,52 +428,99 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     @OnClick(R.id.save_btn)
     public void saveBtnClicked() {
         Log.d(TAG, "saveBtnClicked()");
-        String babyName = babyNameTextView.getText().toString();
+        final String babyName = babyNameTextView.getText().toString();
+//        String dob = getDob();
+//        String sex = getBabySex();
         if (babyName.trim().equals("")) {
             babyNameTextView.setError("Name cannot be blank");
-        } else {
-            preferences.edit().putString("name", babyName).apply();
-            if (babySexRadioGroup.getCheckedRadioButtonId()==R.id.babyBoy) {
-                preferences.edit().putString("baby_sex", "male").apply();
-            } else  {
-                preferences.edit().putString("baby_sex", "female").apply();
-            }
-            int year = datePickerBirthday.getYear();
-            int month = datePickerBirthday.getMonth();
-            int day = datePickerBirthday.getDayOfMonth();
+        }
+        ParseFile parseFile = null;
+//        if (baby==null) {
+//            //new object..
+//        } else
+            if (imageUri!=null) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                FileInputStream fis;
+                try {
+                    fis = new FileInputStream(new File(imageUri.getPath()));
+                    byte[] buf = new byte[1024];
+                    int n;
+                    while (-1 != (n = fis.read(buf)))
+                        baos.write(buf, 0, n);
 
-            String dob = year  + "," + month + "," + day;
+                    byte[] bbytes = baos.toByteArray();
 
-            Log.d(TAG, "dob: " + dob);
-
-
-            preferences.edit().putString("dob", dob).apply();
-            saveImageUri(imageUri);
-            scopedBus.post(new SavedProfileEvent());
-
-
-            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Baby");
-
-            Baby baby = new Baby(babyName,dob, imageUri==null?"":imageUri.toString(), null);
-
-            baby.saveEventually(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    Log.d(TAG, "baby saved");
+                    parseFile = new ParseFile(imageUri.getLastPathSegment(), bbytes);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
 
+            if (parseFile!=null) {
+                final ParseFile finalParseFile = parseFile;
+                parseFile.saveInBackground().onSuccess(new Continuation<Void, Void>() {
+                    @Override
+                    public Void then(Task<Void> task) throws Exception {
+                        saveEventually(finalParseFile);
+                        return null;
+                    }
+                });
+            } else {
+                saveEventually(parseFile);
+            }
 
+            //updating it ...
 
+//        if (babyName.trim().equals("")) {
+//            babyNameTextView.setError("Name cannot be blank");
+//        } else {
+//            preferences.edit().putString("name", babyName).apply();
+//            if (babySexRadioGroup.getCheckedRadioButtonId()==R.id.babyBoy) {
+//                preferences.edit().putString("baby_sex", "male").apply();
+//            } else  {
+//                preferences.edit().putString("baby_sex", "female").apply();
+//            }
+//            Log.d(TAG, "dob: " + dob);
+//
+//
+//            preferences.edit().putString("dob", dob).apply();
+//            saveImageUri(imageUri);
+//        }
+
+        scopedBus.post(new SavedProfileEvent());
+
+    }
+
+    private void saveEventually(ParseFile finalParseFile) {
+        Log.d(TAG, "saveEventually: " + finalParseFile);
+        final String babyName = babyNameTextView.getText().toString();
+        if (baby == null) {
+            Log.d(TAG, "baby==null");
+            baby = new Baby(babyName, getDob(), imageUri==null?"":imageUri.toString(), finalParseFile);
+        } else {
+            baby.setName(babyName);
+            baby.setDob(getDob());
+            baby.setImagePath(imageUri==null?"":imageUri.getPath());
+            baby.setParseFile(finalParseFile);
         }
 
+        Log.d(TAG, baby.toString());
+        baby.saveEventually(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.d(TAG, "baby saved " + e);
+            }
+        });
+    }
 
-
-
-
-
-
-
+    private String getBabySex() {
+        if (babySexRadioGroup.getCheckedRadioButtonId()==R.id.babyBoy) {
+            return "male";
+        } else  {
+            return "female";
+        }
     }
 
     @OnClick(R.id.skip_btn)
@@ -560,11 +643,57 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     }
 
 
-    private void saveImageUri(Uri imageUri) {
+    private void saveImageUri(final Uri imageUri) {
         Log.d(TAG, "saveImageUri " + imageUri);
-        if (imageUri!=null)
-        preferences.edit().putString("imageUri", imageUri.toString()).apply();
-        else preferences.edit().putString("imageUri", "").apply();
+        ParseFile parseFile = null;
+
+        final String babyName = babyNameTextView.getText().toString();
+
+
+        if (imageUri!=null) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(new File(imageUri.getPath()));
+                byte[] buf = new byte[1024];
+                int n;
+                while (-1 != (n = fis.read(buf)))
+                    baos.write(buf, 0, n);
+
+                byte[] bbytes = baos.toByteArray();
+
+                parseFile = new ParseFile(imageUri.getLastPathSegment(), bbytes);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (parseFile!=null) {
+            final ParseFile finalParseFile = parseFile;
+            parseFile.saveInBackground().onSuccess(new Continuation<Void, Void>() {
+                @Override
+                public Void then(Task<Void> task) throws Exception {
+
+//                    final ParseQuery<ParseObject> query = ParseQuery.getQuery(context.getString(R.string.txt_parse_class_baby));
+                    Baby baby = new Baby(babyName, getDob(), imageUri==null?"":imageUri.toString(), finalParseFile);
+                    baby.saveEventually(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            Log.d(TAG, "baby saved " + e);
+                        }
+                    });
+                    return null;
+                }
+            });
+        }
+    }
+
+    private String getDob() {
+        int year = datePickerBirthday.getYear();
+        int month = datePickerBirthday.getMonth();
+        int day = datePickerBirthday.getDayOfMonth();
+        return year  + "," + month + "," + day;
     }
 
 }

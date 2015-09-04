@@ -44,7 +44,7 @@ public abstract class BaseCreateLogFragment extends InjectableFragment{
                         object.deleteInBackground(new DeleteCallback() {
                             @Override
                             public void done(ParseException e) {
-                                AppUtils.invalidateDiaperChangeCaches(context);
+//                                AppUtils.invalidateDiaperChangeCaches(context);
                                 scopedBus.post(new ItemCreatedOrChanged(parseClassName));
                             }
                         });

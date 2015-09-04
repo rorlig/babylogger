@@ -13,6 +13,7 @@
         app:theme="@style/AppTheme.Toolbar"
         app:titleTextAppearance="@style/AppTheme.Toolbar.Title"
 
+
         >
 
         <de.hdodenhof.circleimageview.CircleImageView

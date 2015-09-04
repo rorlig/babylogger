@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
+import com.rorlig.babyapp.ui.fragment.sleep.SleepStatsFragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -117,5 +118,18 @@ public class AppUtils {
 
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit().putString(DiaperChangeStatsType.YEARLY.getValue(),"").apply();
+    }
+
+    public static void invalidateSleepChangeCaches(Context context) {
+
+        Log.d(TAG, "invalidateSleepChangeCaches");
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(SleepStatsFragment.SleepStatsType.WEEKLY.getValue(),"").apply();
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(SleepStatsFragment.SleepStatsType.MONTHLY.getValue(),"").apply();
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(SleepStatsFragment.SleepStatsType.YEARLY.getValue(),"").apply();
     }
 }

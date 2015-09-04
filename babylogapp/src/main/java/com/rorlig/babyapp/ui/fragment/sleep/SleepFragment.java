@@ -34,6 +34,7 @@ import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 
 import java.util.Calendar;
 
@@ -178,7 +179,8 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
 
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
-      delete(id);
+        AppUtils.invalidateSleepChangeCaches(getActivity().getApplicationContext());
+        delete(id);
     }
 
 
@@ -242,6 +244,7 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
                     @Override
                     public void done(ParseException e) {
                         Log.d(TAG, "saving locally");
+                        AppUtils.invalidateSleepChangeCaches(context);
 
                     }
                 });

@@ -19,11 +19,11 @@
 
 ## Todo
 
-+ Sleep Cloud Functions calling and caching.
++ Sleep Cloud Functions calling and caching -- done?
 + Milestone Images ..
 + Baby Images..
 + Cloud function to export and email it out or maybe do it on device but requires multiple network calls..
-
++ Moving to RecylerView and Pull To Refresh Pattern
 
 
 ## Stretch Goals 

@@ -8,6 +8,8 @@ import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 
+import org.json.JSONObject;
+
 /**
  * @author gaurav gupta
  */
@@ -35,6 +37,7 @@ public class Baby extends ParseObject {
     public void setParseFile(final ParseFile parseFile) {
         if (parseFile!=null)
             put("imageFile", parseFile);
+        else put("imageFile", JSONObject.NULL);
     }
 
     public ParseFile getParseFile() {

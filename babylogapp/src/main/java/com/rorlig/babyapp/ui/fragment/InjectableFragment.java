@@ -29,6 +29,7 @@ import com.rorlig.babyapp.ui.activity.PrefsActivity;
 import com.rorlig.babyapp.ui.activity.TutorialActivity;
 import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
 import com.rorlig.babyapp.utils.AppConstants;
+import com.rorlig.babyapp.utils.AppUtils;
 
 import javax.inject.Inject;
 
@@ -132,9 +133,11 @@ public class InjectableFragment extends Fragment {
         preferences.edit().putString("imageUri", "").apply();
         preferences.edit().putString("baby_sex","").apply();
         preferences.edit().putString("dob","").apply();
-        preferences.edit().putString(DiaperChangeStatsType.WEEKLY.getValue(), "").apply();
-        preferences.edit().putString(DiaperChangeStatsType.MONTHLY.getValue(), "").apply();
-        preferences.edit().putString(DiaperChangeStatsType.YEARLY.getValue(), "").apply();
+        AppUtils.invalidateDiaperChangeCaches(getActivity().getApplicationContext());
+        AppUtils.invalidateSleepChangeCaches(getActivity().getApplicationContext());
+//        preferences.edit().putString(DiaperChangeStatsType.WEEKLY.getValue(), "").apply();
+//        preferences.edit().putString(DiaperChangeStatsType.MONTHLY.getValue(), "").apply();
+//        preferences.edit().putString(DiaperChangeStatsType.YEARLY.getValue(), "").apply();
         try {
             ParseObject.unpinAll();
         } catch (ParseException e) {

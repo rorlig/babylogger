@@ -203,34 +203,8 @@ public class ProfileActivity extends InjectableActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode  + " data " + data );
+        super.onActivityResult(requestCode, resultCode, data);
 
-       super.onActivityResult(requestCode, resultCode, data);
-
-//        Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode + " data " + data);
-//        //Request was successful
-//        if (resultCode == RESULT_OK) {
-////                mBus.post(new ShareRequestEvent(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA));
-//
-//            switch (requestCode) {
-//
-//                case AppUtils.RESULT_LOAD_IMAGE:
-//                    imagePicked(data);
-//
-//                    break;
-//                case AppUtils.RESULT_CAMERA_IMAGE_CAPTURE:
-//                    cameraImageCaptured(data);
-//                    break;
-//                case RESULT_CROP_IMAGE:
-//                    Log.d(TAG, "croppedImage URI " + croppedImage);
-//                    imageUri = croppedImage;
-//                    preferences.edit().putString("imageUri", imageUri.toString()).apply();
-//                    scopedBus.post(new CroppedImageEvent(imageUri.toString()));
-//                    break;
-//                default:
-//                    super.onActivityResult(requestCode, resultCode, data);
-//                    break;
-//            }
-//        }
     }
 
 

@@ -388,5 +388,6 @@
     <string name="toc_link">http://thebabyapp.com/page_terms.html</string>
     <string name="privacy_link">http://thebabyapp.com/page_privacy.html</string>
     <string name="txt_why_signup">Why sign up?</string>
+    <string name="txt_parse_class_baby">Baby</string>
 
 </resources>

@@ -425,6 +425,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
+        AppUtils.invalidateDiaperChangeCaches(getActivity().getApplicationContext());
         delete(id);
     }
 
