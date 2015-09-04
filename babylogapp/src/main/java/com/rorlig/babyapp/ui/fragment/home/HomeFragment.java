@@ -202,10 +202,10 @@ public class HomeFragment extends InjectableFragment {
 //                break;
 
 
-            case R.id.action_export:
-                startActivity(new Intent(getActivity(), ExportActivity.class));
-
-                break;
+//            case R.id.action_export:
+//                startActivity(new Intent(getActivity(), ExportActivity.class));
+//
+//                break;
 
 
 //            case R.id.action_licenses:

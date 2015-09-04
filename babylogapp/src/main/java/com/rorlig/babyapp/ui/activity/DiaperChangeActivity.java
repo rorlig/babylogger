@@ -256,9 +256,9 @@ public class DiaperChangeActivity extends InjectableActivity {
             case R.id.action_settings:
                 startActivity(new Intent(this, PrefsActivity.class));
                 return true;
-            case R.id.action_export:
-                startActivity(new Intent(this, ExportActivity.class));
-                return true;
+//            case R.id.action_export:
+//                startActivity(new Intent(this, ExportActivity.class));
+//                return true;
         }
         return super.onOptionsItemSelected(item);
     }

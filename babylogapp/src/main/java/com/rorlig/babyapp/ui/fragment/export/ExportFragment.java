@@ -59,6 +59,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import bolts.Continuation;
+import bolts.Task;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -316,16 +318,29 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
                 query.whereGreaterThanOrEqualTo("logCreationDate", getStartTime() );
                 query.whereLessThanOrEqualTo("logCreationDate", getEndTime());
-                query.findInBackground(new FindCallback<ParseObject>() {
+
+                query.findInBackground().onSuccess(new Continuation<List<ParseObject>, Object>() {
+
                     @Override
-                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
-                        Log.d(TAG, "find diapers callback");
-                        if (objects != null) {
-                            Log.d(TAG, "object size " + objects.size());
-                            Uri diaperChangeUri = createDiaperListToCSV(objects);
-                        }
+                    public Object then(Task<List<ParseObject>> task) throws Exception {
+                        Uri diaperChangeUri = createDiaperListToCSV(task.getResult());
+
+
+                        return null;
                     }
+
+
                 });
+//                query.findInBackground(new FindCallback<ParseObject>() {
+//                    @Override
+//                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                        Log.d(TAG, "find diapers callback");
+//                        if (objects != null) {
+//                            Log.d(TAG, "object size " + objects.size());
+//                            Uri diaperChangeUri = createDiaperListToCSV(objects);
+//                        }
+//                    }
+//                });
 
 //                    List<DiaperChangeDao> diaperChangeList = babyORMLiteUtils.getDiaperChangeList(getStartTime(), getEndTime());
 //                    Log.d(TAG, "number of rows : " +  diaperChangeList.size());
@@ -334,7 +349,24 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
             }
 
-//            if (isItemSelected(ExportItem.FEED)) {
+            if (isItemSelected(ExportItem.FEED)) {
+
+                Log.d(TAG, " startTime " + getStartTime() + " endTime " + getEndTime());
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+                query.whereGreaterThanOrEqualTo("logCreationDate", getStartTime() );
+                query.whereLessThanOrEqualTo("logCreationDate", getEndTime());
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                        Log.d(TAG, "find feed callback");
+                        if (objects != null) {
+                            Log.d(TAG, "object size " + objects.size());
+                            Uri f = createDiaperListToCSV(objects);
+                        }
+                    }
+                });
+
 //                try {
 //                    List<FeedDao> feedList = babyORMLiteUtils.getFeedList(getStartTime(), getEndTime());
 //                    Log.d(TAG, "number of rows : " +  feedList.size());
@@ -343,7 +375,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 //                } catch (SQLException e) {
 //                    e.printStackTrace();
 //                }
-//            }
+            }
 //
 //            if (isItemSelected(ExportItem.GROWTH)) {
 //                try {

@@ -9,12 +9,12 @@
         <!--android:icon="@drawable/ic_action_profile"-->
         <!--apps:showAsAction="ifRoom" />-->
 
-    <item
-        android:title="@string/action_export"
-        android:id="@+id/action_export"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_action_export"
-        apps:showAsAction="ifRoom" />
+    <!--<item-->
+        <!--android:title="@string/action_export"-->
+        <!--android:id="@+id/action_export"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:icon="@drawable/ic_action_export"-->
+        <!--apps:showAsAction="ifRoom" />-->
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
