@@ -168,7 +168,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
             @Override
             public void done(ParseObject object, ParseException e) {
                 Milestones milestone = (Milestones) object;
-                Log.d(TAG, milestone.getParseFile().getUrl());
+//                Log.d(TAG, milestone.getParseFile().getUrl());
                 notes.setText(milestone.getNotes());
                 dateTimeHeader.setDateTime(milestone.getLogCreationDate());
                 customMilestonesTextView.setText(milestone.getTitle());

@@ -10,9 +10,6 @@ import com.parse.ParseObject;
 
 import org.json.JSONObject;
 
-/**
- * @author gaurav gupta
- */
 @ParseClassName("Baby")
 public class Baby extends ParseObject {
 
@@ -61,7 +58,6 @@ public class Baby extends ParseObject {
     }
 
     public String getImagePath() {
-
         return getString("imagePath");
     }
 
