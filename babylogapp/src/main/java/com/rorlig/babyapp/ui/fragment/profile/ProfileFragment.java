@@ -260,7 +260,12 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     }
 
     private void setBabySex() {
-
+        Log.d(TAG, "set baby sex " + baby.getSex());
+        if (baby.getSex().equals("male")) {
+            babyBoyButton.setChecked(true);
+        } else  {
+            babyGirlButton.setChecked(true);
+        }
 
     }
 
@@ -480,14 +485,16 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     private void saveEventually(ParseFile finalParseFile) {
         Log.d(TAG, "saveEventually: " + finalParseFile);
         final String babyName = babyNameTextView.getText().toString();
+        final String babySex = getBabySex();
         if (baby == null) {
             Log.d(TAG, "baby==null");
-            baby = new Baby(babyName, getDob(), imageUri==null?"":imageUri.toString(), finalParseFile);
+            baby = new Baby(babyName, getDob(), imageUri==null?"":imageUri.toString(), finalParseFile, babySex);
         } else {
             Log.d(TAG, "baby!=null");
             baby.setName(babyName);
             baby.setDob(getDob());
             baby.setImagePath(imageUri == null ? "" : imageUri.getPath());
+            baby.setSex(babySex);
             if (resetImage) {
                 baby.setParseFile(null);
             } else {
@@ -682,7 +689,7 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
                 public Void then(Task<Void> task) throws Exception {
 
 //                    final ParseQuery<ParseObject> query = ParseQuery.getQuery(context.getString(R.string.txt_parse_class_baby));
-                    Baby baby = new Baby(babyName, getDob(), imageUri == null ? "" : imageUri.toString(), finalParseFile);
+                    Baby baby = new Baby(babyName, getDob(), imageUri == null ? "" : imageUri.toString(), finalParseFile, getBabySex());
                     baby.saveEventually(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {

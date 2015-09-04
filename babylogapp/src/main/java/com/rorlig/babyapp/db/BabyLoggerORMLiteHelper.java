@@ -16,8 +16,8 @@ import com.rorlig.babyapp.model.diaper.DiaperChangeEnum;
 import com.rorlig.babyapp.model.diaper.DiaperIncident;
 import com.rorlig.babyapp.utils.FileUtils;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.JavaType;
+//import org.codehaus.jackson.map.ObjectMapper;
+//import org.codehaus.jackson.type.JavaType;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -78,28 +78,28 @@ public class BabyLoggerORMLiteHelper extends OrmLiteSqliteOpenHelper {
 
     private void populateGrowthDao() {
 
-        Log.d(TAG, "populateGrowthDao");
-        ArrayList<GrowthDao> growthDaoArrayList;
-        final String growthResponse = new FileUtils().loadJSONFromAsset("growth.json", context);
-        if (growthResponse!=null){
-            Log.d(TAG , growthResponse);
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                objectMapper.setDateFormat(df);
-                JavaType type = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, GrowthDao.class);
-                growthDaoArrayList = objectMapper.readValue(growthResponse, type);
-                Log.d(TAG, "growthDaoArrayList(): " + growthDaoArrayList.size());
-                for (GrowthDao growthDao: growthDaoArrayList) {
-                    getGrowthDao().create(growthDao);
-                }
-            } catch (IOException exception){
-                Log.d(TAG, "exception " + exception);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+//        Log.d(TAG, "populateGrowthDao");
+//        ArrayList<GrowthDao> growthDaoArrayList;
+//        final String growthResponse = new FileUtils().loadJSONFromAsset("growth.json", context);
+//        if (growthResponse!=null){
+//            Log.d(TAG , growthResponse);
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            try {
+//
+//                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                objectMapper.setDateFormat(df);
+//                JavaType type = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, GrowthDao.class);
+//                growthDaoArrayList = objectMapper.readValue(growthResponse, type);
+//                Log.d(TAG, "growthDaoArrayList(): " + growthDaoArrayList.size());
+//                for (GrowthDao growthDao: growthDaoArrayList) {
+//                    getGrowthDao().create(growthDao);
+//                }
+//            } catch (IOException exception){
+//                Log.d(TAG, "exception " + exception);
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     private void populateFeedDao() {

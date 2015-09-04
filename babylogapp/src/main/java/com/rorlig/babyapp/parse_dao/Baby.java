@@ -16,17 +16,19 @@ public class Baby extends ParseObject {
     private String name;
     private String dob;
     private String imagePath;
+    private String sex;
     private ParseFile parseFile;
 
     public Baby(){
 
     }
 
-    public Baby(String name, String dob, String imagePath, ParseFile parseFile) {
+    public Baby(String name, String dob, String imagePath, ParseFile parseFile, String sex) {
         setName(name);
         setDob(dob);
         setImagePath(imagePath);
         setParseFile(parseFile);
+        setSex(sex);
     }
 
 
@@ -63,6 +65,15 @@ public class Baby extends ParseObject {
 
     public void setImagePath(String imagePath) {
         put("imagePath", imagePath);
+    }
+
+
+    public String getSex() {
+        return getString("sex");
+    }
+
+    public void setSex(String sex) {
+        put("sex", sex);
     }
 
     @Override
