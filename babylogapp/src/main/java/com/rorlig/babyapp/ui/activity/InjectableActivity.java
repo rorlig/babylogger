@@ -25,6 +25,7 @@ import com.rorlig.babyapp.otto.ScopedBus;
 import com.rorlig.babyapp.otto.UpdateActionBarEvent;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -44,7 +45,6 @@ import dagger.ObjectGraph;
  *
  */
 public class InjectableActivity extends AppCompatActivity implements ObjectGraphActivity
-//        , GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener
     {
 
     private ObjectGraph activityGraph;
@@ -65,6 +65,9 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
     TextView babyNameTextView;
 
     TextView babyAgeTextView;
+
+    @Inject
+    Picasso picasso;
 
 
         @Override
@@ -218,7 +221,7 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        final String imageUri = preferences.getString("imageUri", "");
+        final String imageUri = preferences.getString("imageFile", "");
         final String babyName = preferences.getString("name", "");
 //        final String dob = preferences.getString("dob", "");
 
@@ -233,7 +236,8 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
 //        }
         if (!imageUri.equals("")) {
             Log.d(TAG, "setting the profile image");
-            profileImageIcon.setImageURI(Uri.parse(imageUri));
+            picasso.load(imageUri).into(profileImageIcon);
+//            profileImageIcon.setImageURI(Uri.parse(imageUri));
         }
 
         profileImageIcon.setOnClickListener(new View.OnClickListener() {
@@ -275,14 +279,15 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
     }
 
     private void updateToolbar() {
-        final String imageUri = preferences.getString("imageUri", "");
+        final String imageUri = preferences.getString("imageFile", "");
 
         final String babyName = preferences.getString("name", "");
 //        final String dob = preferences.getString("dob", "");
 
         Log.d(TAG, "imageUri " + imageUri);
         if (!imageUri.equals("")) {
-            profileImageIcon.setImageURI(Uri.parse(imageUri));
+            picasso.load(imageUri).into(profileImageIcon);
+//            profileImageIcon.setImageURI(Uri.parse(imageUri));
         } else {
             profileImageIcon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_baby_profile));
         }

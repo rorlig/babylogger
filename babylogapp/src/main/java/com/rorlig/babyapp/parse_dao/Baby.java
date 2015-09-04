@@ -64,4 +64,14 @@ public class Baby extends ParseObject {
     public void setImagePath(String imagePath) {
         put("imagePath", imagePath);
     }
+
+    @Override
+    public String toString() {
+        return "Baby{" +
+                "name='" + name + '\'' +
+                ", dob='" + dob + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", parseFile=" + parseFile +
+                "} " + super.toString();
+    }
 }

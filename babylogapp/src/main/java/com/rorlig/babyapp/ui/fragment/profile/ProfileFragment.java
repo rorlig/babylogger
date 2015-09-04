@@ -134,13 +134,72 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     private Baby baby;
     private String dob;
 
+    private boolean imageChanged;
+    private boolean resetImage;
+
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-
         Log.d(TAG, "onActivityCreated");
+        setUpViews();
+        closePictureFragmentIfShowing();
+        setUpTextWatchers();
+        showSkipIfNotFromTutorial();
 
+        scopedBus.post(new FragmentCreated("Profile "));
+
+
+
+    }
+
+    private void showSkipIfNotFromTutorial() {
+        if (getArguments()!=null) {
+            Log.d(TAG, "arguments is not null " + getArguments());
+            if (getArguments().getBoolean("from_tutorial")) {
+                Log.d(TAG, "from_tutorial");
+                skipBtn.setVisibility(View.GONE);
+            }
+        } else  {
+            Log.d(TAG, "getArguments is null");
+        }
+    }
+
+    private void setUpTextWatchers() {
+        babyNameTextView.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "beforeTextChanged ");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d(TAG, "onTextChanged ");
+                String str = babyNameTextView.getText().toString();
+                if (str.length()>0) {
+                    saveBtn.setEnabled(true);
+                } else {
+                    saveBtn.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d(TAG, "afterTextChanged ");
+
+            }
+        });
+
+    }
+
+    private void closePictureFragmentIfShowing() {
+        if (pictureSourceSelectFragment!=null && pictureSourceSelectFragment.isVisible()){
+            pictureSourceSelectFragment.dismiss();
+        }
+    }
+
+    private void setUpViews() {
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Baby");
 
         query.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -154,48 +213,6 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
                     setBabySex();
                     setImage(baby);
                 }
-            }
-        });
-
-
-
-        scopedBus.post(new FragmentCreated("Profile "));
-
-        if (pictureSourceSelectFragment!=null && pictureSourceSelectFragment.isVisible()){
-            pictureSourceSelectFragment.dismiss();
-        }
-
-        babyNameTextView.addTextChangedListener(new TextWatcher() {
-//            int len = 0;
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.d(TAG, "beforeTextChanged ");
-//                String str = babyNameTextView.getText().toString();
-//                len = str.length();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.d(TAG, "onTextChanged ");
-
-                String str = babyNameTextView.getText().toString();
-
-//                Log.d(TAG, "str " + str + " str length " + str.length() + " len " + len);
-
-
-
-                if (str.length()>0) {
-                    saveBtn.setEnabled(true);
-                } else {
-                    saveBtn.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Log.d(TAG, "afterTextChanged ");
-
             }
         });
 
@@ -221,37 +238,18 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
             } catch (NumberFormatException ex){
                 Log.e(TAG, "NumberFormatException " + ex);
             }
-
-
-
         }
 
-        String imageString = preferences.getString("imageUri", "");
-        Log.d(TAG, " imageUri " + imageString);
+        String imageFile = preferences.getString("imageFile", "");
+        Log.d(TAG, " imageFile " + imageFile);
 //
-        if (!imageString.equals("")){
+        if (!imageFile.equals("")){
             Log.d(TAG, "setting imageString into babyPic");
-            imageUri = Uri.parse(imageString);
-
-            updateImageUri(imageString);
-//            picasso.load(imageUri)
-//                    .fit()
-//                    .transform(new CircleTransform())
-//                    .into(babyPicImageView);
-
+//            imageUri = Uri.parse(imageString);
+            updateImageUri(imageFile);
             addButton.setText("Change Picture");
         } else {
-           resetImageView();
-        }
-
-        if (getArguments()!=null) {
-            Log.d(TAG, "arguments is not null " + getArguments());
-           if (getArguments().getBoolean("from_tutorial")) {
-                Log.d(TAG, "from_tutorial");
-                skipBtn.setVisibility(View.GONE);
-           }
-        } else  {
-            Log.d(TAG, "getArguments is null");
+            resetImageView();
         }
     }
 
@@ -295,6 +293,8 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 
         imageUri  = null;
 
+        resetImage = true;
+
 
     }
 
@@ -325,7 +325,8 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
         @Subscribe
         public void pictureSelectedEvent(PictureSelectEvent event) {
             Log.d(TAG, "pictureSelectEvent");
-            updateImageUri(event.getImageUri().toString());
+            imageChanged = true;
+            updateImageUri(event.getImageUri().toString(), true);
         }
 
         @Subscribe
@@ -394,7 +395,8 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
                     break;
                 case RESULT_CROP_IMAGE:
                     Log.d(TAG, "croppedImage URI " + croppedImage);
-                    updateImageUri(croppedImage.toString());
+                    imageChanged = true;
+                    updateImageUri(croppedImage.toString(), true);
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);
@@ -427,7 +429,7 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 
     @OnClick(R.id.save_btn)
     public void saveBtnClicked() {
-        Log.d(TAG, "saveBtnClicked()");
+        Log.d(TAG, "saveBtnClicked() imageUri " + imageUri );
         final String babyName = babyNameTextView.getText().toString();
 //        String dob = getDob();
 //        String sex = getBabySex();
@@ -451,14 +453,13 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
                     byte[] bbytes = baos.toByteArray();
 
                     parseFile = new ParseFile(imageUri.getLastPathSegment(), bbytes);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
             if (parseFile!=null) {
+                Log.d(TAG, "parseFile is not null "  + parseFile);
                 final ParseFile finalParseFile = parseFile;
                 parseFile.saveInBackground().onSuccess(new Continuation<Void, Void>() {
                     @Override
@@ -468,28 +469,11 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
                     }
                 });
             } else {
+
+                Log.d(TAG, "parseFile is null "  + parseFile);
                 saveEventually(parseFile);
             }
 
-            //updating it ...
-
-//        if (babyName.trim().equals("")) {
-//            babyNameTextView.setError("Name cannot be blank");
-//        } else {
-//            preferences.edit().putString("name", babyName).apply();
-//            if (babySexRadioGroup.getCheckedRadioButtonId()==R.id.babyBoy) {
-//                preferences.edit().putString("baby_sex", "male").apply();
-//            } else  {
-//                preferences.edit().putString("baby_sex", "female").apply();
-//            }
-//            Log.d(TAG, "dob: " + dob);
-//
-//
-//            preferences.edit().putString("dob", dob).apply();
-//            saveImageUri(imageUri);
-//        }
-
-        scopedBus.post(new SavedProfileEvent());
 
     }
 
@@ -500,10 +484,15 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
             Log.d(TAG, "baby==null");
             baby = new Baby(babyName, getDob(), imageUri==null?"":imageUri.toString(), finalParseFile);
         } else {
+            Log.d(TAG, "baby!=null");
             baby.setName(babyName);
             baby.setDob(getDob());
-            baby.setImagePath(imageUri==null?"":imageUri.getPath());
-            baby.setParseFile(finalParseFile);
+            baby.setImagePath(imageUri == null ? "" : imageUri.getPath());
+            if (resetImage) {
+                baby.setParseFile(null);
+            } else {
+                baby.setParseFile(finalParseFile == null ? baby.getParseFile() : finalParseFile);
+            }
         }
 
         Log.d(TAG, baby.toString());
@@ -511,6 +500,14 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
             @Override
             public void done(ParseException e) {
                 Log.d(TAG, "baby saved " + e);
+//                saveToPreferences(baby);
+                final ParseQuery<ParseObject> query = ParseQuery.getQuery("Baby");
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        saveToPreferences(object);
+                    }
+                });
             }
         });
     }
@@ -627,19 +624,28 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
     private void updateImageUri(String imageString){
         Log.d(TAG, "updateImageUri " + imageString);
         if (!imageString.equals("")){
-
-            imageUri = Uri.parse(imageString);
-            Log.d(TAG, "update the image " + imageUri.toString());
-//            babyPicImageView.set
-//            picasso.load(imageUri)
-//                    .fit()
-//                    .transform(new CircleTransform())
-//                            .into(babyPicImageView);
-            babyPicImageView.setImageURI(null);
-            babyPicImageView.setImageURI(imageUri);
+            picasso.load(imageString).into(babyPicImageView);
+//            imageUri = Uri.parse(imageString);
+//            Log.d(TAG, "update the image " + imageUri.toString());
+////            babyPicImageView.set
+////            picasso.load(imageUri)
+////                    .fit()
+////                    .transform(new CircleTransform())
+////                            .into(babyPicImageView);
+//            babyPicImageView.setImageURI(null);
+//            babyPicImageView.setImageURI(imageUri);
             addButton.setText("Change Picture");
 //            addButton.setVisibility(View.GONE);
         }
+    }
+
+    private void updateImageUri(String imageString, boolean storeValue){
+     if (storeValue) {
+         imageUri = Uri.parse(imageString);
+     }
+        resetImage = false;
+
+        updateImageUri(imageString);
     }
 
 
@@ -676,7 +682,7 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
                 public Void then(Task<Void> task) throws Exception {
 
 //                    final ParseQuery<ParseObject> query = ParseQuery.getQuery(context.getString(R.string.txt_parse_class_baby));
-                    Baby baby = new Baby(babyName, getDob(), imageUri==null?"":imageUri.toString(), finalParseFile);
+                    Baby baby = new Baby(babyName, getDob(), imageUri == null ? "" : imageUri.toString(), finalParseFile);
                     baby.saveEventually(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
@@ -694,6 +700,16 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
         int month = datePickerBirthday.getMonth();
         int day = datePickerBirthday.getDayOfMonth();
         return year  + "," + month + "," + day;
+    }
+
+    private void saveToPreferences(ParseObject object) {
+        final Baby baby  = (Baby) object;
+        Log.d(TAG, "saving to preference "  + baby.toString());
+        preferences.edit().putString("name", baby.getName()).apply();
+        preferences.edit().putString("dob", baby.getDob()).apply();
+        preferences.edit().putString("imageFile", baby.getParseFile()==null?"": baby.getParseFile().getUrl()).apply();
+        scopedBus.post(new SavedProfileEvent());
+
     }
 
 }
