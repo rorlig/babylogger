@@ -66,9 +66,9 @@ public class Sleep extends BabyLogBaseParseObject {
     @Override
     public String toString() {
         return "Sleep{" +
-                "sleepStartTime=" + sleepStartTime +
-                ", duration=" + duration +
-                ", logCreationDate=" + logCreationDate +
+                "sleepStartTime=" + getSleepStartTime() +
+                ", duration=" + getDuration() +
+                ", logCreationDate=" + getLogCreationDate() +
                 "} " + super.toString();
     }
 }

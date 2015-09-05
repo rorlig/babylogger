@@ -47,11 +47,11 @@ public class Growth extends BabyLogBaseParseObject {
     @Override
     public String toString() {
         return "GrowthDao{" +
-                "weight=" + weight +
-                ", headMeasurement=" + headMeasurement +
-                ", height=" + height +
-                ", notes='" + notes + '\'' +
-                ", logCreationDate=" + logCreationDate +
+                "weight=" + getWeight() +
+                ", headMeasurement=" + getHeadMeasurement() +
+                ", height=" + getHeight() +
+                ", notes='" + getNotes() + '\'' +
+                ", logCreationDate=" + getLogCreationDate() +
                 "} " + super.toString();
     }
 

@@ -5,7 +5,6 @@ import android.util.Log;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.rorlig.babyapp.otto.BusProvider;
 import com.rorlig.babyapp.otto.DiaperStatsEvent;
 import com.rorlig.babyapp.utils.AppConstants;

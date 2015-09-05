@@ -17,13 +17,9 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.auth.ForgotBtnClickedEvent;
-import com.rorlig.babyapp.otto.auth.LoginSkippedEvent;
 import com.rorlig.babyapp.otto.auth.LoginSuccessEvent;
 import com.rorlig.babyapp.otto.auth.SignupBtnClickedEvent;
-import com.rorlig.babyapp.ui.activity.LoginActivity;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
-
-import org.w3c.dom.Text;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,8 +56,8 @@ public class LoginFragment extends InjectableFragment {
     @InjectView(R.id.password)
     TextView passwordTextView;
 
-    @InjectView(R.id.txt_why_signup)
-    TextView signupTextView;
+//    @InjectView(R.id.txt_why_signup)
+//    TextView signupTextView;
 
     private ProgressDialog dialog;
 

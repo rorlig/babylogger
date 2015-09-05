@@ -60,8 +60,6 @@ import com.rorlig.babyapp.ui.fragment.sleep.SleepFragment;
 import com.rorlig.babyapp.ui.fragment.sleep.SleepListFragment;
 import com.rorlig.babyapp.ui.fragment.sleep.SleepStatsFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
-import com.vincentbrison.openlibraries.android.dualcache.lib.DualCache;
-import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheBuilder;
 
 import javax.inject.Singleton;
 

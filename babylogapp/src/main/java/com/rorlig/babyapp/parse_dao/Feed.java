@@ -59,13 +59,13 @@ public class Feed extends BabyLogBaseParseObject {
     @Override
     public String toString() {
         return "FeedDao{" +
-                "feedType=" + feedType +
-                ", feedItem='" + feedItem + '\'' +
-                ", quantity=" + quantity +
-                ", leftBreastTime=" + leftBreastTime +
-                ", rightBreastTime=" + rightBreastTime +
-                ", notes='" + notes + '\'' +
-                ", logCreationDate=" + logCreationDate +
+                "feedType=" + getFeedType() +
+                ", feedItem='" + getFeedItem() + '\'' +
+                ", quantity=" + getQuantity() +
+                ", leftBreastTime=" + getLeftBreastTime() +
+                ", rightBreastTime=" + getRightBreastTime() +
+                ", notes='" + getNotes() + '\'' +
+                ", logCreationDate=" + getLogCreationDate() +
                 "} " + super.toString();
     }
 

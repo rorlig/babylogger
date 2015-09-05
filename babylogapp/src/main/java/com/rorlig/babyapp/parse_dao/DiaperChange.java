@@ -117,12 +117,12 @@ public class DiaperChange extends BabyLogBaseParseObject {
     @Override
     public String toString() {
         return "DiaperChange{" +
-                "diaperChangeEventType=" + diaperChangeEventType +
-                ", poopTexture=" + poopTexture +
-                ", poopColor=" + poopColor +
-                ", diaperChangeIncidentType=" + diaperChangeIncidentType +
-                ", diaperChangeNotes='" + diaperChangeNotes + '\'' +
-                ", logCreationDate=" + logCreationDate +
+                "diaperChangeEventType=" + getDiaperChangeEventType() +
+                ", poopTexture=" + getPoopTexture() +
+                ", poopColor=" + getPoopColor() +
+                ", diaperChangeIncidentType=" + getDiaperChangeIncidentType() +
+                ", diaperChangeNotes='" + getDiaperChangeNotes() + '\'' +
+                ", logCreationDate=" + getLogCreationDate() +
                 "} " + super.toString();
     }
 

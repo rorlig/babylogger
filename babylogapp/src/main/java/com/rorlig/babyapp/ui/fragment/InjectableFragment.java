@@ -13,22 +13,17 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.parse.LogOutCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ObjectGraphActivity;
 import com.rorlig.babyapp.otto.ScopedBus;
-import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.activity.InjectableActivity;
 import com.rorlig.babyapp.ui.activity.LicenseActivity;
 import com.rorlig.babyapp.ui.activity.LoginActivity;
 import com.rorlig.babyapp.ui.activity.PrefsActivity;
 import com.rorlig.babyapp.ui.activity.TutorialActivity;
-import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
-import com.rorlig.babyapp.utils.AppConstants;
 import com.rorlig.babyapp.utils.AppUtils;
 
 import javax.inject.Inject;

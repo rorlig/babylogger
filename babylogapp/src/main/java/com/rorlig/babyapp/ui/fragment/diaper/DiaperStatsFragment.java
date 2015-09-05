@@ -24,11 +24,9 @@ import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.DiaperStatsEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
-import com.vincentbrison.openlibraries.android.dualcache.lib.DualCache;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

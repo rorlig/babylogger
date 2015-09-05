@@ -14,17 +14,12 @@ import com.rorlig.babyapp.dao.MilestonesDao;
 import com.rorlig.babyapp.dao.SleepDao;
 import com.rorlig.babyapp.model.diaper.DiaperChangeEnum;
 import com.rorlig.babyapp.model.diaper.DiaperIncident;
-import com.rorlig.babyapp.utils.FileUtils;
+
+import java.sql.SQLException;
+import java.util.Date;
 
 //import org.codehaus.jackson.map.ObjectMapper;
 //import org.codehaus.jackson.type.JavaType;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * @author gaurav gupta

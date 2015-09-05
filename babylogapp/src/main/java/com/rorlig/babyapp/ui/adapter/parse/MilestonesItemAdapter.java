@@ -2,7 +2,6 @@ package com.rorlig.babyapp.ui.adapter.parse;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;

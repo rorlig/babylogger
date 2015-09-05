@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.parse.ParseUser;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.utils.AppConstants;
 
 import javax.inject.Inject;
 

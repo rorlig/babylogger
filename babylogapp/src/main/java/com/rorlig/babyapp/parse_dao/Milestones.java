@@ -95,10 +95,10 @@ public class Milestones extends BabyLogBaseParseObject {
     @Override
     public String toString() {
         return "Milestones{" +
-                "title='" + title + '\'' +
-                ", notes='" + notes + '\'' +
-                ", imagePath='" + imagePath + '\'' +
-                ", logCreationDate=" + logCreationDate +
+                "title='" + getTitle() + '\'' +
+                ", notes='" + getNotes() + '\'' +
+                ", imagePath='" + getImagePath() + '\'' +
+                ", logCreationDate=" + getLogCreationDate() +
                 "} " + super.toString();
     }
 }

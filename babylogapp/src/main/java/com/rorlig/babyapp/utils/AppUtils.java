@@ -8,7 +8,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TextInputLayout;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;

@@ -22,10 +22,7 @@ import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.otto.SleepStatsEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
-import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
-import com.rorlig.babyapp.ui.fragment.diaper.DiaperStatsUtility;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 

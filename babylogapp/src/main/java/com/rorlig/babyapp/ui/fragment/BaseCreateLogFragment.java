@@ -10,7 +10,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rorlig.babyapp.dagger.ForApplication;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
-import com.rorlig.babyapp.utils.AppUtils;
 
 import javax.inject.Inject;
 

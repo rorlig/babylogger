@@ -12,7 +12,6 @@ import com.rorlig.babyapp.ui.fragment.tutorial.FirstSlide;
 import com.rorlig.babyapp.ui.fragment.tutorial.FourthSlide;
 import com.rorlig.babyapp.ui.fragment.tutorial.SecondSlide;
 import com.rorlig.babyapp.ui.fragment.tutorial.ThirdSlide;
-import com.rorlig.babyapp.utils.AppConstants;
 
 /**
  * Created by rorlig on 6/16/15.
