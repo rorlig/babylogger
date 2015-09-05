@@ -12,7 +12,7 @@
 + Transparent Toolbar - migrate to toolbar from actionbar
 + Sleep Tracking
 + The app launch site is thebabyapp.com - build on bootstrap theme I purchased from wrapbootstrap (not sharing that code due to license issues)
-+ Backing up to cloud via Parse or Personal Server
++ Uses Parse.com to store files, and objects. Look at the my gists for cloud code.
 + Add Links to Privacy, Terms and Conditions on the Login Page.
 
 
@@ -21,9 +21,11 @@
 ## Todo
 
 
-+ Move to RecylerView if needed ?
++ Move to RecylerView if needed ?...
 + Fix minor UI issues..
 + delete / create in airplane offline mode fixes required...
++ Add Secondary provider, enable push and sync on changes from one party to another...
++ Read more on parse.com push service.
 
 
 ## Stretch Goals 
