@@ -5,18 +5,21 @@ import android.os.Parcelable;
 
 /**
  * Created by gaurav
+ * @author gaurav gupta
  */
 public class ItemModel implements Parcelable {
 
     private String itemName;
+    private String itemParseName;
     private boolean itemChecked;
 
     public ItemModel() {
     }
 
-    public ItemModel(String itemName, boolean itemChecked) {
+    public ItemModel(String itemName, boolean itemChecked, String itemParseName) {
         this.itemName = itemName;
         this.itemChecked = itemChecked;
+        this.itemParseName = itemParseName;
     }
 
     public String getItemName() {
@@ -35,6 +38,14 @@ public class ItemModel implements Parcelable {
         this.itemChecked = itemChecked;
     }
 
+    public String getItemParseName() {
+        return itemParseName;
+    }
+
+    public void setItemParseName(String itemParseName) {
+        this.itemParseName = itemParseName;
+    }
+
 
     @Override
     public int describeContents() {
@@ -44,11 +55,13 @@ public class ItemModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.itemName);
+        dest.writeString(this.itemParseName);
         dest.writeByte(itemChecked ? (byte) 1 : (byte) 0);
     }
 
-    private ItemModel(Parcel in) {
+    protected ItemModel(Parcel in) {
         this.itemName = in.readString();
+        this.itemParseName = in.readString();
         this.itemChecked = in.readByte() != 0;
     }
 
@@ -61,12 +74,4 @@ public class ItemModel implements Parcelable {
             return new ItemModel[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "ItemModel{" +
-                "itemName='" + itemName + '\'' +
-                ", itemChecked=" + itemChecked +
-                '}';
-    }
 }

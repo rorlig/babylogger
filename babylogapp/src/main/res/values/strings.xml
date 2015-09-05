@@ -349,7 +349,7 @@
     <string name="type">Type</string>
     <string name="preference_about">About</string>
     <string name="version_number_title">Version Number</string>
-    <string name="version_number_summary">1.11</string>
+    <string name="version_number_summary">1.12</string>
     <string name="more_settings_toc">Terms and Conditions</string>
     <string name="minutes">Minutes</string>
     <string name="bottle_feed_title">BOTTLE FEED</string>
@@ -367,10 +367,34 @@
     <string name="no_feed">Start logging baby feeds</string>
     <string name="action_profile">Profile</string>
     <string name="action_tutorial">Tutorial</string>
+<<<<<<< HEAD
     <string name="settings_privacy">Privacy</string>
     <string name="string_toc">TOC</string>
     <string name="toc_link">http://thebabyapp.com/page_terms.html</string>
     <string name="privacy_link">http://thebabyapp.com/page_privacy.html</string>
+=======
+    <string name="txt_forgot_password">Forgot Password</string>
+    <string name="txt_sign_up">Sign up</string>
+    <string name="txt_login">Login</string>
+    <string name="txt_reset">Reset Password</string>
+    <string name="skip_message">By creating on account or using this app you are agreeing to our terms and conditions and our privacy policy. </string>
+    <string name="txt_skip">Skip</string>
+    <string name="no_email">Please enter email address</string>
+    <string name="no_password">Please enter password</string>
+    <string name="not_valid_email">Please enter a valid email</string>
+    <string name="txt_reset_request">Reset Request Send</string>
+    <string name="no_first_name">Please Enter First Name</string>
+    <string name="no_last_name">Please Enter Last Name</string>
+    <string name="action_logout">Logout</string>
+    <string name="tutorial_shown">tutorial_shown</string>
+    <string name="from_tutorial">from_tutorial</string>
+>>>>>>> parse
 
+    <string name="settings_privacy">Privacy</string>
+    <string name="string_toc">TOC</string>
+    <string name="toc_link">http://thebabyapp.com/page_terms.html</string>
+    <string name="privacy_link">http://thebabyapp.com/page_privacy.html</string>
+    <string name="txt_why_signup">Why sign up?</string>
+    <string name="txt_parse_class_baby">Baby</string>
 
 </resources>

@@ -21,13 +21,10 @@ import javax.inject.Inject;
  * todo refactor this entire class...
  */
 public class PrefsFragment extends InjectablePreferenceFragment
-        implements Preference.OnPreferenceChangeListener, SharedPreferences.OnSharedPreferenceChangeListener{
+        implements Preference.OnPreferenceChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Inject
     SharedPreferences sharedPref;
-
-
-
 
 
     private String TAG = "PrefsFragment";
@@ -40,6 +37,36 @@ public class PrefsFragment extends InjectablePreferenceFragment
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_general);
 
+        Preference termsAndConditions = findPreference(getString(R.string.string_toc));
+        if (termsAndConditions != null) {
+            termsAndConditions
+                    .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference arg0) {
+                            Uri uri = Uri.parse(getString(R.string.toc_link));
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            intent.putExtra(Browser.EXTRA_APPLICATION_ID, getActivity().getPackageName());
+                            startActivity(intent);
+                            return true;
+                        }
+                    });
+        }
+
+        // Create listener for more settings button
+        Preference privacy = findPreference(getString(R.string.settings_privacy));
+        if (privacy != null) {
+            privacy
+                    .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference arg0) {
+                            Uri uri = Uri.parse(getString(R.string.privacy_link));
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            intent.putExtra(Browser.EXTRA_APPLICATION_ID, getActivity().getPackageName());
+                            startActivity(intent);
+                            return true;
+                        }
+                    });
+        }
 
         // Create listener for more settings button
         Preference termsAndConditions = findPreference(getString(R.string.string_toc));
@@ -105,27 +132,13 @@ public class PrefsFragment extends InjectablePreferenceFragment
     }
 
 
-    private void unRegisterSharedPreferenceChangeListener(){
+    private void unRegisterSharedPreferenceChangeListener() {
         sharedPref.unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    private void registerSharedPreferenceChangeListener(){
+    private void registerSharedPreferenceChangeListener() {
         sharedPref.registerOnSharedPreferenceChangeListener(this);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

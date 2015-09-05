@@ -3,13 +3,23 @@ package com.rorlig.babyapp.utils;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
+
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
+import com.rorlig.babyapp.ui.fragment.sleep.SleepStatsFragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,6 +36,7 @@ public class AppUtils {
     public static final int RESULT_CROP_IMAGE = 3;
 
     public static final int PROFILE_ACTIVITY = 1;
+    private static String TAG = "AppUtils";
 
     public static String getCameraDirectory() {
         String dirPath = "";
@@ -80,6 +91,7 @@ public class AppUtils {
     }
 
 
+
     public static Drawable getDrawableFromUri(Uri uri, Context context) throws FileNotFoundException {
         InputStream inputStream = context.getContentResolver().openInputStream(uri);
         return Drawable.createFromStream(inputStream, uri.toString() );
@@ -90,4 +102,46 @@ public class AppUtils {
                 .getPackageInfo(context.getPackageName(), 0).versionName;
     }
 
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    public static void invalidateDiaperChangeCaches(Context context) {
+
+        Log.d(TAG, "invalidateDiaperChangeCaches");
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(DiaperChangeStatsType.WEEKLY.getValue(),"").apply();
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(DiaperChangeStatsType.MONTHLY.getValue(),"").apply();
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(DiaperChangeStatsType.YEARLY.getValue(),"").apply();
+    }
+
+    public static void invalidateSleepChangeCaches(Context context) {
+
+        Log.d(TAG, "invalidateSleepChangeCaches");
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(SleepStatsFragment.SleepStatsType.WEEKLY.getValue(),"").apply();
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(SleepStatsFragment.SleepStatsType.MONTHLY.getValue(),"").apply();
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(SleepStatsFragment.SleepStatsType.YEARLY.getValue(),"").apply();
+    }
+
+
+    public static void invalidateParseCache(String parseClass, Context context) {
+        try {
+            ParseObject.unpinAll(parseClass);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

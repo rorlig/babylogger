@@ -38,7 +38,12 @@ public class HomeActivity extends InjectableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        showFragment(HomeFragment.class, "home_fragment", false);
+        Log.d(TAG,"onCreate");
+//        if (ParseUser.getCurrentUser()==null) {
+//            showFragment(LoginFragment.class,"login_frament", false);
+//        } else {
+            showFragment(HomeFragment.class, "home_fragment", false);
+//        }
     }
 
     @Override
@@ -149,6 +154,11 @@ public class HomeActivity extends InjectableActivity {
             preferences.edit().putString("dob", itemSelectedEvent.getDob()).apply();
             showFragment(HomeFragment.class, "home_fragment", false);
         }
+
+//        @Subscribe
+//        public void onLoginSuccessEvent(LoginSuccessEvent event){
+//            showFragment(HomeFragment.class, "home_fragment", false);
+//        }
 
 //        @Subscribe
 //        public void updateActionBar(UpdateActionBarEvent event){

@@ -21,17 +21,21 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.gc.materialdesign.views.Button;
-import com.j256.ormlite.dao.Dao;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.SleepDao;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
-import com.rorlig.babyapp.otto.SleepLogCreated;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.parse_dao.Sleep;
+import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 
-import java.sql.SQLException;
 import java.util.Calendar;
 
 import javax.inject.Inject;
@@ -44,7 +48,7 @@ import butterknife.OnClick;
 /**
  * Created by rorlig on 7/14/14.
  */
-public class SleepFragment extends InjectableFragment implements TimePickerDialog.OnTimeSetListener {
+public class SleepFragment extends BaseCreateLogFragment implements TimePickerDialog.OnTimeSetListener {
 
     @ForActivity
     @Inject
@@ -77,8 +81,12 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
     private DateTimeHeaderFragment dateTimeHeader;
     private boolean minuteEmpty = true;
     private boolean hourEmpty = true;
-    private int id = -1;
+    private String id;
     private boolean showEditDelete = false;
+
+    public SleepFragment() {
+        super("Sleep");
+    }
 
 
     @Override
@@ -87,6 +95,9 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
 
         scopedBus.post(new FragmentCreated("Sleep"));
+
+
+
 
 
         if (paramBundle!=null) {
@@ -109,7 +120,7 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getInt("sleep_id");
+            id = getArguments().getString("sleep_id");
             initViews(id);
         }
 
@@ -122,30 +133,38 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 //        scopedBus.post(new UpNavigationEvent);
     }
 
-    private void initViews(int id) {
+    private void initViews(String id) {
         Log.d(TAG, "initViews " + id);
-        try {
-            SleepDao sleepDao = babyLoggerORMLiteHelper.getSleepDao().queryForId(id);
-            Log.d(TAG, sleepDao.toString());
-            int hours = (int) (sleepDao.getDuration()/60);
-            int minutes = (int) (sleepDao.getDuration()%60);
 
-            sleepHours.setText(String.valueOf(hours));
-            sleepMinutes.setText(String.valueOf(minutes));
-            dateTimeHeader.setDateTime(sleepDao.getDate());
-            editDeleteBtn.setVisibility(View.VISIBLE);
-            saveBtn.setVisibility(View.GONE);
-            showEditDelete = true;
-//            if (!sleepHours.getText().equals("")){
-//                hourEmpty = false;
-//            }
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Sleep");
+        query.fromLocalDatastore();
 
-            hourEmpty = sleepHours.getText().equals("");
-            minuteEmpty = sleepMinutes.getText().equals("");
+        query.getInBackground(id, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                Sleep sleep = (Sleep) object;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+                int hours = (int) (sleep.getDuration()/60);
+                int minutes = (int) (sleep.getDuration()%60);
+
+                sleepHours.setText(String.valueOf(hours));
+                sleepMinutes.setText(String.valueOf(minutes));
+                dateTimeHeader.setDateTime(sleep.getLogCreationDate());
+
+                showEditDelete = true;
+
+//            saveBtn.setText("Edit");
+
+
+                editDeleteBtn.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.GONE);
+
+                hourEmpty = sleepHours.getText().equals("");
+                minuteEmpty = sleepMinutes.getText().equals("");
+
+
+            }
+        });
 
     }
 
@@ -163,20 +182,8 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
-        Log.d(TAG, "delete btn clicked");
-
-        try {
-
-            if (id!=-1) {
-                Log.d(TAG, "deleting it");
-//                daoObject.setId(id);
-                babyLoggerORMLiteHelper.getSleepDao().deleteById(id);
-//                diaperChangeDao.delete(daoObject);
-            }
-            scopedBus.post(new SleepLogCreated());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        AppUtils.invalidateSleepChangeCaches(getActivity().getApplicationContext());
+        delete(id);
     }
 
 
@@ -195,30 +202,57 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
 
 
 
+    @Override
+    public void createOrEdit() {
 
-    private void createOrEdit() {
-        Dao<SleepDao, Integer> sleepDao;
-        SleepDao daoObject;
-        try {
+        final Sleep tempSleepObject;
 
-            daoObject = new SleepDao(dateTimeHeader.getEventTime(), getDuration(), dateTimeHeader.getEventTime());
-            sleepDao = babyLoggerORMLiteHelper.getSleepDao();
+        tempSleepObject = createSleepObject();
 
-            if (id!=-1) {
-                Log.d(TAG, "updating it");
-                daoObject.setId(id);
-                sleepDao.update(daoObject);
-            } else {
-                Log.d(TAG, "creating it");
-                sleepDao.create(daoObject);
-            }
+        if (id!=null) {
+            Log.d(TAG, "updating it");
+//                daoObject.setId(id);
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Sleep");
+            query.fromLocalDatastore();
+            query.getInBackground(id, new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, ParseException e) {
+                    Sleep sleep = (Sleep) object;
+                    sleep.setDuration(tempSleepObject.getDuration());
+                    sleep.setLogCreationDate(tempSleepObject.getSleepStartTime());
+                    sleep.setSleepStartTime(tempSleepObject.getSleepStartTime());
+                    saveEventually(sleep);
+                }
+            });
+//                diaperChange.setObjectId(id);
 
-            Log.d(TAG, "created objected " + daoObject);
-            closeSoftKeyBoard();
-            scopedBus.post(new SleepLogCreated());
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            Log.d(TAG, "creating it");
+            saveEventually(tempSleepObject);
+//                diaperChangeDao.create(daoObject);
         }
+
+//            Log.d(TAG, "created objected " + daoObject);
+        closeSoftKeyBoard();
+        scopedBus.post(new ItemCreatedOrChanged("Sleep"));
+
+    }
+
+    private void saveEventually(final Sleep sleep) {
+        sleep.pinInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.d(TAG, "pinning new object");
+                sleep.saveEventually(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d(TAG, "saving locally");
+                        AppUtils.invalidateSleepChangeCaches(context);
+
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -448,5 +482,14 @@ public class SleepFragment extends InjectableFragment implements TimePickerDialo
             }
     }
 
+
+    /*
+     * creates a local object
+     */
+    private Sleep createSleepObject() {
+       return new Sleep(dateTimeHeader.getEventTime(),
+                        getDuration(),
+                        dateTimeHeader.getEventTime());
+    }
 
 }

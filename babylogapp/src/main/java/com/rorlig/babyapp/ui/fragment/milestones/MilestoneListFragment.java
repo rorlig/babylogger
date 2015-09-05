@@ -2,8 +2,7 @@ package com.rorlig.babyapp.ui.fragment.milestones;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +19,7 @@ import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.j256.ormlite.dao.Dao;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.BaseDao;
@@ -27,13 +27,14 @@ import com.rorlig.babyapp.dao.GrowthDao;
 import com.rorlig.babyapp.dao.MilestonesDao;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.otto.MilestoneItemClicked;
-import com.rorlig.babyapp.otto.MilestoneItemCreated;
-import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.ui.adapter.MilestonesItemAdapter;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.parse_dao.Milestones;
+import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter;
+import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -50,7 +51,8 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of growth items
  */
-public class MilestoneListFragment extends InjectableFragment implements LoaderManager.LoaderCallbacks<List<MilestonesDao>>, AdapterView.OnItemClickListener {
+public class MilestoneListFragment extends BaseInjectableListFragment
+        implements  AdapterView.OnItemClickListener {
 
     @ForActivity
     @Inject
@@ -73,17 +75,24 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     @InjectView(R.id.add_milestone_item)
     FloatingActionButton btnAddMilestoneItem;
 
+
+
     private int LOADER_ID = 4;
     private List<GrowthDao> growthList;
     private SimpleSectionAdapter<BaseDao> sectionAdapter;
     private String[] itemNames;
     private MilestonesItemAdapter milestonesAdapter;
 
-    private List<MilestonesDao> milestoneData;
+    private List<ParseObject> milestoneData;
 
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
     private Dao<MilestonesDao, Integer> milestoneDaoHelper;
+
+    public MilestoneListFragment() {
+        super("Milestone");
+    }
+
 
     @OnClick(R.id.add_item)
     public void onMilestoneAddItemClicked(){
@@ -118,15 +127,38 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
         scopedBus.post(new FragmentCreated("Milestones"));
 
+        updateListView();
 
-//        listView.setOnItemClickListener(this);
+    }
+
+    @Override
+    protected void setListResults(List<ParseObject> objects) {
+        super.setListResults(objects);
+        if (objects.size()>0) {
+            emptyView.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        }
+        milestoneData = objects;
+        Log.d(TAG, "number of milestones changes " + milestoneData.size());
 
 
-        getLoaderManager().initLoader(LOADER_ID, null, this);
+        milestonesAdapter = new MilestonesItemAdapter(getActivity(), R.layout.list_item_diaper_change, milestoneData);
 
 
-//        getActivity().getActionBar().setTitle("Diaper Change List");
+        listView.setAdapter(milestonesAdapter);
 
+//        swipeRefreshLayout.setRefreshing(false);
+//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
+//                milestonesAdapter,
+//                R.layout.section_header_green,
+//                R.id.title,
+//                new DateSectionizer());
+//
+//        listView.setAdapter(sectionAdapter);
+        listView.setOnItemClickListener(this);
 
     }
 
@@ -137,7 +169,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         MilestonesCompletedFragment milestonesCompletedFragment = MilestonesCompletedFragment.newInstance(position);
 
 //        Log.d(TAG, "iten at position " + position + " clicked");
-        MilestonesDao milestonesDao = (MilestonesDao) milestoneData.get(position);
+        com.rorlig.babyapp.parse_dao.Milestones milestonesDao = (Milestones) milestoneData.get(position);
 //        Log.d(TAG, "growth dao " + growthDao);
         scopedBus.post(new MilestoneItemClicked(milestonesDao));
     }
@@ -164,7 +196,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
     * Register to events...
     */
     @Override
-    public void onStart(){
+    public void onStart() {
 
 
         super.onStart();
@@ -194,49 +226,7 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
         }
     }
 
-    @Override
-    public Loader<List<MilestonesDao>> onCreateLoader(int id, Bundle args) {
-        Log.d(TAG, "create Loader");
-        return new MilestonesLoader(getActivity());
-    }
 
-    @Override
-    public void onLoadFinished(Loader<List<MilestonesDao>> loader, List<MilestonesDao> data) {
-
-        Log.d(TAG, "number of milestones " + data.size());
-        Log.d(TAG, "loader finished");
-
-        if (data.size()>0) {
-            emptyView.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
-        } else {
-            emptyView.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.GONE);
-        }
-        milestoneData = data;
-        Log.d(TAG, "number of milestones changes " + milestoneData.size());
-
-
-        milestonesAdapter = new MilestonesItemAdapter(getActivity(), R.layout.list_item_diaper_change, milestoneData);
-
-
-        listView.setAdapter(milestonesAdapter);
-
-//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-//                milestonesAdapter,
-//                R.layout.section_header_green,
-//                R.id.title,
-//                new DateSectionizer());
-//
-//        listView.setAdapter(sectionAdapter);
-        listView.setOnItemClickListener(this);
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<MilestonesDao>> loader) {
-
-    }
 
     @OnClick(R.id.add_milestone_item)
     public void onAddMilestoneItem(){
@@ -251,75 +241,12 @@ public class MilestoneListFragment extends InjectableFragment implements LoaderM
 
 
         @Subscribe
-        public void onMilestoneItemCreated(MilestoneItemCreated event) {
-            getLoaderManager().restartLoader(LOADER_ID, null, MilestoneListFragment.this);
+        public void onMilestoneItemCreated(ItemCreatedOrChanged event) {
+            updateListView();
+//            getLoaderManager().restartLoader(LOADER_ID, null, MilestoneListFragment.this);
         }
 
-        @Subscribe
-        public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
-            Log.d(TAG, "onDiaperLogCreatedEvent");
 
-        }
-//        @Subscribe
-//        public void onMileStoneSaved(MilestoneSaveEvent event){
-//            Log.d(TAG, "milestonesaved event " + event);
-//            Calendar c = Calendar.getInstance();
-//            c.set(Calendar.YEAR, event.getYear());
-//            c.set(Calendar.MONTH, event.getMonth()-1);
-//            c.set(Calendar.DAY_OF_MONTH, event.getDay());
-////            Date date = new Date(event.getYear(), event.getMonth()-1, event.getDay());
-//            setCompleted(event.getPosition(), c.getTime(), true);
-//        }
-//
-//
-//
-//        @Subscribe
-//        public void onMileStoneCancel(MilestoneCancelEvent event){
-//            Log.d(TAG, "onMileStoneCancel");
-//        }
-//
-//        @Subscribe
-//        public void onMileStoneReset(MilestoneResetEvent event) {
-//            Log.d(TAG, "onMileStoneReset" + event.getPosition());
-//            setCompleted(event.getPosition(), false);
-//
-//        }
-//
-//
-//        private void setCompleted(int position, boolean value) {
-//            MilestonesDao milestoneItem = milestoneData.get(position);
-////            milestoneItem.setCompleted(value);
-//
-//
-//            try {
-//                milestoneDaoHelper = babyLoggerORMLiteHelper.getMilestonesDao();
-//                milestoneDaoHelper.update(milestoneItem);
-//                milestonesAdapter.notifyDataSetChanged();
-//
-//            } catch (SQLException e) {
-//                Log.d(TAG, "update item");
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        private void setCompleted(int position, Date date, boolean value) {
-//
-//            Log.d(TAG, "date " + date);
-//            MilestonesDao milestoneItem = milestoneData.get(position);
-////            milestoneItem.setCompleted(value);
-////            milestoneItem.setCompletionDate(date);
-//
-//
-//            try {
-//                milestoneDaoHelper = babyLoggerORMLiteHelper.getMilestonesDao();
-//                milestoneDaoHelper.update(milestoneItem);
-//                milestonesAdapter.notifyDataSetChanged();
-//
-//            } catch (SQLException e) {
-//                Log.d(TAG, "update item");
-//                e.printStackTrace();
-//            }
-//        }
 
     }
 }

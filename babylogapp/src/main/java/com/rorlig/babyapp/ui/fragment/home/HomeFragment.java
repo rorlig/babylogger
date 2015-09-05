@@ -16,12 +16,10 @@ import android.view.ViewGroup;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.ItemModel;
 import com.rorlig.babyapp.ui.activity.DiaperChangeActivity;
-import com.rorlig.babyapp.ui.activity.ExportActivity;
 import com.rorlig.babyapp.ui.activity.FeedingActivity;
 import com.rorlig.babyapp.ui.activity.GrowthActivity;
 import com.rorlig.babyapp.ui.activity.MilestonesActivity;
 import com.rorlig.babyapp.ui.activity.SleepActivity;
-import com.rorlig.babyapp.ui.activity.TutorialActivity;
 import com.rorlig.babyapp.ui.adapter.HomeItemAdapter;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.squareup.picasso.Picasso;
@@ -160,12 +158,10 @@ public class HomeFragment extends InjectableFragment {
 
 
 
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
     }
 
 
@@ -176,7 +172,6 @@ public class HomeFragment extends InjectableFragment {
         ButterKnife.inject(this, view);
         return view;
     }
-
 
 
 
@@ -206,10 +201,10 @@ public class HomeFragment extends InjectableFragment {
 //                break;
 
 
-            case R.id.action_export:
-                startActivity(new Intent(getActivity(), ExportActivity.class));
-
-                break;
+//            case R.id.action_export:
+//                startActivity(new Intent(getActivity(), ExportActivity.class));
+//
+//                break;
 
 
 //            case R.id.action_licenses:

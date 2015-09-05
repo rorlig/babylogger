@@ -16,17 +16,21 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.db.BabyLoggerORMUtils;
+import com.rorlig.babyapp.otto.DiaperStatsEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.utils.AppUtils;
+import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +54,11 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
     @Inject
     Context context;
 
+//    @Inject
+//    DualCache<String> dualCache;
+
+    @Inject
+    Gson gson;
 
 
     protected String[] mMonths = new String[] {
@@ -79,6 +88,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
     private BabyLoggerORMUtils babyORMLiteUtils;
     private List<String[]> diaperChangeDaoList;
+    private EventListener eventListener = new EventListener();
 
 
     @Override
@@ -130,22 +140,36 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 //        barChart.set();
 
 
-        try {
-            Log.d(TAG, "get the data by day");
-            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
-            //setData
-//            setData(12, 60);
-            barChart.setMaxVisibleValueCount(7);
-            barChart.getXAxis().setLabelsToSkip(0);
-            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
+        Log.d(TAG, "get the data by day");
+        if (AppUtils.isNetworkAvailable(getActivity())) {
+            Log.d(TAG, "network available");
+            DiaperStatsUtility.getDiapersByDayofWeek();
+        } else {
+            getDiaperChangeStatsOffline(DiaperChangeStatsType.WEEKLY);
 
-        } catch (SQLException   e) {
-            e.printStackTrace();
         }
+
+
+//            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
+        //setData
+//            setData(12, 60);
+        barChart.setMaxVisibleValueCount(7);
+        barChart.getXAxis().setLabelsToSkip(0);
+//            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
 
         diaperChangeRadioGroup.setOnCheckedChangeListener(this);
 
 
+    }
+
+    private void getDiaperChangeStatsOffline(DiaperChangeStatsType diaperChangeStatsType) {
+        if (!preferences.getString(diaperChangeStatsType.getValue(),"").equals("")) {
+            Log.d(TAG, preferences.getString(diaperChangeStatsType.getValue(), ""));
+            diaperChangeDaoList = gson.fromJson(preferences.getString(diaperChangeStatsType.getValue(),""), new TypeToken<List<String[]>>() {}.getType());
+            Log.d(TAG, "diaper change dao list " + diaperChangeDaoList);
+            setData(diaperChangeDaoList, diaperChangeStatsType);
+
+        }
     }
 
 
@@ -177,44 +201,91 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         inflater.inflate(R.menu.menu_main, menu);
     }
 
+
+    /*
+  * Register to events...
+  */
     @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart");
+        scopedBus.register(eventListener);
+    }
 
-        try {
-            switch (checkedId) {
-                case R.id.diaper_change_stats_monthly:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
-                    barChart.setMaxVisibleValueCount(5);
-                    barChart.getXAxis().setSpaceBetweenLabels(20);
-
-                    barChart.getXAxis().setLabelsToSkip(1);
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.MONTHLY);
-
-                    break;
-                case R.id.diaper_change_stats_yearly:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonthofYear();
-                    Log.d(TAG, "diaperChangeDaoList " + diaperChangeDaoList.size());
-                    barChart.setMaxVisibleValueCount(12);
-                    barChart.getXAxis().setLabelsToSkip(1);
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.YEARLY);
-                    break;
-                default:
-                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
-                    barChart.setMaxVisibleValueCount(7);
-                    barChart.getXAxis().setLabelsToSkip(0);
-
-                    setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
-            }
-
-            barChart.getXAxis().setDrawLabels(true);
-
-
-        } catch (SQLException sqlException) {
-            Log.e(TAG, "Exception: " + sqlException);
-        }
+    /*
+     * Unregister from events ...
+     */
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+        scopedBus.unregister(eventListener);
 
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        Log.d(TAG, "onCheckedChanged");
+        switch (checkedId) {
+            case R.id.diaper_change_stats_monthly:
+                Log.d(TAG, "Monthly");
+                if (AppUtils.isNetworkAvailable(getActivity())
+                        &&!isDiaperChangeCached(DiaperChangeStatsType.MONTHLY)) {
+                    DiaperStatsUtility.getDiapersByWeekofMonth();
+                } else {
+                    getDiaperChangeStatsOffline(DiaperChangeStatsType.MONTHLY);
+
+                }
+//                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
+                barChart.setMaxVisibleValueCount(5);
+                barChart.getXAxis().setSpaceBetweenLabels(20);
+
+                barChart.getXAxis().setLabelsToSkip(1);
+//                    setData(diaperChangeDaoList, DiaperChangeStatsType.MONTHLY);
+
+                break;
+            case R.id.diaper_change_stats_yearly:
+                Log.d(TAG, "Yearly");
+
+
+                if (AppUtils.isNetworkAvailable(getActivity())
+                        && !isDiaperChangeCached(DiaperChangeStatsType.YEARLY)) {
+                    DiaperStatsUtility.getDiapersByMonthofYear();
+                } else {
+                    getDiaperChangeStatsOffline(DiaperChangeStatsType.YEARLY);
+
+                }
+
+//                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByMonthofYear();
+                Log.d(TAG, "diaperChangeDaoList " + diaperChangeDaoList.size());
+                barChart.setMaxVisibleValueCount(12);
+                barChart.getXAxis().setLabelsToSkip(1);
+//                    setData(diaperChangeDaoList, DiaperChangeStatsType.YEARLY);
+                break;
+            default:
+                Log.d(TAG, "Weekly");
+
+                if (AppUtils.isNetworkAvailable(getActivity())
+                        && !isDiaperChangeCached(DiaperChangeStatsType.WEEKLY)) {
+                    DiaperStatsUtility.getDiapersByWeekofMonth();
+                } else {
+                    getDiaperChangeStatsOffline(DiaperChangeStatsType.WEEKLY);
+
+                }
+//                    diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByDayofWeek();
+                barChart.setMaxVisibleValueCount(7);
+                barChart.getXAxis().setLabelsToSkip(0);
+//                    setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
+        }
+
+        barChart.getXAxis().setDrawLabels(true);
+
+
+    }
+
+    private boolean isDiaperChangeCached(DiaperChangeStatsType diaperChangeStatsType) {
+        return !preferences.getString(diaperChangeStatsType.getValue(),"").equals("");
+    }
 
 
     private String getDateRangeForWeek(int weekNumber){
@@ -232,7 +303,8 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
     }
 
-    private void setData(List<String[]> diaperChangeDaoList, DiaperChangeStatsType diaperChangeStatsType) {
+    private void setData(List<String[]> diaperChangeDaoList,
+                         DiaperChangeStatsType diaperChangeStatsType) {
 
         ArrayList<String> xVals = new ArrayList<String>();
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
@@ -245,19 +317,19 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
             Integer value = Integer.parseInt(diaperChangeResult[1]);
             String xValue = diaperChangeResult[0];
-            switch (diaperChangeStatsType) {
-                case WEEKLY:
-                    break;
-                case MONTHLY:
-//                    xValue = diaperChangeResult[0];
-                    break;
-                case YEARLY:
-//                    Log.d(TAG, diaperChangeResult[0].substring(5));
-//                    xValue = mMonths[Integer.parseInt(diaperChangeResult[0].substring(5))-1];
-
-
-                    break;
-            }
+//            switch (diaperChangeStatsType) {
+//                case WEEKLY:
+//                    break;
+//                case MONTHLY:
+////                    xValue = diaperChangeResult[0];
+//                    break;
+//                case YEARLY:
+////                    Log.d(TAG, diaperChangeResult[0].substring(5));
+////                    xValue = mMonths[Integer.parseInt(diaperChangeResult[0].substring(5))-1];
+//
+//
+//                    break;
+//            }
             xVals.add(xValue);
             BarEntry barEntry = new BarEntry(value, i);
 
@@ -305,17 +377,17 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
         switch (diaperChangeStatsType) {
             case WEEKLY:
-                return getFullListDayofWeek();
+                return getFullListDayofWeek(diaperChangeDaoList);
             case MONTHLY:
-                return getFullListWeekofMonth();
+                return getFullListWeekofMonth(diaperChangeDaoList);
             case YEARLY:
-                return getFullListMonthofYear();
+                return getFullListMonthofYear(diaperChangeDaoList);
         }
         return null;
 
     }
 
-    private List<String[]> getFullListMonthofYear() {
+    private List<String[]> getFullListMonthofYear(List<String[]> diaperChangeDaoList) {
 
         List<String[]> returnList = new ArrayList<String[]>();
 
@@ -374,7 +446,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
     }
 
 
-    private List<String[]> getFullListWeekofMonth() {
+    private List<String[]> getFullListWeekofMonth(List<String[]> diaperChangeDaoList) {
         List<String[]> returnList = new ArrayList<String[]>();
 
         Calendar startTime = Calendar.getInstance();
@@ -431,7 +503,7 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
         return returnList;
     }
 
-    private List<String[]> getFullListDayofWeek() {
+    private List<String[]> getFullListDayofWeek(List<String[]> diaperChangeDaoList) {
 
         List<String[]> returnList = new ArrayList<String[]>();
 
@@ -501,5 +573,16 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
         Log.d(TAG, "chart dragged " + event);
         return false;
+    }
+
+    private class EventListener {
+        @Subscribe
+        public void onDiaperChangeStatsEvent(DiaperStatsEvent event){
+            diaperChangeDaoList = event.getList();
+            setData(diaperChangeDaoList, event.getDiaperChangeStatsType());
+            Log.d(TAG, "adding to cache");
+            preferences.edit().putString(event.getDiaperChangeStatsType().getValue(), gson.toJson(event.getList())).apply();
+
+        }
     }
 }

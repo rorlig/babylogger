@@ -3,10 +3,8 @@ package com.rorlig.babyapp.ui.fragment.diaper;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,26 +22,29 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.BaseDao;
 import com.rorlig.babyapp.dao.DiaperChangeDao;
 import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
-import com.rorlig.babyapp.ui.adapter.DiaperChangeAdapter;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
+import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,25 +61,12 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of diaper changes
  */
-public class DiaperChangeListFragment extends InjectableFragment implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<List<DiaperChangeDao>> {
+public class DiaperChangeListFragment extends BaseInjectableListFragment implements AdapterView.OnItemClickListener {
 
     @ForActivity
     @Inject
     Context context;
 
-//    @InjectView(R.id.currentDate)
-//    TextView currentDate;
-//
-//    @InjectView(R.id.currentTime)
-//    TextView currentTime;
-
-
-
-//    @InjectView(R.id.gridview)
-//    GridView actionsList;
-
-//    @InjectView(R.id.menu_header)
-//    TextView menuHeader;
 
     @InjectView(R.id.diaperchangelist)
     ListView diaperChangeListView;
@@ -89,8 +77,9 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
     @InjectView(R.id.errorText)
     TextView errorText;
 
-//    @InjectView(R.id.diaper_bar_chart)
-//    BarChart barChart;
+
+//    @InjectView(R.id.swipe_refresh_layout)
+//    SwipeRefreshLayout swipeRefreshLayout;
 
 
 
@@ -102,26 +91,12 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
 
     private BabyLoggerORMUtils babyORMLiteUtils;
-    private List<DiaperChangeDao> diaperChangeList;
+    private List<ParseObject> diaperChangeList;
     private DiaperChangeAdapter diaperChangeAdapter;
-    private SimpleSectionAdapter<BaseDao> sectionAdapter;
+    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
     private int LOADER_ID=2;
     private List<String[]> diaperChangeDaoList;
 
-    @OnClick(R.id.add_item)
-    public void onDiaperChangeClicked(){
-//        scopedBus.post(new AddDiaperChangeEvent());
-
-        scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
-    }
-
-
-    @OnClick(R.id.add_diaper_item)
-    public void onDiaperChangeBtnClicked(){
-//        scopedBus.post(new AddDiaperChangeEvent());
-        Log.d(TAG, "add diaper item clicked");
-        scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
-    }
 
     Typeface typeface;
 
@@ -130,6 +105,13 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
     private EventListener eventListener = new EventListener();
 
     PreparedQuery<DiaperChangeDao> queryBuilder;
+
+    public DiaperChangeListFragment() {
+        super("Diaper");
+    }
+//    public DiaperChangeListFragment(String parseClassName) {
+//        super("DiaperChange");
+//    }
 
 
     @Override
@@ -147,83 +129,125 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         scopedBus.post(new FragmentCreated("Diaper Change List"));
 
+//        if (diaperChangeList!=null && di)
+
+        updateListView();
+
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                AppUtils.invalidateParseCache("Diaper", getActivity());
+//                populateFromNetwork(null);
+//            }
+//        });
 
 
-        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
-        try {
-            queryBuilder = babyORMLiteUtils.getDiaperChangeDao().queryBuilder().orderBy("date", false).prepare();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        diaperChangeList = new ArrayList<DiaperChangeDao>();
-        Log.d(TAG, "number of diaper changes " + diaperChangeList.size());
-        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeList);
-        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
+
+
+
+    }
+
+//    private void updateListView() {
+//       populateLocalStore();
+//
+//    }
+
+//    private void populateLocalStore() {
+//        Log.d(TAG, "populateLocalStore");
+//
+//        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+//        query.fromLocalDatastore();
+//        query.orderByDescending("createdAt");
+//        query.findInBackground(
+//                new FindCallback<ParseObject>() {
+//                    @Override
+//                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                        Log.d(TAG, "got list from the cache");
+//                        if (e == null) {
+//                            Log.d(TAG, "number of items " + objects.size());
+//                            if (objects.size() == 0) {
+//                                populateFromNetwork(objects);
+//                            } else {
+//                                setListResults(objects);
+//
+//                            }
+//                        } else {
+//                            Log.d(TAG, "exception " + e);
+//                        }
+//                    }
+//                }
+//
+//
+//        );
+//
+//    }
+
+
+//    private void populateFromNetwork(final List<ParseObject> data) {
+//        Log.d(TAG, "populateFromNetwork");
+//        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+//        query.orderByDescending("createdAt");
+//        query.findInBackground(
+//                new FindCallback<ParseObject>() {
+//                    @Override
+//                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                        Log.d(TAG, "got list from the network");
+//                        if (e == null) {
+//                            Log.d(TAG, "number of items " + objects.size());
+////                            if(objects.size()==0) {
+////                                populateFromNetwork();
+////                            } else {
+//
+//                            ParseObject.unpinAllInBackground("Diapers", data, new DeleteCallback() {
+//                                @Override
+//                                public void done(com.parse.ParseException e) {
+//                                    Log.d(TAG, "deleted diapers pin " + e);
+//                                }
+//
+//                            });
+//                            ParseObject.pinAllInBackground("Diapers", objects);
+//                            setListResults(objects);
+//                        } else {
+//                            Log.d(TAG, "exception " + e);
+//                        }
+//                    }
+//                }
+//        );
+//    }
+
+    @Override
+    protected void setListResults(List<ParseObject> objects) {
+        super.setListResults(objects);
+        diaperChangeList = objects;
+
+        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(),
+                R.layout.list_item_diaper_change, diaperChangeList);
+        diaperChangeAdapter.update(diaperChangeList);
+
+        sectionAdapter = new SimpleSectionAdapter<BabyLogBaseParseObject>(context,
                 diaperChangeAdapter, R.layout.section_header, R.id.title,
                 new DateSectionizer());
         diaperChangeListView.setAdapter(sectionAdapter);
-        diaperChangeListView.setOnItemClickListener(this);
+        if (diaperChangeList.size() > 0) {
+            diaperChangeListView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            diaperChangeListView.setOnItemClickListener(this);
+        } else {
+            diaperChangeListView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
 
-        getLoaderManager().initLoader(LOADER_ID, null, this);
-
-        try {
-            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
-            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
-
-
-
+//        swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void setData(List<String[]> diaperChangeDaoList, DiaperChangeStatsType diaperChangeStatsType) {
-        ArrayList<String> xVals = new ArrayList<String>();
-        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
-        int i = 0;
-        for (String[] diaperChangeResult: diaperChangeDaoList) {
-            Log.d(TAG, "iterating the result set");
-            Log.d(TAG, " i " + i + "  date " + diaperChangeResult[0] + " count " + diaperChangeResult[1]);
 
-            Integer value = Integer.parseInt(diaperChangeResult[1]);
-            String xValue = diaperChangeResult[0];
-            switch (diaperChangeStatsType) {
-                case WEEKLY:
-                    break;
-                case MONTHLY:
-                    xValue = getDateRangeForWeek(Integer.parseInt(diaperChangeResult[0]));
-                    break;
 
-            }
-            xVals.add(xValue);
-
-            yVals.add(new BarEntry(value, i));
-            i++;
-        }
-
-        BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
-        set1.setBarSpacePercent(35f);
-        set1.setColor(getResources().getColor(R.color.primary_purple));
-        set1.setHighLightColor(getResources().getColor(R.color.primary_dark_purple));
-
-        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
-        dataSets.add(set1);
-
-//        barChart.setBackgroundColor(getResources().getColor(R.color.primary_purple));
-//        barChart.setData(data);
-//        barChart.notifyDataSetChanged();
-//        barChart.invalidate();
-    }
 
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-//        currentTime.setText(today.hour + ":" + today.minute + ":" + today.second);
     }
 
 
@@ -243,7 +267,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
         super.onStart();
         Log.d(TAG, "onStart");
-        getLoaderManager().restartLoader(LOADER_ID, null, this);
+//        getLoaderManager().restartLoader(LOADER_ID, null, this);
         scopedBus.register(eventListener);
     }
 
@@ -287,86 +311,86 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "item clicked at position " + position + " id " + id);
-        DiaperChangeDao diaperChangeDao = (DiaperChangeDao) diaperChangeListView.getItemAtPosition(position);
-        Log.d(TAG, "diaperchange dao " + diaperChangeDao);
-        scopedBus.post(new DiaperChangeItemClickedEvent(diaperChangeDao));
+        Log.d(TAG, "item clicked at position " + position + " id " + id + " size " + diaperChangeListView.getAdapter().getCount());
+        DiaperChange diaperChange = (DiaperChange) diaperChangeListView.getAdapter().getItem(position);
+        Log.d(TAG, "diaperchange dao " + diaperChange);
+        scopedBus.post(new DiaperChangeItemClickedEvent(diaperChange));
     }
 
-    @Override
-    public Loader<List<DiaperChangeDao>> onCreateLoader(int i, Bundle bundle) {
-        Log.d(TAG, "create Loader");
-
-        return new DiaperLoader(getActivity());
-
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<DiaperChangeDao>> listLoader, List<DiaperChangeDao> diaperChangeDaoList) {
-        Log.d(TAG, "number of diaper changes " + diaperChangeDaoList.size());
-        Log.d(TAG, "loader finished");
-
-        if (diaperChangeDaoList.size()>0) {
-            emptyView.setVisibility(View.GONE);
-//            barChart.setVisibility(View.VISIBLE);
-
-            diaperChangeListView.setVisibility(View.VISIBLE);
-        } else {
-            emptyView.setVisibility(View.VISIBLE);
-            diaperChangeListView.setVisibility(View.GONE);
-//            barChart.setVisibility(View.GONE);
-
-        }
-        diaperChangeList = diaperChangeDaoList;
-
-        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeList);
-
-//        diaperChangeAdapter.update(diaperChangeDaoList);
-
-        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-                diaperChangeAdapter, R.layout.section_header, R.id.title,
-                new DateSectionizer());
-
-        diaperChangeListView.setAdapter(sectionAdapter);
-        diaperChangeListView.setOnItemClickListener(this);
-
-//        diaperChangeListView.setOnLongClickListener(new OnLongClickListener() {
+//    @Override
+//    public Loader<List<DiaperChangeDao>> onCreateLoader(int i, Bundle bundle) {
+//        Log.d(TAG, "create Loader");
 //
-//            @Override
-//            public boolean onLongClick(View v) {
-//                if (mActionMode != null) {
-//                    return false;
-//                }
-//                mActionMode = getActivity().startActionMode(mActionModeCallback);
-//                v.setSelected(true);
-//                return true;
+//        return new DiaperLoader(getActivity());
 //
-//            }
-//        });
-//        registerForContextMenu(diaperChangeListView);
-        //        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeDaoList);
-//        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
-//                diaperChangeAdapter, R.layout.section_header, R.id.title,
-//                new DiaperChangeSectionizer());
-//        diaperChangeListView.setAdapter(diaperChangeAdapter);
-//        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
-//                diaperChangeAdapter, R.layout.section_header, R.id.title,
-//                new DiaperChangeSectionizer());
-//        diaperChangeListView.setAdapter(diaperChangeAdapter);
-
+//    }
+//
+//    @Override
+//    public void onLoadFinished(Loader<List<DiaperChangeDao>> listLoader, List<DiaperChangeDao> diaperChangeDaoList) {
+//        Log.d(TAG, "number of diaper changes " + diaperChangeDaoList.size());
+//        Log.d(TAG, "loader finished");
+//
+//        if (diaperChangeDaoList.size()>0) {
+//            emptyView.setVisibility(View.GONE);
+////            barChart.setVisibility(View.VISIBLE);
+//
+//            diaperChangeListView.setVisibility(View.VISIBLE);
+//        } else {
+//            emptyView.setVisibility(View.VISIBLE);
+//            diaperChangeListView.setVisibility(View.GONE);
+////            barChart.setVisibility(View.GONE);
+//
+//        }
+//        diaperChangeList = diaperChangeDaoList;
+//
 //        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeList);
-//        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
+//
+////        diaperChangeAdapter.update(diaperChangeDaoList);
+//
+//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
 //                diaperChangeAdapter, R.layout.section_header, R.id.title,
-//                new DiaperChangeSectionizer());
+//                new DateSectionizer());
+//
 //        diaperChangeListView.setAdapter(sectionAdapter);
-//        diaperChangeListView.setOnItemClickListener(this);
-    }
-
-
-    @Override
-    public void onLoaderReset(Loader<List<DiaperChangeDao>> listLoader) {
-
-    }
+//        diaperChangeListView(this);
+//
+////        diaperChangeListView.setOnLongClickListener(new OnLongClickListener() {
+////
+////            @Override
+////            public boolean onLongClick(View v) {
+////                if (mActionMode != null) {
+////                    return false;
+////                }
+////                mActionMode = getActivity().startActionMode(mActionModeCallback);
+////                v.setSelected(true);
+////                return true;
+////
+////            }
+////        });
+////        registerForContextMenu(diaperChangeListView);
+//        //        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeDaoList);
+////        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
+////                diaperChangeAdapter, R.layout.section_header, R.id.title,
+////                new DiaperChangeSectionizer());
+////        diaperChangeListView.setAdapter(diaperChangeAdapter);
+////        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
+////                diaperChangeAdapter, R.layout.section_header, R.id.title,
+////                new DiaperChangeSectionizer());
+////        diaperChangeListView.setAdapter(diaperChangeAdapter);
+//
+////        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeList);
+////        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
+////                diaperChangeAdapter, R.layout.section_header, R.id.title,
+////                new DiaperChangeSectionizer());
+////        diaperChangeListView.setAdapter(sectionAdapter);
+//        diaperChangeListView.(this);
+//    }
+//
+//
+//    @Override
+//    public void onLoaderReset(Loader<List<DiaperChangeDao>> listLoader) {
+//
+//    }
 
 
 //    @Override
@@ -385,6 +409,60 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
         return super.onContextItemSelected(item);
     }
 
+    // -- Button clicks ...
+    @OnClick(R.id.add_item)
+    public void onDiaperChangeClicked(){
+//        scopedBus.post(new AddDiaperChangeEvent());
+        addDiaperChange();
+    }
+
+
+    @OnClick(R.id.add_diaper_item)
+    public void onDiaperChangeBtnClicked(){
+//        scopedBus.post(new AddDiaperChangeEvent());
+        addDiaperChange();
+    }
+
+    private void addDiaperChange(){
+        scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
+    }
+
+    // -- chart data
+    private void setData(List<String[]> diaperChangeDaoList,
+                         DiaperChangeStatsType diaperChangeStatsType) {
+        ArrayList<String> xVals = new ArrayList<String>();
+        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
+        int i = 0;
+        for (String[] diaperChangeResult: diaperChangeDaoList) {
+            Log.d(TAG, "iterating the result set");
+            Log.d(TAG, " i " + i + "  date " + diaperChangeResult[0] + " count " + diaperChangeResult[1]);
+
+            Integer value = Integer.parseInt(diaperChangeResult[1]);
+            String xValue = diaperChangeResult[0];
+            switch (diaperChangeStatsType) {
+                case WEEKLY:
+                    break;
+                case MONTHLY:
+                    xValue = getDateRangeForWeek(Integer.parseInt(diaperChangeResult[0]));
+                    break;
+
+            }
+            xVals.add(xValue);
+
+            yVals.add(new BarEntry(value, i));
+            i++;
+        }
+
+        BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
+        set1.setBarSpacePercent(35f);
+        set1.setColor(getResources().getColor(R.color.primary_purple));
+        set1.setHighLightColor(getResources().getColor(R.color.primary_dark_purple));
+
+        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
+        dataSets.add(set1);
+    }
+
+
     private String getDateRangeForWeek(int weekNumber){
         Log.d(TAG, "weekNumber " + weekNumber);
 //        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
@@ -400,6 +478,7 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
 
     }
 
+    // class to handle event clicks
     private class EventListener {
         private EventListener(){
         }
@@ -407,52 +486,19 @@ public class DiaperChangeListFragment extends InjectableFragment implements Adap
         @Subscribe
         public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
             Log.d(TAG, "onDiaperLogCreatedEvent");
-            getLoaderManager().restartLoader(LOADER_ID, null, DiaperChangeListFragment.this);
+            updateListView();
+        }
 
+
+        @Subscribe
+        public void onDiaperChangeItemChange(ItemCreatedOrChanged event) {
+            Log.d(TAG, "onDiaperChangeItemChange");
+            updateListView();
         }
 
 
 
 
-    }
-    public ActionMode mActionMode;
 
-//    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-//
-//
-//        // Called when the action mode is created; startActionMode() was called
-//        @Override
-//        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-//            // Inflate a menu resource providing context menu items
-//            MenuInflater inflater = mode.getMenuInflater();
-//            inflater.inflate(R.menu.context_menu, menu);
-//            return true;
-//        }
-//
-//        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-//// may be called multiple times if the mode is invalidated.
-//        @Override
-//        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-//            return false; // Return false if nothing is done
-//        }
-//
-//        // Called when the user selects a contextual menu item
-//        @Override
-//        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-//            switch (item.getItemId()) {
-////                case R.id.menu_share:
-//////                    shareCurrentItem();
-////                    mode.finish(); // Action picked, so close the CAB
-////                    return true;
-//                default:
-//                    return false;
-//            }
-//        }
-//
-//        // Called when the user exits the action mode
-//        @Override
-//        public void onDestroyActionMode(ActionMode mode) {
-//            mActionMode = null;
-//        }
-//    };
+    }
 }

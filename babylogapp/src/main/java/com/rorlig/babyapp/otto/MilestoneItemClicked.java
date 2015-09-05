@@ -1,18 +1,18 @@
 package com.rorlig.babyapp.otto;
 
-import com.rorlig.babyapp.dao.MilestonesDao;
+import com.rorlig.babyapp.parse_dao.Milestones;
 
 /**
  * @author gaurav gupta
  */
 public class MilestoneItemClicked {
-    private final MilestonesDao model;
+    private final Milestones model;
 
-    public MilestoneItemClicked(MilestonesDao milestonesDao) {
+    public MilestoneItemClicked(Milestones milestonesDao) {
         this.model = milestonesDao;
     }
 
-    public MilestonesDao getModel() {
+    public Milestones getModel() {
         return model;
     }
 }

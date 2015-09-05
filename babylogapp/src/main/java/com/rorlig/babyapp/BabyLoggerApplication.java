@@ -4,8 +4,19 @@ import android.app.Application;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.parse.Parse;
+import com.parse.ParseACL;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.rorlig.babyapp.dagger.ApplicationModule;
 import com.rorlig.babyapp.dagger.ObjectGraphApplication;
+import com.rorlig.babyapp.parse_dao.Baby;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
+import com.rorlig.babyapp.parse_dao.Feed;
+import com.rorlig.babyapp.parse_dao.Growth;
+import com.rorlig.babyapp.parse_dao.Milestones;
+import com.rorlig.babyapp.parse_dao.Sleep;
+import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +38,10 @@ import io.fabric.sdk.android.Fabric;
 public class BabyLoggerApplication extends Application implements ObjectGraphApplication {
     private ObjectGraph objectGraph;
     private final String TAG = "BabyLoggerApplication";
+
+    public static final String APPLICATION_ID = "fQ6DxdazosJXTsgxZAxT9izIj6BkgJI9HKUzPlUf";
+
+    public static final String CLIENT_KEY = "oVPe4qrrMe3glqgTPwHQ7tbx1snfq5GvlPBBiMQE";
 //    private JobManager jobManager;
 
     @Override
@@ -49,6 +64,45 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
         super.onCreate();
         Fabric.with(this, new Crashlytics());
         initializeDagger();
+
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+
+        // Register subclasses...
+        ParseObject.registerSubclass(DiaperChange.class);
+
+        ParseObject.registerSubclass(Feed.class);
+
+        ParseObject.registerSubclass(Growth.class);
+
+        ParseObject.registerSubclass(Milestones.class);
+
+        ParseObject.registerSubclass(Sleep.class);
+
+        ParseObject.registerSubclass(Baby.class);
+
+
+
+
+
+        // Register subclasses...
+//        ParseObject.registerSubclass(DiaperChange.class);
+        // Add your initialization code here
+        Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
+
+        ParseUser.enableRevocableSessionInBackground();
+
+//        ParseUser.enableAutomaticUser();
+        ParseACL defaultACL = new ParseACL();
+        // Optionally enable public read access.
+        // defaultACL.setPublicReadAccess(true);
+        ParseACL.setDefaultACL(defaultACL, true);
+
+        Parse.setLogLevel(Parse.LOG_LEVEL_VERBOSE);
+
+
+        DualCacheContextUtils.setContext(getApplicationContext());
+
 //        configureJobManager();
 //        ACRA.init(this);
 

@@ -16,14 +16,15 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.common.collect.Lists;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.GrowthDao;
 import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.parse_dao.Growth;
+import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ import butterknife.InjectView;
  * Created by gaurav
  * Growth element..
  */
-public class GrowthStatsFragment extends InjectableFragment implements RadioGroup.OnCheckedChangeListener {
+public class GrowthStatsFragment extends BaseInjectableListFragment implements RadioGroup.OnCheckedChangeListener {
 
     @ForActivity
     @Inject
@@ -62,7 +63,11 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
 //    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
     private BabyLoggerORMUtils babyORMLiteUtils;
-    private List<GrowthDao> growthList;
+    private List<ParseObject> growthList;
+
+    public GrowthStatsFragment() {
+        super("Growth");
+    }
 
 
     @Override
@@ -98,29 +103,18 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         //set the listener to the radiogroup...
         growthStatsRadioGroup.setOnCheckedChangeListener(this);
 
-        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
-
-        try {
-           growthList =  babyORMLiteUtils.getGrowthList(true);
-            //setData
-            setData(growthList, GrowthStatTab.WEIGHT);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-
-
+        updateListView();
 
 
     }
 
+    @Override
+    protected void setListResults(List<ParseObject> objects) {
+        growthList = Lists.reverse(objects);
+        //setData
+        setData(growthList, GrowthStatTab.WEIGHT);
 
-
-
-
-
-
+    }
 
 
     @Override
@@ -174,7 +168,7 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
 //    }
 
 
-    private void setData(List<GrowthDao> growthList, GrowthStatTab growthStatTab) {
+    private void setData(List<ParseObject> growthList, GrowthStatTab growthStatTab) {
 
         //todo range...
         //todo shift on basis of height/weight/hm and the labels...
@@ -185,22 +179,23 @@ public class GrowthStatsFragment extends InjectableFragment implements RadioGrou
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
         int i = 0;
-        for (GrowthDao growthDao: growthList) {
-            Log.d(TAG, growthDao.toString());
+        for (ParseObject parseObject: growthList) {
+//            Log.d(TAG, growthDao.toString());
+            Growth growth = (Growth) parseObject;
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM ''yy");
             float val;
             switch (growthStatTab) {
                 case WEIGHT:
-                    val =  (float) growthDao.getWeight().doubleValue();
+                    val =  (float) growth.getWeight().doubleValue();
                     break;
                 case HEIGHT:
-                    val = (float) growthDao.getHeight().doubleValue();
+                    val = (float) growth.getHeight().doubleValue();
                     break;
                 default:
-                    val = (float) growthDao.getHeadMeasurement().doubleValue();
+                    val = (float) growth.getHeadMeasurement().doubleValue();
                     break;
             }
-            xVals.add(simpleDateFormat.format(growthDao.getDate()));
+            xVals.add(simpleDateFormat.format(growth.getLogCreationDate()));
 //            float val = (float) growthDao.getWeight().doubleValue();
             yVals.add(new Entry(val, i));
             i++;

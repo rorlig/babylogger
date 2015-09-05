@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dao.SleepDao;
+import com.rorlig.babyapp.parse_dao.Sleep;
 
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
@@ -29,7 +29,7 @@ public class SleepView extends RelativeLayout {
 //    @InjectView(R.id.row2)
     private TextView sleepStartTime;
     private TextView sleepDuration;
-    private SleepDao sleepDao;
+    private Sleep model;
 
 
 //    public ViewHolder(View view){
@@ -75,15 +75,15 @@ public class SleepView extends RelativeLayout {
     }
 
 
-    public void setModel(SleepDao sleepDao) {
-        this.sleepDao = sleepDao;
+    public void setModel(Sleep model) {
+        this.model = model;
         bindModel();
     }
 
     private void bindModel() {
-        textViewTime.setText(simpleDateFormat.format(sleepDao.getDate()));
-        sleepStartTime.setText(simpleDateFormat.format(sleepDao.getSleepStartTime()));
-        sleepDuration.setText(SleepView.toHoursandMinutes(sleepDao.getDuration()));
+        textViewTime.setText(simpleDateFormat.format(model.getLogCreationDate()));
+        sleepStartTime.setText(simpleDateFormat.format(model.getSleepStartTime()));
+        sleepDuration.setText(SleepView.toHoursandMinutes(model.getDuration()));
     }
 
     private static String toHoursandMinutes(Long duration) {

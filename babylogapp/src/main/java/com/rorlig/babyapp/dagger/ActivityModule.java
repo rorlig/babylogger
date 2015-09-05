@@ -14,22 +14,26 @@ import com.rorlig.babyapp.ui.activity.GrowthActivity;
 import com.rorlig.babyapp.ui.activity.HomeActivity;
 import com.rorlig.babyapp.ui.activity.LandingActivity;
 import com.rorlig.babyapp.ui.activity.LicenseActivity;
+import com.rorlig.babyapp.ui.activity.LoginActivity;
 import com.rorlig.babyapp.ui.activity.MilestonesActivity;
 import com.rorlig.babyapp.ui.activity.PrefsActivity;
 import com.rorlig.babyapp.ui.activity.ProfileActivity;
 import com.rorlig.babyapp.ui.activity.SleepActivity;
 import com.rorlig.babyapp.ui.adapter.ContactsAdapter;
-import com.rorlig.babyapp.ui.adapter.DiaperChangeAdapter;
 import com.rorlig.babyapp.ui.adapter.ExportItemAdapter;
-import com.rorlig.babyapp.ui.adapter.FeedAdapter;
-import com.rorlig.babyapp.ui.adapter.GrowthAdapter;
 import com.rorlig.babyapp.ui.adapter.HomeItemAdapter;
 import com.rorlig.babyapp.ui.adapter.LogItemAdapter;
-import com.rorlig.babyapp.ui.adapter.MilestonesItemAdapter;
-import com.rorlig.babyapp.ui.adapter.SleepAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.FeedAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter;
 import com.rorlig.babyapp.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.fragment.about.LicensesFragment;
+import com.rorlig.babyapp.ui.fragment.auth.ForgotFragment;
+import com.rorlig.babyapp.ui.fragment.auth.LoginFragment;
+import com.rorlig.babyapp.ui.fragment.auth.SignUpFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.CustomTimePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.TimePickerFragment;
@@ -70,6 +74,7 @@ import dagger.Provides;
  */
 @Module(injects={
             LandingActivity.class,
+            LoginActivity.class,
             HomeActivity.class,
             DiaperChangeActivity.class,
             GrowthActivity.class,
@@ -118,6 +123,9 @@ import dagger.Provides;
             ExportFragment.class,
             CustomTimePickerFragment.class,
             MilestoneFragment.class,
+            LoginFragment.class,
+            ForgotFragment.class,
+            SignUpFragment.class,
             SleepAdapter.class
 
           },
@@ -125,6 +133,10 @@ import dagger.Provides;
 
 public class ActivityModule
 {
+    private static final String CACHE_NAME = "baby_name";
+    private static final int TEST_APP_VERSION = 1;
+    private static final int RAM_MAX_SIZE = 1024;
+    private static final int DISK_MAX_SIZE = 1024;
     private final Activity activity;
 
     public ActivityModule(Activity paramActivity)
@@ -182,6 +194,13 @@ public class ActivityModule
     }
 
 
+//    @Provides
+//    @Singleton
+//    DualCache<String> providesDualCache(@ForApplication Context context) {
+//        return new DualCacheBuilder<String>(CACHE_NAME, TEST_APP_VERSION, String.class)
+//                .useDefaultSerializerInRam(RAM_MAX_SIZE)
+//                .useDefaultSerializerInDisk(DISK_MAX_SIZE, true);
+//    }
 
 
 

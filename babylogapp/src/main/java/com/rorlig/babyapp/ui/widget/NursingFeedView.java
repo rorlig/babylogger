@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dao.FeedDao;
+import com.rorlig.babyapp.parse_dao.Feed;
 
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
@@ -16,7 +16,7 @@ import java.util.TimeZone;
  */
 public class NursingFeedView extends RelativeLayout {
 
-    private FeedDao model;
+    private Feed model;
     private SimpleDateFormat simpleDateFormat;
 
 
@@ -58,7 +58,7 @@ public class NursingFeedView extends RelativeLayout {
         simpleDateFormat.setTimeZone(TimeZone.getDefault());
     }
 
-    public void setModel(FeedDao model) {
+    public void setModel(Feed model) {
         this.model = model;
         bindModel();
     }
@@ -66,7 +66,7 @@ public class NursingFeedView extends RelativeLayout {
     private void bindModel() {
         left.setText("Left Breast: " + toHoursandMinutes(model.getLeftBreastTime()) );
         right.setText("Right Breast: " +  toHoursandMinutes(model.getRightBreastTime()) );
-        textViewTime.setText(simpleDateFormat.format(model.getDate()));
+        textViewTime.setText(simpleDateFormat.format(model.getLogCreationDate()));
         notesTextView.setText(model.getNotes());
     }
 

@@ -10,6 +10,10 @@
             android:title="@string/version_number_title"
             android:summary="@string/version_number_summary"
             />
+<<<<<<< HEAD
+=======
+
+>>>>>>> parse
         <Preference
             android:title="@string/more_settings_toc"
             android:key="@string/string_toc"

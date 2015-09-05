@@ -16,7 +16,7 @@ public class FeedDao extends BaseDao {
 
 
     @DatabaseField(generatedId = true)
-    int id;
+    String id;
 
     //feed type - breast or bottle
     @DatabaseField
@@ -94,12 +94,12 @@ public class FeedDao extends BaseDao {
         return notes;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

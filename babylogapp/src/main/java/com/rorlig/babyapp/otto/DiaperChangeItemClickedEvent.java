@@ -1,19 +1,19 @@
 package com.rorlig.babyapp.otto;
 
-import com.rorlig.babyapp.dao.DiaperChangeDao;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
 
 /**
  * @author gaurav gupta
  */
 public class DiaperChangeItemClickedEvent {
 
-    private final DiaperChangeDao diaperChangeDao;
+    private final DiaperChange diaperChange;
 
-    public DiaperChangeItemClickedEvent(DiaperChangeDao diaperChangeDao) {
-        this.diaperChangeDao = diaperChangeDao;
+    public DiaperChangeItemClickedEvent(DiaperChange diaperChange) {
+        this.diaperChange = diaperChange;
     }
 
-    public DiaperChangeDao getDiaperChangeDao() {
-        return diaperChangeDao;
+    public DiaperChange getDiaperChange() {
+        return diaperChange;
     }
 }

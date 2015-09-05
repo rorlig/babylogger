@@ -5,11 +5,11 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dao.GrowthDao;
+import com.rorlig.babyapp.parse_dao.Growth;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -17,13 +17,11 @@ import java.util.TimeZone;
  */
 public class GrowthView extends RelativeLayout {
 
-    private GrowthDao model;
+    private Growth model;
     private SimpleDateFormat simpleDateFormat;
 
 
-    TextView txtType;
     TextView textViewTime;
-    TextView notesTextView;
     private TextView headTextView;
     private TextView heightTextView;
     private TextView weightTextView;
@@ -53,8 +51,9 @@ public class GrowthView extends RelativeLayout {
         weightTextView = (TextView) findViewById(R.id.weight_value);
         heightTextView = (TextView) findViewById(R.id.height_value);
         headTextView = (TextView) findViewById(R.id.headValue);
-        textViewTime = (TextView) findViewById(R.id.diaperChangeTime);
+        textViewTime = (TextView) findViewById(R.id.time);
         notesContentTextView = (TextView) findViewById(R.id.notes_content);
+
 
     }
 
@@ -62,8 +61,8 @@ public class GrowthView extends RelativeLayout {
         simpleDateFormat = new SimpleDateFormat("MMM d, ''yy h:mm a");
         simpleDateFormat.setTimeZone(TimeZone.getDefault());
     }
-    public void setModel(GrowthDao model) {
-        this.model = model;
+    public void setModel(ParseObject model) {
+        this.model = (Growth) model;
         bindModel();
     }
 
@@ -71,7 +70,7 @@ public class GrowthView extends RelativeLayout {
         headTextView.setText(model.getHeadMeasurement()!=-1?model.getHeadMeasurement() + " inches": "");
         heightTextView.setText(model.getHeight() + " inches");
         weightTextView.setText(model.getWeight() + " pounds");
-        textViewTime.setText(simpleDateFormat.format(new Date(model.getDate().getTime())));
+        textViewTime.setText(simpleDateFormat.format(model.getLogCreationDate()));
         notesContentTextView.setText(model.getNotes());
 
     }

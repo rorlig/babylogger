@@ -20,12 +20,25 @@
     <!--android:layout_width="fill_parent"-->
     <!--android:layout_height="fill_parent" />-->
 
-    <ListView
-        android:id="@+id/itemList"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/itemList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="gone"
-        />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/snackbar"/>
 
     <RelativeLayout android:id="@+id/emptyView"
         android:layout_width="match_parent"

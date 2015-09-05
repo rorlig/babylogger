@@ -24,13 +24,18 @@
     <!--android:layout_width="fill_parent"-->
     <!--android:layout_height="fill_parent" />-->
 
-    <ListView
-        android:id="@+id/diaperchangelist"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="visible"
-        />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <ListView
+            android:id="@+id/diaperchangelist"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="visible"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
     <RelativeLayout android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -64,6 +69,12 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/errorText"/>
     </RelativeLayout>
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/snackbar"/>
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_diaper_item"
         android:layout_width="wrap_content"

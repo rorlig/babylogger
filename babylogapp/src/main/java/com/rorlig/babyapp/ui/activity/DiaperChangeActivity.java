@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.scheduler.TypeFaceManager;
@@ -204,7 +205,7 @@ public class DiaperChangeActivity extends InjectableActivity {
             Log.d(TAG, "diaperChangeItemClicked");
             DiaperChangeFragment fragment = new DiaperChangeFragment();
             Bundle args = new Bundle();
-            args.putInt("diaper_change_id", event.getDiaperChangeDao().getId());
+            args.putString("diaper_change_id", event.getDiaperChange().getObjectId());
             fragment.setArguments(args);
 
             Log.d(TAG, "adding to back stack ");
@@ -216,6 +217,20 @@ public class DiaperChangeActivity extends InjectableActivity {
                     .addToBackStack("main_screen_stack")
                     .commit();
 
+        }
+
+        /*
+         * event called when an feed item is saved/deleted/edited
+         */
+        @Subscribe
+        public void onDiaperChangeItem(ItemCreatedOrChanged event) {
+            Log.d(TAG, "onDiaperChangeItem");
+            closeSoftKeyBoard();
+//            finish();
+//            showFragment(FeedingListFragment.class, "feeding_list",false);
+
+//            Log.d(TAG, "onDiaperLogCreatedEvent");
+            getSupportFragmentManager().popBackStackImmediate();
         }
 
 //

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,6 +66,7 @@ public class ProfileActivity extends InjectableActivity {
     public static Uri imageUri;
     private File croppedImageFile;
     private Uri croppedImage;
+    private boolean fromTutorial;
 
 
     @Override
@@ -76,7 +75,7 @@ public class ProfileActivity extends InjectableActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
 
-        boolean fromTutorial = getIntent().getBooleanExtra("from_tutorial",false);
+        fromTutorial = getIntent().getBooleanExtra("from_tutorial",false);
         Log.d(TAG, "fromTutorial: " + fromTutorial);
 
         ProfileFragment profileFragment = new ProfileFragment();
@@ -161,20 +160,24 @@ public class ProfileActivity extends InjectableActivity {
 
         @Subscribe
         public void onSaveProfileEvent(SavedProfileEvent event) {
-
+            Log.d(TAG, "onSavedProfileEvent");
             Intent returnIntent = new Intent();
             returnIntent.putExtra("saved_profile", true);
             setResult(RESULT_OK, returnIntent);
-            startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+//            if (fromTutorial) {
+//                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+//            } else {
+                startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+//            }
             finish();
         }
 
         @Subscribe
         public void onSkipProfileEvent(SkipProfileEvent event){
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("saved_profile",false);
+            returnIntent.putExtra("saved_profile", false);
             setResult(RESULT_OK, returnIntent);
-            startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+
             finish();
         }
 
@@ -200,34 +203,8 @@ public class ProfileActivity extends InjectableActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode  + " data " + data );
+        super.onActivityResult(requestCode, resultCode, data);
 
-       super.onActivityResult(requestCode, resultCode, data);
-
-//        Log.d("on result:", "onActivityResult:" + resultCode + " request:" + requestCode + " data " + data);
-//        //Request was successful
-//        if (resultCode == RESULT_OK) {
-////                mBus.post(new ShareRequestEvent(AnalyticsStatEvent.UIActionShare.SHARE_CAMERA));
-//
-//            switch (requestCode) {
-//
-//                case AppUtils.RESULT_LOAD_IMAGE:
-//                    imagePicked(data);
-//
-//                    break;
-//                case AppUtils.RESULT_CAMERA_IMAGE_CAPTURE:
-//                    cameraImageCaptured(data);
-//                    break;
-//                case RESULT_CROP_IMAGE:
-//                    Log.d(TAG, "croppedImage URI " + croppedImage);
-//                    imageUri = croppedImage;
-//                    preferences.edit().putString("imageUri", imageUri.toString()).apply();
-//                    scopedBus.post(new CroppedImageEvent(imageUri.toString()));
-//                    break;
-//                default:
-//                    super.onActivityResult(requestCode, resultCode, data);
-//                    break;
-//            }
-//        }
     }
 
 

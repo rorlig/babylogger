@@ -129,6 +129,16 @@
         <item>Sleep</item>
     </string-array>
 
+
+    <!-- items -->
+    <string-array name="items_array">
+        <item>diapers</item>
+        <item>feed</item>
+        <item>growth</item>
+        <item>milestone</item>
+        <item>sleep</item>
+    </string-array>
+
     <!-- items logos -->
     <array name="itemIcons">
         <item>@drawable/ic_diaper_purple</item>

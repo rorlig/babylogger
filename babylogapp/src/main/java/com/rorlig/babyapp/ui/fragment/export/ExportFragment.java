@@ -22,6 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.j256.ormlite.stmt.PreparedQuery;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.dao.DiaperChangeDao;
@@ -31,8 +35,14 @@ import com.rorlig.babyapp.dao.MilestonesDao;
 import com.rorlig.babyapp.dao.SleepDao;
 import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.model.ItemModel;
+import com.rorlig.babyapp.otto.UriCreated;
 import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.DiaperChange;
+import com.rorlig.babyapp.parse_dao.Feed;
+import com.rorlig.babyapp.parse_dao.Growth;
+import com.rorlig.babyapp.parse_dao.Milestones;
+import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.ui.adapter.ExportItemAdapter;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
@@ -43,7 +53,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,6 +63,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import bolts.Continuation;
+import bolts.Task;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -114,6 +125,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     private PreparedQuery<DiaperChangeDao> queryBuilder;
     private Uri milestoneUri;
     private Uri sleepUri;
+    private String[] itemParseName;
 //    private int LOADER_ID = 0;
 
     @Override
@@ -137,6 +149,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
 
         itemNames = getResources().getStringArray(R.array.items);
+        itemParseName = getResources().getStringArray(R.array.items_array);
         List<Parcelable> itemModelArrayList = new ArrayList<Parcelable>();
 
         Parcelable[] itemList;
@@ -154,8 +167,8 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
             setStartDate();
             setEndDate();
 //            Log.d(TAG, "itemarraylist is not there in parambundle");
-            for (String item: itemNames) {
-                itemModelArrayList.add(new ItemModel(item, false));
+            for (int i=0; i<itemNames.length; ++i) {
+                itemModelArrayList.add(new ItemModel(itemNames[i], false, itemParseName[i]));
             }
         }
 
@@ -191,8 +204,8 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         int month = c.get(Calendar.MONTH) + 1;
         int day = c.get(Calendar.DAY_OF_MONTH);
         dateEndYearTextView.setText("" + year);
-        dateEndMonthTextView.setText((month<10? "0" + month: "" + month));
-        dateEndDayTextView.setText(day<10? "0" + day:"" + day);
+        dateEndMonthTextView.setText((month < 10 ? "0" + month : "" + month));
+        dateEndDayTextView.setText(day < 10 ? "0" + day : "" + day);
 
     }
 
@@ -205,7 +218,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         int day = c.get(Calendar.DAY_OF_MONTH);
         dateStartYearTextView.setText("" + year);
         dateStartMonthTextView.setText((month < 10 ? "0" + month : "" + month));
-        dateStartDayTextView.setText(day<10? "0" + day:"" + day);
+        dateStartDayTextView.setText(day < 10 ? "0" + day : "" + day);
 
 
     }
@@ -280,7 +293,15 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
             }
         }
 
+        @Subscribe
+        public void onUriEvent(UriCreated event){
+            Log.d(TAG, "onUriEvent ");
+            sendEmail(event.getUris());
+
+        }
     }
+
+
 
     @OnClick(R.id.date_range_start)
     public void onDateRangeStart(){
@@ -297,76 +318,176 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     @OnClick(R.id.btn_export)
     public void onBtnExportClicked(){
         Log.d(TAG, "export buttom clicked");
+
         if (!isItemSelected()) {
             Toast.makeText(getActivity(), R.string.text_toast_no_items_selected_for_export, Toast.LENGTH_SHORT).show();
         } else {
+            ExportUtility.getExportItems(itemsSelected(), getStartTime(), getEndTime());
+//            ParseQuery<ParseObject> diaperQuery = ParseQuery.getQuery("Diaper");
+//            ParseQuery<ParseObject> feedQuery = ParseQuery.getQuery("Feed");
+//            ParseQuery<ParseObject> sleepQuery = ParseQuery.getQuery("Sleep");
+//            ParseQuery<ParseObject> milestoneQuery = ParseQuery.getQuery("Milestone");
+//            ParseQuery<ParseObject> growthQuery = ParseQuery.getQuery("Growth");
+//            ArrayList<Task<ParseObject>> tasks = new ArrayList<>();
+//
+//            List<ParseObject> list = new ArrayList<>();
+//            list.add(new DiaperChange());
+//            list.add(new Feed());
+
+
+//            getExportableData(list);
+//            fetchAllAsync(list);
+//            List<ParseQuery<ParseObject>> parseQueries = new ArrayList<>();
+//            if (isItemSelected(ExportItem.DIAPER)) {
+//                tasks.add(fetchAsync(new DiaperChange()));
+//                parseQueries.add(diaperQuery);
+//            }
+//            if (isItemSelected(ExportItem.FEED)) {
+//                tasks.add(fetchAsync(new Feed()));
+//                parseQueries.add(feedQuery);
+//
+//            }
+//
+////            parseQueries.add(feedQuery);
+//            if (isItemSelected(ExportItem.SLEEP)) {
+//                tasks.add(fetchAsync(new Sleep()));
+//                parseQueries.add(sleepQuery);
+//
+//            }
+//
+////            parseQueries.add(sleepQuery);
+//            if (isItemSelected(ExportItem.GROWTH)) {
+//                tasks.add(fetchAsync(new Growth()));
+//                parseQueries.add(growthQuery);
+//
+//            }
+//
+////            parseQueries.add(growthQuery);
+//            if (isItemSelected(ExportItem.MILESTONE)) {
+//                tasks.add(fetchAsync(new Milestones()));
+//                parseQueries.add(milestoneQuery);
+//
+//            }
+//
+//            fetchAllAsync(parseQueries);
+//            for (Task task: tasks)
+//                    task.
+//
+////            parseQueries.add(milestoneQuery);
+////            Bolts bolts = new Bolts();
+////            bolts.
+////            for (ParseQuery<ParseObject> parseObjectParseQuery: parseQueries) {
+////            }
+//            Task.
             Uri diaperChangeUri = null;
             Uri growthUri = null;
             Uri feedsUri = null;
 //            Uri milestonesUri = null;
             if (isItemSelected(ExportItem.DIAPER)) {
-                try {
-                    List<DiaperChangeDao> diaperChangeList = babyORMLiteUtils.getDiaperChangeList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  diaperChangeList.size());
-                    if (diaperChangeList.size()>0)
-                        diaperChangeUri  = createDiaperListToCSV(diaperChangeList);
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                Log.d(TAG, " startTime " + getStartTime() + " endTime " + getEndTime());
+//
+//                ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+//                query.whereGreaterThanOrEqualTo("logCreationDate", getStartTime() );
+//                query.whereLessThanOrEqualTo("logCreationDate", getEndTime());
+//
+//                query.findInBackground().onSuccess(new Continuation<List<ParseObject>, Object>() {
+//
+//                    @Override
+//                    public Object then(Task<List<ParseObject>> task) throws Exception {
+//                        Uri diaperChangeUri = createDiaperListToCSV(task.getResult());
+//
+//
+//                        return null;
+//                    }
+//
+//
+//                });
+//                query.findInBackground(new FindCallback<ParseObject>() {
+//                    @Override
+//                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                        Log.d(TAG, "find diapers callback");
+//                        if (objects != null) {
+//                            Log.d(TAG, "object size " + objects.size());
+//                            Uri diaperChangeUri = createDiaperListToCSV(objects);
+//                        }
+//                    }
+//                });
+
+//                    List<DiaperChangeDao> diaperChangeList = babyORMLiteUtils.getDiaperChangeList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " +  diaperChangeList.size());
+//                    if (diaperChangeList.size()>0)
+//                        diaperChangeUri  = createDiaperListToCSV(diaperChangeList);
 
             }
 
             if (isItemSelected(ExportItem.FEED)) {
-                try {
-                    List<FeedDao> feedList = babyORMLiteUtils.getFeedList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  feedList.size());
-                    if (feedList.size()>0)
-                        feedsUri  = createFeedListToCSV(feedList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
+                Log.d(TAG, " startTime " + getStartTime() + " endTime " + getEndTime());
+
+//                ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+//                query.whereGreaterThanOrEqualTo("logCreationDate", getStartTime() );
+//                query.whereLessThanOrEqualTo("logCreationDate", getEndTime());
+//                query.findInBackground(new FindCallback<ParseObject>() {
+//                    @Override
+//                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                        Log.d(TAG, "find feed callback");
+//                        if (objects != null) {
+//                            Log.d(TAG, "object size " + objects.size());
+//                            Uri f = createDiaperListToCSV(objects);
+//                        }
+//                    }
+//                });
+
+//                try {
+//                    List<FeedDao> feedList = babyORMLiteUtils.getFeedList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " +  feedList.size());
+//                    if (feedList.size()>0)
+//                        feedsUri  = createFeedListToCSV(feedList);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
             }
-
-            if (isItemSelected(ExportItem.GROWTH)) {
-                try {
-                    List<GrowthDao> growthList = babyORMLiteUtils.getGrowthList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  growthList.size());
-                    if (growthList.size()>0)
-                        growthUri  = createGrowthListToCSV(growthList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (isItemSelected(ExportItem.MILESTONE)) {
-                try {
-                    List<MilestonesDao> milestonesList = babyORMLiteUtils.getMilestoneList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  milestonesList.size());
-
-                    if (milestonesList.size()>0)
-                        milestoneUri = createMilestoneListToCSV(milestonesList);
-//                    if (milestonesList.size()>0)
+//
+//            if (isItemSelected(ExportItem.GROWTH)) {
+//                try {
+//                    List<GrowthDao> growthList = babyORMLiteUtils.getGrowthList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " +  growthList.size());
+//                    if (growthList.size()>0)
 //                        growthUri  = createGrowthListToCSV(growthList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            if (isItemSelected(ExportItem.MILESTONE)) {
+//                try {
+//                    List<MilestonesDao> milestonesList = babyORMLiteUtils.getMilestoneList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " +  milestonesList.size());
+//
+//                    if (milestonesList.size()>0)
+//                        milestoneUri = createMilestoneListToCSV(milestonesList);
+////                    if (milestonesList.size()>0)
+////                        growthUri  = createGrowthListToCSV(growthList);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            if (isItemSelected(ExportItem.SLEEP)) {
+//                try {
+//                    List<SleepDao> sleepList = babyORMLiteUtils.getSleepList(getStartTime(), getEndTime());
+//                    Log.d(TAG, "number of rows : " + sleepList.size());
+//                    if (sleepList.size()>0)
+//                        sleepUri  = createSleepListToCSV(sleepList);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
-            if (isItemSelected(ExportItem.SLEEP)) {
-                try {
-                    List<SleepDao> sleepList = babyORMLiteUtils.getSleepList(getStartTime(), getEndTime());
-                    Log.d(TAG, "number of rows : " +  sleepList.size());
-                    if (sleepList.size()>0)
-                        sleepUri  = createSleepListToCSV(sleepList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
-
-            sendEmail(diaperChangeUri, feedsUri, growthUri, milestoneUri, sleepUri, "Logs");
+//            sendEmail(diaperChangeUri, feedsUri, growthUri, milestoneUri, sleepUri, "Logs");
         }
 
 
@@ -378,7 +499,7 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     private Date getStartTime() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DATE, Integer.parseInt(dateStartDayTextView.getText().toString()));
-        c.set(Calendar.MONTH, Integer.parseInt(dateStartMonthTextView.getText().toString())-1);
+        c.set(Calendar.MONTH, Integer.parseInt(dateStartMonthTextView.getText().toString()) - 1);
         c.set(Calendar.YEAR, Integer.parseInt(dateStartYearTextView.getText().toString()));
         return c.getTime();
 
@@ -387,10 +508,10 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
     private Date getEndTime() {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.DATE, Integer.parseInt(dateEndDayTextView.getText().toString())+1);
+        c.set(Calendar.DATE, Integer.parseInt(dateEndDayTextView.getText().toString()) + 1);
         c.set(Calendar.MONTH, Integer.parseInt(dateEndMonthTextView.getText().toString()) - 1);
         c.set(Calendar.YEAR, Integer.parseInt(dateEndYearTextView.getText().toString()));
-        c.set(Calendar.HOUR,0);
+        c.set(Calendar.HOUR, 0);
         return c.getTime();
     }
 
@@ -458,6 +579,16 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     }
 
 
+    private List<ItemModel> itemsSelected(){
+        List<ItemModel> itemModelList = new ArrayList<>();
+        for (Parcelable model :exportListAdapter.getLogListItem()) {
+            ItemModel itemModel = (ItemModel) model;
+            if (itemModel.isItemChecked()) {
+                itemModelList.add(itemModel);
+            }
+        }
+        return itemModelList;
+    }
     private boolean isItemSelected() {
         for (Parcelable model :exportListAdapter.getLogListItem()) {
             ItemModel itemModel = (ItemModel) model;
@@ -538,15 +669,16 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
      * @return Uri to the file location.
      */
 
-    private Uri createDiaperListToCSV(List<DiaperChangeDao> diaperChangeList) {
+    private Uri createDiaperListToCSV(List<ParseObject> diaperChangeList) {
         String header =   "\"Date\",\"Diaper Change Event Type\",\"Poop Texture\",\"Poop Color\",\"Diaper Incident\",\"Notes\"\n";
         StringBuilder stringBuilder = new StringBuilder();
-        for (DiaperChangeDao diaperChangeDao: diaperChangeList) {
-            stringBuilder.append("\"" + diaperChangeDao.getDate() + "\",\""
-                    + diaperChangeDao.getDiaperChangeEventType() + "\",\""
-                    + diaperChangeDao.getPoopTexture() + "\",\"" + diaperChangeDao.getPoopTexture() + "\",\""
-                    + diaperChangeDao.getPoopColor() + "\",\"" + diaperChangeDao.getDiaperChangeIncidentType()
-                    + "\",\"" + diaperChangeDao.getDiaperChangeNotes() + "\"\n");
+        for (ParseObject object: diaperChangeList) {
+            DiaperChange diaperChange = (DiaperChange) object;
+            stringBuilder.append("\"" + diaperChange.getLogCreationDate() + "\",\""
+                    + diaperChange.getDiaperChangeEventType() + "\",\""
+                    + diaperChange.getPoopTexture() + "\",\"" + diaperChange.getPoopTexture() + "\",\""
+                    + diaperChange.getPoopColor() + "\",\"" + diaperChange.getDiaperChangeIncidentType()
+                    + "\",\"" + diaperChange.getDiaperChangeNotes() + "\"\n");
 
 
         }
@@ -818,5 +950,77 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         getActivity().finish();
     }
 
+    private void sendEmail(ArrayList<Uri> uris) {
+        ArrayList<Uri> emailUris = new ArrayList<Uri>();
+
+        for (Uri uri : uris){
+            Log.d(TAG, "uri " + uri.getPath());
+            emailUris.add(uri);
+        }
+
+//        if (diaperChangeUri!=null) uri.add(diaperChangeUri);
+//        if (feedsUri!=null) uri.add(feedsUri);
+//        if (growthUri!=null) uri.add(growthUri);
+//        if (milestoneUri!=null) uri.add(milestoneUri);
+//        if (sleepUri!=null) uri.add(sleepUri);
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Logs");
+        sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, emailUris);
+        sendIntent.setType("message/rfc822");
+        sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
+                new String[]{});
+
+        startActivity(Intent.createChooser(sendIntent, "Send Email"));
+        getActivity().finish();
+
+    }
+
+    public Task<ParseObject> fetchAsync(final ParseObject obj) {
+        final Task<ParseObject>.TaskCompletionSource tcs = Task.create();
+        obj.fetchInBackground(new GetCallback() {
+
+            @Override
+            public void done(Object o, Throwable throwable) {
+
+            }
+
+            @Override
+            public void done(ParseObject object, com.parse.ParseException e) {
+                if (e == null) {
+                    tcs.setResult(object);
+                    Log.d(TAG, "object received " + object);
+                } else {
+                    tcs.setError(e);
+                }
+            }
+
+
+        });
+        return tcs.getTask();
+    }
+
+    public Task<Void> fetchAllAsync(List<ParseObject> obj) {
+        Log.d(TAG, "fetchAllAsync ");
+        ArrayList<Task<ParseObject>> tasks = new ArrayList<Task<ParseObject>>();
+        for (ParseObject query : obj)
+            tasks.add(fetchAsync(query));
+
+        return Task.whenAll(tasks);
+    }
+
+    public void getExportableData(final List<ParseObject> obj) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Baby");
+
+        query.findInBackground().onSuccess(new Continuation<List<ParseObject>, Object>() {
+            @Override
+            public Object then(Task<List<ParseObject>> task) throws Exception {
+                ArrayList<Task<ParseObject>> tasks = new ArrayList<Task<ParseObject>>();
+                for (ParseObject query : obj)
+                    tasks.add(fetchAsync(query));
+                return Task.whenAll(tasks);
+            }
+        });
+    }
 
 }

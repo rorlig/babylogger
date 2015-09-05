@@ -2,21 +2,29 @@ package com.rorlig.babyapp.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.IntentCompat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.parse.LogOutCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ObjectGraphActivity;
 import com.rorlig.babyapp.otto.ScopedBus;
 import com.rorlig.babyapp.ui.activity.InjectableActivity;
 import com.rorlig.babyapp.ui.activity.LicenseActivity;
+import com.rorlig.babyapp.ui.activity.LoginActivity;
 import com.rorlig.babyapp.ui.activity.PrefsActivity;
 import com.rorlig.babyapp.ui.activity.TutorialActivity;
+import com.rorlig.babyapp.utils.AppUtils;
 
 import javax.inject.Inject;
 
@@ -28,7 +36,8 @@ import butterknife.ButterKnife;
 public class InjectableFragment extends Fragment {
 
     private static final String TAG = "InjectableFragment";
-
+    @Inject
+    public SharedPreferences preferences;
     @Inject
     public ScopedBus scopedBus;
 
@@ -95,17 +104,50 @@ public class InjectableFragment extends Fragment {
                 tutorialIntent.putExtra("fromLauncher", false);
                 startActivity(tutorialIntent);
                 return true;
+
+            case R.id.action_logout:
+                ParseUser.logOutInBackground(new LogOutCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d(TAG, "logging out from parse");
+                        clearUserInfo();
+                        Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+                        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                });
         }
         return super.onOptionsItemSelected(item);
+    }
+    /*
+     * clears the user information...
+     */
+    private void clearUserInfo() {
+        Log.d(TAG, "clearUserInfo");
+        preferences.edit().putString("name", "").apply();
+        preferences.edit().putString("imageUri", "").apply();
+        preferences.edit().putString("baby_sex","").apply();
+        preferences.edit().putString("dob","").apply();
+        AppUtils.invalidateDiaperChangeCaches(getActivity().getApplicationContext());
+        AppUtils.invalidateSleepChangeCaches(getActivity().getApplicationContext());
+//        preferences.edit().putString(DiaperChangeStatsType.WEEKLY.getValue(), "").apply();
+//        preferences.edit().putString(DiaperChangeStatsType.MONTHLY.getValue(), "").apply();
+//        preferences.edit().putString(DiaperChangeStatsType.YEARLY.getValue(), "").apply();
+        try {
+            ParseObject.unpinAll();
+        } catch (ParseException e) {
+            Log.d(TAG, "ParseException " + e);
+            e.printStackTrace();
+        }
+        //clear the caches of the stored results...
+//        ParseQuery.clearAllCachedResults();
     }
 
     /*
      * called when the fragment comes back on the top on pop from the fragment stack..
      */
     public void onFragmentResume() {
-
         Log.d(TAG, "onFragment Resume ");
-
     }
 
     /*
@@ -121,6 +163,13 @@ public class InjectableFragment extends Fragment {
 
     }
 
+
+    protected boolean isValidEmail(final CharSequence target) {
+        if (target == null)
+            return false;
+
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
 
 
 }

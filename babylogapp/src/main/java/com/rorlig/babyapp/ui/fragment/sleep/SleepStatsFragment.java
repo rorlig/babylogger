@@ -15,17 +15,20 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
-import com.rorlig.babyapp.db.BabyLoggerORMUtils;
+import com.rorlig.babyapp.otto.SleepStatsEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.utils.AppUtils;
+import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,8 +52,22 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
     @Inject
     Context context;
 
-    enum SleepStatsType {
-        WEEKLY, MONTHLY, YEARLY
+    @Inject
+    Gson gson;
+
+    private EventListener eventListener = new EventListener();
+
+    public enum SleepStatsType {
+        WEEKLY("Weekly"), MONTHLY("Monthly"),YEARLY ("Yearly");
+
+        private final String value;
+
+        SleepStatsType(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
     }
 
     protected String[] mMonths = new String[] {
@@ -76,7 +93,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
     @Inject
     BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
-    private BabyLoggerORMUtils babyORMLiteUtils;
+//    private BabyLoggerORMUtils babyORMLiteUtils;
     private List<String[]> sleepDaoList;
 //    private List<String[]> diaperChangeDaoList;
 
@@ -89,7 +106,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 //                "fonts/proximanova_light.ttf");
 
         scopedBus.post(new FragmentCreated("Stats Fragment"));
-        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
+//        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
 
 //        barChart.setOnChartValueSelectedListener(this);
 //s
@@ -113,19 +130,11 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
         barChart.getLegend().setTextColor(getResources().getColor(R.color.primary_gray_dark));
 
 
-
-
-
-
-
-        try {
-            Log.d(TAG, "get the data by day");
-            sleepDaoList =  babyORMLiteUtils.getSleepByDayofWeek();
-            setData(SleepStatsType.WEEKLY);
-        } catch (SQLException   e) {
-            e.printStackTrace();
-        }
-//
+        Log.d(TAG, "get the data by day");
+        SleepStatsUtility.getSleepDaysofWeek();
+//            sleepDaoList =  babyORMLiteUtils.getSleepByDayofWeek();
+//            setData(SleepStatsType.WEEKLY);
+        //
         sleepChangeRadioGroup.setOnCheckedChangeListener(this);
 
 
@@ -160,39 +169,87 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
         inflater.inflate(R.menu.menu_main, menu);
     }
 
+    /*
+   * Register to events...
+   */
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart");
+        scopedBus.register(eventListener);
+    }
+
+    /*
+     * Unregister from events ...
+     */
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+        scopedBus.unregister(eventListener);
+
+    }
+
+
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-        try {
-            switch (checkedId) {
-                case R.id.sleep_stats_weekly:
-                    sleepDaoList =  babyORMLiteUtils.getSleepByDayofWeek();
-                    barChart.setMaxVisibleValueCount(7);
+        switch (checkedId) {
+            case R.id.sleep_stats_weekly:
+//                    sleepDaoList =  babyORMLiteUtils.getSleepByDayofWeek();
+
+                if (AppUtils.isNetworkAvailable(getActivity())
+                        &&!isSleepCached(SleepStatsType.WEEKLY)) {
+                    SleepStatsUtility.getSleepDaysofWeek();
+                } else {
+                    getSleepStatsOffline(SleepStatsType.WEEKLY);
+
+                }
+
+                barChart.setMaxVisibleValueCount(7);
 //                    barChart.getXAxis().setLabelsToSkip(0);
-                    setData(SleepStatsType.WEEKLY);
+//                setData(sleepDaoList, SleepStatsType.WEEKLY);
 
-                    break;
-                case R.id.sleep_stats_monthly:
-                    sleepDaoList =  babyORMLiteUtils.getSleepByWeekofMonth();
-                    barChart.setMaxVisibleValueCount(5);
+                break;
+            case R.id.sleep_stats_monthly:
+
+                if (AppUtils.isNetworkAvailable(getActivity())
+                        &&!isSleepCached(SleepStatsType.MONTHLY)) {
+                    SleepStatsUtility.getSleepByWeekofMonth();
+                } else {
+                    getSleepStatsOffline(SleepStatsType.MONTHLY);
+
+                }
+
+//                    sleepDaoList =  babyORMLiteUtils.getSleepByWeekofMonth();
+                barChart.setMaxVisibleValueCount(5);
 //                    barChart.getXAxis().setLabelsToSkip(0);
 
-                    setData(SleepStatsType.MONTHLY);
-                    break;
-                default:
-                    sleepDaoList =  babyORMLiteUtils.getSleepByMonthofYear();
-                    barChart.setMaxVisibleValueCount(12);
+//                setData(sleepDaoList, SleepStatsType.MONTHLY);
+                break;
+            default:
+//                    sleepDaoList =  babyORMLiteUtils.getSleepByMonthofYear();
+
+                if (AppUtils.isNetworkAvailable(getActivity())
+                        &&!isSleepCached(SleepStatsType.WEEKLY)) {
+                    SleepStatsUtility.getSleepByMonthofYear();
+                } else {
+                    getSleepStatsOffline(SleepStatsType.MONTHLY);
+
+                }
+                SleepStatsUtility.getSleepByMonthofYear();
+
+                barChart.setMaxVisibleValueCount(12);
 //                    barChart.getXAxis().setLabelsToSkip(0);
 
-                    setData(SleepStatsType.YEARLY);
-            }
-
-        } catch (SQLException sqlException) {
-            Log.e(TAG, "Exception: " + sqlException);
+//                setData(sleepDaoList, SleepStatsType.YEARLY);
         }
 
     }
 
+    private boolean isSleepCached(SleepStatsType sleepStatsType) {
+        return !preferences.getString(sleepStatsType.getValue(),"").equals("");
+    }
 
 
     private String getDateRangeForWeek(int weekNumber){
@@ -210,17 +267,17 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 
     }
 
-    private void setData(SleepStatsType sleepStatsType) {
+    private void setData(List<String[]> sleepDaoList, SleepStatsType statsType) {
 
         ArrayList<String> xVals = new ArrayList<String>();
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         int i = 0;
-        List<String[]> fullList = getFullList(sleepStatsType);
+        List<String[]> fullList = getFullList(sleepDaoList, statsType);
 
         for (String[] sleepValue: fullList) {
             Float value = Float.parseFloat(sleepValue[1])/60;
             String xValue = sleepValue[0];
-            switch (sleepStatsType) {
+            switch (statsType) {
                 case WEEKLY:
                     break;
                 case MONTHLY:
@@ -238,7 +295,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
             i++;
         }
         barChart.animateY(1000);
-        BarDataSet set1 = new BarDataSet(yVals, sleepStatsType.toString());
+        BarDataSet set1 = new BarDataSet(yVals, statsType.getValue());
         set1.setBarSpacePercent(35f);
         set1.setColor(getResources().getColor(R.color.primary_gray));
         set1.setValueTextColor(getResources().getColor(R.color.primary_gray));
@@ -257,21 +314,21 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
         barChart.invalidate();
     }
 
-    private List<String[]> getFullList(SleepStatsFragment.SleepStatsType sleepStatsType) {
+    private List<String[]> getFullList(List<String[]> sleepDaoList, SleepStatsType sleepStatsType) {
 
         switch (sleepStatsType) {
             case WEEKLY:
-                return getFullListDayofWeek();
+                return getFullListDayofWeek(sleepDaoList);
             case MONTHLY:
-                return getFullListWeekofMonth();
+                return getFullListWeekofMonth(sleepDaoList);
             case YEARLY:
-                return getFullListMonthofDay();
+                return getFullListMonthofDay(sleepDaoList);
         }
         return null;
 
     }
 
-    private List<String[]> getFullListMonthofDay() {
+    private List<String[]> getFullListMonthofDay(List<String[]> sleepDaoList) {
 
         List<String[]> returnList = new ArrayList<String[]>();
 
@@ -296,8 +353,10 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
             String[] temp  = new String[2];
 
             String formattedDate = sdf.format(startTime.getTime());
+            Log.d(TAG, formattedDate);
+            for (String[] diaperChangeDao: this.sleepDaoList) {
 
-            for (String[] diaperChangeDao: sleepDaoList) {
+                Log.d(TAG, diaperChangeDao[0]);
 
                 if (diaperChangeDao[0].equals(formattedDate)) {
                     Log.d(TAG, "found ");
@@ -328,7 +387,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
     }
 
 
-    private List<String[]> getFullListWeekofMonth() {
+    private List<String[]> getFullListWeekofMonth(List<String[]> sleepDaoList) {
         List<String[]> returnList = new ArrayList<String[]>();
 
         Calendar startTime = Calendar.getInstance();
@@ -353,7 +412,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 //           Log.d(TAG, "week no" + startTime.get(Calendar.WEEK_OF_YEAR));
             int weekNo = startTime.get(Calendar.WEEK_OF_YEAR);
 
-            for (String[] diaperChangeDao: sleepDaoList) {
+            for (String[] diaperChangeDao: this.sleepDaoList) {
 
                 if (diaperChangeDao[0].equals(String.valueOf(weekNo))) {
                     Log.d(TAG, "found ");
@@ -385,7 +444,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
         return returnList;
     }
 
-    private List<String[]> getFullListDayofWeek() {
+    private List<String[]> getFullListDayofWeek(List<String[]> sleepDaoList) {
 
         List<String[]> returnList = new ArrayList<String[]>();
 
@@ -409,11 +468,11 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
             // Do your job here with `date`.
             boolean found = false;
             String[] temp  = new String[2];
-
-            for (String[] sleepDao: sleepDaoList) {
-
+            Log.d(TAG, "date " + sdf.format(date));
+            for (String[] sleepDao: this.sleepDaoList) {
+                Log.d(TAG, sleepDao[0]);
                 if (sleepDao[0].equals(sdf.format(date))) {
-                    Log.d(TAG, "found " + sdf.format(date));
+//                    Log.d(TAG, "found " + sdf.format(date));
                     try {
                         sdf.parse(sleepDao[0]);
                         calendar.setTime(date);
@@ -428,7 +487,7 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
             }
             if (!found) {
 //                        sdf.parse(diaperChangeDao[0]);
-                Log.d(TAG, " not found");
+//                Log.d(TAG, " not found");
                 try {
                     sdf.parse(sdf.format(date));
                     Calendar c = Calendar.getInstance();
@@ -461,4 +520,26 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
         }
     }
 
+    private class EventListener {
+        @Subscribe
+        public void onSleepStatsEvent(SleepStatsEvent event) {
+            sleepDaoList = event.getList();
+            setData(sleepDaoList, event.getSleepStatsType());
+            preferences.edit().putString(event.getSleepStatsType().getValue(), gson.toJson(event.getList())).apply();
+
+        }
+    }
+
+
+    private void getSleepStatsOffline(SleepStatsType sleepStatsType) {
+        if (!preferences.getString(sleepStatsType.getValue(),"").equals("")) {
+            Log.d(TAG, preferences.getString(sleepStatsType.getValue(), ""));
+            sleepDaoList = gson.fromJson(preferences.getString(sleepStatsType.getValue(),""), new TypeToken<List<String[]>>() {
+            }.getType());
+            Log.d(TAG, "diaper change dao list " + sleepDaoList);
+            setData(sleepDaoList, sleepStatsType);
+
+
+        }
+    }
 }

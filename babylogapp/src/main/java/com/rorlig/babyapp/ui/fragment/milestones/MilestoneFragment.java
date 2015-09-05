@@ -29,26 +29,37 @@ import android.widget.TextView;
 import com.android.camera.CropImageIntentBuilder;
 import com.desmond.squarecamera.CameraActivity;
 import com.gc.materialdesign.views.Button;
-import com.j256.ormlite.dao.Dao;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.MilestonesDao;
 import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
-import com.rorlig.babyapp.otto.MilestoneItemCreated;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.Milestones;
 import com.rorlig.babyapp.ui.PictureInterface;
-import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.profile.PictureSourceSelectFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.sql.SQLException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 import javax.inject.Inject;
 
+import bolts.Continuation;
+import bolts.Task;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -57,22 +68,19 @@ import butterknife.OnClick;
  * Created by gaurav
  * Milestone fragment
  */
-public class MilestoneFragment extends InjectableFragment implements PictureInterface {
+public class MilestoneFragment extends BaseCreateLogFragment implements PictureInterface {
 
     @ForActivity
     @Inject
     Context context;
 
 
-
     @InjectView(R.id.two_button_layout)
     LinearLayout editDeleteBtn;
 
 
-
     @InjectView(R.id.custom_milestone_text)
     AutoCompleteTextView customMilestonesTextView;
-
 
 
     @InjectView(R.id.save_btn)
@@ -95,13 +103,11 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     Picasso picasso;
 
 
-
-
     DateTimeHeaderFragment dateTimeHeader;
 
     private String TAG = "MilestoneFragment";
 
-    private int id = -1;
+    private String id;
     private boolean showEditDelete = false;
     private ArrayAdapter<CharSequence> milestoneAdapter;
     private boolean milestoneEmpty = true;
@@ -109,6 +115,11 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     private Uri croppedImage;
     private Uri imageUri;
     private PictureSourceSelectFragment pictureSourceSelectFragment;
+    private boolean resetImage;
+
+    public MilestoneFragment() {
+        super("Milestone");
+    }
 
 
     @Override
@@ -119,26 +130,24 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
         scopedBus.post(new FragmentCreated("Milestone Fragment"));
 
 
-
         milestoneAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.milestones,android.R.layout.simple_list_item_1);
+                R.array.milestones, android.R.layout.simple_list_item_1);
         customMilestonesTextView.setAdapter(milestoneAdapter);
 
 
         saveBtn.setEnabled(false);
 
 
-
-        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+        dateTimeHeader = (DateTimeHeaderFragment) (getChildFragmentManager().findFragmentById(R.id.header));
         Log.d(TAG, " green color " + Integer.toString(R.color.primary_green, 16));
         dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.ORANGE);
 
         notes.setOnEditorActionListener(doneActionListener);
 
         //initialize views if not creating new feed item
-        if (getArguments()!=null) {
+        if (getArguments() != null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getInt("id");
+            id = getArguments().getString("id");
             initViews(id);
         }
 //        mileStoneImageView.setBackgroundColor(Color.CYAN);
@@ -146,41 +155,68 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
         setUpTextWatchers();
 
 
-
     }
 
-    private void initViews(int id) {
+    private void initViews(String id) {
 
         Log.d(TAG, "initViews " + id);
-        try {
-            MilestonesDao milestonesDao = babyLoggerORMLiteHelper.getMilestonesDao().queryForId(id);
-            Log.d(TAG, milestonesDao.toString());
-            editDeleteBtn.setVisibility(View.VISIBLE);
-            saveBtn.setVisibility(View.GONE);
+        editDeleteBtn.setVisibility(View.VISIBLE);
+        saveBtn.setVisibility(View.GONE);
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Milestone");
+        query.fromLocalDatastore();
 
-            notes.setText(milestonesDao.getNotes());
-            dateTimeHeader.setDateTime(milestonesDao.getDate());
-            customMilestonesTextView.setText(milestonesDao.getTitle());
+        query.getInBackground(id, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                Milestones milestone = (Milestones) object;
+                Log.d(TAG, milestone.toString());
+                notes.setText(milestone.getNotes());
+                dateTimeHeader.setDateTime(milestone.getLogCreationDate());
+                customMilestonesTextView.setText(milestone.getTitle());
+                if (milestone.getParseFile()!=null && milestone.getParseFile().getUrl()!=null){
+                    picasso.with(context).load(milestone.getParseFile().getUrl()).into(mileStoneImageView);
+                }
+                imageUri = Uri.parse(milestone.getImagePath());
+//                Log.d(TAG, "imagePath: " + milestone.getImagePath());
+//                updateImageUri(milestone.getImagePath());
+                showEditDelete = true;
 
-            Log.d(TAG, "imagePath: " + milestonesDao.getImagePath());
-            updateImageUri(milestonesDao.getImagePath());
-            showEditDelete = true;
-
-            milestoneEmpty = false;
+                milestoneEmpty = false;
 
 
+                setSaveEnabled();
+            }
+        });
 
-            setSaveEnabled();
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            MilestonesDao milestonesDao = babyLoggerORMLiteHelper.getMilestonesDao().queryForId(id);
+//            Log.d(TAG, milestonesDao.toString());
+//            editDeleteBtn.setVisibility(View.VISIBLE);
+//            saveBtn.setVisibility(View.GONE);
+//
+//            notes.setText(milestonesDao.getNotes());
+//            dateTimeHeader.setDateTime(milestonesDao.getDate());
+//            customMilestonesTextView.setText(milestonesDao.getTitle());
+//
+//            Log.d(TAG, "imagePath: " + milestonesDao.getImagePath());
+//            updateImageUri(milestonesDao.getImagePath());
+//            showEditDelete = true;
+//
+//            milestoneEmpty = false;
+//
+//
+//
+//            setSaveEnabled();
+//
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
 
-    private EditText.OnEditorActionListener doneActionListener = new EditText.OnEditorActionListener(){
+    private EditText.OnEditorActionListener doneActionListener = new EditText.OnEditorActionListener() {
 
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -281,7 +317,7 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_milestone, null);
+        View view = inflater.inflate(R.layout.fragment_milestone, null);
         ButterKnife.inject(this, view);
         return view;
     }
@@ -320,9 +356,6 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     }
 
 
-
-
-
     private class EventListener {
         public EventListener() {
 
@@ -330,77 +363,141 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     }
 
 
-
     @OnClick(R.id.edit_btn)
-    public void onEditBtnClicked(){
+    public void onEditBtnClicked() {
         Log.d(TAG, "edit btn clicked");
         createOrEdit();
     }
 
     /*
      */
-    private void createOrEdit() {
-        Dao<MilestonesDao, Integer> milestonesDao;
-        try {
+    public void createOrEdit() {
+        final Milestones tempMilestoneObject = createLocalObject();
+        ParseFile file=null;
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Milestone");
+        query.fromLocalDatastore();
 
-            milestonesDao = createGrowthDao();
-            MilestonesDao daoObject = createLocalObject();
+        if (imageUri != null) {
 
-            if (daoObject!=null) {
-                if (id!=-1) {
-                    Log.d(TAG, "updating it");
-                    daoObject.setId(id);
-                    milestonesDao.update(daoObject);
-                } else {
-                    Log.d(TAG, "creating it");
-                    milestonesDao.create(daoObject);
-                }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(new File(imageUri.getPath()));
+                byte[] buf = new byte[1024];
+                int n;
+                while (-1 != (n = fis.read(buf)))
+                    baos.write(buf, 0, n);
 
-                Log.d(TAG, "created objected " + daoObject);
-                closeSoftKeyBoard();
+                byte[] bbytes = baos.toByteArray();
+
+                file = new ParseFile(imageUri.getLastPathSegment(), bbytes);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
-        scopedBus.post(new MilestoneItemCreated());
+
+        if (id != null) {
+            if (file!=null) {
+                final ParseFile finalFile = file;
+                file.saveInBackground().onSuccess(new Continuation<Void, Object>() {
+                    @Override
+                    public Object then(Task<Void> task) throws Exception {
+                        Log.d(TAG, "file saved successfully");
+                        query.getInBackground(id).onSuccess(new Continuation<ParseObject, Object>() {
+                            @Override
+                            public Object then(Task<ParseObject> task) throws Exception {
+                                Log.d(TAG, "found the parseobject successfully");
+                                Milestones milestone = (Milestones) task.getResult();
+                                milestone.setTitle(tempMilestoneObject.getTitle());
+                                milestone.setImagePath(tempMilestoneObject.getImagePath());
+                                milestone.setLogCreationDate(tempMilestoneObject.getLogCreationDate());
+                                milestone.setNotes(tempMilestoneObject.getNotes());
+                                milestone.setParseFile(finalFile);
+                                saveEventually(milestone);
+                                return null;
+                            }
+                        });
+                        return null;
+                    }
+                });
+            } else {
+                query.getInBackground(id).onSuccess(new Continuation<ParseObject, Object>() {
+                    @Override
+                    public Object then(Task<ParseObject> task) throws Exception {
+                        Log.d(TAG, "found the parseobject successfully");
+                        Milestones milestone = (Milestones) task.getResult();
+                        milestone.setTitle(tempMilestoneObject.getTitle());
+                        milestone.setImagePath(tempMilestoneObject.getImagePath());
+                        milestone.setLogCreationDate(tempMilestoneObject.getLogCreationDate());
+                        milestone.setNotes(tempMilestoneObject.getNotes());
+//                        milestone.setParseFile(finalFile);
+                        saveEventually(milestone);
+                        return null;
+                    }
+                });
+            }
+        } else {
+            if (file != null) {
+                final ParseFile finalFile1 = file;
+                file.saveInBackground().onSuccess(new Continuation<Void, Object>() {
+                    @Override
+                    public Object then(Task<Void> task) throws Exception {
+                        Log.d(TAG, "creating it");
+                        tempMilestoneObject.setParseFile(finalFile1);
+                        saveEventually(tempMilestoneObject);
+                        return null;
+                    }
+                });
+
+            } else {
+                saveEventually(tempMilestoneObject);
+            }
+
+        }
+        closeSoftKeyBoard();
 
     }
 
-    private MilestonesDao createLocalObject() {
+    private void saveEventually(final Milestones milestones) {
+        milestones.pinInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.d(TAG, "pinning new object");
+                milestones.saveEventually(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d(TAG, "saving locally");
+                        scopedBus.post(new ItemCreatedOrChanged("Milestone"));
+                    }
+                });
+            }
+        });
+    }
+
+    private Milestones createLocalObject() {
         Date date = dateTimeHeader.getEventTime();
 
-        String imagePath = imageUri==null || imageUri.getPath() ==null ? "": imageUri.getPath();
+        String imagePath = imageUri == null || imageUri.getPath() == null ? "" : imageUri.getPath();
 //        String milestone = customMilestonesTextView.getText().toString();
-        return new MilestonesDao(customMilestonesTextView.getText().toString(),
-                                notes.getText().toString(),
-                                date, imagePath);
+        return new Milestones(customMilestonesTextView.getText().toString(),
+                notes.getText().toString(),
+                date, imagePath, null);
     }
 
     /*
      * deletes the feed item...
      */
     @OnClick(R.id.delete_btn)
-    public void onDeleteBtnClicked(){
-        Log.d(TAG, "delete btn clicked");
-        Dao<MilestonesDao, Integer> daoObject;
-        try {
-            daoObject = createGrowthDao();
-            if (id!=-1) {
-                Log.d(TAG, "updating it");
-                daoObject.deleteById(id);
-            }
-            scopedBus.post(new MilestoneItemCreated());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void onDeleteBtnClicked() {
+        delete(id);
     }
 
-    private Dao<MilestonesDao, Integer> createGrowthDao() throws SQLException {
-        return babyLoggerORMLiteHelper.getMilestonesDao();
-    }
+//    private Dao<MilestonesDao, Integer> createGrowthDao() throws SQLException {
+//        return babyLoggerORMLiteHelper.getMilestonesDao();
+//    }
 
 
     public void handleGalleryEvent() {
@@ -458,7 +555,7 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
                     break;
                 case AppUtils.RESULT_CROP_IMAGE:
                     Log.d(TAG, "croppedImage URI " + croppedImage);
-                    updateImageUri(croppedImage.toString());
+                    updateImageUri(croppedImage.toString(), true);
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);
@@ -469,12 +566,12 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
 
 
     @OnClick(R.id.milestone_pic)
-    public void setBabyPicImageViewClicked(){
+    public void setBabyPicImageViewClicked() {
         addPicture();
     }
 
     @OnClick(R.id.add_image_button)
-    public void addImageButtonClicked(){
+    public void addImageButtonClicked() {
         addPicture();
     }
 
@@ -493,10 +590,10 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
 
         Uri returnedUri;
 
-        if(data != null) {
+        if (data != null) {
             returnedUri = data.getData();
 
-            if(returnedUri != null) {
+            if (returnedUri != null) {
 
                 Log.d(TAG, "imageUri " + imageUri);
 
@@ -512,10 +609,8 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
                 startActivityForResult(cropImage.getIntent(getActivity()), AppUtils.RESULT_CROP_IMAGE);
 
 
-
             }
         }
-
 
 
 //        updateImageUri(imageUri.toString());
@@ -526,16 +621,15 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
     private void imagePicked(Intent data) {
         Log.d(TAG, "imagePicked");
 //            InCallAnalyticsData.getInstance().trackAnalyticsData(AnalyticsStatEvent.UIActionShare.SHARE_GALLERY);
-        if(data != null) {
+        if (data != null) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
             Cursor cursor = null;
             try {
-                if(selectedImage != null)
+                if (selectedImage != null)
                     cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                if(cursor != null)
+                if (cursor != null)
                     cursor.moveToFirst();
-
 
 
                 Log.d(TAG, "selectedImage " + selectedImage);
@@ -553,29 +647,59 @@ public class MilestoneFragment extends InjectableFragment implements PictureInte
 
 
 //                imageUri = selectedImage;
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
-                if(cursor != null)
+            } finally {
+                if (cursor != null)
                     cursor.close();
             }
         }
     }
 
-    private void updateImageUri(String imageString){
+    private void updateImageUri(String imageString) {
         Log.d(TAG, "updateImageUri " + imageString);
-        if (!imageString.equals("")){
-            imageUri = Uri.parse(imageString);
-            Log.d(TAG, "update the image " + imageUri.toString());
-//            mileStoneImageView.setColorFilter(Color.CYAN);
-            mileStoneImageView.setImageURI(null);
-            mileStoneImageView.setImageURI(imageUri);
+        if (!imageString.equals("")) {
+
+            picasso.load(imageString).into(mileStoneImageView);
+//            imageUri = Uri.parse(imageString);
+//            Log.d(TAG, "update the image " + imageUri.toString());
+////            babyPicImageView.set
+////            picasso.load(imageUri)
+////                    .fit()
+////                    .transform(new CircleTransform())
+////                            .into(babyPicImageView);
+//            babyPicImageView.setImageURI(null);
+//            babyPicImageView.setImageURI(imageUri);
+            addImageButton.setText("Change Picture");
+//            imageUri = Uri.parse(imageString);
+//            Log.d(TAG, "update the image " + imageUri.toString());
+////            mileStoneImageView.setColorFilter(Color.CYAN);
+//            mileStoneImageView.setImageURI(null);
+//            mileStoneImageView.setImageURI(imageUri);
             addImageButton.setText("Change Picture");
         }
     }
 
+    private void updateImageUri(String imageString, boolean storeValue){
+        if (storeValue) {
+            imageUri = Uri.parse(imageString);
+        }
+        resetImage = false;
+
+        updateImageUri(imageString);
+    }
+
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
 
 
 }
