@@ -3,6 +3,7 @@ package com.rorlig.babyapp.ui.fragment.diaper;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +39,7 @@ import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
@@ -75,6 +77,9 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
     @InjectView(R.id.errorText)
     TextView errorText;
 
+
+//    @InjectView(R.id.swipe_refresh_layout)
+//    SwipeRefreshLayout swipeRefreshLayout;
 
 
 
@@ -128,31 +133,14 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
 
         updateListView();
 
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                AppUtils.invalidateParseCache("Diaper", getActivity());
+//                populateFromNetwork(null);
+//            }
+//        });
 
-//        mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Todo");
-
-
-//        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
-//        try {		mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Todo");
-
-//            queryBuilder = babyORMLiteUtils.getDiaperChange().queryBuilder().orderBy("date", false).prepare();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        diaperChangeList = new ArrayList<DiaperChange>();
-//        Log.d(TAG, "number of diaper changes " + diaperChangeList.size());
-
-//        diaperChangeListView.setOnItemClickListener(this);
-//
-//        getLoaderManager().initLoader(LOADER_ID, null, this);
-//
-//        try {
-//            diaperChangeDaoList =  babyORMLiteUtils.getDiaperChangeByWeekofMonth();
-//            setData(diaperChangeDaoList, DiaperChangeStatsType.WEEKLY);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
 
 
 
@@ -229,6 +217,7 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
 
     @Override
     protected void setListResults(List<ParseObject> objects) {
+        super.setListResults(objects);
         diaperChangeList = objects;
 
         diaperChangeAdapter = new DiaperChangeAdapter(getActivity(),
@@ -248,6 +237,8 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
             emptyView.setVisibility(View.VISIBLE);
 
         }
+
+//        swipeRefreshLayout.setRefreshing(false);
     }
 
 

@@ -97,6 +97,9 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
         scopedBus.post(new FragmentCreated("Sleep"));
 
 
+
+
+
         if (paramBundle!=null) {
 //            dateStartHourTextView.setText(paramBundle.getString(START_HOUR));
 //            dateStartMinuteTextView.setText(paramBundle.getString(START_MINUTE));

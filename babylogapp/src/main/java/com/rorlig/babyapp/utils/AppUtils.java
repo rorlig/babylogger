@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
@@ -15,6 +16,8 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
 import com.rorlig.babyapp.ui.fragment.sleep.SleepStatsFragment;
 
@@ -130,5 +133,15 @@ public class AppUtils {
 
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit().putString(SleepStatsFragment.SleepStatsType.YEARLY.getValue(),"").apply();
+    }
+
+
+    public static void invalidateParseCache(String parseClass, Context context) {
+        try {
+            ParseObject.unpinAll(parseClass);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 }

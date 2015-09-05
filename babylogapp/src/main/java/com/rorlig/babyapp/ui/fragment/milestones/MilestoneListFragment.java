@@ -2,6 +2,7 @@ package com.rorlig.babyapp.ui.fragment.milestones;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +34,7 @@ import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.Milestones;
 import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -72,6 +74,8 @@ public class MilestoneListFragment extends BaseInjectableListFragment
 
     @InjectView(R.id.add_milestone_item)
     FloatingActionButton btnAddMilestoneItem;
+
+
 
     private int LOADER_ID = 4;
     private List<GrowthDao> growthList;
@@ -125,11 +129,11 @@ public class MilestoneListFragment extends BaseInjectableListFragment
 
         updateListView();
 
-
     }
 
     @Override
     protected void setListResults(List<ParseObject> objects) {
+        super.setListResults(objects);
         if (objects.size()>0) {
             emptyView.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
@@ -146,6 +150,7 @@ public class MilestoneListFragment extends BaseInjectableListFragment
 
         listView.setAdapter(milestonesAdapter);
 
+//        swipeRefreshLayout.setRefreshing(false);
 //        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
 //                milestonesAdapter,
 //                R.layout.section_header_green,

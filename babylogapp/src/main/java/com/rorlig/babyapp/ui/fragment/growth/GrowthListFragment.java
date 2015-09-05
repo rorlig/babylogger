@@ -2,6 +2,7 @@ package com.rorlig.babyapp.ui.fragment.growth;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +32,7 @@ import com.rorlig.babyapp.parse_dao.Growth;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -71,6 +73,9 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
 
     @InjectView(R.id.add_growth_item)
     FloatingActionButton btnAddGrowthItem;
+
+//    @InjectView(R.id.swipe_refresh_layout)
+//    SwipeRefreshLayout swipeRefreshLayout;
 
     private int LOADER_ID = 4;
     private List<ParseObject> growthList;
@@ -114,12 +119,23 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
         listView.setEmptyView(emptyView);
+
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//
+//                AppUtils.invalidateParseCache("Growth", getActivity());
+//                populateFromNetwork(null);
+//            }
+//        });
+
         scopedBus.post(new FragmentCreated("Growth"));
         updateListView();
     }
 
     @Override
     protected void setListResults(List<ParseObject> objects) {
+        super.setListResults(objects);
         growthList = objects;
 
         growthAdapter = new GrowthAdapter(getActivity(),
@@ -140,6 +156,7 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
 
         }
 
+//        swipeRefreshLayout.setRefreshing(false);
     }
 
 

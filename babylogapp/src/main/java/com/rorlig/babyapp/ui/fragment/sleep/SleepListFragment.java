@@ -2,6 +2,7 @@ package com.rorlig.babyapp.ui.fragment.sleep;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +34,7 @@ import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
@@ -87,6 +89,9 @@ public class SleepListFragment extends BaseInjectableListFragment
 
     PreparedQuery<SleepDao> queryBuilder;
 
+//    @InjectView(R.id.swipe_refresh_layout)
+//    protected SwipeRefreshLayout swipeRefreshLayout;
+
     public SleepListFragment() {
         super("Sleep");
     }
@@ -97,6 +102,16 @@ public class SleepListFragment extends BaseInjectableListFragment
         super.onActivityCreated(paramBundle);
 
         scopedBus.post(new FragmentCreated("Diaper Change List"));
+
+
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//
+//                AppUtils.invalidateParseCache("Sleep", getActivity());
+//                populateFromNetwork(null);
+//            }
+//        });
 
         updateListView();
 
@@ -232,6 +247,7 @@ public class SleepListFragment extends BaseInjectableListFragment
 
     @Override
     protected void setListResults(List<ParseObject> objects) {
+        super.setListResults(objects);
         sleepList = objects;
 
         sleepAdapter = new SleepAdapter(getActivity(),

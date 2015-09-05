@@ -1,14 +1,24 @@
 package com.rorlig.babyapp.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.View;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.rorlig.babyapp.R;
+import com.rorlig.babyapp.utils.AppUtils;
 
 import java.util.List;
+
+import butterknife.InjectView;
 
 /**
  * @author gaurav gupta
@@ -19,6 +29,12 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     private final String parseClassName;
     private String TAG = "BaseInjectableListFragment";
 
+    @InjectView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    @InjectView(R.id.snackbar)
+    CoordinatorLayout snackBarLayout;
+
     public BaseInjectableListFragment(String parseClassName) {
         this.parseClassName = parseClassName;
     }
@@ -26,6 +42,14 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                AppUtils.invalidateParseCache(parseClassName, getActivity());
+                populateFromNetwork(null);
+            }
+        });
+
 //        updateListView();
     }
 
@@ -33,7 +57,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         populateLocalStore();
     }
 
-    private void populateLocalStore() {
+    protected void populateLocalStore() {
         final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
         query.orderByDescending("logCreationDate");
         query.fromLocalDatastore();
@@ -65,7 +89,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         );
     }
 
-    private void populateFromNetwork(final List<ParseObject> data) {
+    protected void populateFromNetwork(final List<ParseObject> data) {
         Log.d(TAG, "populateFromNetwork");
         final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
         query.orderByDescending("createdAt");
@@ -80,24 +104,44 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 //                            if(objects.size()==0) {
 //                                populateFromNetwork();
 //                            } else {
+                            if (data!=null) {
+                                ParseObject.unpinAllInBackground(parseClassName, data, new DeleteCallback() {
+                                    @Override
+                                    public void done(com.parse.ParseException e) {
+                                        Log.d(TAG, "deleted " + parseClassName + " pin " + e);
+                                    }
 
-                            ParseObject.unpinAllInBackground(parseClassName, data, new DeleteCallback() {
-                                @Override
-                                public void done(com.parse.ParseException e) {
-                                    Log.d(TAG, "deleted " + parseClassName + " pin " + e);
-                                }
+                                });
+                            }
 
-                            });
                             ParseObject.pinAllInBackground(parseClassName, objects);
                             setListResults(objects);
                         } else {
                             Log.d(TAG, "exception " + e);
+                            setError(e);
                         }
                     }
                 }
         );
     }
 
-    protected abstract void setListResults(List<ParseObject> objects);
+    private void setError(ParseException e) {
+        Log.d(TAG, "error in parse network call" + e.getMessage() + " " + getActivity() + " view " );
+        swipeRefreshLayout.setRefreshing(false);
+        Snackbar.make(snackBarLayout, e.getMessage(), Snackbar.LENGTH_LONG)
+//                .setAction("Undo", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//
+//                    }
+//                })
+//                .setActionTextColor(Color.RED)
+                .show();
+    }
+
+    protected void setListResults(List<ParseObject> objects) {
+        swipeRefreshLayout.setRefreshing(false);
+    }
 
 }
