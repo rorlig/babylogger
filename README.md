@@ -6,9 +6,9 @@
 + Feeds - Bottle and Breast Feeding.
 + Exporting Data via Email - Needs to be background processed.
 + Graphing : Feeds Remaining - some issues still
-+ Profile Screen: - Image Capture Issues
-+ Milestones : - Change UI
-+ Tutorial screen : - Change UI
++ Create Baby Profile
++ Milestones : - Save Pictures
++ Tutorial screen
 + Transparent Toolbar - migrate to toolbar from actionbar
 + Sleep Tracking
 + The app launch site is thebabyapp.com - build on bootstrap theme I purchased from wrapbootstrap (not sharing that code due to license issues)
@@ -17,13 +17,13 @@
 
 
 
+
 ## Todo
 
-+ Sleep Cloud Functions calling and caching -- done?
-+ Milestone Images ..
-+ Baby Images..
-+ Cloud function to export and email it out or maybe do it on device but requires multiple network calls..
-+ Moving to RecylerView and Pull To Refresh Pattern
+
++ Move to RecylerView if needed ?
++ Fix minor UI issues..
++ delete / create in airplane offline mode fixes required...
 
 
 ## Stretch Goals 
@@ -31,4 +31,3 @@
 + Web component for the application.
 + Equivalent IOS Application. 
 + Reminders
-+ Milestone Pictures 
