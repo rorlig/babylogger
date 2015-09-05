@@ -38,6 +38,11 @@ public class PrefsFragment extends InjectablePreferenceFragment
         addPreferencesFromResource(R.xml.preferences_general);
 
         Preference termsAndConditions = findPreference(getString(R.string.string_toc));
+
+        // Create listener for more settings button
+        Preference privacy = findPreference(getString(R.string.settings_privacy));
+
+        // Create listener for more settings button
         if (termsAndConditions != null) {
             termsAndConditions
                     .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -53,39 +58,7 @@ public class PrefsFragment extends InjectablePreferenceFragment
         }
 
         // Create listener for more settings button
-        Preference privacy = findPreference(getString(R.string.settings_privacy));
-        if (privacy != null) {
-            privacy
-                    .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference arg0) {
-                            Uri uri = Uri.parse(getString(R.string.privacy_link));
-                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                            intent.putExtra(Browser.EXTRA_APPLICATION_ID, getActivity().getPackageName());
-                            startActivity(intent);
-                            return true;
-                        }
-                    });
-        }
-
-        // Create listener for more settings button
-        Preference termsAndConditions = findPreference(getString(R.string.string_toc));
-        if (termsAndConditions != null) {
-            termsAndConditions
-                    .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference arg0) {
-                            Uri uri = Uri.parse(getString(R.string.toc_link));
-                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                            intent.putExtra(Browser.EXTRA_APPLICATION_ID, getActivity().getPackageName());
-                            startActivity(intent);
-                            return true;
-                        }
-                    });
-        }
-
-        // Create listener for more settings button
-        Preference privacy = findPreference(getString(R.string.settings_privacy));
+        privacy = findPreference(getString(R.string.settings_privacy));
         if (privacy != null) {
             privacy
                     .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
