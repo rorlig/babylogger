@@ -115,6 +115,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
     private Uri croppedImage;
     private Uri imageUri;
     private PictureSourceSelectFragment pictureSourceSelectFragment;
+    private boolean resetImage;
 
     public MilestoneFragment() {
         super("Milestone");
@@ -168,13 +169,14 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
             @Override
             public void done(ParseObject object, ParseException e) {
                 Milestones milestone = (Milestones) object;
-//                Log.d(TAG, milestone.getParseFile().getUrl());
+                Log.d(TAG, milestone.toString());
                 notes.setText(milestone.getNotes());
                 dateTimeHeader.setDateTime(milestone.getLogCreationDate());
                 customMilestonesTextView.setText(milestone.getTitle());
                 if (milestone.getParseFile()!=null && milestone.getParseFile().getUrl()!=null){
                     picasso.with(context).load(milestone.getParseFile().getUrl()).into(mileStoneImageView);
                 }
+                imageUri = Uri.parse(milestone.getImagePath());
 //                Log.d(TAG, "imagePath: " + milestone.getImagePath());
 //                updateImageUri(milestone.getImagePath());
                 showEditDelete = true;
@@ -398,7 +400,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
 
 
         if (id != null) {
-            if (imageUri!=null) {
+            if (file!=null) {
                 final ParseFile finalFile = file;
                 file.saveInBackground().onSuccess(new Continuation<Void, Object>() {
                     @Override
@@ -438,7 +440,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
                 });
             }
         } else {
-            if (imageUri != null) {
+            if (file != null) {
                 final ParseFile finalFile1 = file;
                 file.saveInBackground().onSuccess(new Continuation<Void, Object>() {
                     @Override
@@ -456,7 +458,6 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
 
         }
         closeSoftKeyBoard();
-        scopedBus.post(new ItemCreatedOrChanged("Milestone"));
 
     }
 
@@ -469,7 +470,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
                     @Override
                     public void done(ParseException e) {
                         Log.d(TAG, "saving locally");
-
+                        scopedBus.post(new ItemCreatedOrChanged("Milestone"));
                     }
                 });
             }
@@ -554,7 +555,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
                     break;
                 case AppUtils.RESULT_CROP_IMAGE:
                     Log.d(TAG, "croppedImage URI " + croppedImage);
-                    updateImageUri(croppedImage.toString());
+                    updateImageUri(croppedImage.toString(), true);
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);
@@ -658,13 +659,34 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
     private void updateImageUri(String imageString) {
         Log.d(TAG, "updateImageUri " + imageString);
         if (!imageString.equals("")) {
-            imageUri = Uri.parse(imageString);
-            Log.d(TAG, "update the image " + imageUri.toString());
-//            mileStoneImageView.setColorFilter(Color.CYAN);
-            mileStoneImageView.setImageURI(null);
-            mileStoneImageView.setImageURI(imageUri);
+
+            picasso.load(imageString).into(mileStoneImageView);
+//            imageUri = Uri.parse(imageString);
+//            Log.d(TAG, "update the image " + imageUri.toString());
+////            babyPicImageView.set
+////            picasso.load(imageUri)
+////                    .fit()
+////                    .transform(new CircleTransform())
+////                            .into(babyPicImageView);
+//            babyPicImageView.setImageURI(null);
+//            babyPicImageView.setImageURI(imageUri);
+            addImageButton.setText("Change Picture");
+//            imageUri = Uri.parse(imageString);
+//            Log.d(TAG, "update the image " + imageUri.toString());
+////            mileStoneImageView.setColorFilter(Color.CYAN);
+//            mileStoneImageView.setImageURI(null);
+//            mileStoneImageView.setImageURI(imageUri);
             addImageButton.setText("Change Picture");
         }
+    }
+
+    private void updateImageUri(String imageString, boolean storeValue){
+        if (storeValue) {
+            imageUri = Uri.parse(imageString);
+        }
+        resetImage = false;
+
+        updateImageUri(imageString);
     }
 
     public byte[] getBytes(InputStream inputStream) throws IOException {

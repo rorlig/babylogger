@@ -35,7 +35,7 @@ import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.otto.CroppedImageEvent;
 import com.rorlig.babyapp.otto.GalleryEvent;
 import com.rorlig.babyapp.otto.events.camera.CameraStartEvent;
-import com.rorlig.babyapp.otto.events.camera.PictureSelectEvent;
+//import com.rorlig.babyapp.otto.events.camera.PictureSelectEvent;
 import com.rorlig.babyapp.otto.events.profile.SavedProfileEvent;
 import com.rorlig.babyapp.otto.events.profile.SkipProfileEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
@@ -326,12 +326,12 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 
         }
 
-        @Subscribe
-        public void pictureSelectedEvent(PictureSelectEvent event) {
-            Log.d(TAG, "pictureSelectEvent");
-            imageChanged = true;
-            updateImageUri(event.getImageUri().toString(), true);
-        }
+//        @Subscribe
+//        public void pictureSelectedEvent(PictureSelectEvent event) {
+//            Log.d(TAG, "pictureSelectEvent");
+//            imageChanged = true;
+//            updateImageUri(event.getImageUri().toString(), true);
+//        }
 
         @Subscribe
         public void onCameraEvent(CameraStartEvent event) {
