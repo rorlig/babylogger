@@ -90,7 +90,7 @@ public class MilestonesItemAdapter extends BaseParseAdapter<ParseObject> {
         }
 
         viewHolder.logItemLabel.setText(milestoneModel.getTitle());
-        if (milestoneModel.getImagePath()==null || milestoneModel.getImagePath().equals("")) {
+        if (milestoneModel.getParseFile()==null || milestoneModel.getParseFile().getUrl().equals("")) {
             viewHolder.itemImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_mood_black));
         } else {
             picasso.with(context).load(milestoneModel.getParseFile().getUrl()).into(viewHolder.itemImage);

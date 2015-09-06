@@ -91,6 +91,7 @@ public class GrowthFragment extends BaseCreateLogFragment {
     private boolean headMeasureEmpty = true;
     private String id;
     private boolean showEditDelete = false;
+    private Growth growth;
 
     public GrowthFragment() {
         super("Growth");
@@ -127,7 +128,7 @@ public class GrowthFragment extends BaseCreateLogFragment {
         query.getInBackground(id, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                Growth growth = (Growth) object;
+                growth = (Growth) object;
                 weightEditText.setText(convertWeightToString(growth.getWeight()));
                 heightInchesEditText.setText(growth.getHeight().toString());
                 headInchesEditText.setText(growth.getHeadMeasurement().toString());
@@ -397,7 +398,7 @@ public class GrowthFragment extends BaseCreateLogFragment {
                 createOrEdit();
                 return true;
             case R.id.action_delete:
-                delete(id);
+                delete(growth);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -474,7 +475,7 @@ public class GrowthFragment extends BaseCreateLogFragment {
      */
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked() {
-        delete(id);
+        delete(growth);
     }
 
     /*
@@ -485,27 +486,38 @@ public class GrowthFragment extends BaseCreateLogFragment {
         final Growth tempGrowthObject;
         tempGrowthObject = createGrowthParseDao();
 
-        if (id!=null) {
-            Log.d(TAG, "updating it");
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Growth");
-            query.fromLocalDatastore();
-            query.getInBackground(id, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, ParseException e) {
-                    Growth growth = (Growth) object;
-                    growth.setWeight(tempGrowthObject.getWeight());
-                    growth.setHeight(tempGrowthObject.getHeight());
-                    growth.setHeadMeasurement(tempGrowthObject.getHeadMeasurement());
-                    growth.setLogCreationDate(tempGrowthObject.getLogCreationDate());
-                    growth.setNotes(tempGrowthObject.getNotes());
-                    saveEventually(growth);
-                }
-            });
-
+        if (growth!=null){
+            growth.setWeight(tempGrowthObject.getWeight());
+            growth.setHeight(tempGrowthObject.getHeight());
+            growth.setHeadMeasurement(tempGrowthObject.getHeadMeasurement());
+            growth.setLogCreationDate(tempGrowthObject.getLogCreationDate());
+            growth.setNotes(tempGrowthObject.getNotes());
+            saveEventually(growth);
         } else {
-            Log.d(TAG, "creating it");
             saveEventually(tempGrowthObject);
         }
+
+//        if (id!=null) {
+//            Log.d(TAG, "updating it");
+//            ParseQuery<ParseObject> query = ParseQuery.getQuery("Growth");
+//            query.fromLocalDatastore();
+//            query.getInBackground(id, new GetCallback<ParseObject>() {
+//                @Override
+//                public void done(ParseObject object, ParseException e) {
+//                    Growth growth = (Growth) object;
+//                    growth.setWeight(tempGrowthObject.getWeight());
+//                    growth.setHeight(tempGrowthObject.getHeight());
+//                    growth.setHeadMeasurement(tempGrowthObject.getHeadMeasurement());
+//                    growth.setLogCreationDate(tempGrowthObject.getLogCreationDate());
+//                    growth.setNotes(tempGrowthObject.getNotes());
+//                    saveEventually(growth);
+//                }
+//            });
+//
+//        } else {
+//            Log.d(TAG, "creating it");
+//            saveEventually(tempGrowthObject);
+//        }
 
 
         closeSoftKeyBoard();

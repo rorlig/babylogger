@@ -6,8 +6,11 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.rorlig.babyapp.dagger.ApplicationModule;
 import com.rorlig.babyapp.dagger.ObjectGraphApplication;
 import com.rorlig.babyapp.parse_dao.Baby;
@@ -100,8 +103,11 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
 
         Parse.setLogLevel(Parse.LOG_LEVEL_VERBOSE);
 
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
-        DualCacheContextUtils.setContext(getApplicationContext());
+
+
+//        DualCacheContextUtils.setContext(getApplicationContext());
 
 //        configureJobManager();
 //        ACRA.init(this);

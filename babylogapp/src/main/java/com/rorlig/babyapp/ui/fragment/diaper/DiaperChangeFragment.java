@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.j256.ormlite.dao.Dao;
+import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -38,6 +39,7 @@ import com.rorlig.babyapp.model.diaper.DiaperIncident;
 import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
@@ -132,6 +134,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
     private Calendar currentDateLong;
     private String id;
     private boolean showEditDelete = false;
+    private DiaperChange diaperChange;
 
     public DiaperChangeFragment() {
         super("Diaper");
@@ -214,7 +217,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
         query.getInBackground(id, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                DiaperChange diaperChange = (DiaperChange) object;
+                diaperChange = (DiaperChange) object;
                 setDiaperChangeType(diaperChange);
                 setDiaperEventTypeVisibility(diaperChange);
                 setDiaperIncidentType(diaperChange);
@@ -426,58 +429,39 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
         AppUtils.invalidateDiaperChangeCaches(getActivity().getApplicationContext());
-        delete(id);
+        delete(diaperChange);
+//        diaperChange.deleteEventually(new DeleteCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//            }
+//        });
+//        scopedBus.post(new ItemCreatedOrChanged("Diaper"));
+
+//        delete(id);
     }
 
+
+
     public void createOrEdit() {
-        Dao<DiaperChangeDao, Integer> diaperChangeDao;
-        DiaperChangeDao daoObject;
-        final DiaperChange tempDiaperChangeObject;
-        try {
+            DiaperChange tempDiaperChangeObject = createParseObject();
+            if (diaperChange!=null) {
 
-            daoObject = createDiaperChangeDao();
-
-            tempDiaperChangeObject = createParseObject();
-
-
-            diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao();
-
-            if (id!=null) {
-                Log.d(TAG, "updating it");
-//                daoObject.setId(id);
-                diaperChangeDao.update(daoObject);
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
-                query.fromLocalDatastore();
-                query.getInBackground(id, new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(ParseObject object, ParseException e) {
-                        DiaperChange diaperChange = (DiaperChange) object;
-                        diaperChange.setDiaperChangeNotes(tempDiaperChangeObject.getDiaperChangeNotes());
-                        diaperChange.setDiaperChangeEventType(tempDiaperChangeObject.getDiaperChangeEventType());
-                        diaperChange.setLogCreationDate(tempDiaperChangeObject.getLogCreationDate());
-                        diaperChange.setDiaperChangeIncidentType(tempDiaperChangeObject.getDiaperChangeIncidentType());
-                        if (!tempDiaperChangeObject.getDiaperChangeEventType().equals("Wet")){
-                            diaperChange.setPoopTexture(tempDiaperChangeObject.getPoopTexture());
-                            diaperChange.setPoopColor(tempDiaperChangeObject.getPoopColor());
-                        }
-                        saveEventually(diaperChange);
-                    }
-                });
-//                diaperChange.setObjectId(id);
+                diaperChange.setDiaperChangeNotes(tempDiaperChangeObject.getDiaperChangeNotes());
+                diaperChange.setDiaperChangeEventType(tempDiaperChangeObject.getDiaperChangeEventType());
+                diaperChange.setLogCreationDate(tempDiaperChangeObject.getLogCreationDate());
+                diaperChange.setDiaperChangeIncidentType(tempDiaperChangeObject.getDiaperChangeIncidentType());
+                if (!tempDiaperChangeObject.getDiaperChangeEventType().equals("Wet")){
+                    diaperChange.setPoopTexture(tempDiaperChangeObject.getPoopTexture());
+                    diaperChange.setPoopColor(tempDiaperChangeObject.getPoopColor());
+                }
+                saveEventually(diaperChange);
 
             } else {
-                Log.d(TAG, "creating it");
-                saveEventually(tempDiaperChangeObject);
-//                diaperChangeDao.create(daoObject);
+                tempDiaperChangeObject.saveEventually();
             }
-
-            Log.d(TAG, "created objected " + daoObject);
             closeSoftKeyBoard();
             scopedBus.post(new DiaperLogCreatedEvent());
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     /*

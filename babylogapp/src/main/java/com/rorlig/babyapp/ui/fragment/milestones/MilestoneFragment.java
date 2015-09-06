@@ -116,6 +116,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
     private Uri imageUri;
     private PictureSourceSelectFragment pictureSourceSelectFragment;
     private boolean resetImage;
+    private Milestones milestone;
 
     public MilestoneFragment() {
         super("Milestone");
@@ -168,7 +169,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
         query.getInBackground(id, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                Milestones milestone = (Milestones) object;
+                milestone = (Milestones) object;
                 Log.d(TAG, milestone.toString());
                 notes.setText(milestone.getNotes());
                 dateTimeHeader.setDateTime(milestone.getLogCreationDate());
@@ -372,6 +373,8 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
     /*
      */
     public void createOrEdit() {
+
+
         final Milestones tempMilestoneObject = createLocalObject();
         ParseFile file=null;
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Milestone");
@@ -492,7 +495,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
      */
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked() {
-        delete(id);
+        delete(milestone);
     }
 
 //    private Dao<MilestonesDao, Integer> createGrowthDao() throws SQLException {

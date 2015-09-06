@@ -95,6 +95,7 @@ public class BottleFeedFragment extends BaseCreateLogFragment
 
     private boolean showEditDelete = false;
     private boolean quantityEmpty = true;
+    private Feed feed;
 
     public BottleFeedFragment() {
         super("Feed");
@@ -198,7 +199,7 @@ public class BottleFeedFragment extends BaseCreateLogFragment
         query.getInBackground(id, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                Feed feed = (Feed) object;
+                feed = (Feed) object;
 
                 quantityTextView.setText(feed.getQuantity().toString());
                 final String[] values = getResources().getStringArray(R.array.type_array);
@@ -336,32 +337,44 @@ public class BottleFeedFragment extends BaseCreateLogFragment
     public void createOrEdit() {
 
         final Feed tempFeedItem = createLocalFeed();
-        if (id!=null) {
-            Log.d(TAG, "updating it with id " + id);
-//                daoObject.setId(id);
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
-            query.fromLocalDatastore();
-            query.getInBackground(id, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, ParseException e) {
-                    Log.d(TAG, "parse object " + object + " exception " + e);
-                    Feed feed = (Feed) object;
-                    feed.setLeftBreastTime(tempFeedItem.getLeftBreastTime());
-                    feed.setLogCreationDate(tempFeedItem.getLogCreationDate());
-                    feed.setRightBreastTime(tempFeedItem.getRightBreastTime());
-                    feed.setNotes(tempFeedItem.getNotes());
-                    feed.setQuantity(tempFeedItem.getQuantity());
-                    feed.setFeedItem(tempFeedItem.getFeedItem());
-                    saveEventually(feed);
-                }
-            });
-//                diaperChange.setObjectId(id);
+        if (feed!=null) {
+            feed.setLeftBreastTime(tempFeedItem.getLeftBreastTime());
+            feed.setLogCreationDate(tempFeedItem.getLogCreationDate());
+            feed.setRightBreastTime(tempFeedItem.getRightBreastTime());
+            feed.setNotes(tempFeedItem.getNotes());
+            feed.setQuantity(tempFeedItem.getQuantity());
+            feed.setFeedItem(tempFeedItem.getFeedItem());
+            saveEventually(feed);
 
         } else {
-            Log.d(TAG, "creating it");
             saveEventually(tempFeedItem);
-//                diaperChangeDao.create(daoObject);
         }
+//        if (id!=null) {
+//            Log.d(TAG, "updating it with id " + id);
+////                daoObject.setId(id);
+//            ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+//            query.fromLocalDatastore();
+//            query.getInBackground(id, new GetCallback<ParseObject>() {
+//                @Override
+//                public void done(ParseObject object, ParseException e) {
+//                    Log.d(TAG, "parse object " + object + " exception " + e);
+//                    Feed feed = (Feed) object;
+//                    feed.setLeftBreastTime(tempFeedItem.getLeftBreastTime());
+//                    feed.setLogCreationDate(tempFeedItem.getLogCreationDate());
+//                    feed.setRightBreastTime(tempFeedItem.getRightBreastTime());
+//                    feed.setNotes(tempFeedItem.getNotes());
+//                    feed.setQuantity(tempFeedItem.getQuantity());
+//                    feed.setFeedItem(tempFeedItem.getFeedItem());
+//                    saveEventually(feed);
+//                }
+//            });
+////                diaperChange.setObjectId(id);
+//
+//        } else {
+//            Log.d(TAG, "creating it");
+//            saveEventually(tempFeedItem);
+////                diaperChangeDao.create(daoObject);
+//        }
 
 //            Log.d(TAG, "created objected " + daoObject);
         closeSoftKeyBoard();
@@ -413,7 +426,7 @@ public class BottleFeedFragment extends BaseCreateLogFragment
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
         Log.d(TAG, "deleting id " + id);
-        delete(id);
+        delete(feed);
     }
 
     @Override

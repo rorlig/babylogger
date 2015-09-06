@@ -93,6 +93,7 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
     private boolean leftHoursEmpty = true, leftMinutesEmpty  = true, rightHoursEmpty = true, rightMinutesEmpty  = true;
     private String id;
     private boolean showEditDelete = false;
+    private Feed feed;
 
     public NursingFeedFragment() {
         super("Feed");
@@ -145,7 +146,7 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
         query.getInBackground(id, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                Feed feed = (Feed) object;
+                feed = (Feed) object;
 
                 leftBreastFeedMinutes.setText("" + (int) (feed.getLeftBreastTime() % 60));
                 leftBreastFeedHours.setText("" + (int) (feed.getLeftBreastTime() / 60));
@@ -539,31 +540,42 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
     */
     public void createOrEdit() {
         final Feed tempFeedItem = createLocalFeed();
-        if (id!=null) {
-            Log.d(TAG, "updating it");
-//                daoObject.setId(id);
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
-            query.fromLocalDatastore();
-            query.getInBackground(id, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, ParseException e) {
-                    Feed feed = (Feed) object;
-                    feed.setLeftBreastTime(tempFeedItem.getLeftBreastTime());
-                    feed.setLogCreationDate(tempFeedItem.getLogCreationDate());
-                    feed.setRightBreastTime(tempFeedItem.getRightBreastTime());
-                    feed.setNotes(tempFeedItem.getNotes());
-                    feed.setQuantity(tempFeedItem.getQuantity());
-                    feed.setFeedItem(tempFeedItem.getFeedItem());
-                    saveEventually(feed);
-                }
-            });
-//                diaperChange.setObjectId(id);
-
+        if (feed!=null){
+            feed.setLeftBreastTime(tempFeedItem.getLeftBreastTime());
+            feed.setLogCreationDate(tempFeedItem.getLogCreationDate());
+            feed.setRightBreastTime(tempFeedItem.getRightBreastTime());
+            feed.setNotes(tempFeedItem.getNotes());
+            feed.setQuantity(tempFeedItem.getQuantity());
+            feed.setFeedItem(tempFeedItem.getFeedItem());
+            saveEventually(feed);
         } else {
-            Log.d(TAG, "creating it");
-            saveEventually(tempFeedItem);
-//                diaperChangeDao.create(daoObject);
+            tempFeedItem.saveEventually();
         }
+//        if (id!=null) {
+//            Log.d(TAG, "updating it");
+////                daoObject.setId(id);
+//            ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+//            query.fromLocalDatastore();
+//            query.getInBackground(id, new GetCallback<ParseObject>() {
+//                @Override
+//                public void done(ParseObject object, ParseException e) {
+//                    Feed feed = (Feed) object;
+//                    feed.setLeftBreastTime(tempFeedItem.getLeftBreastTime());
+//                    feed.setLogCreationDate(tempFeedItem.getLogCreationDate());
+//                    feed.setRightBreastTime(tempFeedItem.getRightBreastTime());
+//                    feed.setNotes(tempFeedItem.getNotes());
+//                    feed.setQuantity(tempFeedItem.getQuantity());
+//                    feed.setFeedItem(tempFeedItem.getFeedItem());
+//                    saveEventually(feed);
+//                }
+//            });
+////                diaperChange.setObjectId(id);
+//
+//        } else {
+//            Log.d(TAG, "creating it");
+//            saveEventually(tempFeedItem);
+////                diaperChangeDao.create(daoObject);
+//        }
 
 //            Log.d(TAG, "created objected " + daoObject);
         closeSoftKeyBoard();
@@ -625,7 +637,7 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
      */
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
-        delete(id);
+        delete(feed);
     }
 
 

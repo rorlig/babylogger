@@ -83,6 +83,7 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
     private boolean hourEmpty = true;
     private String id;
     private boolean showEditDelete = false;
+    private Sleep sleep;
 
     public SleepFragment() {
         super("Sleep");
@@ -142,7 +143,7 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
         query.getInBackground(id, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                Sleep sleep = (Sleep) object;
+                sleep = (Sleep) object;
 
                 int hours = (int) (sleep.getDuration()/60);
                 int minutes = (int) (sleep.getDuration()%60);
@@ -183,7 +184,7 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
         AppUtils.invalidateSleepChangeCaches(getActivity().getApplicationContext());
-        delete(id);
+        delete(sleep);
     }
 
 
@@ -205,32 +206,42 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
     @Override
     public void createOrEdit() {
 
-        final Sleep tempSleepObject;
+        Sleep tempSleepObject = createSleepObject();
+
+        if (sleep!=null){
+            sleep.setDuration(tempSleepObject.getDuration());
+            sleep.setLogCreationDate(tempSleepObject.getSleepStartTime());
+            sleep.setSleepStartTime(tempSleepObject.getSleepStartTime());
+            saveEventually(sleep);
+        } else {
+            saveEventually(tempSleepObject);
+        }
+//        final Sleep tempSleepObject;
 
         tempSleepObject = createSleepObject();
 
-        if (id!=null) {
-            Log.d(TAG, "updating it");
-//                daoObject.setId(id);
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Sleep");
-            query.fromLocalDatastore();
-            query.getInBackground(id, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, ParseException e) {
-                    Sleep sleep = (Sleep) object;
-                    sleep.setDuration(tempSleepObject.getDuration());
-                    sleep.setLogCreationDate(tempSleepObject.getSleepStartTime());
-                    sleep.setSleepStartTime(tempSleepObject.getSleepStartTime());
-                    saveEventually(sleep);
-                }
-            });
-//                diaperChange.setObjectId(id);
-
-        } else {
-            Log.d(TAG, "creating it");
-            saveEventually(tempSleepObject);
-//                diaperChangeDao.create(daoObject);
-        }
+//        if (id!=null) {
+//            Log.d(TAG, "updating it");
+////                daoObject.setId(id);
+//            ParseQuery<ParseObject> query = ParseQuery.getQuery("Sleep");
+//            query.fromLocalDatastore();
+//            query.getInBackground(id, new GetCallback<ParseObject>() {
+//                @Override
+//                public void done(ParseObject object, ParseException e) {
+//                    Sleep sleep = (Sleep) object;
+//                    sleep.setDuration(tempSleepObject.getDuration());
+//                    sleep.setLogCreationDate(tempSleepObject.getSleepStartTime());
+//                    sleep.setSleepStartTime(tempSleepObject.getSleepStartTime());
+//                    saveEventually(sleep);
+//                }
+//            });
+////                diaperChange.setObjectId(id);
+//
+//        } else {
+//            Log.d(TAG, "creating it");
+//            saveEventually(tempSleepObject);
+////                diaperChangeDao.create(daoObject);
+//        }
 
 //            Log.d(TAG, "created objected " + daoObject);
         closeSoftKeyBoard();

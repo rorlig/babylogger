@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.parse.DeleteCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -52,5 +53,10 @@ public abstract class BaseCreateLogFragment extends InjectableFragment{
                 }
         );
 
+    }
+
+    public void delete(ParseObject parseObject){
+        parseObject.deleteEventually();
+        scopedBus.post(new ItemCreatedOrChanged(parseClassName));
     }
 }
