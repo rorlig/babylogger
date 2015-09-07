@@ -88,7 +88,7 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
         // Register subclasses...
 //        ParseObject.registerSubclass(DiaperChange.class);
         // Add your initialization code here
-        Parse.initialize(this, getString(R.string.application_id),getString(R.string.application_secret));
+        Parse.initialize(this, getString(R.string.application_id),getString(R.string.client_key));
 
         ParseUser.enableRevocableSessionInBackground();
 
