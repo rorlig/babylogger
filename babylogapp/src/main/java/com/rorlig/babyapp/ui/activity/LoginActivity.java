@@ -13,6 +13,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.ItemModel;
+import com.rorlig.babyapp.otto.CreatedUser;
 import com.rorlig.babyapp.otto.auth.ForgotBtnClickedEvent;
 import com.rorlig.babyapp.otto.auth.LoginSkippedEvent;
 import com.rorlig.babyapp.otto.auth.LoginSuccessEvent;
@@ -93,7 +94,7 @@ public class LoginActivity extends InjectableActivity {
             query.getFirstInBackground(new GetCallback<ParseObject>() {
                 @Override
                 public void done(ParseObject object, ParseException e) {
-                    if (object==null) {
+                    if (object == null) {
                         startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
                     } else {
                         saveToPreferences(object);
@@ -101,6 +102,11 @@ public class LoginActivity extends InjectableActivity {
                     }
                 }
             });
+        }
+
+        @Subscribe
+        public void onUserCreatedEvent(CreatedUser event){
+            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
         }
 
         @Subscribe

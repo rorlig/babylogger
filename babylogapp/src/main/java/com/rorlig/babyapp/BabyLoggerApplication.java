@@ -39,9 +39,9 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
     private ObjectGraph objectGraph;
     private final String TAG = "BabyLoggerApplication";
 
-    public static final String APPLICATION_ID = "g0bRVs758HB3brdGBQaar9o6VxvReNPENWBwhQPY";
-
-    public static final String CLIENT_KEY = "7O6De7cnIwoNo57UZZ6hxE9SiGgk24ESnuTY42LM";
+//    public String APPLICATION_ID = "g0bRVs758HB3brdGBQaar9o6VxvReNPENWBwhQPY";
+//
+//    public String CLIENT_KEY = "7O6De7cnIwoNo57UZZ6hxE9SiGgk24ESnuTY42LM";
 //    private JobManager jobManager;
 
     @Override
@@ -88,7 +88,7 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
         // Register subclasses...
 //        ParseObject.registerSubclass(DiaperChange.class);
         // Add your initialization code here
-        Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
+        Parse.initialize(this, getString(R.string.application_id),getString(R.string.application_secret));
 
         ParseUser.enableRevocableSessionInBackground();
 

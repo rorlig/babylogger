@@ -13,6 +13,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.rorlig.babyapp.R;
+import com.rorlig.babyapp.otto.CreatedUser;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 
 import java.util.List;
@@ -128,6 +129,7 @@ public class SignUpFragment extends InjectableFragment  {
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Created User", Toast.LENGTH_SHORT).show();
+                    scopedBus.post(new CreatedUser());
                 }
             }
         });
