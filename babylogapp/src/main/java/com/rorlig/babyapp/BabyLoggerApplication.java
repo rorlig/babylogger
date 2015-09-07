@@ -39,9 +39,9 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
     private ObjectGraph objectGraph;
     private final String TAG = "BabyLoggerApplication";
 
-    public static final String APPLICATION_ID = "fQ6DxdazosJXTsgxZAxT9izIj6BkgJI9HKUzPlUf";
+    public static final String APPLICATION_ID = "g0bRVs758HB3brdGBQaar9o6VxvReNPENWBwhQPY";
 
-    public static final String CLIENT_KEY = "oVPe4qrrMe3glqgTPwHQ7tbx1snfq5GvlPBBiMQE";
+    public static final String CLIENT_KEY = "7O6De7cnIwoNo57UZZ6hxE9SiGgk24ESnuTY42LM";
 //    private JobManager jobManager;
 
     @Override
