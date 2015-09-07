@@ -2,17 +2,23 @@ package com.rorlig.babyapp.ui.fragment.auth;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Password;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -21,7 +27,7 @@ import butterknife.OnClick;
 /**
  * @author gaurav gupta
  */
-public class SignUpFragment extends InjectableFragment {
+public class SignUpFragment extends InjectableFragment  {
 
     @InjectView(R.id.first_name_text_input_layout)
     TextInputLayout firstNameTextInputLayout;
@@ -47,6 +53,12 @@ public class SignUpFragment extends InjectableFragment {
     @InjectView(R.id.password)
     EditText passwordEditText;
 
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String TAG = "SignUpFragment";
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -55,6 +67,7 @@ public class SignUpFragment extends InjectableFragment {
         lastNameTextInputLayout.setErrorEnabled(true);
         emailTextInputLayout.setErrorEnabled(true);
         passwordTextInputLayout.setErrorEnabled(true);
+
     }
 
 
@@ -68,10 +81,10 @@ public class SignUpFragment extends InjectableFragment {
 
     @OnClick(R.id.btn_signup)
     public void btnSignUp() {
-        String firstName = firstNameEditText.getText().toString();
-        String lastName = lastNameEditText.getText().toString();
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
+        firstName = firstNameEditText.getText().toString();
+        lastName = lastNameEditText.getText().toString();
+        email = emailEditText.getText().toString();
+        password = passwordEditText.getText().toString();
 
         if (firstName.length()==0) {
             firstNameTextInputLayout.setError(getString(R.string.no_first_name));
@@ -91,6 +104,11 @@ public class SignUpFragment extends InjectableFragment {
 
         if (password.length()==0) {
             passwordTextInputLayout.setError(getString(R.string.no_password));
+            return;
+        }
+
+        if (password.length()<6) {
+            passwordTextInputLayout.setError(getString(R.string.password_length));
             return;
         }
 
@@ -116,11 +134,17 @@ public class SignUpFragment extends InjectableFragment {
                 }
             }
         });
+
+//        validator.validate();
+
+
     }
 
     @OnClick(R.id.txt_login)
     public void onBtnLoginClicked() {
         getFragmentManager().popBackStackImmediate();
     }
+
+
 
 }
