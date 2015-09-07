@@ -2,7 +2,6 @@ package com.rorlig.babyapp.ui.fragment.milestones;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,15 +16,10 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.j256.ormlite.dao.Dao;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.BaseDao;
-import com.rorlig.babyapp.dao.GrowthDao;
-import com.rorlig.babyapp.dao.MilestonesDao;
-import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.otto.MilestoneItemClicked;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
@@ -34,7 +28,6 @@ import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.Milestones;
 import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
-import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -78,16 +71,9 @@ public class MilestoneListFragment extends BaseInjectableListFragment
 
 
     private int LOADER_ID = 4;
-    private List<GrowthDao> growthList;
-    private SimpleSectionAdapter<BaseDao> sectionAdapter;
-    private String[] itemNames;
     private MilestonesItemAdapter milestonesAdapter;
 
     private List<ParseObject> milestoneData;
-
-    @Inject
-    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
-    private Dao<MilestonesDao, Integer> milestoneDaoHelper;
 
     public MilestoneListFragment() {
         super("Milestone");
@@ -121,7 +107,6 @@ public class MilestoneListFragment extends BaseInjectableListFragment
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
 
-        itemNames = getResources().getStringArray(R.array.milestones);
 
         listView.setEmptyView(emptyView);
 

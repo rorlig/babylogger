@@ -21,28 +21,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.DiaperChangeDao;
-import com.rorlig.babyapp.dao.FeedDao;
-import com.rorlig.babyapp.dao.GrowthDao;
-import com.rorlig.babyapp.dao.MilestonesDao;
-import com.rorlig.babyapp.dao.SleepDao;
-import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.model.ItemModel;
 import com.rorlig.babyapp.otto.UriCreated;
 import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
-import com.rorlig.babyapp.parse_dao.Feed;
-import com.rorlig.babyapp.parse_dao.Growth;
-import com.rorlig.babyapp.parse_dao.Milestones;
-import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.ui.adapter.ExportItemAdapter;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
@@ -121,8 +109,6 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
     private static final String END_DATE_DAY = "end_day";
     private static final String END_DATE_MONTH = "end_month";
     private static final String END_DATE_YEAR = "end_year";
-    private BabyLoggerORMUtils babyORMLiteUtils;
-    private PreparedQuery<DiaperChangeDao> queryBuilder;
     private Uri milestoneUri;
     private Uri sleepUri;
     private String[] itemParseName;
@@ -190,7 +176,6 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
 
         exportListView.setOnItemClickListener(this);
 
-        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
 
 
 
@@ -663,264 +648,15 @@ public class ExportFragment extends InjectableFragment implements AdapterView.On
         return itemModel.isItemChecked();
     }
 
-    /*
-     * creates csv file for diaper change
-     * @param List<DiaperChangeDao> list of diaperchangedao
-     * @return Uri to the file location.
-     */
-
-    private Uri createDiaperListToCSV(List<ParseObject> diaperChangeList) {
-        String header =   "\"Date\",\"Diaper Change Event Type\",\"Poop Texture\",\"Poop Color\",\"Diaper Incident\",\"Notes\"\n";
-        StringBuilder stringBuilder = new StringBuilder();
-        for (ParseObject object: diaperChangeList) {
-            DiaperChange diaperChange = (DiaperChange) object;
-            stringBuilder.append("\"" + diaperChange.getLogCreationDate() + "\",\""
-                    + diaperChange.getDiaperChangeEventType() + "\",\""
-                    + diaperChange.getPoopTexture() + "\",\"" + diaperChange.getPoopTexture() + "\",\""
-                    + diaperChange.getPoopColor() + "\",\"" + diaperChange.getDiaperChangeIncidentType()
-                    + "\",\"" + diaperChange.getDiaperChangeNotes() + "\"\n");
 
 
-        }
-        String combinedString = header + stringBuilder.toString();
-        Log.d(TAG, "combined " + combinedString);
-
-        File file   = null;
-        File root   = Environment.getExternalStorageDirectory();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
-        if (root.canWrite()){
-            File dir    =   new File (root.getAbsolutePath() + "/DiaperLogs");
-            dir.mkdirs();
-            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_diaper"  + ".csv");
-            FileOutputStream out   =   null;
-            try {
-                out = new FileOutputStream(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.write(combinedString.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        Uri uri;
-        uri  =   Uri.fromFile(file);
-
-        return uri;
-
-    }
-
-
-
-
-
-
-    /*
-     * creates csv file for feed change
-     * @param List<FeedDao> list of diaperchangedao
-     * @return Uri to the file location.
-     */
-
-    private Uri createFeedListToCSV(List<FeedDao> feedList) {
-        String header =   "\"Date\",\"Type\",\"Item\",\"Quantity\",\"Left Breast Time (min) \",\"Right Breast Time (min)\",\"Notes\"\n";
-        StringBuilder stringBuilder = new StringBuilder();
-        for (FeedDao feedItem: feedList) {
-            stringBuilder.append("\"" + feedItem.getDate() + "\",\""
-                    + feedItem.getFeedType() + "\",\""
-                    + feedItem.getFeedItem() + "\",\"" + feedItem.getQuantity() + "\",\""
-                    + feedItem.getLeftBreastTime() + "\",\"" + feedItem.getLeftBreastTime()
-                    + "\",\"" + feedItem.getNotes() + "\"\n");
-
-
-        }
-        String combinedString = header + stringBuilder.toString();
-        Log.d(TAG, "combined " + combinedString);
-
-        File file   = null;
-        File root   = Environment.getExternalStorageDirectory();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
-
-        if (root.canWrite()){
-            File dir    =   new File (root.getAbsolutePath() + "/FeedLogs");
-            dir.mkdirs();
-            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_feed"  + ".csv");
-            FileOutputStream out   =   null;
-            try {
-                out = new FileOutputStream(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.write(combinedString.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return Uri.fromFile(file);
-
-    }
-
-
-     /*
-     * creates csv file for feed change
-     * @param List<GrowthDao> list of diaperchangedao
-     * @return Uri to the file location.
-     */
-
-    private Uri createGrowthListToCSV(List<GrowthDao> growthList) {
-        String header =   "\"Date\",\"Weight\",\"Height\",\"Head Measurement\",\"Notes\"\n";
-        StringBuilder stringBuilder = new StringBuilder();
-        for (GrowthDao growthItem: growthList) {
-            stringBuilder.append("\"" + growthItem.getDate() + "\",\""
-                    + growthItem.getWeight() + "\",\""
-                    + growthItem.getHeight() + "\",\"" + growthItem.getHeadMeasurement() + "\",\""
-                    + growthItem.getNotes() + "\"\n");
-
-
-        }
-        String combinedString = header + stringBuilder.toString();
-        Log.d(TAG, "combined " + combinedString);
-
-        File file   = null;
-        File root   = Environment.getExternalStorageDirectory();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
-
-        if (root.canWrite()){
-            File dir    =   new File (root.getAbsolutePath() + "/GrowthLogs");
-            dir.mkdirs();
-            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_growth"  + ".csv");
-            FileOutputStream out   =   null;
-            try {
-                out = new FileOutputStream(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.write(combinedString.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        Uri uri  =   null;
-        uri  =   Uri.fromFile(file);
-
-        return uri;
-
-    }
 
     /*
    * creates csv file for feed change
    * @param List<MilestonesDao> list of milestonedao
    * @return Uri to the file location.
    */
-    private Uri createMilestoneListToCSV(List<MilestonesDao> milestonesList) {
-        String header =   "\"Date\",\"Milestone\"\n";
-        StringBuilder stringBuilder = new StringBuilder();
-        for (MilestonesDao milestoneItem: milestonesList) {
-            stringBuilder.append("\"" + milestoneItem.getDate() + "\",\""
-                    + milestoneItem.getTitle() + "\"\n");
-        }
-        String combinedString = header + stringBuilder.toString();
-        Log.d(TAG, "combined " + combinedString);
-
-        File file   = null;
-        File root   = Environment.getExternalStorageDirectory();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
-
-        if (root.canWrite()){
-            File dir    =   new File (root.getAbsolutePath() + "/MileStoneLogs");
-            dir.mkdirs();
-            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_milestones"  + ".csv");
-            FileOutputStream out   =   null;
-            try {
-                out = new FileOutputStream(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.write(combinedString.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        return  Uri.fromFile(file);
-
-    }
-
-
-     /*
-     * creates csv file for feed change
-     * @param List<FeedDao> list of diaperchangedao
-     * @return Uri to the file location.
-     */
-
-    private Uri createSleepListToCSV(List<SleepDao> sleepDaoList) {
-        String header =   "\"Date\",\"Start Time\",\"Duration\"\n";
-        StringBuilder stringBuilder = new StringBuilder();
-        for (SleepDao sleepItem: sleepDaoList) {
-            stringBuilder.append("\"" + sleepItem.getDate() + "\",\""
-                    + sleepItem.getDate() + "\",\""
-                    + sleepItem.getSleepStartTime() + "\",\"" + sleepItem.getDuration() + "\",\"n");
-
-
-        }
-        String combinedString = header + stringBuilder.toString();
-        Log.d(TAG, "combined " + combinedString);
-
-        File file   = null;
-        File root   = Environment.getExternalStorageDirectory();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
-
-        if (root.canWrite()){
-            File dir    =   new File (root.getAbsolutePath() + "/SleepLogs");
-            dir.mkdirs();
-            file   =   new File(dir, simpleDateFormat.format(getStartTime()) + " to " + simpleDateFormat.format(getEndTime()) + "_sleep"  + ".csv");
-            FileOutputStream out   =   null;
-            try {
-                out = new FileOutputStream(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.write(combinedString.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return Uri.fromFile(file);
-
-    }
-
+//    private Uri createMilestoneListToCSV(List<
     /*
      * sendEmail with attachment
      * @param Uri uri : - uri of the file to emailed...

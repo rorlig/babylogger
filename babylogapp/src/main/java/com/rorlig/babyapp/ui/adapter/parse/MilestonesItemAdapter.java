@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dao.MilestonesDao;
 import com.rorlig.babyapp.parse_dao.Milestones;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
@@ -35,7 +34,6 @@ public class MilestonesItemAdapter extends BaseParseAdapter<ParseObject> {
     private final SimpleDateFormat simpleDateFormat;
 
     //    private final int[] itemStates;
-    private List<MilestonesDao> logListItem;
 //    private String[] itemNames = {};
 
 

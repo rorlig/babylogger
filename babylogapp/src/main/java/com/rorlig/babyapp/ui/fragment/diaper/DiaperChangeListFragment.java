@@ -3,7 +3,6 @@ package com.rorlig.babyapp.ui.fragment.diaper;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,13 +19,10 @@ import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.j256.ormlite.stmt.PreparedQuery;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.DiaperChangeDao;
-import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
@@ -39,7 +35,6 @@ import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
-import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
@@ -90,7 +85,6 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
     FloatingActionButton btnAddDiaperChange;
 
 
-    private BabyLoggerORMUtils babyORMLiteUtils;
     private List<ParseObject> diaperChangeList;
     private DiaperChangeAdapter diaperChangeAdapter;
     private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
@@ -104,7 +98,6 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
 
     private EventListener eventListener = new EventListener();
 
-    PreparedQuery<DiaperChangeDao> queryBuilder;
 
     public DiaperChangeListFragment() {
         super("Diaper");

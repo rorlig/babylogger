@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.parse.DeleteCallback;
 import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;

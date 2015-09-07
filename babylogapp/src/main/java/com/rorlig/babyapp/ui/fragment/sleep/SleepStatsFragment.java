@@ -19,7 +19,6 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.otto.SleepStatsEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
@@ -90,8 +89,6 @@ public class SleepStatsFragment extends InjectableFragment implements RadioGroup
 
 
 
-    @Inject
-    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
 //    private BabyLoggerORMUtils babyORMLiteUtils;
     private List<String[]> sleepDaoList;

@@ -78,8 +78,8 @@ dependencies {
 //    compile 'com.google.android.gms:play-services:3.2.+'
     compile 'com.google.guava:guava:15.0+'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile  'com.j256.ormlite:ormlite-android:4.48'
-    compile 'com.j256.ormlite:ormlite-core:4.48'
+//    compile  'com.j256.ormlite:ormlite-android:4.48'
+//    compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
 
     //sectioned adapters
@@ -222,6 +222,12 @@ android {
         exclude 'LICENSE.txt'
     }
 
+    buildTypes {
+
+        release {
+            zipAlignEnabled true
+        }
+    }
 
 
 }

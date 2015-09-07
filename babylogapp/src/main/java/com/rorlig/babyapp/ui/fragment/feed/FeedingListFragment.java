@@ -3,7 +3,6 @@ package com.rorlig.babyapp.ui.fragment.feed;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,7 +32,6 @@ import com.rorlig.babyapp.parse_dao.Feed;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.FeedAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
-import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;

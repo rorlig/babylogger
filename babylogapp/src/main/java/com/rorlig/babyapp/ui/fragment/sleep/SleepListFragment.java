@@ -2,7 +2,6 @@ package com.rorlig.babyapp.ui.fragment.sleep;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,13 +15,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.j256.ormlite.stmt.PreparedQuery;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.SleepDao;
-import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.SleepItemClicked;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
@@ -34,7 +30,6 @@ import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
-import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
@@ -76,7 +71,6 @@ public class SleepListFragment extends BaseInjectableListFragment
     FloatingActionButton btnAddSleep;
 
 
-    private BabyLoggerORMUtils babyORMLiteUtils;
     private List<ParseObject> sleepList;
     private SleepAdapter sleepAdapter;
     private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
@@ -87,7 +81,6 @@ public class SleepListFragment extends BaseInjectableListFragment
 
     private EventListener eventListener = new EventListener();
 
-    PreparedQuery<SleepDao> queryBuilder;
 
 //    @InjectView(R.id.swipe_refresh_layout)
 //    protected SwipeRefreshLayout swipeRefreshLayout;

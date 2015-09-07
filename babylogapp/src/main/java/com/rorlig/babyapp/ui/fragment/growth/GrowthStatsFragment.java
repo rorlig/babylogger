@@ -20,7 +20,6 @@ import com.google.common.collect.Lists;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.Growth;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
@@ -62,7 +61,6 @@ public class GrowthStatsFragment extends BaseInjectableListFragment implements R
 //    @Inject
 //    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
-    private BabyLoggerORMUtils babyORMLiteUtils;
     private List<ParseObject> growthList;
 
     public GrowthStatsFragment() {

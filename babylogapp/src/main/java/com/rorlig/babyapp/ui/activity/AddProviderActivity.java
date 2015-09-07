@@ -1,29 +1,13 @@
 package com.rorlig.babyapp.ui.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 
 import com.google.gson.Gson;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.rorlig.babyapp.BabyLoggerApplication;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.ItemModel;
-import com.rorlig.babyapp.otto.auth.ForgotBtnClickedEvent;
-import com.rorlig.babyapp.otto.auth.LoginSkippedEvent;
-import com.rorlig.babyapp.otto.auth.LoginSuccessEvent;
-import com.rorlig.babyapp.otto.auth.SignupBtnClickedEvent;
-import com.rorlig.babyapp.parse_dao.Baby;
-import com.rorlig.babyapp.ui.fragment.auth.ForgotFragment;
-import com.rorlig.babyapp.ui.fragment.auth.LoginFragment;
-import com.rorlig.babyapp.ui.fragment.auth.SignUpFragment;
 import com.rorlig.babyapp.ui.fragment.invite.AddProviderFragment;
-import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 

@@ -1,12 +1,10 @@
 package com.rorlig.babyapp.ui.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.View;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -14,7 +12,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.utils.AppUtils;
 
 import java.util.List;
 

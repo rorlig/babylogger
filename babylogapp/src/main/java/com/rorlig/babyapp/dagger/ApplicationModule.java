@@ -7,9 +7,7 @@ import android.location.LocationManager;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.rorlig.babyapp.BabyLoggerApplication;
-import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.otto.BusProvider;
 import com.rorlig.babyapp.otto.ScopedBus;
 import com.squareup.otto.Bus;
@@ -284,12 +282,12 @@ public class ApplicationModule
     }
 
 
-    @Provides
-    @Singleton
-    BabyLoggerORMLiteHelper providesORMLiteHelper(@ForApplication Context context){
-
-        return OpenHelperManager.getHelper(context, BabyLoggerORMLiteHelper.class);
-
-    }
+//    @Provides
+//    @Singleton
+//    BabyLoggerORMLiteHelper providesORMLiteHelper(@ForApplication Context context){
+//
+//        return OpenHelperManager.getHelper(context, BabyLoggerORMLiteHelper.class);
+//
+//    }
 
 }

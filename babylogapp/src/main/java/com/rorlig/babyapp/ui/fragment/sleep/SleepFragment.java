@@ -28,7 +28,6 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.Sleep;
@@ -75,8 +74,6 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
 
 
 
-    @Inject
-    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
     private DateTimeHeaderFragment dateTimeHeader;
     private boolean minuteEmpty = true;

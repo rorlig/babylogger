@@ -27,8 +27,6 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.FeedDao;
-import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.model.feed.FeedType;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.parse_dao.Feed;
@@ -88,8 +86,6 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
 
     private DateTimeHeaderFragment dateTimeHeader;
 
-    @Inject
-    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
     private boolean leftHoursEmpty = true, leftMinutesEmpty  = true, rightHoursEmpty = true, rightMinutesEmpty  = true;
     private String id;
     private boolean showEditDelete = false;
@@ -616,21 +612,6 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
     }
 
 
-    /*
-     * creates a temporary feed item from the local view values...
-     */
-    private FeedDao createLocalFeedDao() {
-
-
-        Date date = dateTimeHeader.getEventTime();
-
-        return new FeedDao(FeedType.BREAST,
-                        "" , -1.0,
-                        getDuration(leftBreastFeedHours, leftBreastFeedMinutes),
-                        getDuration(rightBreastFeedHours, rightBreastFeedMinutes), notes.getText().toString(),
-                        date);
-
-    }
 
     /*
      * deletes the feed item...

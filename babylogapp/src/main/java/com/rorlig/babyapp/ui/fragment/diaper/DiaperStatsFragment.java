@@ -20,8 +20,6 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
-import com.rorlig.babyapp.db.BabyLoggerORMUtils;
 import com.rorlig.babyapp.otto.DiaperStatsEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
@@ -83,10 +81,6 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 
 
 
-    @Inject
-    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
-
-    private BabyLoggerORMUtils babyORMLiteUtils;
     private List<String[]> diaperChangeDaoList;
     private EventListener eventListener = new EventListener();
 
@@ -99,7 +93,6 @@ public class DiaperStatsFragment extends InjectableFragment implements RadioGrou
 //                "fonts/proximanova_light.ttf");
 
         scopedBus.post(new FragmentCreated("Growth Fragment"));
-        babyORMLiteUtils = new BabyLoggerORMUtils(getActivity());
 
 //        barChart.setOnChartValueSelectedListener(this);
 //s

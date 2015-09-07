@@ -37,7 +37,6 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.Milestones;
@@ -96,8 +95,6 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
     @InjectView(R.id.add_image_button)
     android.widget.Button addImageButton;
 
-    @Inject
-    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
     @Inject
     Picasso picasso;
@@ -304,9 +301,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
         createOrEdit();
     }
 
-    public BabyLoggerORMLiteHelper getBabyLoggerORMLiteHelper() {
-        return babyLoggerORMLiteHelper;
-    }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

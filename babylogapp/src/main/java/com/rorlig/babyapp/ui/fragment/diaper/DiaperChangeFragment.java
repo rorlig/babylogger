@@ -21,8 +21,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
-import com.j256.ormlite.dao.Dao;
-import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -30,8 +28,6 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.DiaperChangeDao;
-import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.model.diaper.DiaperChangeColorType;
 import com.rorlig.babyapp.model.diaper.DiaperChangeEnum;
 import com.rorlig.babyapp.model.diaper.DiaperChangeTextureType;
@@ -39,7 +35,6 @@ import com.rorlig.babyapp.model.diaper.DiaperIncident;
 import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
-import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
@@ -48,7 +43,6 @@ import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
-import java.sql.SQLException;
 import java.util.Calendar;
 
 import javax.inject.Inject;
@@ -129,8 +123,6 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 
     private EventListener eventListener = new EventListener();
 
-    @Inject
-    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
     private Calendar currentDateLong;
     private String id;
     private boolean showEditDelete = false;
@@ -485,27 +477,6 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
         });
     }
 
-    /*
-     * creates a local object
-     */
-    private DiaperChangeDao createDiaperChangeDao() {
-        DiaperChangeDao daoObject = null;
-        switch (diaperChangeType.getCheckedRadioButtonId()) {
-            case R.id.diaper_wet:
-                 daoObject = new DiaperChangeDao(DiaperChangeEnum.WET, null, null, getDiaperIncident(), notes.getText().toString(), dateTimeHeader.getEventTime());
-                break;
-            case R.id.diaper_both:
-
-                daoObject = new DiaperChangeDao(DiaperChangeEnum.BOTH, getDiaperChangeTexture(), getDiaperColor(),
-                        getDiaperIncident(), notes.getText().toString(),dateTimeHeader.getEventTime() );
-                break;
-            default:
-                daoObject = new DiaperChangeDao(DiaperChangeEnum.POOP, getDiaperChangeTexture(), getDiaperColor(),
-                        getDiaperIncident(), notes.getText().toString(),dateTimeHeader.getEventTime() );
-                break;
-        }
-        return daoObject;
-    }
 
     private DiaperChange createParseObject(){
         DiaperChange diaperChange = null;

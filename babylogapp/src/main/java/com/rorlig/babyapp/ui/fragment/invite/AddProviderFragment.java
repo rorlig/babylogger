@@ -7,18 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.RequestPasswordResetCallback;
-import com.parse.SaveCallback;
 import com.rorlig.babyapp.BabyLoggerApplication;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
-import com.rorlig.babyapp.utils.AppConstants;
 
 import java.util.HashMap;
 import java.util.Map;

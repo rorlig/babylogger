@@ -23,7 +23,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
-import com.j256.ormlite.dao.Dao;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -31,8 +30,6 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.dao.FeedDao;
-import com.rorlig.babyapp.db.BabyLoggerORMLiteHelper;
 import com.rorlig.babyapp.model.feed.FeedType;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
@@ -78,8 +75,6 @@ public class BottleFeedFragment extends BaseCreateLogFragment
     @InjectView(R.id.notes)
     EditText notes;
 
-    @Inject
-    BabyLoggerORMLiteHelper babyLoggerORMLiteHelper;
 
     Typeface typeface;
 
@@ -300,31 +295,6 @@ public class BottleFeedFragment extends BaseCreateLogFragment
 
     }
 
-    /*
-     * creates a temporary feed item from the local view values...
-     */
-    private FeedDao createLocalFeedDao() {
-
-        String quantityText = quantityTextView.getText().toString();
-
-        Log.d(TAG, "value of quantity " + quantityText);
-
-
-        if (quantityText.trim().equals("")) {
-            quantityTextView.setError("Quantity cannot be blank");
-            return null;
-        }
-
-        Date date = dateTimeHeader.getEventTime();
-
-        return new FeedDao(FeedType.BOTTLE,
-                feedTypeSpinner.getSelectedItem().toString(),
-                Double.parseDouble(quantityTextView.getText().toString()),
-                -1L,
-                -1L, notes.getText().toString(),
-                date);
-
-    }
 
     @OnClick(R.id.edit_btn)
     public void onEditBtnClicked(){
@@ -455,10 +425,6 @@ public class BottleFeedFragment extends BaseCreateLogFragment
 
         }
 
-    }
-
-    private Dao<FeedDao, Integer> createFeedDao() throws SQLException {
-        return babyLoggerORMLiteHelper.getFeedDao();
     }
 
     private EditText.OnEditorActionListener doneActionListener = new EditText.OnEditorActionListener(){
