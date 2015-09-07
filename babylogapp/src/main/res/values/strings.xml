@@ -389,5 +389,6 @@
     <string name="string_toc">TOC</string>
     <string name="txt_why_signup">Why sign up?</string>
     <string name="txt_parse_class_baby">Baby</string>
+    <string name="txt_add_provider">Add Provider</string>
 
 </resources>

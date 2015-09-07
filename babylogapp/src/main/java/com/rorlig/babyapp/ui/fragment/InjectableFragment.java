@@ -126,10 +126,13 @@ public class InjectableFragment extends Fragment {
         Log.d(TAG, "clearUserInfo");
         preferences.edit().putString("name", "").apply();
         preferences.edit().putString("imageUri", "").apply();
+        preferences.edit().putString("imageFile", "").apply();
+
         preferences.edit().putString("baby_sex","").apply();
-        preferences.edit().putString("dob","").apply();
+        preferences.edit().putString("dob", "").apply();
         AppUtils.invalidateDiaperChangeCaches(getActivity().getApplicationContext());
         AppUtils.invalidateSleepChangeCaches(getActivity().getApplicationContext());
+//        AppUtils.invalidateParseCache("Baby", getActivity().getApplicationContext());
 //        preferences.edit().putString(DiaperChangeStatsType.WEEKLY.getValue(), "").apply();
 //        preferences.edit().putString(DiaperChangeStatsType.MONTHLY.getValue(), "").apply();
 //        preferences.edit().putString(DiaperChangeStatsType.YEARLY.getValue(), "").apply();
