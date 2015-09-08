@@ -16,6 +16,7 @@ import com.rorlig.babyapp.R;
 import java.util.List;
 
 import butterknife.InjectView;
+import butterknife.Optional;
 
 /**
  * @author gaurav gupta
@@ -26,9 +27,11 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     private final String parseClassName;
     private String TAG = "BaseInjectableListFragment";
 
+    @Optional
     @InjectView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
 
+    @Optional
     @InjectView(R.id.snackbar)
     CoordinatorLayout snackBarLayout;
 

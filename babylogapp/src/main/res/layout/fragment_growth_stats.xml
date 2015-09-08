@@ -5,6 +5,13 @@
     android:background="@color/white"
     android:clickable="true">
 
+    <!-- hack -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/growth_stats_title"
         style="@style/ListItemHeader.Green"
