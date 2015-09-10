@@ -56,19 +56,6 @@ public class Feed extends BabyLogBaseParseObject {
     }
 
 
-    @Override
-    public String toString() {
-        return "FeedDao{" +
-                "feedType=" + getFeedType() +
-                ", feedItem='" + getFeedItem() + '\'' +
-                ", quantity=" + getQuantity() +
-                ", leftBreastTime=" + getLeftBreastTime() +
-                ", rightBreastTime=" + getRightBreastTime() +
-                ", notes='" + getNotes() + '\'' +
-                ", logCreationDate=" + getLogCreationDate() +
-                "} " + super.toString();
-    }
-
     public String getFeedType() {
         return getString("feedType");
     }
@@ -117,7 +104,19 @@ public class Feed extends BabyLogBaseParseObject {
         put("notes", notes);
     }
 
-//    public Date getLogCreationDate() {
+    @Override
+    public String toString() {
+        return "Feed{" +
+                "feedType=" + getFeedType() +
+                ", feedItem='" + getFeedItem() + '\'' +
+                ", quantity=" + getQuantity() +
+                ", leftBreastTime=" + getLeftBreastTime() +
+                ", rightBreastTime=" + getRightBreastTime() +
+                ", notes='" + notes + '\'' +
+                "} " + super.toString();
+    }
+
+    //    public Date getLogCreationDate() {
 //        return getDate("logCreationDate");
 //    }
 //

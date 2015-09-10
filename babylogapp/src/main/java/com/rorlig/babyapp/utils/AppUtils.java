@@ -15,6 +15,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 
+import com.parse.DeleteCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
@@ -136,11 +137,12 @@ public class AppUtils {
 
 
     public static void invalidateParseCache(String parseClass, Context context) {
-        try {
-            ParseObject.unpinAll(parseClass);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        ParseObject.unpinAllInBackground(parseClass, new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+
+            }
+        });
 
     }
 }

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 
 import com.google.gson.Gson;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -25,8 +26,12 @@ import com.rorlig.babyapp.ui.fragment.auth.SignUpFragment;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
+
+import bolts.Continuation;
+import bolts.Task;
 
 /**
  * @author gaurav gupta
@@ -89,8 +94,41 @@ public class LoginActivity extends InjectableActivity {
         }
 
         @Subscribe
-        public void onLoginSuccessEvent(LoginSuccessEvent event){
-            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Baby");
+        public void onLoginSuccessEvent(final LoginSuccessEvent event){
+
+            final ParseQuery<ParseObject> heightQuery = ParseQuery.getQuery("HeightToAge");
+            final ParseQuery<ParseObject> weightQuery = ParseQuery.getQuery("WeightToAge");
+            final ParseQuery<ParseObject> headMeasurementQuery = ParseQuery.getQuery("HeadCircumferenceToAge");
+            final ParseQuery query = ParseQuery.getQuery("Baby");
+
+            heightQuery.findInBackground(new FindCallback<ParseObject>() {
+                 @Override
+                 public void done(List<ParseObject> objects, ParseException e) {
+                     Log.d(TAG, "here" + objects);
+                     ParseObject.pinAllInBackground(objects);
+
+                 }
+             });
+
+            weightQuery.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    Log.d(TAG, "here" + objects);
+                    ParseObject.pinAllInBackground(objects);
+
+                }
+            });
+
+            headMeasurementQuery.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    Log.d(TAG, "here" + objects);
+                    ParseObject.pinAllInBackground(objects);
+
+                }
+            });
+
+
             query.getFirstInBackground(new GetCallback<ParseObject>() {
                 @Override
                 public void done(ParseObject object, ParseException e) {
@@ -102,6 +140,86 @@ public class LoginActivity extends InjectableActivity {
                     }
                 }
             });
+
+
+//            heightQuery.findInBackground().onSuccess(new Continuation<List<ParseObject>, Task<ParseObject>>() {
+//                @Override
+//                public Task<ParseObject> then(Task<List<ParseObject>> task) throws Exception {
+//                        return null;
+//                }
+//            }).onSuccess(new Continuation<Task<ParseObject>, Object>() {
+//                @Override
+//                public Object then(Task<Task<ParseObject>> task) throws Exception {
+//                    weightQuery.findInBackground();
+//                    return null;
+//                }
+//            }).onSuccess(new Continuation<Object, Object>() {
+//                @Override
+//                public Object then(Task<Object> task) throws Exception {
+//                    return null;
+//                }
+//            })
+
+
+
+//            weightQuery.findInBackground(new FindCallback<ParseObject>() {
+//                @Override
+//                public void done(List objects, ParseException e) {
+//                    if (e != null) {
+//                        Log.d(TAG, "objects " + objects);
+////                        ParseObject.pinAllInBackground("WeightToAge", objects);
+//
+//                        heightQuery.findInBackground(new FindCallback<ParseObject>() {
+//                            @Override
+//                            public void done(List<ParseObject> objects, ParseException e) {
+//                                if (e != null) {
+//                                    Log.d(TAG, "height objects " + objects);
+////                                    ParseObject.pinAllInBackground("HeightToAge", objects);
+//                                    headMeasurementQuery.findInBackground(new FindCallback<ParseObject>() {
+//                                        @Override
+//                                        public void done(List<ParseObject> objects, ParseException e) {
+//                                            Log.d(TAG, "head measurement objects " + objects);
+////                                            ParseObject.pinAllInBackground("HeadCircumferenceToAge", objects);
+//                                            query.getFirstInBackground(new GetCallback<ParseObject>() {
+//                                                @Override
+//                                                public void done(ParseObject object, ParseException e) {
+//                                                    if (object == null) {
+//                                                        startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+//                                                    } else {
+//                                                        saveToPreferences(object);
+//                                                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+//                                                    }
+//                                                }
+//                                            });
+//
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                        });
+//
+//                    }
+//                }
+//            });
+
+
+//
+//            headMeasurementQuery.findInBackground(new FindCallback<ParseObject>() {
+//                @Override
+//                public void done(List objects, ParseException e) {
+//                    if (e != null) {
+//                        Log.d(TAG, "objects " + objects);
+//                        ParseObject.pinAllInBackground("HeadCircumferenceToAge", objects);
+//
+//                    }
+//                }
+//            });
+//
+
+
+
+
+
         }
 
         @Subscribe

@@ -6,7 +6,7 @@ import com.squareup.otto.Bus;
  * Created by gaurav
  */
 public class BusProvider {
-    private static final Bus sBus = new Bus();
+    private static final MainThreadBus sBus = new MainThreadBus();
 
     private BusProvider()
     {

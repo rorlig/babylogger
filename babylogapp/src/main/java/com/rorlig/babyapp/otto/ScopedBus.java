@@ -1,5 +1,7 @@
 package com.rorlig.babyapp.otto;
 
+import android.os.Looper;
+
 import com.squareup.otto.Bus;
 
 import java.util.HashSet;
@@ -15,6 +17,7 @@ public class ScopedBus {
     private boolean active;
     private final Bus mBus = BusProvider.getInstance();
     private final Set<Object> mObjects = new HashSet();
+
 
     @Inject
     public ScopedBus() {

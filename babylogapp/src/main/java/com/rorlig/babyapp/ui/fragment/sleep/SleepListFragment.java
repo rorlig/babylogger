@@ -293,7 +293,7 @@ public class SleepListFragment extends BaseInjectableListFragment
         @Subscribe
         public void onSleepEventCreated(ItemCreatedOrChanged event) {
             Log.d(TAG, "onSleepEventCreated");
-            updateListView();
+            populateLocalStore(false);
 //            getLoaderManager().restartLoader(LOADER_ID, null, SleepListFragment.this);
         }
 

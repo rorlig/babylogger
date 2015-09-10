@@ -88,8 +88,6 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
     private List<ParseObject> diaperChangeList;
     private DiaperChangeAdapter diaperChangeAdapter;
     private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
-    private int LOADER_ID=2;
-    private List<String[]> diaperChangeDaoList;
 
 
     Typeface typeface;
@@ -486,7 +484,9 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
         @Subscribe
         public void onDiaperChangeItemChange(ItemCreatedOrChanged event) {
             Log.d(TAG, "onDiaperChangeItemChange");
-            updateListView();
+//            updateListView();
+            populateLocalStore(false);
+//            populateFromNetwork(diaperChangeList);
         }
 
 

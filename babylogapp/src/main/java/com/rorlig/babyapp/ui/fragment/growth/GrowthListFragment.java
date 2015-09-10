@@ -272,7 +272,8 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
 
         @Subscribe
         public void onGrowthItemCreated(ItemCreatedOrChanged event) {
-            updateListView();
+            populateLocalStore(false);
+//            updateListView();
 //            getLoaderManager().restartLoader(LOADER_ID, null, GrowthListFragment.this);
 //            showFragment(GrowthListFragment.class, "growth_list_fragment",false);
         }

@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -34,6 +35,7 @@ import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -90,6 +92,7 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
     private String id;
     private boolean showEditDelete = false;
     private Feed feed;
+    private String uuid;
 
     public NursingFeedFragment() {
         super("Feed");
@@ -122,8 +125,8 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
         //initialize views if not creating new feed item
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getString("feed_id");
-            initViews(id);
+            uuid = getArguments().getString("uuid");
+            initViews(uuid);
         }
 
 
@@ -133,16 +136,18 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
 
     }
 
-    private void initViews(String id) {
-        Log.d(TAG, "initViews " + id);
+    private void initViews(String uuid) {
+        Log.d(TAG, "initViews " + uuid);
 
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
         query.fromLocalDatastore();
+        query.whereEqualTo("uuid", uuid);
 
-        query.getInBackground(id, new GetCallback<ParseObject>() {
+        query.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(ParseObject object, ParseException e) {
-                feed = (Feed) object;
+            public void done(List<ParseObject> objects, ParseException e) {
+                Log.d(TAG, "done " + objects + " e " + e);
+                feed = (Feed) objects.get(0);
 
                 leftBreastFeedMinutes.setText("" + (int) (feed.getLeftBreastTime() % 60));
                 leftBreastFeedHours.setText("" + (int) (feed.getLeftBreastTime() / 60));
@@ -161,8 +166,9 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
 
                 editDeleteBtn.setVisibility(View.VISIBLE);
                 saveBtn.setVisibility(View.GONE);
-
             }
+
+
         });
 
     }

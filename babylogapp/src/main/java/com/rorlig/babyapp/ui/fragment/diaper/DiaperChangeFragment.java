@@ -21,6 +21,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
+import com.parse.DeleteCallback;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -35,6 +37,7 @@ import com.rorlig.babyapp.model.diaper.DiaperIncident;
 import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.datetime.TimeSetEvent;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
@@ -44,9 +47,12 @@ import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import bolts.Continuation;
+import bolts.Task;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -127,6 +133,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
     private String id;
     private boolean showEditDelete = false;
     private DiaperChange diaperChange;
+    private String uuid;
 
     public DiaperChangeFragment() {
         super("Diaper");
@@ -188,8 +195,9 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
             id = getArguments().getString("diaper_change_id");
+            uuid = getArguments().getString("uuid");
             Log.d(TAG, "id of the object " + id);
-            initViews(id);
+            initViews(uuid);
         }
 
 
@@ -201,31 +209,62 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 //        scopedBus.post(new UpNavigationEvent);
     }
 
-    private void initViews(String id) {
-        Log.d(TAG, "initViews " + id);
+    private void initViews(String uuid) {
+        Log.d(TAG, "initViews " + uuid);
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+//        query.fromLocalDatastore();
+
+        query.whereEqualTo("uuid", uuid);
+
         query.fromLocalDatastore();
-
-        query.getInBackground(id, new GetCallback<ParseObject>() {
+//        query.findInBackground();
+        query.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(ParseObject object, ParseException e) {
-                diaperChange = (DiaperChange) object;
-                setDiaperChangeType(diaperChange);
-                setDiaperEventTypeVisibility(diaperChange);
-                setDiaperIncidentType(diaperChange);
-                notes.setText(diaperChange.getDiaperChangeNotes());
-                setDateTimeHeader(diaperChange);
+            public void done(List<ParseObject> objects, ParseException e) {
+                Log.d(TAG, "object " + objects + " e " + e);
+                if (objects != null) {
+                    Log.d(TAG, "objects size " + objects.size());
+                    diaperChange = (DiaperChange) objects.get(0);
+                    setDiaperChangeType(diaperChange);
+                    setDiaperEventTypeVisibility(diaperChange);
+                    setDiaperIncidentType(diaperChange);
+                    notes.setText(diaperChange.getDiaperChangeNotes());
+                    setDateTimeHeader(diaperChange);
 
-                showEditDelete = true;
+                    showEditDelete = true;
 
 //            saveBtn.setText("Edit");
 
 
-                editDeleteBtn.setVisibility(View.VISIBLE);
-                saveBtn.setVisibility(View.GONE);
+                    editDeleteBtn.setVisibility(View.VISIBLE);
+                    saveBtn.setVisibility(View.GONE);
+                }
 
             }
+
+
         });
+
+//        query.getInBackground(id, new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject object, ParseException e) {
+//                diaperChange = (DiaperChange) object;
+//                setDiaperChangeType(diaperChange);
+//                setDiaperEventTypeVisibility(diaperChange);
+//                setDiaperIncidentType(diaperChange);
+//                notes.setText(diaperChange.getDiaperChangeNotes());
+//                setDateTimeHeader(diaperChange);
+//
+//                showEditDelete = true;
+//
+////            saveBtn.setText("Edit");
+//
+//
+//                editDeleteBtn.setVisibility(View.VISIBLE);
+//                saveBtn.setVisibility(View.GONE);
+//
+//            }
+//        });
 //            DiaperChangeDao diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao().queryForId(id);
 //            Log.d(TAG, diaperChangeDao.toString());
 //
@@ -449,10 +488,14 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
                 saveEventually(diaperChange);
 
             } else {
-                tempDiaperChangeObject.saveEventually();
+//                tempDiaperChangeObject.saveEventually();
+                saveEventually(tempDiaperChangeObject);
             }
-            closeSoftKeyBoard();
-            scopedBus.post(new DiaperLogCreatedEvent());
+
+
+
+//        closeSoftKeyBoard();
+
 
     }
 
@@ -461,7 +504,36 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
      * //todo if the network is not connected ... dismiss the screen..
      */
     private void saveEventually(final DiaperChange diaperChange) {
-        diaperChange.pinInBackground(new SaveCallback() {
+
+        Log.d(TAG, "saveEventually");
+
+//        AppUtils.invalidateDiaperChangeCaches(context);
+//        AppUtils.invalidateParseCache("Diaper", getActivity());
+
+//        ParseObject.unpinAllInBackground("Diaper", new DeleteCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                scopedBus.post(new DiaperLogCreatedEvent());
+//
+//
+//                diaperChange.saveInBackground(new SaveCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
+//                        Log.d(TAG, "saving locally");
+//                    }
+//                });
+//
+//            }
+//        });
+
+//        diaperChange.pinInBackground(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                Log.d(TAG, "pinning new object");
+
+//        ParseObject.pin
+        diaperChange.pinInBackground("Diaper",
+                new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 Log.d(TAG, "pinning new object");
@@ -469,12 +541,39 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
                     @Override
                     public void done(ParseException e) {
                         Log.d(TAG, "saving locally");
-                        AppUtils.invalidateDiaperChangeCaches(context);
 
                     }
                 });
             }
         });
+//        diaperChange.saveEventually(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                Log.d(TAG, "posting");
+////                AppUtils.invalidateParseCache("Diaper", context);
+//            }
+//        });
+        Log.d(TAG, "scoped bus diaper ");
+        scopedBus.post(new ItemCreatedOrChanged("Diaper"));
+
+
+
+
+//        diaperChange.saveEventually();
+//                diaperChange.saveEventually(new SaveCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
+//                        Log.d(TAG, "saving locally");
+//
+////                        AppUtils.invalidateDiaperChangeCaches(context);
+////                        AppUtils.invalidateParseCache("Diaper", context);
+//                        scopedBus.post(new DiaperLogCreatedEvent());
+//
+//
+//                    }
+//                });
+//            }
+//        });
     }
 
 

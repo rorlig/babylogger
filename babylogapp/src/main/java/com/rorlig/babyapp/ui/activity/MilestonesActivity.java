@@ -164,6 +164,7 @@ public class MilestonesActivity extends InjectableActivity {
             MilestoneFragment fragment = new MilestoneFragment();
             Bundle args = new Bundle();
             args.putString("id", event.getModel().getObjectId());
+            args.putString("uuid", event.getModel().getUuidString());
             fragment.setArguments(args);
             Log.d(TAG, "adding to back stack ");
             getSupportFragmentManager().beginTransaction()

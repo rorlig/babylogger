@@ -7,6 +7,7 @@ import com.rorlig.babyapp.model.diaper.DiaperChangeTextureType;
 import com.rorlig.babyapp.model.diaper.DiaperIncident;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author gaurav gupta
@@ -49,6 +50,7 @@ public class DiaperChange extends BabyLogBaseParseObject {
         setDiaperChangeIncidentType(diaperChangeIncidentType);
         setDiaperChangeNotes(diaperChangeNotes);
         setLogCreationDate(date);
+        setUuidString();
     }
 
 
@@ -113,6 +115,7 @@ public class DiaperChange extends BabyLogBaseParseObject {
     public void setDiaperChangeIncidentType(String diaperChangeIncidentType) {
         put("diaperChangeIncidentType", diaperChangeIncidentType);
     }
+
 
     @Override
     public String toString() {

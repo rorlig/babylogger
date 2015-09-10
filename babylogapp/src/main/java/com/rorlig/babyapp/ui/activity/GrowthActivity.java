@@ -183,6 +183,8 @@ public class GrowthActivity extends InjectableActivity {
             GrowthFragment fragment = new GrowthFragment();
             Bundle args = new Bundle();
             args.putString("growth_id", event.getGrowthDao().getObjectId());
+            args.putString("uuid" , event.getGrowthDao().getUuidString());
+
             fragment.setArguments(args);
             Log.d(TAG, "adding to back stack ");
             getSupportFragmentManager().beginTransaction()

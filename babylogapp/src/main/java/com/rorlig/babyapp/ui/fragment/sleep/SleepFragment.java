@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.gc.materialdesign.views.Button;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -36,6 +37,7 @@ import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 import com.rorlig.babyapp.utils.AppUtils;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -81,6 +83,7 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
     private String id;
     private boolean showEditDelete = false;
     private Sleep sleep;
+    private String uuid;
 
     public SleepFragment() {
         super("Sleep");
@@ -118,8 +121,8 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
 
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getString("sleep_id");
-            initViews(id);
+            uuid = getArguments().getString("uuid");
+            initViews(uuid);
         }
 
         sleepMinutes.setOnEditorActionListener(doneActionListener);
@@ -131,38 +134,57 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
 //        scopedBus.post(new UpNavigationEvent);
     }
 
-    private void initViews(String id) {
-        Log.d(TAG, "initViews " + id);
+    private void initViews(String uuid) {
+        Log.d(TAG, "initViews " + uuid);
 
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Sleep");
         query.fromLocalDatastore();
+        query.whereEqualTo("uuid", uuid);
 
-        query.getInBackground(id, new GetCallback<ParseObject>() {
+        query.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(ParseObject object, ParseException e) {
-                sleep = (Sleep) object;
-
+            public void done(List<ParseObject> objects, ParseException e) {
+                sleep = (Sleep) objects.get(0);
                 int hours = (int) (sleep.getDuration()/60);
                 int minutes = (int) (sleep.getDuration()%60);
-
                 sleepHours.setText(String.valueOf(hours));
                 sleepMinutes.setText(String.valueOf(minutes));
                 dateTimeHeader.setDateTime(sleep.getLogCreationDate());
-
                 showEditDelete = true;
-
-//            saveBtn.setText("Edit");
-
-
                 editDeleteBtn.setVisibility(View.VISIBLE);
                 saveBtn.setVisibility(View.GONE);
-
                 hourEmpty = sleepHours.getText().equals("");
                 minuteEmpty = sleepMinutes.getText().equals("");
 
-
             }
         });
+
+//        query.getInBackground(id, new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject object, ParseException e) {
+//                sleep = (Sleep) object;
+//
+//                int hours = (int) (sleep.getDuration()/60);
+//                int minutes = (int) (sleep.getDuration()%60);
+//
+//                sleepHours.setText(String.valueOf(hours));
+//                sleepMinutes.setText(String.valueOf(minutes));
+//                dateTimeHeader.setDateTime(sleep.getLogCreationDate());
+//
+//                showEditDelete = true;
+//
+////            saveBtn.setText("Edit");
+//
+//
+//                editDeleteBtn.setVisibility(View.VISIBLE);
+//                saveBtn.setVisibility(View.GONE);
+//
+//                hourEmpty = sleepHours.getText().equals("");
+//                minuteEmpty = sleepMinutes.getText().equals("");
+//
+//
+//            }
+//        });
 
     }
 

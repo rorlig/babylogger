@@ -177,6 +177,7 @@ public class SleepActivity extends InjectableActivity {
             SleepFragment fragment = new SleepFragment();
             Bundle args = new Bundle();
             args.putString("sleep_id", event.getSleepDao().getObjectId());
+            args.putString("uuid", event.getSleepDao().getUuidString());
             fragment.setArguments(args);
 
             Log.d(TAG, "adding to back stack ");

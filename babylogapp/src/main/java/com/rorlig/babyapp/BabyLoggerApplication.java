@@ -17,6 +17,7 @@ import com.rorlig.babyapp.parse_dao.Feed;
 import com.rorlig.babyapp.parse_dao.Growth;
 import com.rorlig.babyapp.parse_dao.Milestones;
 import com.rorlig.babyapp.parse_dao.Sleep;
+import com.rorlig.babyapp.parse_dao.WeightToAge;
 
 import java.util.Arrays;
 import java.util.List;
@@ -80,6 +81,8 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
         ParseObject.registerSubclass(Sleep.class);
 
         ParseObject.registerSubclass(Baby.class);
+
+        ParseObject.registerSubclass(WeightToAge.class);
 
 
 

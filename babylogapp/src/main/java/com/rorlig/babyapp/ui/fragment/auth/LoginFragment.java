@@ -180,7 +180,7 @@ public class LoginFragment extends InjectableFragment {
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
                     // Start an intent for the dispatch activity
-                    scopedBus.post(new LoginSuccessEvent());
+                    scopedBus.post(new LoginSuccessEvent(user));
 //                    Intent intent = new Intent(LoginActivity.this, DispatchActivity.class);
 //                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                    startActivity(intent);

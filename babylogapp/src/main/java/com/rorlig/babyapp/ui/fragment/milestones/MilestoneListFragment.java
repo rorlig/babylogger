@@ -227,7 +227,8 @@ public class MilestoneListFragment extends BaseInjectableListFragment
 
         @Subscribe
         public void onMilestoneItemCreated(ItemCreatedOrChanged event) {
-            updateListView();
+            populateLocalStore(false);
+//            updateListView();
 //            getLoaderManager().restartLoader(LOADER_ID, null, MilestoneListFragment.this);
         }
 

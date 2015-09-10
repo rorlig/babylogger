@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -39,6 +40,7 @@ import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -91,6 +93,7 @@ public class BottleFeedFragment extends BaseCreateLogFragment
     private boolean showEditDelete = false;
     private boolean quantityEmpty = true;
     private Feed feed;
+    private String uuid;
 
     public BottleFeedFragment() {
         super("Feed");
@@ -127,8 +130,8 @@ public class BottleFeedFragment extends BaseCreateLogFragment
         //initialize views if not creating new feed item
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getString("feed_id");
-            initViews(id);
+            uuid = getArguments().getString("uuid");
+            initViews(uuid);
         }
 
         notes.setOnEditorActionListener(doneActionListener);
@@ -186,40 +189,43 @@ public class BottleFeedFragment extends BaseCreateLogFragment
     }
 
     // initialize views based on
-    private void initViews(String id) {
-        Log.d(TAG, "initViews " + id);
+    private void initViews(String uuid) {
+        Log.d(TAG, "initViews " + uuid);
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
         query.fromLocalDatastore();
+        query.whereEqualTo("uuid", uuid);
 
-        query.getInBackground(id, new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject object, ParseException e) {
-                feed = (Feed) object;
+        query.findInBackground(new FindCallback<ParseObject>() {
+               @Override
+               public void done(List<ParseObject> objects, ParseException e) {
+                   feed = (Feed) objects.get(0);
 
-                quantityTextView.setText(feed.getQuantity().toString());
-                final String[] values = getResources().getStringArray(R.array.type_array);
-                int index = 0;
-                for (String value : values) {
-                    if (value.equals(feed.getFeedItem())) {
-                        feedTypeSpinner.setSelection(index);
-                        break;
-                    }
-                    index++;
-                }
+                   quantityTextView.setText(feed.getQuantity().toString());
+                   final String[] values = getResources().getStringArray(R.array.type_array);
+                   int index = 0;
+                   for (String value : values) {
+                       if (value.equals(feed.getFeedItem())) {
+                           feedTypeSpinner.setSelection(index);
+                           break;
+                       }
+                       index++;
+                   }
 
-                notes.setText(feed.getNotes());
+                   notes.setText(feed.getNotes());
 
-                dateTimeHeader.setDateTime(feed.getLogCreationDate());
+                   dateTimeHeader.setDateTime(feed.getLogCreationDate());
 
-                showEditDelete = true;
+                   showEditDelete = true;
 //            saveBtn.setText("Edit");
 
 
-                editDeleteBtn.setVisibility(View.VISIBLE);
-                saveBtn.setVisibility(View.GONE);
+                   editDeleteBtn.setVisibility(View.VISIBLE);
+                   saveBtn.setVisibility(View.GONE);
+               }
+           }
 
-            }
-        });
+
+        );
     }
 
     @Override

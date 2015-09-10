@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.android.camera.CropImageIntentBuilder;
 import com.desmond.squarecamera.CameraActivity;
 import com.gc.materialdesign.views.Button;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -54,6 +55,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -114,6 +116,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
     private PictureSourceSelectFragment pictureSourceSelectFragment;
     private boolean resetImage;
     private Milestones milestone;
+    private String uuid;
 
     public MilestoneFragment() {
         super("Milestone");
@@ -145,8 +148,8 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
         //initialize views if not creating new feed item
         if (getArguments() != null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getString("id");
-            initViews(id);
+            uuid = getArguments().getString("uuid");
+            initViews(uuid);
         }
 //        mileStoneImageView.setBackgroundColor(Color.CYAN);
 
@@ -155,18 +158,19 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
 
     }
 
-    private void initViews(String id) {
+    private void initViews(String uuid) {
 
-        Log.d(TAG, "initViews " + id);
+        Log.d(TAG, "initViews " + uuid);
         editDeleteBtn.setVisibility(View.VISIBLE);
         saveBtn.setVisibility(View.GONE);
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Milestone");
         query.fromLocalDatastore();
+        query.whereEqualTo("uuid", uuid);
 
-        query.getInBackground(id, new GetCallback<ParseObject>() {
+        query.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(ParseObject object, ParseException e) {
-                milestone = (Milestones) object;
+            public void done(List<ParseObject> objects, ParseException e) {
+                milestone = (Milestones) objects.get(0);
                 Log.d(TAG, milestone.toString());
                 notes.setText(milestone.getNotes());
                 dateTimeHeader.setDateTime(milestone.getLogCreationDate());
@@ -185,6 +189,29 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
                 setSaveEnabled();
             }
         });
+
+//        query.getInBackground(id, new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject object, ParseException e) {
+//                milestone = (Milestones) object;
+//                Log.d(TAG, milestone.toString());
+//                notes.setText(milestone.getNotes());
+//                dateTimeHeader.setDateTime(milestone.getLogCreationDate());
+//                customMilestonesTextView.setText(milestone.getTitle());
+//                if (milestone.getParseFile()!=null && milestone.getParseFile().getUrl()!=null){
+//                    picasso.with(context).load(milestone.getParseFile().getUrl()).into(mileStoneImageView);
+//                }
+//                imageUri = Uri.parse(milestone.getImagePath());
+////                Log.d(TAG, "imagePath: " + milestone.getImagePath());
+////                updateImageUri(milestone.getImagePath());
+//                showEditDelete = true;
+//
+//                milestoneEmpty = false;
+//
+//
+//                setSaveEnabled();
+//            }
+//        });
 
 //        try {
 //            MilestonesDao milestonesDao = babyLoggerORMLiteHelper.getMilestonesDao().queryForId(id);

@@ -10,6 +10,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rorlig.babyapp.dagger.ForApplication;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
+import com.rorlig.babyapp.utils.AppUtils;
 
 import javax.inject.Inject;
 
@@ -55,7 +56,15 @@ public abstract class BaseCreateLogFragment extends InjectableFragment{
     }
 
     public void delete(ParseObject parseObject){
-        parseObject.deleteEventually();
+
+//        AppUtils.invalidateParseCache(parseClassName, context);
+        parseObject.deleteEventually(new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+
+            }
+        });
         scopedBus.post(new ItemCreatedOrChanged(parseClassName));
+
     }
 }

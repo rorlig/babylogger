@@ -329,7 +329,8 @@ public class FeedingListFragment extends BaseInjectableListFragment
         @Subscribe
         public void onFeedSavedEvent(ItemCreatedOrChanged event) {
             Log.d(TAG, "onFeedSavedEvent");
-            updateListView();
+            populateLocalStore(false);
+//            updateListView();
 //            finish();
 //            showFragment(FeedingListFragment.class, "feeding_list",false);
 

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -33,6 +34,7 @@ import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -89,6 +91,7 @@ public class GrowthFragment extends BaseCreateLogFragment {
     private String id;
     private boolean showEditDelete = false;
     private Growth growth;
+    private String uuid;
 
     public GrowthFragment() {
         super("Growth");
@@ -108,7 +111,8 @@ public class GrowthFragment extends BaseCreateLogFragment {
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
             id = getArguments().getString("growth_id");
-            initViews(id);
+            uuid = getArguments().getString("uuid");
+            initViews(uuid);
         }
         setUpTextWatchers();
     }
@@ -121,11 +125,11 @@ public class GrowthFragment extends BaseCreateLogFragment {
 
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Growth");
         query.fromLocalDatastore();
-
-        query.getInBackground(id, new GetCallback<ParseObject>() {
+        query.whereEqualTo("uuid", uuid);
+        query.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(ParseObject object, ParseException e) {
-                growth = (Growth) object;
+            public void done(List<ParseObject> objects, ParseException e) {
+                growth = (Growth) objects.get(0);
                 weightEditText.setText(convertWeightToString(growth.getWeight()));
                 heightInchesEditText.setText(growth.getHeight().toString());
                 headInchesEditText.setText(growth.getHeadMeasurement().toString());
@@ -136,13 +140,14 @@ public class GrowthFragment extends BaseCreateLogFragment {
                 if (!headInchesEditText.getText().toString().equals("")) {
                     headMeasureEmpty = false;
                 }
+                showEditDelete = true;
+                setSaveEnabled();
+
             }
         });
 
 
-        showEditDelete = true;
 
-        setSaveEnabled();
 
 
     }

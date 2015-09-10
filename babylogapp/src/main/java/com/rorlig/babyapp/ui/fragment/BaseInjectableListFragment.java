@@ -54,10 +54,10 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     }
 
     public void updateListView() {
-        populateLocalStore();
+        populateLocalStore(true);
     }
 
-    protected void populateLocalStore() {
+    protected void populateLocalStore(final boolean checkNetwork) {
         final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
         query.orderByDescending("logCreationDate");
         query.fromLocalDatastore();
@@ -73,7 +73,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
                         Log.d(TAG, "got list from the cache " + e);
                         if (e == null) {
                             Log.d(TAG, "number of items " + objects.size());
-                            if (objects.size() == 0) {
+                            if (objects.size() == 0 && checkNetwork) {
                                 populateFromNetwork(objects);
                             } else {
                                 setListResults(objects);
@@ -97,7 +97,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         query.findInBackground(
                 new FindCallback<ParseObject>() {
                     @Override
-                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                    public void done(final List<ParseObject> objects, com.parse.ParseException e) {
                         Log.d(TAG, "got list from the network");
                         if (e == null) {
                             Log.d(TAG, "number of items " + objects.size());
@@ -109,12 +109,13 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
                                     @Override
                                     public void done(com.parse.ParseException e) {
                                         Log.d(TAG, "deleted " + parseClassName + " pin " + e);
+                                        ParseObject.pinAllInBackground(parseClassName, objects);
+
                                     }
 
                                 });
                             }
 
-                            ParseObject.pinAllInBackground(parseClassName, objects);
                             setListResults(objects);
                         } else {
                             Log.d(TAG, "exception " + e);

@@ -44,17 +44,6 @@ public class Growth extends BabyLogBaseParseObject {
     }
 
 
-    @Override
-    public String toString() {
-        return "GrowthDao{" +
-                "weight=" + getWeight() +
-                ", headMeasurement=" + getHeadMeasurement() +
-                ", height=" + getHeight() +
-                ", notes='" + getNotes() + '\'' +
-                ", logCreationDate=" + getLogCreationDate() +
-                "} " + super.toString();
-    }
-
     public Double getWeight() {
         return getDouble("weight");
     }
@@ -88,7 +77,17 @@ public class Growth extends BabyLogBaseParseObject {
         put("notes", notes);
     }
 
-//
+    @Override
+    public String toString() {
+        return "Growth{" +
+                "weight=" + getWeight() +
+                ", headMeasurement=" + getHeadMeasurement() +
+                ", height=" + getHeight() +
+                ", notes='" + getNotes() + '\'' +
+                "} " + super.toString();
+    }
+
+    //
 //    public Date getLogCreationDate() {
 //        return getDate("logCreationDate");
 //    }
