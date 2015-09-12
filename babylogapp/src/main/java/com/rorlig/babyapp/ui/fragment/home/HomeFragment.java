@@ -31,6 +31,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 /**
  * Created by rorlig on 5/31/15.
@@ -66,7 +67,7 @@ public class HomeFragment extends InjectableFragment {
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
-
+        // sequence example
 
         }
 

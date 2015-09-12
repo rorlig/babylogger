@@ -80,7 +80,6 @@ public class GrowthFragment extends BaseCreateLogFragment {
 
 
 
-    DateTimeHeaderFragment dateTimeHeader;
 
     private String TAG = "GrowthFragment";
 
@@ -88,7 +87,7 @@ public class GrowthFragment extends BaseCreateLogFragment {
     private boolean heightEmpty = true;
     private boolean weightEmpty = true;
     private boolean headMeasureEmpty = true;
-    private String id;
+//    private String id;
     private boolean showEditDelete = false;
     private Growth growth;
     private String uuid;
@@ -103,23 +102,22 @@ public class GrowthFragment extends BaseCreateLogFragment {
         super.onActivityCreated(paramBundle);
         scopedBus.post(new FragmentCreated("Growth Fragment"));
         saveBtn.setEnabled(false);
-        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
-        Log.d(TAG, " green color " + Integer.toString(R.color.primary_green, 16));
-        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GREEN);
+
+
         notes.setOnEditorActionListener(doneActionListener);
         //initialize views if not creating new feed item
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getString("growth_id");
+//            id = getArguments().getString("growth_id");
             uuid = getArguments().getString("uuid");
             initViews(uuid);
         }
         setUpTextWatchers();
     }
 
-    private void initViews(String id) {
+    private void initViews(String uuid) {
 
-        Log.d(TAG, "initViews " + id);
+        Log.d(TAG, "initViews " + uuid);
         editDeleteBtn.setVisibility(View.VISIBLE);
         saveBtn.setVisibility(View.GONE);
 
@@ -130,6 +128,7 @@ public class GrowthFragment extends BaseCreateLogFragment {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 growth = (Growth) objects.get(0);
+                Log.d(TAG, "growth " + growth);
                 weightEditText.setText(convertWeightToString(growth.getWeight()));
                 heightInchesEditText.setText(growth.getHeight().toString());
                 headInchesEditText.setText(growth.getHeadMeasurement().toString());
@@ -365,7 +364,7 @@ public class GrowthFragment extends BaseCreateLogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated");
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GREEN);
 
     }
 

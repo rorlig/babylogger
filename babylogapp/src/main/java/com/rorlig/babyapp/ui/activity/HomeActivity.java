@@ -13,12 +13,16 @@ import com.rorlig.babyapp.model.ItemModel;
 import com.rorlig.babyapp.otto.ItemsSelectedEvent;
 import com.rorlig.babyapp.otto.UpdateProfileEvent;
 import com.rorlig.babyapp.ui.fragment.home.HomeFragment;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 /**
  * Created by rorlig on 5/31/15.
@@ -43,7 +47,30 @@ public class HomeActivity extends InjectableActivity {
 //            showFragment(LoginFragment.class,"login_frament", false);
 //        } else {
             showFragment(HomeFragment.class, "home_fragment", false);
+
+            setUpOptions();
 //        }
+    }
+
+    private void setUpOptions() {
+
+        ShowcaseConfig config = new ShowcaseConfig();
+        config.setDelay(500); // half second between each showcase view
+
+
+
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, AppConstants.SHOWCASE_ID_PROFILE);
+
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(profileImageIcon,
+                "Edit Profile Here ", "GOT IT");
+
+//        sequence.addSequenceItem(exportView, "Export Content", "GOT IT");
+
+
+        sequence.start();
+
     }
 
     @Override

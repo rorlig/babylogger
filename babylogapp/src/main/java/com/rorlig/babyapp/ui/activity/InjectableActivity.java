@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,6 +24,8 @@ import com.rorlig.babyapp.dagger.ObjectGraphActivity;
 import com.rorlig.babyapp.dagger.ObjectGraphUtils;
 import com.rorlig.babyapp.otto.ScopedBus;
 import com.rorlig.babyapp.otto.UpdateActionBarEvent;
+import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
@@ -34,6 +38,8 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import dagger.ObjectGraph;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 //import butterknife.;
 
@@ -68,8 +74,10 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
     @Inject
     Picasso picasso;
 
+    View exportView;
 
-        @Override
+
+    @Override
     public void inject(Object paramObject) {
        Log.d(TAG, "injecting " + paramObject);
        activityGraph.inject(paramObject);
@@ -102,7 +110,6 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
         activityGraph = ObjectGraphUtils.getApplicationGraph(this).plus(getModules().toArray());
         activityGraph.inject(this);
         setUpViews();
-
 
 
     }
@@ -140,6 +147,18 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
         ButterKnife.inject(this);
     }
 
+
+//    @Override
+//     public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        getSupportMenuInflater().inflate(R.menu.main, menu);
+//        new Handler().post(new Runnable() {
+//            @Override
+//            public void run() {
+//                final View menuItemView = findViewById(R.id.action_export);
+//            });
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     public ObjectGraph getActivityGraph() {
         return activityGraph;
@@ -247,6 +266,9 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
             }
         });
         titleTextView.setText(getTitle());
+
+
+
     }
 
     @Override
@@ -303,7 +325,29 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
 
     }
 
-//    @Subscribe
+//    @Override
+//     public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        getMenuInflater().inflate(R.menu.menu_home, menu);
+//
+//        Log.d(TAG, "onCreateOptions");
+//
+//        new Handler().post(new Runnable() {
+//            @Override
+//            public void run() {
+//                exportView = findViewById(R.id.action_export);
+//                setUpOptions();
+//            }
+//        });
+//
+//        return super.onCreateOptionsMenu(menu);
+//
+//
+//    }
+
+
+
+        //    @Subscribe
 //    public void onDiaperLogCreated(DiaperLogCreatedEvent event) {
 //        closeSoftKeyBoard();
 //

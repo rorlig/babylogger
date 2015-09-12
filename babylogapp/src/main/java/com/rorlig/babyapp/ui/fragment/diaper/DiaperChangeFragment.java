@@ -43,6 +43,7 @@ import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.TimePickerFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
@@ -56,6 +57,8 @@ import bolts.Task;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 import static com.rorlig.babyapp.model.diaper.DiaperChangeColorType.COLOR_1;
 import static com.rorlig.babyapp.model.diaper.DiaperChangeColorType.COLOR_2;
@@ -120,7 +123,6 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
     @InjectView(R.id.poopColorRadioGroup)
     RadioGroup diaperChangeColor;
 
-    DateTimeHeaderFragment dateTimeHeader;
 
     private String[] poopDensityLabels = new String[]{"Loose", "Seedy", "Chunky","Hard"};
 
@@ -142,6 +144,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
+
 
 
 
@@ -185,8 +188,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
         });
 
 
-        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
-        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.PURPLE);
+
 
 
 
@@ -387,6 +389,8 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.PURPLE);
+
     }
 
 

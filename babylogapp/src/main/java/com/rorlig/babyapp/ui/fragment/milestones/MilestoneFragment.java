@@ -102,7 +102,6 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
     Picasso picasso;
 
 
-    DateTimeHeaderFragment dateTimeHeader;
 
     private String TAG = "MilestoneFragment";
 
@@ -139,9 +138,8 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
         saveBtn.setEnabled(false);
 
 
-        dateTimeHeader = (DateTimeHeaderFragment) (getChildFragmentManager().findFragmentById(R.id.header));
-        Log.d(TAG, " green color " + Integer.toString(R.color.primary_green, 16));
-        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.ORANGE);
+
+
 
         notes.setOnEditorActionListener(doneActionListener);
 
@@ -333,7 +331,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated");
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.ORANGE);
 
 
     }

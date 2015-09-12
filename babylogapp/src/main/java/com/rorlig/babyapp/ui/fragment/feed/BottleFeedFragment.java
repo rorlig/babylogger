@@ -86,7 +86,6 @@ public class BottleFeedFragment extends BaseCreateLogFragment
 
     ArrayAdapter<CharSequence> feedAdapter;
 
-    DateTimeHeaderFragment dateTimeHeader;
 
     private String id;
 
@@ -123,9 +122,6 @@ public class BottleFeedFragment extends BaseCreateLogFragment
 
 
 
-
-        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
-        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
 
         //initialize views if not creating new feed item
         if (getArguments()!=null) {
@@ -231,6 +227,8 @@ public class BottleFeedFragment extends BaseCreateLogFragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
+
 
     }
 

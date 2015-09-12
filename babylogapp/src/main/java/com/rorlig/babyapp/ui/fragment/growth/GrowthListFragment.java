@@ -260,7 +260,7 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "iten at position " + position + " clicked");
         Growth growth = (Growth) listView.getItemAtPosition(position);
-//        Log.d(TAG, "growth dao " + growthDao);
+        Log.d(TAG, "growth dao " + growth);
         scopedBus.post(new GrowthItemClicked(growth));
     }
 

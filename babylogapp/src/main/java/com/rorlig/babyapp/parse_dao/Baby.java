@@ -79,10 +79,10 @@ public class Baby extends ParseObject {
     @Override
     public String toString() {
         return "Baby{" +
-                "name='" + name + '\'' +
-                ", dob='" + dob + '\'' +
-                ", imagePath='" + imagePath + '\'' +
-                ", parseFile=" + parseFile +
+                "name='" + getName() + '\'' +
+                ", dob='" + getDob() + '\'' +
+                ", imagePath='" + getImagePath() + '\'' +
+                ", parseFile=" + getParseFile() +
                 "} " + super.toString();
     }
 }

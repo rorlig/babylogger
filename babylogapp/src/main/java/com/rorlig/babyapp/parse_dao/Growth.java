@@ -41,6 +41,8 @@ public class Growth extends BabyLogBaseParseObject {
         setLogCreationDate(date);
 //        this.notes = notes;
         setNotes(notes);
+
+        setUuidString();
     }
 
 

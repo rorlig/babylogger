@@ -31,6 +31,7 @@ public class Sleep extends BabyLogBaseParseObject {
         setSleepStartTime(sleepStartTime);
         setDuration(duration);
         setLogCreationDate(date);
+        setUuidString();
 //        this.sleepStartTime = sleepStartTime;
 //        this.duration = duration;
 //        this.logCreationDate = new Date(date.getTime());

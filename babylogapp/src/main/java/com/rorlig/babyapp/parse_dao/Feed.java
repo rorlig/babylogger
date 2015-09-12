@@ -53,6 +53,7 @@ public class Feed extends BabyLogBaseParseObject {
         setLeftBreastTime(leftBreastTime);
         setRightBreastTime(rightBreastTime);
         setLogCreationDate(date);
+        setUuidString();
     }
 
 

@@ -15,6 +15,8 @@ import com.rorlig.babyapp.parse_dao.Baby;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.parse_dao.Feed;
 import com.rorlig.babyapp.parse_dao.Growth;
+import com.rorlig.babyapp.parse_dao.HeadCircumferenceToAge;
+import com.rorlig.babyapp.parse_dao.HeightToAge;
 import com.rorlig.babyapp.parse_dao.Milestones;
 import com.rorlig.babyapp.parse_dao.Sleep;
 import com.rorlig.babyapp.parse_dao.WeightToAge;
@@ -83,6 +85,12 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
         ParseObject.registerSubclass(Baby.class);
 
         ParseObject.registerSubclass(WeightToAge.class);
+
+        ParseObject.registerSubclass(HeightToAge.class);
+
+        ParseObject.registerSubclass(HeadCircumferenceToAge.class);
+
+
 
 
 

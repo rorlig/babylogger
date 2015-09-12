@@ -349,7 +349,7 @@
     <string name="type">Type</string>
     <string name="preference_about">About</string>
     <string name="version_number_title">Version Number</string>
-    <string name="version_number_summary">1.17</string>
+    <string name="version_number_summary">1.19</string>
     <string name="more_settings_toc">Terms and Conditions</string>
     <string name="minutes">Minutes</string>
     <string name="bottle_feed_title">BOTTLE FEED</string>
@@ -363,7 +363,7 @@
     <string name="milestone_type_title">Milestone</string>
     <string name="custom_milestone">Milestone</string>
     <string name="hint_notes">Notes</string>
-    <string name="image_milestone">Image MIlestone</string>
+    <string name="image_milestone">Image Milestone</string>
     <string name="no_feed">Start logging baby feeds</string>
     <string name="action_profile">Profile</string>
     <string name="action_tutorial">Tutorial</string>

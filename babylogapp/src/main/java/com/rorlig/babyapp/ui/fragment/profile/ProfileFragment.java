@@ -277,7 +277,7 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 
             try {
                 int year = Integer.parseInt(dateElements[0]);
-                int month = Integer.parseInt(dateElements[1]);
+                int month = Integer.parseInt(dateElements[1])-1;
                 int day = Integer.parseInt(dateElements[2]);
                 Log.d(TAG, " year "  + year + " month " + month + " day " + day);
                 datePickerBirthday.updateDate(year, month, day);
@@ -704,7 +704,7 @@ public class ProfileFragment extends InjectableFragment implements PictureInterf
 
     private String getDob() {
         int year = datePickerBirthday.getYear();
-        int month = datePickerBirthday.getMonth();
+        int month = datePickerBirthday.getMonth()+1;
         int day = datePickerBirthday.getDayOfMonth();
         return year  + "," + month + "," + day;
     }

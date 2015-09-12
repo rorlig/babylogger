@@ -1,18 +1,26 @@
 package com.rorlig.babyapp.ui.fragment;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForApplication;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
+import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.rorlig.babyapp.utils.AppUtils;
 
 import javax.inject.Inject;
+
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 /**
  * @author gaurav gupta
@@ -25,6 +33,8 @@ public abstract class BaseCreateLogFragment extends InjectableFragment{
 
     private final String parseClassName;
     private String TAG = "BaseCreateLogFragment";
+
+    protected DateTimeHeaderFragment dateTimeHeader;
 
     public BaseCreateLogFragment(String parseClassName) {
         this.parseClassName = parseClassName;
@@ -52,6 +62,31 @@ public abstract class BaseCreateLogFragment extends InjectableFragment{
                     }
                 }
         );
+
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        ShowcaseConfig config = new ShowcaseConfig();
+        config.setDelay(500); // half second between each showcase view
+
+
+        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
+
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(getActivity(), AppConstants.SHOWCASE_ID_DATE_TIME);
+
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(dateTimeHeader.getView().findViewById(R.id.currentDate),
+                "Change Date Here ", "NEXT");
+
+        sequence.addSequenceItem(dateTimeHeader.getView().findViewById(R.id.currentTime),
+                "Change Time Here ", "GOT IT");
+
+        sequence.start();
 
     }
 

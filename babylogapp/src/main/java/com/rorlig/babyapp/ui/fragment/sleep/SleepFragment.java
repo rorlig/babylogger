@@ -77,7 +77,7 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
 
 
 
-    private DateTimeHeaderFragment dateTimeHeader;
+
     private boolean minuteEmpty = true;
     private boolean hourEmpty = true;
     private String id;
@@ -116,8 +116,7 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
 
 //        setSpans();
 
-        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
-        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GRAY);
+
 
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
@@ -210,6 +209,7 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.GRAY);
 
     }
 

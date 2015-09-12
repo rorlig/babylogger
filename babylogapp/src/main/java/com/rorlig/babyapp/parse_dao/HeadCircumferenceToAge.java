@@ -8,13 +8,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 
-import org.json.JSONObject;
-
-@ParseClassName("WeightToAge")
-public class WeightToAge extends ParseObject implements Parcelable {
+@ParseClassName("HeadCircumferenceToAge")
+public class HeadCircumferenceToAge extends ParseObject implements Parcelable {
 
 //    private double AgeToMonth;
 //    private float P10;
@@ -32,17 +29,17 @@ public class WeightToAge extends ParseObject implements Parcelable {
 
 
 
-    public WeightToAge(){
+    public HeadCircumferenceToAge(){
 
     }
 
-    public WeightToAge(double ageToMonth,
-                       double p10,
-                       double p25,
-                       double p50,
-                       double p75,
-                       double p95,
-                       int sex){
+    public HeadCircumferenceToAge(double ageToMonth,
+                                  double p10,
+                                  double p25,
+                                  double p50,
+                                  double p75,
+                                  double p95,
+                                  int sex){
         setAgeToMonth(ageToMonth);
         setP10(p10);
         setP25(p25);
@@ -142,16 +139,16 @@ public class WeightToAge extends ParseObject implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
     }
 
-    protected WeightToAge(Parcel in) {
+    protected HeadCircumferenceToAge(Parcel in) {
     }
 
-    public static final Parcelable.Creator<WeightToAge> CREATOR = new Parcelable.Creator<WeightToAge>() {
-        public WeightToAge createFromParcel(Parcel source) {
-            return new WeightToAge(source);
+    public static final Creator<HeadCircumferenceToAge> CREATOR = new Creator<HeadCircumferenceToAge>() {
+        public HeadCircumferenceToAge createFromParcel(Parcel source) {
+            return new HeadCircumferenceToAge(source);
         }
 
-        public WeightToAge[] newArray(int size) {
-            return new WeightToAge[size];
+        public HeadCircumferenceToAge[] newArray(int size) {
+            return new HeadCircumferenceToAge[size];
         }
     };
 }

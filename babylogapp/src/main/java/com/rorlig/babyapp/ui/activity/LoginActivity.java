@@ -105,7 +105,7 @@ public class LoginActivity extends InjectableActivity {
                  @Override
                  public void done(List<ParseObject> objects, ParseException e) {
                      Log.d(TAG, "here" + objects);
-                     ParseObject.pinAllInBackground(objects);
+                     ParseObject.pinAllInBackground("HeightToAge", objects);
 
                  }
              });
@@ -114,7 +114,7 @@ public class LoginActivity extends InjectableActivity {
                 @Override
                 public void done(List<ParseObject> objects, ParseException e) {
                     Log.d(TAG, "here" + objects);
-                    ParseObject.pinAllInBackground(objects);
+                    ParseObject.pinAllInBackground("WeightToAge", objects);
 
                 }
             });

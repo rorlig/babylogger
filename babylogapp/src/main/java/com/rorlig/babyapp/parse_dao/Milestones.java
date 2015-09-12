@@ -41,6 +41,7 @@ public class Milestones extends BabyLogBaseParseObject {
         setLogCreationDate(time);
         setImagePath(imagePath);
         setParseFile(parseFile);
+        setUuidString();
 //        this.title = title;
 //        this.notes  = notes;
 //        this.logCreationDate = new Date(time.getTime());

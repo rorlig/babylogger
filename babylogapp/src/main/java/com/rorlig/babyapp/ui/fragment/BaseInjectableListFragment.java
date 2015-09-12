@@ -114,6 +114,8 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
                                     }
 
                                 });
+                            } else {
+                                ParseObject.pinAllInBackground(parseClassName, objects);
                             }
 
                             setListResults(objects);

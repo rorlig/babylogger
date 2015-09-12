@@ -86,7 +86,7 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
 
     private EventListener eventListener = new EventListener();
 
-    private DateTimeHeaderFragment dateTimeHeader;
+
 
     private boolean leftHoursEmpty = true, leftMinutesEmpty  = true, rightHoursEmpty = true, rightMinutesEmpty  = true;
     private String id;
@@ -106,8 +106,8 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
 //        typeface=Typeface.createFromAsset(getActivity().getAssets(),
 //                "fonts/proximanova_light.ttf");
 
-        dateTimeHeader = (DateTimeHeaderFragment)(getChildFragmentManager().findFragmentById(R.id.header));
-        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
+
+
 
 
         setSaveEnabled();
@@ -178,6 +178,9 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         Log.d(TAG, "onViewCreated");
+
+        dateTimeHeader.setColor(DateTimeHeaderFragment.DateTimeColor.BLUE);
+
 
 //        notificationManager = (NotificationManager)
 //                getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -551,7 +554,7 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
             feed.setFeedItem(tempFeedItem.getFeedItem());
             saveEventually(feed);
         } else {
-            tempFeedItem.saveEventually();
+            saveEventually(tempFeedItem);
         }
 //        if (id!=null) {
 //            Log.d(TAG, "updating it");
