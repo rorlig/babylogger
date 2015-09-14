@@ -116,12 +116,12 @@ public class DiaperChangeView extends RelativeLayout {
 
     public void setModel(DiaperChange diaperChange) {
         this.diaperChange = diaperChange;
-        Log.d(TAG, new Gson().toJson(diaperChange));
+//        Log.d(TAG, new Gson().toJson(diaperChange));
         bindModel();
     }
 
     private void bindModel() {
-        Log.d(TAG, diaperChange.toString());
+//        Log.d(TAG, diaperChange.toString());
         textViewTime.setText(simpleDateFormat.format(diaperChange.getLogCreationDate()));
         setPoopColor();
         setPoopTexture();
@@ -148,7 +148,7 @@ public class DiaperChangeView extends RelativeLayout {
 //            }
 //        } else {
 
-        Log.d(TAG, "diaperChange Type " + diaperChange.getDiaperChangeEventType());
+//        Log.d(TAG, "diaperChange Type " + diaperChange.getDiaperChangeEventType());
             if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.BOTH.toString())) {
                 diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
                 diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
