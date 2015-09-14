@@ -34,6 +34,8 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     @Optional
     @InjectView(R.id.snackbar)
     CoordinatorLayout snackBarLayout;
+    protected int skip = 0 ;
+    protected int limit = 10;
 
     public BaseInjectableListFragment(String parseClassName) {
         this.parseClassName = parseClassName;
@@ -57,16 +59,23 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         populateLocalStore(true);
     }
 
+    public void updateListView(int page) {
+        skip = (page-1)*limit;
+        populateLocalStore(true);
+    }
+
     protected void populateLocalStore(final boolean checkNetwork) {
-        final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
-        query.orderByDescending("logCreationDate");
-        query.fromLocalDatastore();
+//        final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
+//        query.orderByDescending("logCreationDate");
+//        query.fromLocalDatastore();
+//
+
 //        query.fromPin(parseClassName);
 
 //        Log.d(TAG, " isCached " + query.fromPin(parseClassName));
 
 //        ParseObject.pin
-        query.findInBackground(
+        getBaseQuery().fromLocalDatastore().findInBackground(
                 new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, com.parse.ParseException e) {
@@ -90,11 +99,11 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     }
 
     protected void populateFromNetwork(final List<ParseObject> data) {
-        Log.d(TAG, "populateFromNetwork");
-        final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
-        query.orderByDescending("createdAt");
+//        Log.d(TAG, "populateFromNetwork");
+//        final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
+//        query.orderByDescending("createdAt");
 
-        query.findInBackground(
+        getBaseQuery().findInBackground(
                 new FindCallback<ParseObject>() {
                     @Override
                     public void done(final List<ParseObject> objects, com.parse.ParseException e) {
@@ -104,7 +113,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 //                            if(objects.size()==0) {
 //                                populateFromNetwork();
 //                            } else {
-                            if (data!=null) {
+                            if (data != null) {
                                 ParseObject.unpinAllInBackground(parseClassName, data, new DeleteCallback() {
                                     @Override
                                     public void done(com.parse.ParseException e) {
@@ -128,18 +137,19 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         );
     }
 
+    private ParseQuery getBaseQuery() {
+        Log.d(TAG, "getBaseQuery skip: " + skip + " limit: " + limit);
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
+        query.orderByDescending("logCreationDate");
+        query.setLimit(limit);
+        query.setSkip(skip);
+        return query;
+    }
+
     private void setError(ParseException e) {
         Log.d(TAG, "error in parse network call" + e.getMessage() + " " + getActivity() + " view " );
         swipeRefreshLayout.setRefreshing(false);
         Snackbar.make(snackBarLayout, e.getMessage(), Snackbar.LENGTH_LONG)
-//                .setAction("Undo", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//
-//                    }
-//                })
-//                .setActionTextColor(Color.RED)
                 .show();
     }
 
@@ -147,4 +157,11 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    public void setSkip(int skip) {
+        this.skip = skip;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 }

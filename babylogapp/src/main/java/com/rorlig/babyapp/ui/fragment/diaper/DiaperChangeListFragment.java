@@ -20,7 +20,9 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
+import com.parse.FindCallback;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
@@ -33,6 +35,7 @@ import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
+import com.rorlig.babyapp.ui.adapter.EndlessScrollListener;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
@@ -85,7 +88,7 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
     FloatingActionButton btnAddDiaperChange;
 
 
-    private List<ParseObject> diaperChangeList;
+    private List<ParseObject> diaperChangeList = new ArrayList<>();
     private DiaperChangeAdapter diaperChangeAdapter;
     private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
 
@@ -148,7 +151,7 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
 //
 //        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
 //        query.fromLocalDatastore();
-//        query.orderByDescending("createdAt");
+//        query.orderByDescending("createdAt");`
 //        query.findInBackground(
 //                new FindCallback<ParseObject>() {
 //                    @Override
@@ -208,17 +211,21 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
 
     @Override
     protected void setListResults(List<ParseObject> objects) {
+        Log.d(TAG, "setListResults ");
         super.setListResults(objects);
-        diaperChangeList = objects;
 
-        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(),
-                R.layout.list_item_diaper_change, diaperChangeList);
-        diaperChangeAdapter.update(diaperChangeList);
+        if (objects!=null && objects.size()>0) {
+            Log.d(TAG, "adding " + objects.size() + " to the list");
+            diaperChangeList.addAll(objects);
+//            diaperChangeAdapter.add(objects);
+        }
+        diaperChangeAdapter.notifyDataSetChanged();
 
-        sectionAdapter = new SimpleSectionAdapter<BabyLogBaseParseObject>(context,
-                diaperChangeAdapter, R.layout.section_header, R.id.title,
-                new DateSectionizer());
-        diaperChangeListView.setAdapter(sectionAdapter);
+//        diaperChangeAdapter.update(diaperChangeList);
+//
+
+//        sectionAdapter.notifyDataSetChanged();
+        diaperChangeListView.setAdapter(diaperChangeAdapter);
         if (diaperChangeList.size() > 0) {
             diaperChangeListView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
@@ -239,15 +246,33 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        diaperChangeListView.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                updateListView(page);
+            }
+        });
+
+        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(),
+                R.layout.list_item_diaper_change, diaperChangeList);
+
+        sectionAdapter = new SimpleSectionAdapter<>(getActivity(),
+                diaperChangeAdapter, R.layout.section_header, R.id.title,
+                new DateSectionizer());
+
     }
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_diaperchage_list, null);
         ButterKnife.inject(this, view);
+
         return view;
     }
+
+
 
     /*
     * Register to events...
@@ -419,55 +444,6 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
     }
 
     // -- chart data
-    private void setData(List<String[]> diaperChangeDaoList,
-                         DiaperChangeStatsType diaperChangeStatsType) {
-        ArrayList<String> xVals = new ArrayList<String>();
-        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
-        int i = 0;
-        for (String[] diaperChangeResult: diaperChangeDaoList) {
-            Log.d(TAG, "iterating the result set");
-            Log.d(TAG, " i " + i + "  date " + diaperChangeResult[0] + " count " + diaperChangeResult[1]);
-
-            Integer value = Integer.parseInt(diaperChangeResult[1]);
-            String xValue = diaperChangeResult[0];
-            switch (diaperChangeStatsType) {
-                case WEEKLY:
-                    break;
-                case MONTHLY:
-                    xValue = getDateRangeForWeek(Integer.parseInt(diaperChangeResult[0]));
-                    break;
-
-            }
-            xVals.add(xValue);
-
-            yVals.add(new BarEntry(value, i));
-            i++;
-        }
-
-        BarDataSet set1 = new BarDataSet(yVals, diaperChangeStatsType.toString());
-        set1.setBarSpacePercent(35f);
-        set1.setColor(getResources().getColor(R.color.primary_purple));
-        set1.setHighLightColor(getResources().getColor(R.color.primary_dark_purple));
-
-        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
-        dataSets.add(set1);
-    }
-
-
-    private String getDateRangeForWeek(int weekNumber){
-        Log.d(TAG, "weekNumber " + weekNumber);
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
-        DateTime weekStartDate = new DateTime().withWeekOfWeekyear(weekNumber);
-        DateTime weekEndDate = new DateTime().withWeekOfWeekyear(weekNumber + 1);
-        String returnString = weekStartDate.toString(DateTimeFormat.forPattern("dd MMM"))
-                + " to "
-                + weekEndDate.toString(DateTimeFormat.forPattern("dd MMM"));
-        Log.d(TAG, "returnString : " + returnString);
-//        new DateTime().
-        return returnString;
-
-
-    }
 
     // class to handle event clicks
     private class EventListener {
@@ -485,7 +461,40 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
         public void onDiaperChangeItemChange(ItemCreatedOrChanged event) {
             Log.d(TAG, "onDiaperChangeItemChange");
 //            updateListView();
+//            diaperChangeList.add(event.getParse);
+            setSkip(0);
+            setLimit(1);
             populateLocalStore(false);
+//            Log.d(TAG, "getBaseQuery skip: " + skip + " limit: " + limit);
+//            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+//            query.orderByDescending("logCreationDate");
+//            query.setLimit(1);
+//            query.setSkip(0);
+//
+//
+//            query.fromLocalDatastore().findInBackground(
+//                    new FindCallback<ParseObject>() {
+//                        @Override
+//                        public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                            Log.d(TAG, "got list from the cache " + e + " objects " + objects);
+//                            if (objects!=null) {
+//                                Log.d(TAG,"adding objects to the list");
+//                                diaperChangeList.addAll(objects);
+//                                diaperChangeAdapter.update(diaperChangeList);
+//                                sectionAdapter = new SimpleSectionAdapter<>(context,
+//                                        diaperChangeAdapter, R.layout.section_header, R.id.title,
+//                                        new DateSectionizer());
+//                                diaperChangeListView.setAdapter(sectionAdapter);
+//                            }
+//                        }
+//                    }
+//
+//
+//            );
+
+//            setSkip(0);
+//
+//            populateLocalStore(false);
 //            populateFromNetwork(diaperChangeList);
         }
 
