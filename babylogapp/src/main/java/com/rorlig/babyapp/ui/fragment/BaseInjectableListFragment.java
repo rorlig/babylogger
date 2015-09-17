@@ -74,41 +74,45 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 
         updateListView();
 
+        if (ultimateRecyclerView!=null) {
 
-        ultimateRecyclerView.setOnLoadMoreListener(new UltimateRecyclerView.OnLoadMoreListener() {
-            @Override
-            public void loadMore(final int itemsCount, final int maxLastVisiblePosition) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        Log.d(TAG, "onLoadMore itemsCount " + itemsCount + " maxLastVisiblePosition " + maxLastVisiblePosition);
+            ultimateRecyclerView.setOnLoadMoreListener(new UltimateRecyclerView.OnLoadMoreListener() {
+                @Override
+                public void loadMore(final int itemsCount, final int maxLastVisiblePosition) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            Log.d(TAG, "onLoadMore itemsCount " + itemsCount + " maxLastVisiblePosition " + maxLastVisiblePosition);
 //                       setSkip(itemsCount);
-                        updateListView(itemsCount);
-                    }
-                }, 1000);
-            }
-        });
+                            updateListView(itemsCount);
+                        }
+                    }, 1000);
+                }
+            });
 
 
-        ultimateRecyclerView.setDefaultOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+            ultimateRecyclerView.setDefaultOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
 //                Date logCreationTime = diaperChangeList.size()==0? null: ((BabyLogBaseParseObject)(diaperChangeList.get(0))).getLogCreationDate();
 //                populateLatestFromNetwork(logCreationTime);
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        Log.d(TAG, "refresing");
-                        Date logCreationTime = parseObjectList.size() == 0 ? null : ((BabyLogBaseParseObject) (parseObjectList.get(0))).getLogCreationDate();
-                        populateLatestFromNetwork(logCreationTime);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            Log.d(TAG, "refresing");
+                            Date logCreationTime = parseObjectList.size() == 0 ? null : ((BabyLogBaseParseObject) (parseObjectList.get(0))).getLogCreationDate();
+                            populateLatestFromNetwork(logCreationTime);
 //                        ultimateRecyclerView.setRefreshing(false);
 
 
-                    }
-                }, 1000);
-            }
-        });
+                        }
+                    }, 1000);
+                }
+            });
+
+
+        }
 
 
 //        updateListView();

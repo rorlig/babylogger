@@ -92,6 +92,8 @@ public class GrowthAdapter2 extends BaseParseAdapter2<GrowthAdapter2.ViewHolder>
             headTextView = (TextView) itemView.findViewById(R.id.headValue);
             textViewTime = (TextView) itemView.findViewById(R.id.time);
             notesContentTextView = (TextView) itemView.findViewById(R.id.notes_content);
+
+            itemView.setOnClickListener(this);
         }
 
         @Override
