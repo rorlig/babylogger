@@ -3,7 +3,6 @@ package com.rorlig.babyapp.ui.fragment.growth;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;

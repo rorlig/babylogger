@@ -9,28 +9,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dagger.ObjectGraphUtils;
 import com.rorlig.babyapp.model.diaper.DiaperChangeEnum;
 import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babyapp.otto.ScopedBus;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
-import com.rorlig.babyapp.ui.activity.InjectableActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.TimeZone;
 
-import javax.inject.Inject;
-
 /**
  * Created by admin on 4/22/14.
  * todo the UI requires considerable skinning....
  */
-public class DiaperChangeAdapter2 extends BaseParseAdapter2<DiaperChangeAdapter2.ViewHolder> {
+public class DiaperChangeAdapter2 extends ArrayAdapter<ParseObject, DiaperChangeAdapter2.ViewHolder> {
 
 
     private String TAG="DiaperChangeAdapter2";
@@ -42,7 +37,7 @@ public class DiaperChangeAdapter2 extends BaseParseAdapter2<DiaperChangeAdapter2
 
     public DiaperChangeAdapter2( List<ParseObject> parseObjectList) {
         super(parseObjectList);
-        this.parseObjectList = parseObjectList;
+//        this.parseObjectList = parseObjectList;
     }
 
 
@@ -69,7 +64,7 @@ public class DiaperChangeAdapter2 extends BaseParseAdapter2<DiaperChangeAdapter2
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DiaperChange diaperChange = (DiaperChange) parseObjectList.get(position);
+        DiaperChange diaperChange = (DiaperChange) mObjects.get(position);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, ''yy h:mm a");
         simpleDateFormat.setTimeZone(TimeZone.getDefault());
         holder.textViewTime.setText(simpleDateFormat.format(diaperChange.getLogCreationDate()));
@@ -77,7 +72,6 @@ public class DiaperChangeAdapter2 extends BaseParseAdapter2<DiaperChangeAdapter2
         setPoopTexture(holder, diaperChange);
         setDiaperIncidentType(holder, diaperChange);
         setDiaperChangeType(holder, diaperChange);
-
         holder.notesContent.setText(diaperChange.getDiaperChangeNotes()!=null ? "" + diaperChange.getDiaperChangeNotes(): "");
 
     }
@@ -131,7 +125,7 @@ public class DiaperChangeAdapter2 extends BaseParseAdapter2<DiaperChangeAdapter2
         public void onClick(View v) {
             Log.d(TAG, "onClick v ");
             int position = getLayoutPosition();
-            DiaperChange diaperChange = (DiaperChange) parseObjectList.get(position);
+            DiaperChange diaperChange = (DiaperChange) mObjects.get(position);
 //            Toast.makeText(context, "hello ", Toast.LENGTH_LONG).show();
             scopedBus.post(new DiaperChangeItemClickedEvent(diaperChange, position));
         }

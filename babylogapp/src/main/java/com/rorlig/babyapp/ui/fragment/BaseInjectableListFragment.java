@@ -18,8 +18,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
-import com.rorlig.babyapp.ui.adapter.parse.BaseParseAdapter2;
-import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
+import com.rorlig.babyapp.ui.adapter.parse.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,7 +58,8 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 
 
     protected List<ParseObject> parseObjectList = new ArrayList<>();
-    protected BaseParseAdapter2 baseParseAdapter2;
+    protected ArrayAdapter baseParseAdapter2;
+
 
     public BaseInjectableListFragment(String parseClassName) {
         this.parseClassName = parseClassName;

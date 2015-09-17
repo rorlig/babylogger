@@ -16,7 +16,6 @@ import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 import com.rorlig.babyapp.utils.AppConstants;
-import com.rorlig.babyapp.utils.AppUtils;
 
 import javax.inject.Inject;
 

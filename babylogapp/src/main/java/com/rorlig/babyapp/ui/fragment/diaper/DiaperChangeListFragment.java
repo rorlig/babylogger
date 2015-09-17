@@ -3,10 +3,7 @@ package com.rorlig.babyapp.ui.fragment.diaper;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,44 +11,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
-import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babyapp.otto.ItemDeleted;
-import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
-import com.rorlig.babyapp.parse_dao.DiaperChange;
-import com.rorlig.babyapp.ui.adapter.DateSectionizer;
-import com.rorlig.babyapp.ui.adapter.EndlessScrollListener;
-import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -270,6 +249,7 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment {
                                     //new item added
                                     parseObjectList.add(0, objects.get(0));
                                     baseParseAdapter2.notifyItemInserted(0);
+                                    baseParseAdapter2.notifyDataSetChanged();
                                     scrollLayoutManagerToPos(0);
 
                                 } else {

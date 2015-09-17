@@ -1,6 +1,5 @@
 package com.rorlig.babyapp.ui.adapter.parse;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,12 +10,9 @@ import android.widget.TextView;
 
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
 import com.rorlig.babyapp.otto.GrowthItemClicked;
 import com.rorlig.babyapp.otto.ScopedBus;
-import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.parse_dao.Growth;
-import com.rorlig.babyapp.ui.widget.GrowthView;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -25,7 +21,7 @@ import java.util.TimeZone;
 /**
  * Created by rorlig on 6/9/15.
  */
-public class GrowthAdapter2 extends BaseParseAdapter2<GrowthAdapter2.ViewHolder> {
+public class GrowthAdapter2 extends ArrayAdapter<ParseObject, GrowthAdapter2.ViewHolder> {
 
 
     private final String TAG = "GrowthAdapter";
@@ -40,7 +36,7 @@ public class GrowthAdapter2 extends BaseParseAdapter2<GrowthAdapter2.ViewHolder>
 
     public GrowthAdapter2( List<ParseObject> parseObjectList) {
         super(parseObjectList);
-        this.parseObjectList = parseObjectList;
+//        this.parseObjectList = parseObjectList;
         simpleDateFormat = new SimpleDateFormat("MMM d, ''yy h:mm a");
         simpleDateFormat.setTimeZone(TimeZone.getDefault());
     }
@@ -65,7 +61,7 @@ public class GrowthAdapter2 extends BaseParseAdapter2<GrowthAdapter2.ViewHolder>
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Growth model = (Growth) parseObjectList.get(position);
+        Growth model = (Growth) mObjects.get(position);
         holder.headTextView.setText(model.getHeadMeasurement()!=-1?model.getHeadMeasurement() + " inches": "");
         holder.heightTextView.setText(model.getHeight() + " inches");
         holder.weightTextView.setText(model.getWeight() + " pounds");
@@ -101,7 +97,7 @@ public class GrowthAdapter2 extends BaseParseAdapter2<GrowthAdapter2.ViewHolder>
 
             Log.d(TAG, "onClick v ");
             int position = getLayoutPosition();
-            Growth growth = (Growth) parseObjectList.get(position);
+            Growth growth = (Growth) mObjects.get(position);
 //            Toast.makeText(context, "hello ", Toast.LENGTH_LONG).show();
             scopedBus.post(new GrowthItemClicked(growth, position));
 

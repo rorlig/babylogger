@@ -1,7 +1,6 @@
 package com.rorlig.babyapp.ui.fragment.auth;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.util.Linkify;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.widgets.ProgressDialog;
-import com.gc.materialdesign.widgets.SnackBar;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;

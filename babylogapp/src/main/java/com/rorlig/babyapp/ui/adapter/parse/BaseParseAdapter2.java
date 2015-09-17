@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.ui.activity.InjectableActivity;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -48,4 +46,6 @@ public abstract class BaseParseAdapter2<V extends RecyclerView.ViewHolder> exten
     public int getItemCount() {
         return parseObjectList.size();
     }
+
+
 }

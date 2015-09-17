@@ -21,9 +21,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
-import com.parse.DeleteCallback;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -36,14 +34,12 @@ import com.rorlig.babyapp.model.diaper.DiaperChangeTextureType;
 import com.rorlig.babyapp.model.diaper.DiaperIncident;
 import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.datetime.TimeSetEvent;
-import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.TimePickerFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
-import com.rorlig.babyapp.utils.AppConstants;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
@@ -52,13 +48,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import bolts.Continuation;
-import bolts.Task;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
-import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 import static com.rorlig.babyapp.model.diaper.DiaperChangeColorType.COLOR_1;
 import static com.rorlig.babyapp.model.diaper.DiaperChangeColorType.COLOR_2;

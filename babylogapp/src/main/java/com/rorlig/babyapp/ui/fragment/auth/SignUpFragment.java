@@ -1,16 +1,13 @@
 package com.rorlig.babyapp.ui.fragment.auth;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.gc.materialdesign.widgets.SnackBar;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -18,8 +15,6 @@ import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.CreatedUser;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
 import com.rorlig.babyapp.utils.AppUtils;
-
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
