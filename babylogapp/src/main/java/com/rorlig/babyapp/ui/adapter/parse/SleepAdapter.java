@@ -44,7 +44,7 @@ public class SleepAdapter extends BaseParseAdapter<ParseObject> {
     @Override
     public View getView( final int position, View convertView, ViewGroup parent ) {
         SleepView view = (SleepView) convertView;
-//        ViewHolder viewHolder;
+//        BottleFeedViewHolder viewHolder;
 
         if (view == null) {
             LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

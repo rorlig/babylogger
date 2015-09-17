@@ -242,8 +242,9 @@ public class FeedingActivity extends InjectableActivity {
             }
 //            DiaperChangeFragment fragment = new DiaperChangeFragment();
             Bundle args = new Bundle();
-            args.putString("feed_id", event.getFeedDao().getObjectId());
+            args.putString("id", event.getFeedDao().getObjectId());
             args.putString("uuid", event.getFeedDao().getUuidString());
+            args.putInt("position", event.getPosition());
             fragment.setArguments(args);
 
             Log.d(TAG, "adding to back stack ");

@@ -51,7 +51,7 @@ public class DiaperChangeView extends RelativeLayout {
     private String TAG = "DiaperChangeView";
 
 
-//    public ViewHolder(View view){
+//    public BottleFeedViewHolder(View view){
 //
 //    }
 
