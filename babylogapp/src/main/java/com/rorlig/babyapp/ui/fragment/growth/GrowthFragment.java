@@ -91,6 +91,7 @@ public class GrowthFragment extends BaseCreateLogFragment {
     private boolean showEditDelete = false;
     private Growth growth;
     private String uuid;
+    private String id;
 
     public GrowthFragment() {
         super("Growth");
@@ -108,8 +109,9 @@ public class GrowthFragment extends BaseCreateLogFragment {
         //initialize views if not creating new feed item
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-//            id = getArguments().getString("growth_id");
+            id = getArguments().getString("id");
             uuid = getArguments().getString("uuid");
+            position = getArguments().getInt("position");
             initViews(uuid);
         }
         setUpTextWatchers();
@@ -520,7 +522,9 @@ public class GrowthFragment extends BaseCreateLogFragment {
 
 
         closeSoftKeyBoard();
-        scopedBus.post(new ItemCreatedOrChanged("Growth"));
+
+        Log.d(TAG, "scoped bus diaper ");
+        scopedBus.post(new ItemCreatedOrChanged("Growth", position));
 
     }
 

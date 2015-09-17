@@ -3,6 +3,10 @@ package com.rorlig.babyapp.ui.fragment.diaper;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +23,7 @@ import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -26,6 +31,7 @@ import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
+import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
@@ -37,6 +43,7 @@ import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.EndlessScrollListener;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
 
@@ -44,6 +51,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -59,15 +67,15 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of diaper changes
  */
-public class DiaperChangeListFragment extends BaseInjectableListFragment implements AdapterView.OnItemClickListener {
+public class DiaperChangeListFragment extends BaseInjectableListFragment {
 
     @ForActivity
     @Inject
     Context context;
 
 
-    @InjectView(R.id.diaperchangelist)
-    ListView diaperChangeListView;
+//    @InjectView(R.id.diaperchangelist)
+//    UltimateRecyclerView diaperChangeListView;
 
     @InjectView(R.id.emptyView)
     RelativeLayout emptyView;
@@ -88,9 +96,9 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
     FloatingActionButton btnAddDiaperChange;
 
 
-    private List<ParseObject> diaperChangeList = new ArrayList<>();
-    private DiaperChangeAdapter diaperChangeAdapter;
-    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
+//    private List<ParseObject> diaperChangeList = new ArrayList<>();
+//    private DiaperChangeAdapter2 diaperChangeAdapter;
+//    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
 
 
     Typeface typeface;
@@ -111,154 +119,23 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
-
-//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-//                "fonts/proximanova_light.ttf");
-
-//        diaperChangeListView.setEmptyView(emptyView);
-
-//        btnDiaperChange.setTypeface(typeface);
-
-//        errorText.setTypeface(typeface);
-
         scopedBus.post(new FragmentCreated("Diaper Change List"));
-
-//        if (diaperChangeList!=null && di)
-
-        updateListView();
-
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                AppUtils.invalidateParseCache("Diaper", getActivity());
-//                populateFromNetwork(null);
-//            }
-//        });
-
-
-
-
-
     }
-
-//    private void updateListView() {
-//       populateLocalStore();
-//
-//    }
-
-//    private void populateLocalStore() {
-//        Log.d(TAG, "populateLocalStore");
-//
-//        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
-//        query.fromLocalDatastore();
-//        query.orderByDescending("createdAt");`
-//        query.findInBackground(
-//                new FindCallback<ParseObject>() {
-//                    @Override
-//                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
-//                        Log.d(TAG, "got list from the cache");
-//                        if (e == null) {
-//                            Log.d(TAG, "number of items " + objects.size());
-//                            if (objects.size() == 0) {
-//                                populateFromNetwork(objects);
-//                            } else {
-//                                setListResults(objects);
-//
-//                            }
-//                        } else {
-//                            Log.d(TAG, "exception " + e);
-//                        }
-//                    }
-//                }
-//
-//
-//        );
-//
-//    }
-
-
-//    private void populateFromNetwork(final List<ParseObject> data) {
-//        Log.d(TAG, "populateFromNetwork");
-//        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
-//        query.orderByDescending("createdAt");
-//        query.findInBackground(
-//                new FindCallback<ParseObject>() {
-//                    @Override
-//                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
-//                        Log.d(TAG, "got list from the network");
-//                        if (e == null) {
-//                            Log.d(TAG, "number of items " + objects.size());
-////                            if(objects.size()==0) {
-////                                populateFromNetwork();
-////                            } else {
-//
-//                            ParseObject.unpinAllInBackground("Diapers", data, new DeleteCallback() {
-//                                @Override
-//                                public void done(com.parse.ParseException e) {
-//                                    Log.d(TAG, "deleted diapers pin " + e);
-//                                }
-//
-//                            });
-//                            ParseObject.pinAllInBackground("Diapers", objects);
-//                            setListResults(objects);
-//                        } else {
-//                            Log.d(TAG, "exception " + e);
-//                        }
-//                    }
-//                }
-//        );
-//    }
-
-    @Override
-    protected void setListResults(List<ParseObject> objects) {
-        Log.d(TAG, "setListResults ");
-        super.setListResults(objects);
-
-        if (objects!=null && objects.size()>0) {
-            Log.d(TAG, "adding " + objects.size() + " to the list");
-            diaperChangeList.addAll(objects);
-//            diaperChangeAdapter.add(objects);
-        }
-        diaperChangeAdapter.notifyDataSetChanged();
-
-//        diaperChangeAdapter.update(diaperChangeList);
-//
-
-//        sectionAdapter.notifyDataSetChanged();
-        diaperChangeListView.setAdapter(diaperChangeAdapter);
-        if (diaperChangeList.size() > 0) {
-            diaperChangeListView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
-            diaperChangeListView.setOnItemClickListener(this);
-        } else {
-            diaperChangeListView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-
-        }
-
-//        swipeRefreshLayout.setRefreshing(false);
-    }
-
-
-
 
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        diaperChangeListView.setOnScrollListener(new EndlessScrollListener() {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                updateListView(page);
-            }
-        });
 
-        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(),
-                R.layout.list_item_diaper_change, diaperChangeList);
 
-        sectionAdapter = new SimpleSectionAdapter<>(getActivity(),
-                diaperChangeAdapter, R.layout.section_header, R.id.title,
-                new DateSectionizer());
+        baseParseAdapter2 = new DiaperChangeAdapter2(parseObjectList);
+
+        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+
+        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        ultimateRecyclerView.enableLoadmore();
+
 
     }
 
@@ -266,7 +143,7 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_diaperchage_list, null);
+        View view =  inflater.inflate(R.layout.fragment_diaperchage_list_2, null);
         ButterKnife.inject(this, view);
 
         return view;
@@ -283,7 +160,6 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
 
         super.onStart();
         Log.d(TAG, "onStart");
-//        getLoaderManager().restartLoader(LOADER_ID, null, this);
         scopedBus.register(eventListener);
     }
 
@@ -325,97 +201,6 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "item clicked at position " + position + " id " + id + " size " + diaperChangeListView.getAdapter().getCount());
-        DiaperChange diaperChange = (DiaperChange) diaperChangeListView.getAdapter().getItem(position);
-        Log.d(TAG, "diaperchange dao " + diaperChange);
-        scopedBus.post(new DiaperChangeItemClickedEvent(diaperChange));
-    }
-
-//    @Override
-//    public Loader<List<DiaperChangeDao>> onCreateLoader(int i, Bundle bundle) {
-//        Log.d(TAG, "create Loader");
-//
-//        return new DiaperLoader(getActivity());
-//
-//    }
-//
-//    @Override
-//    public void onLoadFinished(Loader<List<DiaperChangeDao>> listLoader, List<DiaperChangeDao> diaperChangeDaoList) {
-//        Log.d(TAG, "number of diaper changes " + diaperChangeDaoList.size());
-//        Log.d(TAG, "loader finished");
-//
-//        if (diaperChangeDaoList.size()>0) {
-//            emptyView.setVisibility(View.GONE);
-////            barChart.setVisibility(View.VISIBLE);
-//
-//            diaperChangeListView.setVisibility(View.VISIBLE);
-//        } else {
-//            emptyView.setVisibility(View.VISIBLE);
-//            diaperChangeListView.setVisibility(View.GONE);
-////            barChart.setVisibility(View.GONE);
-//
-//        }
-//        diaperChangeList = diaperChangeDaoList;
-//
-//        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeList);
-//
-////        diaperChangeAdapter.update(diaperChangeDaoList);
-//
-//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-//                diaperChangeAdapter, R.layout.section_header, R.id.title,
-//                new DateSectionizer());
-//
-//        diaperChangeListView.setAdapter(sectionAdapter);
-//        diaperChangeListView(this);
-//
-////        diaperChangeListView.setOnLongClickListener(new OnLongClickListener() {
-////
-////            @Override
-////            public boolean onLongClick(View v) {
-////                if (mActionMode != null) {
-////                    return false;
-////                }
-////                mActionMode = getActivity().startActionMode(mActionModeCallback);
-////                v.setSelected(true);
-////                return true;
-////
-////            }
-////        });
-////        registerForContextMenu(diaperChangeListView);
-//        //        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeDaoList);
-////        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
-////                diaperChangeAdapter, R.layout.section_header, R.id.title,
-////                new DiaperChangeSectionizer());
-////        diaperChangeListView.setAdapter(diaperChangeAdapter);
-////        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
-////                diaperChangeAdapter, R.layout.section_header, R.id.title,
-////                new DiaperChangeSectionizer());
-////        diaperChangeListView.setAdapter(diaperChangeAdapter);
-//
-////        diaperChangeAdapter = new DiaperChangeAdapter(getActivity(), R.layout.list_item_diaper_change, diaperChangeList);
-////        sectionAdapter = new SimpleSectionAdapter<DiaperChangeDao>(context,
-////                diaperChangeAdapter, R.layout.section_header, R.id.title,
-////                new DiaperChangeSectionizer());
-////        diaperChangeListView.setAdapter(sectionAdapter);
-//        diaperChangeListView.(this);
-//    }
-//
-//
-//    @Override
-//    public void onLoaderReset(Loader<List<DiaperChangeDao>> listLoader) {
-//
-//    }
-
-
-//    @Override
-//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//        Log.d(TAG, "onCreateContextMenu");
-//        menu.add(0, v.getId(), 0, "Action 1");
-//
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//    }
 
 
     @Override
@@ -443,6 +228,11 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
         scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
     }
 
+
+
+
+
+
     // -- chart data
 
     // class to handle event clicks
@@ -450,52 +240,61 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
         private EventListener(){
         }
 
+//        @Subscribe
+//        public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
+//            Log.d(TAG, "onDiaperLogCreatedEvent");
+//            updateListView();
+//        }
+
+
+        //handle the addition or editing of item from list view...
+        // position == -1 in case of addition else a non negative number ...
         @Subscribe
-        public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
-            Log.d(TAG, "onDiaperLogCreatedEvent");
-            updateListView();
+        public void onItemAdded(final ItemCreatedOrChanged event) {
+            Log.d(TAG, "onDiaperChangeItemChange");
+            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
+            query.orderByDescending("logCreationDate");
+            query.setLimit(1);
+            query.setSkip(event.getPosition() == -1 ? 0 : event.getPosition());
+//
+//
+            query.fromLocalDatastore().findInBackground(
+                    new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                            Log.d(TAG, "got list from the cache " + e + " objects " + objects);
+                            if (objects!=null) {
+                                Log.d(TAG, "adding objects to the list " + event.getPosition());
+                                if (event.getPosition()==-1) {
+                                    Log.d(TAG, "adding item to position -1 ");
+                                    //new item added
+                                    parseObjectList.add(0, objects.get(0));
+                                    baseParseAdapter2.notifyItemInserted(0);
+                                    scrollLayoutManagerToPos(0);
+
+                                } else {
+                                    //item edited...
+                                    Log.d(TAG, "editing the items ");
+                                    parseObjectList.set(event.getPosition(), objects.get(0));
+                                    baseParseAdapter2.notifyItemChanged(event.getPosition());
+                                }
+
+
+
+                            }
+                        }
+                    }
+
+
+            );
+
         }
 
-
+        //handle the removal of an item from the listview.
         @Subscribe
-        public void onDiaperChangeItemChange(ItemCreatedOrChanged event) {
-            Log.d(TAG, "onDiaperChangeItemChange");
-//            updateListView();
-//            diaperChangeList.add(event.getParse);
-            setSkip(0);
-            setLimit(1);
-            populateLocalStore(false);
-//            Log.d(TAG, "getBaseQuery skip: " + skip + " limit: " + limit);
-//            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
-//            query.orderByDescending("logCreationDate");
-//            query.setLimit(1);
-//            query.setSkip(0);
-//
-//
-//            query.fromLocalDatastore().findInBackground(
-//                    new FindCallback<ParseObject>() {
-//                        @Override
-//                        public void done(List<ParseObject> objects, com.parse.ParseException e) {
-//                            Log.d(TAG, "got list from the cache " + e + " objects " + objects);
-//                            if (objects!=null) {
-//                                Log.d(TAG,"adding objects to the list");
-//                                diaperChangeList.addAll(objects);
-//                                diaperChangeAdapter.update(diaperChangeList);
-//                                sectionAdapter = new SimpleSectionAdapter<>(context,
-//                                        diaperChangeAdapter, R.layout.section_header, R.id.title,
-//                                        new DateSectionizer());
-//                                diaperChangeListView.setAdapter(sectionAdapter);
-//                            }
-//                        }
-//                    }
-//
-//
-//            );
-
-//            setSkip(0);
-//
-//            populateLocalStore(false);
-//            populateFromNetwork(diaperChangeList);
+        public void onItemDeleted(final ItemDeleted event) {
+            parseObjectList.remove(event.getPosition());
+            baseParseAdapter2.notifyItemRemoved(event.getPosition());
         }
 
 
@@ -503,4 +302,6 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment impleme
 
 
     }
+
+
 }

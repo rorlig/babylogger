@@ -182,6 +182,10 @@ dependencies {
 
     compile 'com.github.deano2390:MaterialShowcaseView:1.0.5'
 
+    //ultimate recyclerview
+    compile 'com.marshalchen.ultimaterecyclerview:library:0.3.17'
+
+
 
 
 

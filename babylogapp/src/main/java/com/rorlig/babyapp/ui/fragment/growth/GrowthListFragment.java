@@ -2,6 +2,7 @@ package com.rorlig.babyapp.ui.fragment.growth;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,10 +18,13 @@ import android.widget.TextView;
 import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
+import com.parse.FindCallback;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
 import com.rorlig.babyapp.otto.GrowthItemClicked;
+import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
@@ -29,7 +33,9 @@ import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.parse_dao.Growth;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
+import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
 import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
 
@@ -48,39 +54,10 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of growth items
  */
-public class GrowthListFragment extends BaseInjectableListFragment implements  AdapterView.OnItemClickListener {
-
-    @ForActivity
-    @Inject
-    Context context;
-
-
-    @InjectView(R.id.itemList)
-    ListView listView;
-
-    @InjectView(R.id.emptyView)
-    RelativeLayout emptyView;
-
-    @InjectView(R.id.errorText)
-    TextView errorText;
+public class GrowthListFragment extends BaseInjectableListFragment {
 
 
 
-    @InjectView(R.id.add_item)
-    Button btnAddItem;
-
-    @InjectView(R.id.add_growth_item)
-    FloatingActionButton btnAddGrowthItem;
-
-//    @InjectView(R.id.swipe_refresh_layout)
-//    SwipeRefreshLayout swipeRefreshLayout;
-
-    private int LOADER_ID = 4;
-    private List<ParseObject> growthList;
-    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
-    private GrowthAdapter growthAdapter;
-
-//    Typeface typeface;
 
     private String TAG = "GrowthListFragment";
 
@@ -103,7 +80,7 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
 
 
     @OnClick(R.id.add_item)
-    public void onDiaperChangeClicked(){
+    public void onAddGrowthItem(){
         scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
     }
 
@@ -116,60 +93,24 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
-        listView.setEmptyView(emptyView);
-
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//
-//                AppUtils.invalidateParseCache("Growth", getActivity());
-//                populateFromNetwork(null);
-//            }
-//        });
-
         scopedBus.post(new FragmentCreated("Growth"));
-        updateListView();
     }
 
-    @Override
-    protected void setListResults(List<ParseObject> objects) {
-        super.setListResults(objects);
-        growthList = objects;
-
-        growthAdapter = new GrowthAdapter(getActivity(),
-                R.layout.list_item_diaper_change, growthList);
-        growthAdapter.update(growthList);
-
-        sectionAdapter = new SimpleSectionAdapter<BabyLogBaseParseObject>(context,
-                growthAdapter, R.layout.section_header_green, R.id.title,
-                new DateSectionizer());
-        listView.setAdapter(sectionAdapter);
-        if (growthList.size() > 0) {
-            listView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
-            listView.setOnItemClickListener(this);
-        } else {
-            listView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-
-        }
-
-//        swipeRefreshLayout.setRefreshing(false);
-    }
 
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-//        currentTime.setText(today.hour + ":" + today.minute + ":" + today.second);
+        baseParseAdapter2 = new GrowthAdapter2(parseObjectList);
+        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ultimateRecyclerView.enableLoadmore();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_growth_list, null);
+        View view =  inflater.inflate(R.layout.fragment_growth_list_2, null);
         ButterKnife.inject(this, view);
         return view;
     }
@@ -213,56 +154,7 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
         }
     }
 
-//    @Override
-//    public Loader<List<GrowthDao>> onCreateLoader(int id, Bundle args) {
-//        Log.d(TAG, "create Loader");
-//        return new GrowthLoader(getActivity());
-//    }
-//
-//    @Override
-//    public void onLoadFinished(Loader<List<GrowthDao>> loader, List<GrowthDao> data) {
-//
-//        Log.d(TAG, "number of diaper changes " + data.size());
-//        Log.d(TAG, "loader finished");
-//
-//        if (data.size()>0) {
-//            emptyView.setVisibility(View.GONE);
-//            listView.setVisibility(View.VISIBLE);
-//        } else {
-//            emptyView.setVisibility(View.VISIBLE);
-//            listView.setVisibility(View.GONE);
-//        }
-//        growthList = data;
-//
-//
-//
-//        growthAdapter = new GrowthAdapter(getActivity(), R.layout.list_item_diaper_change, growthList);
-//
-////        diaperChangeAdapter.update(diaperChangeDaoList);
-//
-//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-//                growthAdapter,
-//                R.layout.section_header_green,
-//                R.id.title,
-//                new DateSectionizer());
-//
-//        listView.setAdapter(sectionAdapter);
-//        listView.setOnItemClickListener(this);
-//
-//    }
-//
-//    @Override
-//    public void onLoaderReset(Loader<List<GrowthDao>> loader) {
-//
-//    }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "iten at position " + position + " clicked");
-        Growth growth = (Growth) listView.getItemAtPosition(position);
-        Log.d(TAG, "growth dao " + growth);
-        scopedBus.post(new GrowthItemClicked(growth));
-    }
 
 
     private class EventListener {
@@ -270,12 +162,54 @@ public class GrowthListFragment extends BaseInjectableListFragment implements  A
 
         }
 
+        //handle the addition or editing of item from list view...
+        // position == -1 in case of addition else a non negative number ...
         @Subscribe
-        public void onGrowthItemCreated(ItemCreatedOrChanged event) {
-            populateLocalStore(false);
-//            updateListView();
-//            getLoaderManager().restartLoader(LOADER_ID, null, GrowthListFragment.this);
-//            showFragment(GrowthListFragment.class, "growth_list_fragment",false);
+        public void onItemAdded(final ItemCreatedOrChanged event) {
+            Log.d(TAG, "onDiaperChangeItemChange");
+            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Growth");
+            query.orderByDescending("logCreationDate");
+            query.setLimit(1);
+            query.setSkip(event.getPosition() == -1 ? 0 : event.getPosition());
+//
+//
+            query.fromLocalDatastore().findInBackground(
+                    new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                            Log.d(TAG, "got list from the cache " + e + " objects " + objects);
+                            if (objects!=null) {
+                                Log.d(TAG, "adding objects to the list " + event.getPosition());
+                                if (event.getPosition()==-1) {
+                                    Log.d(TAG, "adding item to position -1 ");
+                                    //new item added
+                                    parseObjectList.add(0, objects.get(0));
+                                    baseParseAdapter2.notifyItemInserted(0);
+                                    scrollLayoutManagerToPos(0);
+
+                                } else {
+                                    //item edited...
+                                    Log.d(TAG, "editing the items ");
+                                    parseObjectList.set(event.getPosition(), objects.get(0));
+                                    baseParseAdapter2.notifyItemChanged(event.getPosition());
+                                }
+
+
+
+                            }
+                        }
+                    }
+
+
+            );
+
+        }
+
+        //handle the removal of an item from the listview.
+        @Subscribe
+        public void onItemDeleted(final ItemDeleted event) {
+            parseObjectList.remove(event.getPosition());
+            baseParseAdapter2.notifyItemRemoved(event.getPosition());
         }
 
 

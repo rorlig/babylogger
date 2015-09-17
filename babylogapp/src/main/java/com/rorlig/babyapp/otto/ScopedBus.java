@@ -1,7 +1,5 @@
 package com.rorlig.babyapp.otto;
 
-import android.os.Looper;
-
 import com.squareup.otto.Bus;
 
 import java.util.HashSet;

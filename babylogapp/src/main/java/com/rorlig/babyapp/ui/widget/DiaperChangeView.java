@@ -2,14 +2,12 @@ package com.rorlig.babyapp.ui.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.diaper.DiaperChangeEnum;
 import com.rorlig.babyapp.parse_dao.DiaperChange;

@@ -48,7 +48,7 @@ public class BaseParseAdapter<T extends ParseObject> extends ArrayAdapter<ParseO
 
     public void update(List<ParseObject> parseObjectList) {
         Log.d(TAG, "update");
-//        this.parseObjectList = new ArrayList<>(parseObjectList);
+        this.parseObjectList = new ArrayList<>(parseObjectList);
         notifyDataSetInvalidated();
         notifyDataSetChanged();
     }

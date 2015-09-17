@@ -196,8 +196,9 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getString("diaper_change_id");
+            id = getArguments().getString("id");
             uuid = getArguments().getString("uuid");
+            position = getArguments().getInt("position");
             Log.d(TAG, "id of the object " + id);
             initViews(uuid);
         }
@@ -232,12 +233,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
                     setDiaperIncidentType(diaperChange);
                     notes.setText(diaperChange.getDiaperChangeNotes());
                     setDateTimeHeader(diaperChange);
-
                     showEditDelete = true;
-
-//            saveBtn.setText("Edit");
-
-
                     editDeleteBtn.setVisibility(View.VISIBLE);
                     saveBtn.setVisibility(View.GONE);
                 }
@@ -246,41 +242,6 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 
 
         });
-
-//        query.getInBackground(id, new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(ParseObject object, ParseException e) {
-//                diaperChange = (DiaperChange) object;
-//                setDiaperChangeType(diaperChange);
-//                setDiaperEventTypeVisibility(diaperChange);
-//                setDiaperIncidentType(diaperChange);
-//                notes.setText(diaperChange.getDiaperChangeNotes());
-//                setDateTimeHeader(diaperChange);
-//
-//                showEditDelete = true;
-//
-////            saveBtn.setText("Edit");
-//
-//
-//                editDeleteBtn.setVisibility(View.VISIBLE);
-//                saveBtn.setVisibility(View.GONE);
-//
-//            }
-//        });
-//            DiaperChangeDao diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao().queryForId(id);
-//            Log.d(TAG, diaperChangeDao.toString());
-//
-//            setDiaperChangeType(diaperChange);
-
-//            if (diaperChangeDao.getDiaperChangeEventType()!=DiaperChangeEnum.WET) {
-//                poopTypeLayout.setVisibility(View.VISIBLE);
-//                poopColorLayout.setVisibility(View.VISIBLE);
-//                setDiaperChangePoopColor(diaperChangeDao);
-//                setDiaperChangePoopType(diaperChangeDao);
-//                setPoopTexture(diaperChangeDao);
-//            }
-
-
     }
 
     private void setDateTimeHeader(DiaperChange diaperChangeDao) {
@@ -558,7 +519,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 //            }
 //        });
         Log.d(TAG, "scoped bus diaper ");
-        scopedBus.post(new ItemCreatedOrChanged("Diaper"));
+        scopedBus.post(new ItemCreatedOrChanged("Diaper", position));
 
 
 

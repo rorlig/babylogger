@@ -8,10 +8,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
-
-import org.json.JSONObject;
 
 @ParseClassName("WeightToAge")
 public class WeightToAge extends ParseObject implements Parcelable {

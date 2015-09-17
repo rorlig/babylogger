@@ -1,6 +1,5 @@
 package com.rorlig.babyapp.utils;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -16,8 +15,6 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 
-import com.parse.DeleteCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
 import com.rorlig.babyapp.ui.fragment.sleep.SleepStatsFragment;

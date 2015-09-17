@@ -20,6 +20,12 @@ public class ObjectGraphUtils {
 
     private static String TAG = "ObjectGraphUtils";
 
+    public static ObjectGraph getApplicationGraph(Context paramApplication) {
+        ObjectGraph  objectGraph = ((ObjectGraphApplication)paramApplication).getApplicationGraph();
+        return objectGraph;
+    }
+
+
     public static ObjectGraph getApplicationGraph(Activity paramActivity) {
         Log.d(TAG, "paramActivity " + paramActivity + " application " + paramActivity.getApplication());
         ObjectGraph  objectGraph = ((ObjectGraphApplication)paramActivity.getApplication()).getApplicationGraph();
@@ -78,4 +84,6 @@ public class ObjectGraphUtils {
     public static void inject(View paramView){
         ((ObjectGraphApplication)paramView.getContext().getApplicationContext()).inject(paramView);
     }
+
+
 }

@@ -7,7 +7,6 @@ import com.rorlig.babyapp.model.diaper.DiaperChangeTextureType;
 import com.rorlig.babyapp.model.diaper.DiaperIncident;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author gaurav gupta
