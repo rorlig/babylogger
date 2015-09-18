@@ -264,7 +264,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:animate
         */
-        public static final int CustomAttributes_animate = 13;
+        public static int CustomAttributes_animate = 13;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#check}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -278,7 +278,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:check
         */
-        public static final int CustomAttributes_check = 8;
+        public static int CustomAttributes_check = 8;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#checkBoxSize}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -294,7 +294,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:checkBoxSize
         */
-        public static final int CustomAttributes_checkBoxSize = 9;
+        public static int CustomAttributes_checkBoxSize = 9;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#clickAfterRipple}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -308,7 +308,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:clickAfterRipple
         */
-        public static final int CustomAttributes_clickAfterRipple = 15;
+        public static int CustomAttributes_clickAfterRipple = 15;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#iconDrawable}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -322,7 +322,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:iconDrawable
         */
-        public static final int CustomAttributes_iconDrawable = 11;
+        public static int CustomAttributes_iconDrawable = 11;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#iconSize}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -338,7 +338,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:iconSize
         */
-        public static final int CustomAttributes_iconSize = 12;
+        public static int CustomAttributes_iconSize = 12;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#max}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -352,7 +352,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:max
         */
-        public static final int CustomAttributes_max = 3;
+        public static int CustomAttributes_max = 3;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#min}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -366,7 +366,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:min
         */
-        public static final int CustomAttributes_min = 4;
+        public static int CustomAttributes_min = 4;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#progress}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -380,7 +380,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:progress
         */
-        public static final int CustomAttributes_progress = 6;
+        public static int CustomAttributes_progress = 6;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#ringWidth}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -396,7 +396,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:ringWidth
         */
-        public static final int CustomAttributes_ringWidth = 7;
+        public static int CustomAttributes_ringWidth = 7;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#rippleBorderRadius}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -410,7 +410,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:rippleBorderRadius
         */
-        public static final int CustomAttributes_rippleBorderRadius = 14;
+        public static int CustomAttributes_rippleBorderRadius = 14;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#rippleColor_1}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -422,7 +422,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           @attr name com.gc.materialdesign:rippleColor_1
         */
-        public static final int CustomAttributes_rippleColor_1 = 0;
+        public static int CustomAttributes_rippleColor_1 = 0;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#rippleSpeed}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -436,7 +436,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:rippleSpeed
         */
-        public static final int CustomAttributes_rippleSpeed = 1;
+        public static int CustomAttributes_rippleSpeed = 1;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#showNumberIndicator}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -450,7 +450,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:showNumberIndicator
         */
-        public static final int CustomAttributes_showNumberIndicator = 2;
+        public static int CustomAttributes_showNumberIndicator = 2;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#thumbSize}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -466,7 +466,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:thumbSize
         */
-        public static final int CustomAttributes_thumbSize = 10;
+        public static int CustomAttributes_thumbSize = 10;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesign.R.attr#value}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -480,6 +480,6 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesign:value
         */
-        public static final int CustomAttributes_value = 5;
+        public static int CustomAttributes_value = 5;
     };
 }

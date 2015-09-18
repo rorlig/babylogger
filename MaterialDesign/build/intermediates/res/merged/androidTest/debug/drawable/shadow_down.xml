@@ -8,4 +8,4 @@
         android:endColor="@android:color/transparent"
         android:startColor="@android:color/darker_gray" />
 
-</shape><!-- From: file:/Users/rorlig/Documents/work/android/babylog/babylogger/MaterialDesign/res/drawable/shadow_down.xml --><!-- From: file:/Users/rorlig/Documents/work/android/babylog/babylogger/MaterialDesign/build/intermediates/bundles/debug/res/drawable/shadow_down.xml -->
+</shape><!-- From: file:/home/gaurav/Documents/work/babylogger/MaterialDesign/res/drawable/shadow_down.xml --><!-- From: file:/home/gaurav/Documents/work/babylogger/MaterialDesign/build/intermediates/bundles/debug/res/drawable/shadow_down.xml -->

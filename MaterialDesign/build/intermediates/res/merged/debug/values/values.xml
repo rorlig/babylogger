@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/rorlig/Documents/work/android/babylog/babylogger/MaterialDesign/res/values/colors.xml -->
+    <!-- From: file:/home/gaurav/Documents/work/babylogger/MaterialDesign/res/values/colors.xml -->
     <eat-comment/>
     <color name="green">#00FF00</color>
     <color name="thumbColor">#66aaaaaa</color>
