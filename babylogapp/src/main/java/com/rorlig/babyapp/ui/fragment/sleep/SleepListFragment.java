@@ -2,6 +2,7 @@ package com.rorlig.babyapp.ui.fragment.sleep;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,8 +28,9 @@ import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.parse_dao.Sleep;
-import com.rorlig.babyapp.ui.adapter.DateSectionizer;
+import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter2;
 import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
 
@@ -49,37 +51,22 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of sleep logs
  */
-public class SleepListFragment extends BaseInjectableListFragment
-        implements AdapterView.OnItemClickListener
-//        , LoaderManager.LoaderCallbacks<List<SleepDao>>
-    {
+public class SleepListFragment extends BaseInjectableListFragment {
 
     @ForActivity
     @Inject
     Context context;
 
-    @InjectView(R.id.sleep_list)
-    ListView sleepListView;
 
-    @InjectView(R.id.empty_view)
-    RelativeLayout emptyView;
-
-    @InjectView(R.id.errorText)
-    TextView errorText;
 
     @InjectView(R.id.add_sleep_item)
     FloatingActionButton btnAddSleep;
 
 
-    private List<ParseObject> sleepList;
-    private SleepAdapter sleepAdapter;
-    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
-    private int LOADER_ID=2;
 
 
     private String TAG = "SleepListFragment";
 
-    private EventListener eventListener = new EventListener();
 
 
 //    @InjectView(R.id.swipe_refresh_layout)
@@ -93,27 +80,6 @@ public class SleepListFragment extends BaseInjectableListFragment
         @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
-
-        scopedBus.post(new FragmentCreated("Diaper Change List"));
-
-
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//
-//                AppUtils.invalidateParseCache("Sleep", getActivity());
-//                populateFromNetwork(null);
-//            }
-//        });
-
-        updateListView();
-
-
-
-
-
-
-
     }
 
 
@@ -122,7 +88,9 @@ public class SleepListFragment extends BaseInjectableListFragment
         @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+            baseParseAdapter2 = new SleepAdapter2(parseObjectList);
+            ultimateRecyclerView.setAdapter(baseParseAdapter2);
+            ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 //        currentTime.setText(today.hour + ":" + today.minute + ":" + today.second);
     }
@@ -130,34 +98,11 @@ public class SleepListFragment extends BaseInjectableListFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_sleep_list, null);
+        View view =  inflater.inflate(R.layout.fragment_sleep_list_2, null);
         ButterKnife.inject(this, view);
         return view;
     }
 
-    /*
-    * Register to events...
-    */
-    @Override
-    public void onStart(){
-
-
-        super.onStart();
-        Log.d(TAG, "onStart");
-//        getLoaderManager().restartLoader(LOADER_ID, null, this);
-        scopedBus.register(eventListener);
-    }
-
-    /*
-     * Unregister from events ...
-     */
-    @Override
-    public void onStop(){
-        super.onStop();
-        Log.d(TAG, "onStop");
-        scopedBus.unregister(eventListener);
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -186,79 +131,13 @@ public class SleepListFragment extends BaseInjectableListFragment
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "item clicked at position " + position + " id " + id);
-        Sleep sleep = (Sleep) sleepListView.getItemAtPosition(position);
-        Log.d(TAG, "diaperchange dao " + sleep);
-        scopedBus.post(new SleepItemClicked(sleep));
-    }
-
-//    @Override
-//    public Loader<List<SleepDao>> onCreateLoader(int i, Bundle bundle) {
-//        Log.d(TAG, "create Loader");
-//
-//        return new SleepLoader(getActivity());
-//
-//    }
-
-//    @Override
-//    public void onLoadFinished(Loader<List<SleepDao>> loader, List<SleepDao> data) {
-//
-//        Log.d(TAG, "loader finished");
-//
-//        if (data.size()>0) {
-//            emptyView.setVisibility(View.GONE);
-////            barChart.setVisibility(View.VISIBLE);
-//
-//            sleepListView.setVisibility(View.VISIBLE);
-//        } else {
-//            emptyView.setVisibility(View.VISIBLE);
-//            sleepListView.setVisibility(View.GONE);
-//
-//        }
-//
-//        sleepList = data;
-//
-//        sleepAdapter = new SleepAdapter(getActivity(), R.layout.list_item_sleep, sleepList);
-//
-////        diaperChangeAdapter.update(diaperChangeDaoList);
-//
-//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-//                sleepAdapter, R.layout.section_header_gray, R.id.title,
-//                new DateSectionizer());
-//
-//        sleepListView.setAdapter(sectionAdapter);
-//
-//    }
-//
-//    @Override
-//    public void onLoaderReset(Loader<List<SleepDao>> loader) {
-//
-//    }
 
 
     @Override
     protected void setListResults(List<ParseObject> objects) {
         super.setListResults(objects);
-        sleepList = objects;
+        ultimateRecyclerView.setAdapter(baseParseAdapter2);
 
-        sleepAdapter = new SleepAdapter(getActivity(),
-                R.layout.list_item_diaper_change, sleepList);
-        sleepAdapter.update(sleepList);
-        sectionAdapter = new SimpleSectionAdapter<BabyLogBaseParseObject>(context,
-                sleepAdapter, R.layout.section_header_gray, R.id.title,
-                new DateSectionizer());
-        sleepListView.setAdapter(sectionAdapter);
-        if (sleepList.size() > 0) {
-            sleepListView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
-            sleepListView.setOnItemClickListener(this);
-        } else {
-            sleepListView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-
-        }
     }
 
     @OnClick(R.id.add_sleep_item)
@@ -271,34 +150,6 @@ public class SleepListFragment extends BaseInjectableListFragment
         scopedBus.post(new AddItemEvent(AddItemTypes.SLEEP_LOG));
     }
 
-    private String getDateRangeForWeek(int weekNumber){
-        Log.d(TAG, "weekNumber " + weekNumber);
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
-        DateTime weekStartDate = new DateTime().withWeekOfWeekyear(weekNumber);
-        DateTime weekEndDate = new DateTime().withWeekOfWeekyear(weekNumber + 1);
-        String returnString = weekStartDate.toString(DateTimeFormat.forPattern("dd MMM"))
-                + " to "
-                + weekEndDate.toString(DateTimeFormat.forPattern("dd MMM"));
-        Log.d(TAG, "returnString : " + returnString);
-//        new DateTime().
-        return returnString;
 
 
-    }
-
-    private class EventListener {
-        private EventListener(){
-        }
-
-        @Subscribe
-        public void onSleepEventCreated(ItemCreatedOrChanged event) {
-            Log.d(TAG, "onSleepEventCreated");
-            populateLocalStore(false);
-//            getLoaderManager().restartLoader(LOADER_ID, null, SleepListFragment.this);
-        }
-
-
-
-
-    }
 }

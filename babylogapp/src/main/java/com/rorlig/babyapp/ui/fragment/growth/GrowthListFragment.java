@@ -43,7 +43,7 @@ public class GrowthListFragment extends BaseInjectableListFragment {
 
     private String TAG = "GrowthListFragment";
 
-    private EventListener eventListener = new EventListener();
+//    private EventListener eventListener = new EventListener();
 
     public GrowthListFragment() {
         super("Growth");
@@ -86,7 +86,7 @@ public class GrowthListFragment extends BaseInjectableListFragment {
         baseParseAdapter2 = new GrowthAdapter2(parseObjectList);
         ultimateRecyclerView.setAdapter(baseParseAdapter2);
         ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ultimateRecyclerView.enableLoadmore();
+//        ultimateRecyclerView.enableLoadmore();
     }
 
 
@@ -97,30 +97,36 @@ public class GrowthListFragment extends BaseInjectableListFragment {
         return view;
     }
 
-    /*
-    * Register to events...
-    */
     @Override
-    public void onStart(){
-
-
-        super.onStart();
-        Log.d(TAG, "onStart");
-        scopedBus.register(eventListener);
-//        getLoaderManager().restartLoader(LOADER_ID, null, this);
-
+    protected void setListResults(List<ParseObject> objects) {
+        Log.d(TAG, "setListResults");
+        super.setListResults(objects);
+        ultimateRecyclerView.setAdapter(baseParseAdapter2);
     }
-
-    /*
-     * Unregister from events ...
-     */
-    @Override
-    public void onStop(){
-        super.onStop();
-        Log.d(TAG, "onStop");
-        scopedBus.unregister(eventListener);
-
-    }
+//    /*
+//    * Register to events...
+//    */
+//    @Override
+//    public void onStart(){
+//
+//
+//        super.onStart();
+//        Log.d(TAG, "onStart");
+//        scopedBus.register(eventListener);
+////        getLoaderManager().restartLoader(LOADER_ID, null, this);
+//
+//    }
+//
+//    /*
+//     * Unregister from events ...
+//     */
+//    @Override
+//    public void onStop(){
+//        super.onStop();
+//        Log.d(TAG, "onStop");
+//        scopedBus.unregister(eventListener);
+//
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -139,62 +145,62 @@ public class GrowthListFragment extends BaseInjectableListFragment {
 
 
 
-    private class EventListener {
-        public EventListener() {
-
-        }
-
-        //handle the addition or editing of item from list view...
-        // position == -1 in case of addition else a non negative number ...
-        @Subscribe
-        public void onItemAdded(final ItemCreatedOrChanged event) {
-            Log.d(TAG, "onDiaperChangeItemChange");
-            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Growth");
-            query.orderByDescending("logCreationDate");
-            query.setLimit(1);
-            query.setSkip(event.getPosition() == -1 ? 0 : event.getPosition());
+//    private class EventListener {
+//        public EventListener() {
+//
+//        }
+//
+//        //handle the addition or editing of item from list view...
+//        // position == -1 in case of addition else a non negative number ...
+//        @Subscribe
+//        public void onItemAdded(final ItemCreatedOrChanged event) {
+//            Log.d(TAG, "onDiaperChangeItemChange");
+//            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Growth");
+//            query.orderByDescending("logCreationDate");
+//            query.setLimit(1);
+//            query.setSkip(event.getPosition() == -1 ? 0 : event.getPosition());
+////
+////
+//            query.fromLocalDatastore().findInBackground(
+//                    new FindCallback<ParseObject>() {
+//                        @Override
+//                        public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                            Log.d(TAG, "got list from the cache " + e + " objects " + objects);
+//                            if (objects!=null) {
+//                                Log.d(TAG, "adding objects to the list " + event.getPosition());
+//                                if (event.getPosition()==-1) {
+//                                    Log.d(TAG, "adding item to position -1 ");
+//                                    //new item added
+//                                    parseObjectList.add(0, objects.get(0));
+//                                    baseParseAdapter2.notifyItemInserted(0);
+//                                    scrollLayoutManagerToPos(0);
+//
+//                                } else {
+//                                    //item edited...
+//                                    Log.d(TAG, "editing the items ");
+//                                    parseObjectList.set(event.getPosition(), objects.get(0));
+//                                    baseParseAdapter2.notifyItemChanged(event.getPosition());
+//                                }
 //
 //
-            query.fromLocalDatastore().findInBackground(
-                    new FindCallback<ParseObject>() {
-                        @Override
-                        public void done(List<ParseObject> objects, com.parse.ParseException e) {
-                            Log.d(TAG, "got list from the cache " + e + " objects " + objects);
-                            if (objects!=null) {
-                                Log.d(TAG, "adding objects to the list " + event.getPosition());
-                                if (event.getPosition()==-1) {
-                                    Log.d(TAG, "adding item to position -1 ");
-                                    //new item added
-                                    parseObjectList.add(0, objects.get(0));
-                                    baseParseAdapter2.notifyItemInserted(0);
-                                    scrollLayoutManagerToPos(0);
-
-                                } else {
-                                    //item edited...
-                                    Log.d(TAG, "editing the items ");
-                                    parseObjectList.set(event.getPosition(), objects.get(0));
-                                    baseParseAdapter2.notifyItemChanged(event.getPosition());
-                                }
-
-
-
-                            }
-                        }
-                    }
-
-
-            );
-
-        }
-
-        //handle the removal of an item from the listview.
-        @Subscribe
-        public void onItemDeleted(final ItemDeleted event) {
-            parseObjectList.remove(event.getPosition());
-            baseParseAdapter2.notifyItemRemoved(event.getPosition());
-        }
-
-
-
-    }
+//
+//                            }
+//                        }
+//                    }
+//
+//
+//            );
+//
+//        }
+//
+//        //handle the removal of an item from the listview.
+//        @Subscribe
+//        public void onItemDeleted(final ItemDeleted event) {
+//            parseObjectList.remove(event.getPosition());
+//            baseParseAdapter2.notifyItemRemoved(event.getPosition());
+//        }
+//
+//
+//
+//    }
 }

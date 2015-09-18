@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -17,10 +18,16 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
+import com.rorlig.babyapp.otto.ItemDeleted;
+import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.ui.adapter.parse.ArrayAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.DividerItemDecoration;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -60,6 +67,8 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     protected List<ParseObject> parseObjectList = new ArrayList<>();
     protected ArrayAdapter baseParseAdapter2;
 
+    protected EventListener eventListener = new EventListener();
+
 
     public BaseInjectableListFragment(String parseClassName) {
         this.parseClassName = parseClassName;
@@ -74,8 +83,44 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 
         updateListView();
 
-        if (ultimateRecyclerView!=null) {
 
+
+//        updateListView();
+    }
+
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    /*
+        * Register to events...
+        */
+    @Override
+    public void onStart(){
+
+
+        super.onStart();
+        Log.d(TAG, "onStart");
+        scopedBus.register(eventListener);
+    }
+
+    /*
+     * Unregister from events ...
+     */
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+        scopedBus.unregister(eventListener);
+
+    }
+
+    private void setupRecyclerView() {
+        if (ultimateRecyclerView!=null) {
+            ultimateRecyclerView.enableLoadmore();
             ultimateRecyclerView.setOnLoadMoreListener(new UltimateRecyclerView.OnLoadMoreListener() {
                 @Override
                 public void loadMore(final int itemsCount, final int maxLastVisiblePosition) {
@@ -112,10 +157,12 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
             });
 
 
+            //item decorator
+            RecyclerView.ItemDecoration itemDecoration = new
+                    DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
+
+            ultimateRecyclerView.addItemDecoration(itemDecoration);
         }
-
-
-//        updateListView();
     }
 
     /*
@@ -262,21 +309,29 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 
     protected void setListResults(List<ParseObject> objects) {
         swipeRefreshLayout.setRefreshing(false);
-        if (objects!=null && objects.size()>0) {
+        if (objects != null && objects.size() > 0) {
             Log.d(TAG, "adding " + objects.size() + " to the list");
             parseObjectList.addAll(objects);
-            baseParseAdapter2.notifyDataSetChanged();
+//            baseParseAdapter2.notifyDataSetChanged();
         }
 
+        showHideListView();
+
+
+
+    }
+
+    protected void showHideListView(){
         if (parseObjectList.size() > 0) {
             ultimateRecyclerView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
+//            setupRecyclerView();
+
         } else {
             ultimateRecyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
 
         }
-
     }
 
     protected void appendListResults(List<ParseObject> objects) {
@@ -305,18 +360,53 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 
     }
 
+    private class EventListener {
 
-//    protected void addItem(ParseObject object) {
-//
-//        Log.d(TAG, "addItem");
-//
-//    }
-//
-//    public void setSkip(int skip) {
-//        this.skip = skip;
-//    }
-//
-//    public void setLimit(int limit) {
-//        this.limit = limit;
-//    }
+
+        //handle the addition or editing of item from list view...
+        // position == -1 in case of addition else a non negative number ...
+        @Subscribe
+        public void onItemAdded(final ItemCreatedOrChanged event) {
+            Log.d(TAG, "onItemAdded");
+            final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
+            query.orderByDescending("logCreationDate");
+            query.fromLocalDatastore().findInBackground(
+                    new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                            Log.d(TAG, "got list from the cache " + e + " objects " + objects);
+                            parseObjectList.clear();
+                            Log.d(TAG, "adding objects to the list " + event.getPosition());
+                            parseObjectList.addAll(objects);
+                            sort(parseObjectList);
+                            baseParseAdapter2.notifyDataSetChanged();
+                            showHideListView();
+                        }
+                    });
+        }
+
+
+        //handle the removal of an item from the listview.
+        @Subscribe
+        public void onItemDeleted(final ItemDeleted event) {
+            parseObjectList.remove(event.getPosition());
+            baseParseAdapter2.notifyItemRemoved(event.getPosition());
+            showHideListView();
+        }
+
+    }
+
+    /*
+     * sorts the parse object list based on the log creation date...
+     */
+    private void sort(List<ParseObject> parseObjectList) {
+        Collections.sort(parseObjectList, new Comparator<ParseObject>() {
+            @Override
+            public int compare(ParseObject lhs, ParseObject rhs) {
+                return ((BabyLogBaseParseObject) rhs).getLogCreationDate()
+                        .compareTo(((BabyLogBaseParseObject) lhs).getLogCreationDate());
+            }
+        });
+    }
+
 }

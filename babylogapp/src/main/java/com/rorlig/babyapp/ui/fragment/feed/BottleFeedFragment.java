@@ -125,6 +125,7 @@ public class BottleFeedFragment extends BaseCreateLogFragment
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
             uuid = getArguments().getString("uuid");
+            position = getArguments().getInt("position");
             initViews(uuid);
         }
 
@@ -397,7 +398,7 @@ public class BottleFeedFragment extends BaseCreateLogFragment
      */
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
-        Log.d(TAG, "deleting id " + id);
+        Log.d(TAG, "deleting id " + uuid);
         delete(feed);
     }
 

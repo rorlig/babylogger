@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.github.androflo.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
+import com.github.androflo.sectionedrecyclerviewadapter.Sectionizer;
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -27,10 +30,14 @@ import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
+import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
+import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.squareup.otto.Subscribe;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -84,7 +91,8 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment {
 
     private String TAG = "DiaperChangeListFragment";
 
-    private EventListener eventListener = new EventListener();
+//    private EventListener eventListener = new EventListener();
+    private SectionedRecyclerViewAdapter sectionedRecyclerViewAdapter;
 
 
     public DiaperChangeListFragment() {
@@ -109,11 +117,15 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment {
 
         baseParseAdapter2 = new DiaperChangeAdapter2(parseObjectList);
 
-        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+//        sectionedRecyclerViewAdapter = new SectionedRecyclerViewAdapter(getActivity().getApplicationContext(),
+//                R.layout.section_header, R.id.title, baseParseAdapter2, new DateSectionizer());
+
+
+//        ultimateRecyclerView.setAdapter(sectionedRecyclerViewAdapter);
 
         ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ultimateRecyclerView.enableLoadmore();
+//        ultimateRecyclerView.enableLoadmore();
 
 
     }
@@ -130,28 +142,6 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment {
 
 
 
-    /*
-    * Register to events...
-    */
-    @Override
-    public void onStart(){
-
-
-        super.onStart();
-        Log.d(TAG, "onStart");
-        scopedBus.register(eventListener);
-    }
-
-    /*
-     * Unregister from events ...
-     */
-    @Override
-    public void onStop(){
-        super.onStop();
-        Log.d(TAG, "onStop");
-        scopedBus.unregister(eventListener);
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -207,9 +197,21 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment {
         scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
     }
 
+    @Override
+    protected void setListResults(List<ParseObject> objects) {
+        Log.d(TAG, "setListResults");
+        super.setListResults(objects);
+//        sectionedRecyclerViewAdapter = new SectionedRecyclerViewAdapter(getActivity().getApplicationContext(),
+//                R.layout.section_header, R.id.title, baseParseAdapter2, new DateSectionizer());
+
+//        sectionedRecyclerViewAdapter.setSections(objects);
 
 
+//        sectionedRecyclerViewAdapter.notifyDataSetChanged();
+        ultimateRecyclerView.setAdapter(baseParseAdapter2);
 
+
+    }
 
 
     // -- chart data
@@ -226,62 +228,18 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment {
 //        }
 
 
-        //handle the addition or editing of item from list view...
-        // position == -1 in case of addition else a non negative number ...
-        @Subscribe
-        public void onItemAdded(final ItemCreatedOrChanged event) {
-            Log.d(TAG, "onDiaperChangeItemChange");
-            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Diaper");
-            query.orderByDescending("logCreationDate");
-            query.setLimit(1);
-            query.setSkip(event.getPosition() == -1 ? 0 : event.getPosition());
-//
-//
-            query.fromLocalDatastore().findInBackground(
-                    new FindCallback<ParseObject>() {
-                        @Override
-                        public void done(List<ParseObject> objects, com.parse.ParseException e) {
-                            Log.d(TAG, "got list from the cache " + e + " objects " + objects);
-                            if (objects!=null) {
-                                Log.d(TAG, "adding objects to the list " + event.getPosition());
-                                if (event.getPosition()==-1) {
-                                    Log.d(TAG, "adding item to position -1 ");
-                                    //new item added
-                                    parseObjectList.add(0, objects.get(0));
-                                    baseParseAdapter2.notifyItemInserted(0);
-                                    baseParseAdapter2.notifyDataSetChanged();
-                                    scrollLayoutManagerToPos(0);
-
-                                } else {
-                                    //item edited...
-                                    Log.d(TAG, "editing the items ");
-                                    parseObjectList.set(event.getPosition(), objects.get(0));
-                                    baseParseAdapter2.notifyItemChanged(event.getPosition());
-                                }
 
 
 
-                            }
-                        }
-                    }
 
-
-            );
-
-        }
-
-        //handle the removal of an item from the listview.
-        @Subscribe
-        public void onItemDeleted(final ItemDeleted event) {
-            parseObjectList.remove(event.getPosition());
-            baseParseAdapter2.notifyItemRemoved(event.getPosition());
-        }
 
 
 
 
 
     }
+
+
 
 
 }

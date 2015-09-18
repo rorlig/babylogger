@@ -120,6 +120,7 @@ public class SleepFragment extends BaseCreateLogFragment implements TimePickerDi
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
             uuid = getArguments().getString("uuid");
+            position = getArguments().getInt("position");
             initViews(uuid);
         }
 

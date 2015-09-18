@@ -125,6 +125,7 @@ public class DiaperChangeAdapter2 extends ArrayAdapter<ParseObject, DiaperChange
         public void onClick(View v) {
             Log.d(TAG, "onClick v ");
             int position = getLayoutPosition();
+//            sectionedRecyclerViewAdapter.getIndexForPosition(position);
             DiaperChange diaperChange = (DiaperChange) mObjects.get(position);
 //            Toast.makeText(context, "hello ", Toast.LENGTH_LONG).show();
             scopedBus.post(new DiaperChangeItemClickedEvent(diaperChange, position));
@@ -155,6 +156,8 @@ public class DiaperChangeAdapter2 extends ArrayAdapter<ParseObject, DiaperChange
         if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.BOTH.toString())) {
             viewHolder.diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
             viewHolder.diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
+            viewHolder.row2.setVisibility(View.VISIBLE);
+
         } else if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.WET.toString())){
             viewHolder.diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
             viewHolder.diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
@@ -162,6 +165,7 @@ public class DiaperChangeAdapter2 extends ArrayAdapter<ParseObject, DiaperChange
         } else {
             viewHolder.diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_unselected));
             viewHolder.diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
+            viewHolder.row2.setVisibility(View.VISIBLE);
         }
 //        }
 

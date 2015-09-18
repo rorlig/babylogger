@@ -28,6 +28,7 @@ import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
 import com.rorlig.babyapp.ui.adapter.parse.FeedAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter2;
 import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter;
 import com.rorlig.babyapp.ui.fragment.InjectableDialogFragment;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
@@ -118,6 +119,7 @@ import dagger.Provides;
             HomeItemAdapter.class,
             GrowthAdapter.class,
             MilestonesItemAdapter.class,
+            MilestonesItemAdapter2.class,
             MilestonesCompletedFragment.class,
             PictureSourceSelectFragment.class,
             SleepStatsFragment.class,

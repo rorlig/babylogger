@@ -31,7 +31,6 @@ public class GrowthAdapter2 extends ArrayAdapter<ParseObject, GrowthAdapter2.Vie
     private Context context;
 
 
-    ScopedBus scopedBus = new ScopedBus();
 
 
     public GrowthAdapter2( List<ParseObject> parseObjectList) {

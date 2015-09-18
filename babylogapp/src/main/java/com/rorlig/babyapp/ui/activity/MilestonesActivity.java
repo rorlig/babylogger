@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
+import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.MilestoneItemClicked;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
@@ -165,6 +166,7 @@ public class MilestonesActivity extends InjectableActivity {
             Bundle args = new Bundle();
             args.putString("id", event.getModel().getObjectId());
             args.putString("uuid", event.getModel().getUuidString());
+            args.putInt("position", event.getPosition());
             fragment.setArguments(args);
             Log.d(TAG, "adding to back stack ");
             getSupportFragmentManager().beginTransaction()
@@ -172,6 +174,13 @@ public class MilestonesActivity extends InjectableActivity {
                     .addToBackStack("main_screen_stack")
                     .commit();
 
+        }
+
+        @Subscribe
+        public void onItemDeletedEvent(ItemDeleted event) {
+            Log.d(TAG, "onItemDeletedEvent");
+            closeSoftKeyBoard();
+            getSupportFragmentManager().popBackStackImmediate();
         }
 
     }

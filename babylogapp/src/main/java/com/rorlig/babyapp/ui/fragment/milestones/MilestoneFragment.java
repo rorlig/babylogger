@@ -146,6 +146,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
         if (getArguments() != null) {
             Log.d(TAG, "arguments are not null");
             uuid = getArguments().getString("uuid");
+            position = getArguments().getInt("position");
             initViews(uuid);
         }
 //        mileStoneImageView.setBackgroundColor(Color.CYAN);

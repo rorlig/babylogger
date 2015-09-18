@@ -58,6 +58,8 @@ public class FeedAdapter2 extends  ArrayAdapter<ParseObject, RecyclerView.ViewHo
 
         View nursingView =  inflater.inflate(R.layout.list_item_breast_feeding, parent, false);
 
+        Log.d(TAG, " viewtype " + viewType);
+
         switch (viewType) {
             case FEED_BOTTLE:
                 return new BottleFeedViewHolder(bottleView);
@@ -83,12 +85,12 @@ public class FeedAdapter2 extends  ArrayAdapter<ParseObject, RecyclerView.ViewHo
                 break;
             case FEED_NURSING:
                 NursingViewHolder nursingViewHolder = (NursingViewHolder) holder;
-//                if (nursingViewHolder!=null) {
+                if (nursingViewHolder!=null) {
 //                    nursingViewHolder.left.setText("Left Breast: " + toHoursandMinutes(feed.getLeftBreastTime()));
 //                    nursingViewHolder.right.setText("Right Breast: " + toHoursandMinutes(feed.getRightBreastTime()));
 //                    nursingViewHolder.notesTextView.setText(feed.getNotes()==null?"":feed.getNotes());
                     nursingViewHolder.textViewTime.setText(simpleDateFormat.format(feed.getLogCreationDate()));
-//                }
+                }
 
                 break;
         }

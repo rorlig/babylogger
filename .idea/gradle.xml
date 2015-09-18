@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/MaterialDesign" />
+            <option value="$PROJECT_DIR$/SectionedRecyclerViewAdapter" />
             <option value="$PROJECT_DIR$/babylogapp" />
             <option value="$PROJECT_DIR$/squarecamera" />
           </set>
