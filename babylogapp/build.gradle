@@ -139,7 +139,7 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
     //Spoon
     androidTestCompile 'com.squareup.spoon:spoon-client:1.1.9'
-    androidTestCompile 'com.android.support:support-annotations:23.0.0'
+    androidTestCompile 'com.android.support:support-annotations:23.0.1'
     //parse
     compile 'com.parse.bolts:bolts-android:1.2.1'
     compile 'com.parse:parse-android:1.10.0'
