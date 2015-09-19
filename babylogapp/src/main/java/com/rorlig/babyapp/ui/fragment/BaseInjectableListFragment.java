@@ -325,7 +325,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         if (parseObjectList.size() > 0) {
             ultimateRecyclerView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
-//            setupRecyclerView();
+            setupRecyclerView();
 
         } else {
             ultimateRecyclerView.setVisibility(View.GONE);

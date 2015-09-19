@@ -36,7 +36,7 @@ public class FeedAdapter2 extends  ArrayAdapter<ParseObject, RecyclerView.ViewHo
     private static final int FEED_NURSING = 1;
 
 
-    private String TAG="FeedAdapter";
+    private static String TAG="FeedAdapter";
     private Context context;
 
     ScopedBus scopedBus = new ScopedBus();
@@ -76,19 +76,21 @@ public class FeedAdapter2 extends  ArrayAdapter<ParseObject, RecyclerView.ViewHo
         Log.d(TAG, "feed " + feed + " holder " + holder);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, ''yy h:mm a");
         simpleDateFormat.setTimeZone(TimeZone.getDefault());
+
+        Log.d(TAG, "viewType at the position " + getItemViewType(position));
         switch (getItemViewType(position)){
             case FEED_BOTTLE:
                 BottleFeedViewHolder bottleFeedViewHolder = (BottleFeedViewHolder) holder;
                 bottleFeedViewHolder.txtQuantity.setText(feed.getQuantity().toString() + " oz of " + feed.getFeedItem());
                 bottleFeedViewHolder.textViewTime.setText(simpleDateFormat.format(feed.getLogCreationDate()));
-                bottleFeedViewHolder.notesTextView.setText("" + feed.getNotes());
+                bottleFeedViewHolder.notesTextView.setText(feed.getNotes()==null?"":feed.getNotes());
                 break;
             case FEED_NURSING:
                 NursingViewHolder nursingViewHolder = (NursingViewHolder) holder;
                 if (nursingViewHolder!=null) {
-//                    nursingViewHolder.left.setText("Left Breast: " + toHoursandMinutes(feed.getLeftBreastTime()));
-//                    nursingViewHolder.right.setText("Right Breast: " + toHoursandMinutes(feed.getRightBreastTime()));
-//                    nursingViewHolder.notesTextView.setText(feed.getNotes()==null?"":feed.getNotes());
+                    nursingViewHolder.left.setText("Left Breast: " + toHoursandMinutes(feed.getLeftBreastTime()));
+                    nursingViewHolder.right.setText("Right Breast: " + toHoursandMinutes(feed.getRightBreastTime()));
+                    nursingViewHolder.notesTextView.setText(feed.getNotes()==null?"":feed.getNotes());
                     nursingViewHolder.textViewTime.setText(simpleDateFormat.format(feed.getLogCreationDate()));
                 }
 
@@ -158,8 +160,8 @@ public class FeedAdapter2 extends  ArrayAdapter<ParseObject, RecyclerView.ViewHo
             super(itemView);
             textViewTime = (TextView) itemView.findViewById(R.id.diaperChangeTime);
             notesTextView = (TextView) itemView.findViewById(R.id.notes_content);
-            left = (EditText) itemView.findViewById(R.id.right_breast_hours);
-            right = (EditText) itemView.findViewById(R.id.right_breast_minutes);
+            left = (TextView) itemView.findViewById(R.id.txtLeft);
+            right = (TextView) itemView.findViewById(R.id.txtRight);
             itemView.setOnClickListener(this);
         }
 
@@ -177,8 +179,14 @@ public class FeedAdapter2 extends  ArrayAdapter<ParseObject, RecyclerView.ViewHo
 
 
     private static String toHoursandMinutes(Long duration) {
+
+        Log.d(TAG, "duration: " + duration);
+
         long hours = duration/60;
         long minutes = duration % 60;
+
+        Log.d(TAG, "hours " + hours + " minutes " + minutes);
+
         if (hours==0) {
             return minutes + " minutes";
         } else  {

@@ -129,7 +129,7 @@ dependencies {
         transitive = true;
     }
     //    compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
-    compile 'com.android.support:design:23.0.0'
+    compile 'com.android.support:design:23.0.1'
     compile 'com.vincentbrison.openlibraries.android:dualcache:2.1.0@jar'
     //    compile 'io.reactivex:rxandroid:0.25.0'
 

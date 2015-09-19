@@ -76,6 +76,11 @@ public class DiaperChangeAdapter2 extends ArrayAdapter<ParseObject, DiaperChange
 
     }
 
+    @Override
+    public DiaperChange getItem(int position) {
+        return (DiaperChange) mObjects.get(position);
+    }
+
 
 
 
@@ -133,6 +138,7 @@ public class DiaperChangeAdapter2 extends ArrayAdapter<ParseObject, DiaperChange
 
 
     }
+
 
 
 
