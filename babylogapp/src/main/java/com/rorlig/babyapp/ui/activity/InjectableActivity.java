@@ -98,7 +98,7 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate");
-        setContentView(R.layout.activity_base_2);
+        setContentView(R.layout.activity_base);
 
 
         activityGraph = ObjectGraphUtils.getApplicationGraph(this).plus(getModules().toArray());
