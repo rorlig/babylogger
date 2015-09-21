@@ -22,6 +22,7 @@ import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
 import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class GrowthListFragment extends BaseInjectableListFragment {
 //    private EventListener eventListener = new EventListener();
 
     public GrowthListFragment() {
-        super("Growth");
+        super(AppConstants.PARSE_CLASS_GROWTH);
     }
 
     @Override
@@ -83,9 +84,9 @@ public class GrowthListFragment extends BaseInjectableListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        baseParseAdapter2 = new GrowthAdapter2(parseObjectList);
-        ultimateRecyclerView.setAdapter(baseParseAdapter2);
-        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        baseParseAdapter2 = new GrowthAdapter2(parseObjectList);
+//        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+//        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        ultimateRecyclerView.enableLoadmore();
     }
 

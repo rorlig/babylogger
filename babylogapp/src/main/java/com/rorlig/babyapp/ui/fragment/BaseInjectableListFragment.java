@@ -22,6 +22,8 @@ import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.ui.adapter.parse.ArrayAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.ArrayAdapterFactory;
+import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
 import com.rorlig.babyapp.ui.adapter.parse.DividerItemDecoration;
 import com.squareup.otto.Subscribe;
 
@@ -68,6 +70,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     protected ArrayAdapter baseParseAdapter2;
 
     protected EventListener eventListener = new EventListener();
+    private ParseQuery<ParseObject> query;
 
 
     public BaseInjectableListFragment(String parseClassName) {
@@ -92,6 +95,12 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        baseParseAdapter2 = ArrayAdapterFactory.getAdapter(parseClassName, parseObjectList);
+
+        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+
+        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
@@ -158,10 +167,10 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 
 
             //item decorator
-            RecyclerView.ItemDecoration itemDecoration = new
-                    DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
-
-            ultimateRecyclerView.addItemDecoration(itemDecoration);
+//            RecyclerView.ItemDecoration itemDecoration = new
+//                    DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
+//
+//            ultimateRecyclerView.addItemDecoration(itemDecoration);
         }
     }
 
@@ -280,7 +289,7 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
 
     private ParseQuery<ParseObject> getBaseQuery() {
         Log.d(TAG, "getBaseQuery skip: " + skip + " limit: " + limit);
-        final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
+        query = ParseQuery.getQuery(parseClassName);
         query.orderByDescending("logCreationDate");
         query.setLimit(limit);
         query.setSkip(skip);

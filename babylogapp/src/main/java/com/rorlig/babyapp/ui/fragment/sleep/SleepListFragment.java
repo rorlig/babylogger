@@ -32,6 +32,7 @@ import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter2;
 import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
@@ -73,7 +74,7 @@ public class SleepListFragment extends BaseInjectableListFragment {
 //    protected SwipeRefreshLayout swipeRefreshLayout;
 
     public SleepListFragment() {
-        super("Sleep");
+        super(AppConstants.PARSE_CLASS_SLEEP);
     }
 
 
@@ -88,9 +89,9 @@ public class SleepListFragment extends BaseInjectableListFragment {
         @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-            baseParseAdapter2 = new SleepAdapter2(parseObjectList);
-            ultimateRecyclerView.setAdapter(baseParseAdapter2);
-            ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//            baseParseAdapter2 = new SleepAdapter2(parseObjectList);
+//            ultimateRecyclerView.setAdapter(baseParseAdapter2);
+//            ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 //        currentTime.setText(today.hour + ":" + today.minute + ":" + today.second);
     }

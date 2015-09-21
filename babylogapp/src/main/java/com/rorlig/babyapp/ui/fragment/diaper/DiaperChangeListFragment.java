@@ -34,6 +34,7 @@ import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.ui.adapter.DateSectionizer;
 import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.squareup.otto.Subscribe;
 
 import java.util.Collections;
@@ -96,7 +97,7 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment {
 
 
     public DiaperChangeListFragment() {
-        super("Diaper");
+        super(AppConstants.PARSE_CLASS_DIAPER);
     }
 //    public DiaperChangeListFragment(String parseClassName) {
 //        super("DiaperChange");
@@ -115,15 +116,17 @@ public class DiaperChangeListFragment extends BaseInjectableListFragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        baseParseAdapter2 = new DiaperChangeAdapter2(parseObjectList);
-
-//        sectionedRecyclerViewAdapter = new SectionedRecyclerViewAdapter(getActivity().getApplicationContext(),
-//                R.layout.section_header, R.id.title, baseParseAdapter2, new DateSectionizer());
-
-
-//        ultimateRecyclerView.setAdapter(sectionedRecyclerViewAdapter);
-
-        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        baseParseAdapter2 = new DiaperChangeAdapter2(parseObjectList);
+//
+////        sectionedRecyclerViewAdapter = new SectionedRecyclerViewAdapter(getActivity().getApplicationContext(),
+////                R.layout.section_header, R.id.title, baseParseAdapter2, new DateSectionizer());
+//
+//
+////        ultimateRecyclerView.setAdapter(sectionedRecyclerViewAdapter);
+//
+//        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+//
+//        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 //        ultimateRecyclerView.enableLoadmore();
 

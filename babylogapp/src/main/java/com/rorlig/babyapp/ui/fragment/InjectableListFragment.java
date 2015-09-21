@@ -41,6 +41,8 @@ public class InjectableListFragment extends ListFragment {
             Log.d(TAG, "Injecting Fragment");
             ((InjectableActivity)localFragmentActivity).inject(this);
 
+
+
         super.onActivityCreated(paramBundle);
 
 //        }

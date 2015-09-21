@@ -38,6 +38,7 @@ import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
 import com.rorlig.babyapp.ui.adapter.parse.FeedAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.FeedAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class FeedingListFragment extends BaseInjectableListFragment {
 
 
     public FeedingListFragment() {
-        super("Feed");
+        super(AppConstants.PARSE_CLASS_FEED);
     }
 
 
@@ -105,7 +106,7 @@ public class FeedingListFragment extends BaseInjectableListFragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         baseParseAdapter2 = new FeedAdapter2(parseObjectList);
-//        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+        ultimateRecyclerView.setAdapter(baseParseAdapter2);
         ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        ultimateRecyclerView.enableLoadmore();
     }

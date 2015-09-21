@@ -30,6 +30,7 @@ import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter2;
 import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
+import com.rorlig.babyapp.utils.AppConstants;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -55,7 +56,8 @@ public class MilestoneListFragment extends BaseInjectableListFragment {
 
 
     public MilestoneListFragment() {
-        super("Milestone");
+        super(AppConstants.PARSE_CLASS_MILESTONE);
+
     }
 
 
@@ -105,9 +107,9 @@ public class MilestoneListFragment extends BaseInjectableListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        baseParseAdapter2 = new MilestonesItemAdapter2(parseObjectList);
-        ultimateRecyclerView.setAdapter(baseParseAdapter2);
-        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        baseParseAdapter2 = new MilestonesItemAdapter2(parseObjectList);
+//        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+//        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
 
