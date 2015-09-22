@@ -2,7 +2,6 @@ package com.rorlig.babyapp.ui.fragment.auth;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,7 @@ import com.parse.SignUpCallback;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.CreatedUser;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
-
-import java.util.List;
+import com.rorlig.babyapp.utils.AppUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -58,6 +56,9 @@ public class SignUpFragment extends InjectableFragment  {
     private String TAG = "SignUpFragment";
 
 
+
+
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -79,60 +80,66 @@ public class SignUpFragment extends InjectableFragment  {
 
     @OnClick(R.id.btn_signup)
     public void btnSignUp() {
-        firstName = firstNameEditText.getText().toString();
-        lastName = lastNameEditText.getText().toString();
-        email = emailEditText.getText().toString();
-        password = passwordEditText.getText().toString();
 
-        if (firstName.length()==0) {
-            firstNameTextInputLayout.setError(getString(R.string.no_first_name));
-            return;
-        }
+        if (!AppUtils.isNetworkAvailable(getActivity())) {
+            showErrorIfNotConnected();
+        } else{
+            firstName = firstNameEditText.getText().toString();
+            lastName = lastNameEditText.getText().toString();
+            email = emailEditText.getText().toString();
+            password = passwordEditText.getText().toString();
 
-
-        if (lastName.length()==0) {
-            lastNameTextInputLayout.setError(getString(R.string.no_last_name));
-            return;
-        }
-
-        if (email.length()==0) {
-            emailTextInputLayout.setError(getString(R.string.no_email));
-            return;
-        }
-
-        if (password.length()==0) {
-            passwordTextInputLayout.setError(getString(R.string.no_password));
-            return;
-        }
-
-        if (password.length()<6) {
-            passwordTextInputLayout.setError(getString(R.string.password_length));
-            return;
-        }
-
-        if (!isValidEmail(email)) {
-            emailTextInputLayout.setError(getString(R.string.not_valid_email));
-            return;
-        }
-
-        ParseUser user = new ParseUser();
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setUsername(email);
-        user.put("firstName", firstName);
-        user.put("lastName", lastName);
-
-        user.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e!=null) {
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "Created User", Toast.LENGTH_SHORT).show();
-                    scopedBus.post(new CreatedUser());
-                }
+            if (firstName.length()==0) {
+                firstNameTextInputLayout.setError(getString(R.string.no_first_name));
+                return;
             }
-        });
+
+
+            if (lastName.length()==0) {
+                lastNameTextInputLayout.setError(getString(R.string.no_last_name));
+                return;
+            }
+
+            if (email.length()==0) {
+                emailTextInputLayout.setError(getString(R.string.no_email));
+                return;
+            }
+
+            if (password.length()==0) {
+                passwordTextInputLayout.setError(getString(R.string.no_password));
+                return;
+            }
+
+            if (password.length()<6) {
+                passwordTextInputLayout.setError(getString(R.string.password_length));
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                emailTextInputLayout.setError(getString(R.string.not_valid_email));
+                return;
+            }
+
+            ParseUser user = new ParseUser();
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setUsername(email);
+            user.put("firstName", firstName);
+            user.put("lastName", lastName);
+
+            user.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e!=null) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Created User", Toast.LENGTH_SHORT).show();
+                        scopedBus.post(new CreatedUser());
+                    }
+                }
+            });
+        }
+
 
 //        validator.validate();
 
@@ -143,6 +150,7 @@ public class SignUpFragment extends InjectableFragment  {
     public void onBtnLoginClicked() {
         getFragmentManager().popBackStackImmediate();
     }
+
 
 
 

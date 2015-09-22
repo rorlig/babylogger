@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -126,6 +125,7 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
             uuid = getArguments().getString("uuid");
+            position = getArguments().getInt("position");
             initViews(uuid);
         }
 
@@ -584,7 +584,7 @@ public class NursingFeedFragment extends BaseCreateLogFragment {
 
 //            Log.d(TAG, "created objected " + daoObject);
         closeSoftKeyBoard();
-        scopedBus.post(new ItemCreatedOrChanged("Feed"));
+        scopedBus.post(new ItemCreatedOrChanged("Feed", position));
     }
 
     private Feed createLocalFeed() {

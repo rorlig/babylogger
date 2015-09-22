@@ -43,6 +43,7 @@ public class HomeActivity extends InjectableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate");
+//        setContentView(R.layout.activity_base);
 //        if (ParseUser.getCurrentUser()==null) {
 //            showFragment(LoginFragment.class,"login_frament", false);
 //        } else {

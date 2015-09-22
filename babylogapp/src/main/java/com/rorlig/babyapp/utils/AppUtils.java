@@ -15,8 +15,6 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 
-import com.parse.DeleteCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeStatsType;
 import com.rorlig.babyapp.ui.fragment.sleep.SleepStatsFragment;
@@ -137,12 +135,46 @@ public class AppUtils {
 
 
     public static void invalidateParseCache(String parseClass, Context context) {
-        ParseObject.unpinAllInBackground(parseClass, new DeleteCallback() {
-            @Override
-            public void done(ParseException e) {
-
-            }
-        });
+        ParseObject.unpinAllInBackground(parseClass);
 
     }
+
+    public static void invalidateAllParseCache(Context context) {
+        invalidateParseCache(AppConstants.PARSE_CLASS_DIAPER, context);
+        invalidateParseCache(AppConstants.PARSE_CLASS_MILESTONE, context);
+        invalidateParseCache(AppConstants.PARSE_CLASS_SLEEP, context);
+        invalidateParseCache(AppConstants.PARSE_CLASS_GROWTH, context);
+        invalidateParseCache(AppConstants.PARSE_CLASS_FEED, context);
+        invalidateParseCache(AppConstants.PARSE_CLASS_BABY, context);
+
+    }
+
+    public static boolean isNetworkConnected(Context context){
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();    }
+
+//    // ToListActivity.java
+//    private void syncTodosToParse() {
+//        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo ni = cm.getActiveNetworkInfo();
+//        if ((ni != null) && (ni.isConnected())) {
+//            if (!ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
+//                // If we have a network connection and a current
+//                // logged in user, sync the todos
+//            } else {
+//                // If we have a network connection but no logged in user, direct
+//                // the person to log in or sign up.
+//                ParseLoginBuilder builder = new ParseLoginBuilder(this);
+//                startActivityForResult(builder.build(), LOGIN_ACTIVITY_CODE);
+//            }
+//        } else {
+//            // If there is no connection, let the user know the sync didn't happen
+//            Toast.makeText(
+//                    getApplicationContext(),
+//                    "Your device appears to be offline. Some todos may not have been synced to Parse.",
+//                    Toast.LENGTH_LONG).show();
+//        }
+//    }
 }

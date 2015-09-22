@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.DiaperChangeItemClickedEvent;
-import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
+import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
@@ -170,16 +170,16 @@ public class DiaperChangeActivity extends InjectableActivity {
         private EventListener(){
         }
 
-        @Subscribe
-        public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
-            Log.d(TAG, "onDiaperLogCreatedEvent");
-            getSupportFragmentManager().popBackStackImmediate();
-            closeSoftKeyBoard();
-//            showFragment(DiaperChangeListFragment.class, "diaper_change_list", false);
-
-//            getFragmentManager().popBackStackImmediate();
-//            finish();
-        }
+//        @Subscribe
+//        public void onDiaperLogCreatedEvent(DiaperLogCreatedEvent event) {
+//            Log.d(TAG, "onDiaperLogCreatedEvent");
+//            getSupportFragmentManager().popBackStackImmediate();
+//            closeSoftKeyBoard();
+////            showFragment(DiaperChangeListFragment.class, "diaper_change_list", false);
+//
+////            getFragmentManager().popBackStackImmediate();
+////            finish();
+//        }
 
         @Subscribe
         public void onStatsItemEvent(StatsItemEvent statsItemEvent) {
@@ -193,10 +193,13 @@ public class DiaperChangeActivity extends InjectableActivity {
             Log.d(TAG, "onItemAddedEvent");
             switch (addItemEvent.getItemType()) {
                 case DIAPER_CHANGE:
+//                    getSupportFragmentManager().popBackStackImmediate();
+//                    closeSoftKeyBoard();
                     showFragment(DiaperChangeFragment.class, "diaper_change", true);
                     break;
             }
         }
+
 
 
 
@@ -206,7 +209,8 @@ public class DiaperChangeActivity extends InjectableActivity {
             Log.d(TAG, "item it " + event.getDiaperChange().getObjectId());
             DiaperChangeFragment fragment = new DiaperChangeFragment();
             Bundle args = new Bundle();
-            args.putString("diaper_change_id", event.getDiaperChange().getObjectId());
+            args.putString("id", event.getDiaperChange().getObjectId());
+            args.putInt("position", event.getPosition());
             args.putString("uuid" , event.getDiaperChange().getUuidString());
             fragment.setArguments(args);
 
@@ -223,6 +227,8 @@ public class DiaperChangeActivity extends InjectableActivity {
 
         /*
          * event called when an feed item is saved/deleted/edited
+         * todo need to modify to probably get the modified elements and positions
+         * --- move these to the base classs --
          */
         @Subscribe
         public void onDiaperChangeItem(ItemCreatedOrChanged event) {
@@ -234,6 +240,14 @@ public class DiaperChangeActivity extends InjectableActivity {
 //            Log.d(TAG, "onDiaperLogCreatedEvent");
             getSupportFragmentManager().popBackStackImmediate();
         }
+
+        @Subscribe
+        public void onItemDeletedEvent(ItemDeleted event) {
+            Log.d(TAG, "onItemDeletedEvent");
+            closeSoftKeyBoard();
+            getSupportFragmentManager().popBackStackImmediate();
+        }
+
 
 //
     }

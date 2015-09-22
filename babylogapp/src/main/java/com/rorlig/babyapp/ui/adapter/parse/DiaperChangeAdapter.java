@@ -38,13 +38,13 @@ public class DiaperChangeAdapter extends BaseParseAdapter<ParseObject> {
     public View getView( final int position, View convertView, ViewGroup parent ) {
         Log.d(TAG, "position " + position);
         DiaperChangeView view = (DiaperChangeView) convertView;
-//        ViewHolder viewHolder;
+//        BottleFeedViewHolder viewHolder;
 
         if (view == null) {
             Log.d(TAG, " view is inflated ");
             LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = (DiaperChangeView) inflator.inflate(R.layout.list_item_diaper_change, null);
-//            viewHolder = new ViewHolder(view);
+//            viewHolder = new BottleFeedViewHolder(view);
         }
 //        } else {
 //            view = convertView;
@@ -58,7 +58,7 @@ public class DiaperChangeAdapter extends BaseParseAdapter<ParseObject> {
 
 //        Log.d(TAG, "merchant " + DiaperChange);
 //
-//        viewHolder  = (ViewHolder) view.getTag();
+//        viewHolder  = (BottleFeedViewHolder) view.getTag();
 //        Log.d(TAG, " date is " + new Date(DiaperChange.getDate().getTime()).toString());
 //        viewHolder.textViewTime.setText(simpleDateFormat.format(new Date(DiaperChange.getDate().getTime())));
 //

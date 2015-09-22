@@ -20,6 +20,7 @@ import com.rorlig.babyapp.otto.auth.ForgotBtnClickedEvent;
 import com.rorlig.babyapp.otto.auth.LoginSuccessEvent;
 import com.rorlig.babyapp.otto.auth.SignupBtnClickedEvent;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
+import com.rorlig.babyapp.utils.AppUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,6 +56,7 @@ public class LoginFragment extends InjectableFragment {
 
     @InjectView(R.id.password)
     TextView passwordTextView;
+
 
 //    @InjectView(R.id.txt_why_signup)
 //    TextView signupTextView;
@@ -93,6 +95,8 @@ public class LoginFragment extends InjectableFragment {
             return ""; //remove the $ sign
         }
     };
+
+
 //    TooltipManager manager = TooltipManager.getInstance();
 
     @Override
@@ -117,6 +121,7 @@ public class LoginFragment extends InjectableFragment {
 
         Linkify.addLinks(skipMessageTextView, pattern2, getString(R.string.toc_link), termsAndConditionMatchFilter, blankTransform);
         Linkify.addLinks(skipMessageTextView, pattern2, getString(R.string.privacy_link), privacyMatchFilter, blankTransform);
+
 
 //        skipMessageTextView.setText(AppUtils.getSpannable(skipMessageTextView.getText().toString()));
     }
@@ -147,46 +152,54 @@ public class LoginFragment extends InjectableFragment {
 
     @OnClick(R.id.btn_login)
     public void btnLoginClicked(){
-        String email = emailTextView.getText().toString();
-        String password = passwordTextView.getText().toString();
 
-        if (email.length() == 0) {
-            emailTextInputLayout.setError(getString(R.string.no_email));
-            return;
-        }
-        if (!isValidEmail(email)){
-            emailTextInputLayout.setError(getString(R.string.not_valid_email));
-            return;
-        }
+        if (!AppUtils.isNetworkAvailable(getActivity())) {
+            showErrorIfNotConnected();
+        } else {
 
-        if (password.length()==0) {
-            passwordTextInputLayout.setError(getString(R.string.no_password));
-            return;
-        }
+            String email = emailTextView.getText().toString();
+            String password = passwordTextView.getText().toString();
+
+            if (email.length() == 0) {
+                emailTextInputLayout.setError(getString(R.string.no_email));
+                return;
+            }
+            if (!isValidEmail(email)){
+                emailTextInputLayout.setError(getString(R.string.not_valid_email));
+                return;
+            }
+
+            if (password.length()==0) {
+                passwordTextInputLayout.setError(getString(R.string.no_password));
+                return;
+            }
 
 
-        // Set up a progress dialog
+            // Set up a progress dialog
 //        dialog = new ProgressDialog(getActivity(), getString(R.string.title_login));
 ////        dialog.se(getString(R.string.progress_login));
 //        dialog.show();
 
 
-        ParseUser.logInInBackground(email, password, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
+            ParseUser.logInInBackground(email, password, new LogInCallback() {
+                @Override
+                public void done(ParseUser user, ParseException e) {
 //                dialog.dismiss();
-                if (e != null) {
-                    // Show the error message
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                } else {
-                    // Start an intent for the dispatch activity
-                    scopedBus.post(new LoginSuccessEvent(user));
+                    if (e != null) {
+                        // Show the error message
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        // Start an intent for the dispatch activity
+                        scopedBus.post(new LoginSuccessEvent(user));
 //                    Intent intent = new Intent(LoginActivity.this, DispatchActivity.class);
 //                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                    startActivity(intent);
+                    }
                 }
-            }
-        });
+            });
+        }
+
+
     }
 
 //    @OnClick(R.id.btn_skip)
@@ -199,6 +212,8 @@ public class LoginFragment extends InjectableFragment {
         Toast.makeText(getActivity(), getString(id), Toast.LENGTH_SHORT).show();
 
     }
+
+
 
 
 

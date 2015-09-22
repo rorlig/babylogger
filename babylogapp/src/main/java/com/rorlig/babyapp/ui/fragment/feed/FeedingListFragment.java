@@ -1,43 +1,25 @@
 package com.rorlig.babyapp.ui.fragment.feed;
 
-import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.otto.FeedItemClickedEvent;
-import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
-import com.rorlig.babyapp.parse_dao.Feed;
-import com.rorlig.babyapp.ui.adapter.DateSectionizer;
-import com.rorlig.babyapp.ui.adapter.parse.FeedAdapter;
+import com.rorlig.babyapp.ui.adapter.parse.FeedAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
-import com.squareup.otto.Subscribe;
+import com.rorlig.babyapp.utils.AppConstants;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -48,54 +30,22 @@ import butterknife.OnClick;
  * @author gaurav gupta
  * history of feeds changes
  */
-public class FeedingListFragment extends BaseInjectableListFragment
-        implements  AdapterView.OnItemClickListener {
-    @ForActivity
-    @Inject
-    Context context;
+public class FeedingListFragment extends BaseInjectableListFragment {
 
-
-    @InjectView(R.id.feedListView)
-    ListView feedListView;
-
-    @InjectView(R.id.emptyView)
-    RelativeLayout emptyView;
-
-    @InjectView(R.id.errorText)
-    TextView errorText;
-
-
-
-
-    @InjectView(R.id.add_bottle_feed)
-    FloatingActionButton addBottleFeed;
-
-    @InjectView(R.id.add_breast_feed)
-    FloatingActionButton addBreastFeed;
 
 
     @InjectView(R.id.feed_item_types)
     FloatingActionsMenu floatingActionsMenu;
 
-//    @InjectView(R.id.swipe_refresh_layout)
-//    SwipeRefreshLayout swipeRefreshLayout;
-
-    private int LOADER_ID=3;
-    private List<ParseObject> feedList;
-    private FeedAdapter feedAdapter;
-    private SimpleSectionAdapter<BabyLogBaseParseObject> sectionAdapter;
-
 
     public FeedingListFragment() {
-        super("Feed");
+        super(AppConstants.PARSE_CLASS_FEED);
     }
 
 
     @OnClick(R.id.add_item)
     public void onFeedEventAdd(){
-//        scopedBus.post(new AddFeedEvent());
         showFeedSelectFragment(new FeedSelectFragment(), "feed_select");
-//        scopedBus.post(new AddItemEvent(AddItemTypes.FEED_LOG));
     }
 
     @OnClick(R.id.add_breast_feed)
@@ -114,232 +64,146 @@ public class FeedingListFragment extends BaseInjectableListFragment
         feedSelectFragment.show(getActivity().getSupportFragmentManager(),"feed_select");
     }
 
-    Typeface typeface;
-
     private String TAG = "FeedingListFragment";
 
-    private EventListener eventListener = new EventListener();
+//    private EventListener eventListener = new EventListener();
 
     @Override
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);
-
-//        typeface=Typeface.createFromAsset(getActivity().getAssets(),
-//                "fonts/proximanova_light.ttf");
-
-        feedListView.setEmptyView(emptyView);
-
-
         scopedBus.post(new FragmentCreated("Feeding List"));
-
-        feedList = new ArrayList<>();
-
-        updateListView();
-
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                AppUtils.invalidateParseCache("Feed", getActivity());
-//                populateFromNetwork(null);
-//            }
-//        });
-//        getLoaderManager().initLoader(LOADER_ID, null, this);
-
-
-
-
     }
 
-    @Override
-    protected void setListResults(List<ParseObject> objects) {
-        super.setListResults(objects);
-        feedList = objects;
 
-        feedAdapter = new FeedAdapter(getActivity(),
-                R.layout.list_item_diaper_change, feedList);
-        feedAdapter.update(feedList);
-        sectionAdapter = new SimpleSectionAdapter<BabyLogBaseParseObject>(context,
-                feedAdapter, R.layout.section_header_blue, R.id.title,
-                new DateSectionizer());
-        feedListView.setAdapter(sectionAdapter);
-        if (feedList.size() > 0) {
-            feedListView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
-            feedListView.setOnItemClickListener(this);
-        } else {
-            feedListView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-
-        }
-
-//        swipeRefreshLayout.setRefreshing(false);
-
-    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
+        baseParseAdapter2 = new FeedAdapter2(parseObjectList);
+        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        ultimateRecyclerView.enableLoadmore();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_feeding_list, null);
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.d(TAG, "onTouch");
-                return true;
-            }
-        });
+        View view =  inflater.inflate(R.layout.fragment_feeding_list_2, null);
         ButterKnife.inject(this, view);
         return view;
     }
 
-    /*
-    * Register to events...
-    */
     @Override
-    public void onStart(){
+    protected void setListResults(List<ParseObject> objects) {
+        Log.d(TAG, "setListResults");
+        super.setListResults(objects);
+//        sectionedRecyclerViewAdapter = new SectionedRecyclerViewAdapter(getActivity().getApplicationContext(),
+//                R.layout.section_header, R.id.title, baseParseAdapter2, new DateSectionizer());
+
+//        sectionedRecyclerViewAdapter.setSections(objects);
 
 
-        super.onStart();
-        Log.d(TAG, "onStart");
-        scopedBus.register(eventListener);
-        collapseFloatingMenuIfOpen();
-//        getLoaderManager().restartLoader(LOADER_ID, null, this);
+//        sectionedRecyclerViewAdapter.notifyDataSetChanged();
+        ultimateRecyclerView.setAdapter(baseParseAdapter2);
+
 
     }
 
-    /*
-     * Unregister from events ...
-     */
-    @Override
-    public void onStop(){
-        super.onStop();
-        Log.d(TAG, "onStop");
-        scopedBus.unregister(eventListener);
+// s
 
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle item selection
-        switch (item.getItemId()) {
-
-            case R.id.action_add:
-                showFeedSelectFragment(new FeedSelectFragment(), "feed_select");
-
-//                scopedBus.post(new AddItemEvent(AddItemTypes.FEED_BOTTLE));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-//    private void onBackPressed() {
-//        Fragment fragment =getFragmentManager().findFragmentByTag("feeding_stack");
-//        if(fragment!=null) {
-//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//            transaction.remove(fragment).commit();
+//    /*
+//     * Unregister from events ...
+//     */
+//    @Override
+//    public void onStop(){
+//        super.onStop();
+//        Log.d(TAG, "onStop");
+//        scopedBus.unregister(eventListener);
+//
+//    }
+//
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//
+//            case R.id.action_add:
+//                showFeedSelectFragment(new FeedSelectFragment(), "feed_select");
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
 //        }
 //    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_feed, menu);
     }
 
-//    /**
-//     * Instantiate and return a new Loader for the given ID.
-//     *
-//     * @param id   The ID whose loader is to be created.
-//     * @param args Any arguments supplied by the caller.
-//     * @return Return a new Loader instance that is ready to start loading.
-//     */
-//    @Override
-//    public Loader<List<FeedDao>> onCreateLoader(int id, Bundle args) {
-//        Log.d(TAG, "create Loader");
+
+
+
+//    // event listener to listen to events on the buss
+//    private class EventListener {
+//        public EventListener() {
 //
-//        return new FeedLoader(getActivity());
-//    }
-//
-//
-//    @Override
-//    public void onLoadFinished(Loader<List<FeedDao>> loader, List<FeedDao> data) {
-//        Log.d(TAG, "number of diaper changes " + data.size());
-//        Log.d(TAG, "loader finished");
-//
-//        if (data!=null && data.size()>0) {
-//            emptyView.setVisibility(View.GONE);
-//            feedListView.setVisibility(View.VISIBLE);
-//        } else {
-//            emptyView.setVisibility(View.VISIBLE);
-//            feedListView.setVisibility(View.GONE);
 //        }
-//        feedList = data;
 //
-//        feedAdapter = new FeedAdapter(getActivity(), R.layout.list_item_diaper_change, feedList);
+//        //handle the addition or editing of item from list view...
+//        // position == -1 in case of addition else a non negative number ...
+//        @Subscribe
+//        public void onItemAdded(final ItemCreatedOrChanged event) {
+//            Log.d(TAG, "onDiaperChangeItemChange");
+//            final ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+//            query.orderByDescending("logCreationDate");
+//            query.setLimit(1);
+//            query.setSkip(event.getPosition() == -1 ? 0 : event.getPosition());
+////
+////
+//            query.fromLocalDatastore().findInBackground(
+//                    new FindCallback<ParseObject>() {
+//                        @Override
+//                        public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//                            Log.d(TAG, "got list from the cache " + e + " objects " + objects);
+//                            if (objects!=null) {
+//                                Log.d(TAG, "adding objects to the list " + event.getPosition());
+//                                if (event.getPosition()==-1) {
+//                                    Log.d(TAG, "adding item to position -1 ");
+//                                    //new item added
+//                                    parseObjectList.add(0, objects.get(0));
+//                                    baseParseAdapter2.notifyItemInserted(0);
+//                                    baseParseAdapter2.notifyDataSetChanged();
+//                                    scrollLayoutManagerToPos(0);
 //
-////        diaperChangeAdapter.update(diaperChangeDaoList);
+//                                } else {
+//                                    //item edited...
+//                                    Log.d(TAG, "editing the items ");
+//                                    parseObjectList.set(event.getPosition(), objects.get(0));
+//                                    baseParseAdapter2.notifyItemChanged(event.getPosition());
+//                                }
 //
-//        sectionAdapter = new SimpleSectionAdapter<BaseDao>(context,
-//                feedAdapter,
-//                R.layout.section_header_blue,
-//                R.id.title,
-//                new DateSectionizer());
 //
-//        feedListView.setAdapter(sectionAdapter);
-//        feedListView.setOnItemClickListener(this);
-////        feedListView.setOnClickListener(this);
+//
+//                            }
+//                        }
+//                    }
+//
+//
+//            );
+//
+//        }
+//
+//        //handle the removal of an item from the listview.
+//        @Subscribe
+//        public void onItemDeleted(final ItemDeleted event) {
+//            parseObjectList.remove(event.getPosition());
+//            baseParseAdapter2.notifyItemRemoved(event.getPosition());
+//        }
+//
 //
 //    }
-//
-//    /**
-//     * Called when a previously created loader is being reset, and thus
-//     * making its data unavailable.  The application should at this point
-//     * remove any references it has to the Loader's data.
-//     *
-//     * @param loader The Loader that is being reset.
-//     */
-//    @Override
-//    public void onLoaderReset(Loader<List<FeedDao>> loader) {
-//
-//    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "onItemClick");
-        Log.d(TAG, "item clicked at position " + position + " id " + id);
-        Feed feed = (Feed) feedListView.getItemAtPosition(position);
-//        Log.d(TAG, "feedDao dao " + feedDao);
-        collapseFloatingMenuIfOpen();
-        scopedBus.post(new FeedItemClickedEvent(feed));
-    }
-
-
-    // event listener to listen to events on the buss
-    private class EventListener {
-        public EventListener() {
-
-        }
-
-        @Subscribe
-        public void onFeedSavedEvent(ItemCreatedOrChanged event) {
-            Log.d(TAG, "onFeedSavedEvent");
-            populateLocalStore(false);
-//            updateListView();
-//            finish();
-//            showFragment(FeedingListFragment.class, "feeding_list",false);
-
-//            Log.d(TAG, "onDiaperLogCreatedEvent");
-//            getLoaderManager().restartLoader(LOADER_ID, null, FeedingListFragment.this);
-        }
-
-
-    }
 
     /*
      * click on anywhere in fragment ...

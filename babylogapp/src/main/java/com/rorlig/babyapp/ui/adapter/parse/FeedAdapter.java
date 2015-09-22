@@ -56,7 +56,7 @@ public class FeedAdapter extends BaseParseAdapter<ParseObject> {
         View view = convertView;
 
 //        DiaperChangeView view = (DiaperChangeView) convertView;
-//        ViewHolder viewHolder;
+//        BottleFeedViewHolder viewHolder;
 
 
         int type = getItemViewType(position);
@@ -127,7 +127,7 @@ public class FeedAdapter extends BaseParseAdapter<ParseObject> {
             convertView = inflator.inflate(R.layout.list_item_bottle_feeding, parent, false);
             BottleFeedView view = (BottleFeedView) convertView;
             view.setModel(feed);
-//            viewHolder = new ViewHolder(view);
+//            viewHolder = new BottleFeedViewHolder(view);
 //        }
 //        if(convertView == null) {
 //            convertView = mInflater.inflate(R.layout.list_item_bottle_feeding, parent, false);
@@ -166,7 +166,7 @@ public class FeedAdapter extends BaseParseAdapter<ParseObject> {
 //    }
 
 
-//    public static class NursingFeedViewHolder extends ViewHolder{
+//    public static class NursingFeedViewHolder extends BottleFeedViewHolder{
 //        TextView left;
 //        TextView right;
 //        TextView textViewTime;
@@ -176,7 +176,7 @@ public class FeedAdapter extends BaseParseAdapter<ParseObject> {
 //
 //    }
 //
-//    public static class BottleFeedViewHolder extends  ViewHolder{
+//    public static class BottleFeedViewHolder extends  BottleFeedViewHolder{
 //        TextView txtType;
 //        TextView textViewTime;
 //        TextView notesTextView;
@@ -184,7 +184,7 @@ public class FeedAdapter extends BaseParseAdapter<ParseObject> {
 //
 //    }
 //
-//    public static class ViewHolder {
+//    public static class BottleFeedViewHolder {
 //        TextView textViewTime;
 //    }
 

@@ -54,4 +54,5 @@ public class BaseParseAdapter<T extends ParseObject> extends ArrayAdapter<ParseO
     }
 
 
+
 }

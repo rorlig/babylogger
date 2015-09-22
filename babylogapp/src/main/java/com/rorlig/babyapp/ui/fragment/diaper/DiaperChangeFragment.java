@@ -21,9 +21,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
-import com.parse.DeleteCallback;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -36,14 +34,12 @@ import com.rorlig.babyapp.model.diaper.DiaperChangeTextureType;
 import com.rorlig.babyapp.model.diaper.DiaperIncident;
 import com.rorlig.babyapp.otto.events.datetime.DateSetEvent;
 import com.rorlig.babyapp.otto.events.datetime.TimeSetEvent;
-import com.rorlig.babyapp.otto.events.diaper.DiaperLogCreatedEvent;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.DatePickerFragment;
 import com.rorlig.babyapp.ui.fragment.datetime.TimePickerFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
-import com.rorlig.babyapp.utils.AppConstants;
 import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
@@ -52,13 +48,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import bolts.Continuation;
-import bolts.Task;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
-import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 import static com.rorlig.babyapp.model.diaper.DiaperChangeColorType.COLOR_1;
 import static com.rorlig.babyapp.model.diaper.DiaperChangeColorType.COLOR_2;
@@ -196,8 +188,9 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
-            id = getArguments().getString("diaper_change_id");
+            id = getArguments().getString("id");
             uuid = getArguments().getString("uuid");
+            position = getArguments().getInt("position");
             Log.d(TAG, "id of the object " + id);
             initViews(uuid);
         }
@@ -232,12 +225,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
                     setDiaperIncidentType(diaperChange);
                     notes.setText(diaperChange.getDiaperChangeNotes());
                     setDateTimeHeader(diaperChange);
-
                     showEditDelete = true;
-
-//            saveBtn.setText("Edit");
-
-
                     editDeleteBtn.setVisibility(View.VISIBLE);
                     saveBtn.setVisibility(View.GONE);
                 }
@@ -246,41 +234,6 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 
 
         });
-
-//        query.getInBackground(id, new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(ParseObject object, ParseException e) {
-//                diaperChange = (DiaperChange) object;
-//                setDiaperChangeType(diaperChange);
-//                setDiaperEventTypeVisibility(diaperChange);
-//                setDiaperIncidentType(diaperChange);
-//                notes.setText(diaperChange.getDiaperChangeNotes());
-//                setDateTimeHeader(diaperChange);
-//
-//                showEditDelete = true;
-//
-////            saveBtn.setText("Edit");
-//
-//
-//                editDeleteBtn.setVisibility(View.VISIBLE);
-//                saveBtn.setVisibility(View.GONE);
-//
-//            }
-//        });
-//            DiaperChangeDao diaperChangeDao = babyLoggerORMLiteHelper.getDiaperChangeDao().queryForId(id);
-//            Log.d(TAG, diaperChangeDao.toString());
-//
-//            setDiaperChangeType(diaperChange);
-
-//            if (diaperChangeDao.getDiaperChangeEventType()!=DiaperChangeEnum.WET) {
-//                poopTypeLayout.setVisibility(View.VISIBLE);
-//                poopColorLayout.setVisibility(View.VISIBLE);
-//                setDiaperChangePoopColor(diaperChangeDao);
-//                setDiaperChangePoopType(diaperChangeDao);
-//                setPoopTexture(diaperChangeDao);
-//            }
-
-
     }
 
     private void setDateTimeHeader(DiaperChange diaperChangeDao) {
@@ -558,7 +511,7 @@ public class DiaperChangeFragment extends BaseCreateLogFragment {
 //            }
 //        });
         Log.d(TAG, "scoped bus diaper ");
-        scopedBus.post(new ItemCreatedOrChanged("Diaper"));
+        scopedBus.post(new ItemCreatedOrChanged("Diaper", position));
 
 
 

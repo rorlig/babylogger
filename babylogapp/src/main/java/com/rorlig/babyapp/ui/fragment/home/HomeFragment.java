@@ -31,7 +31,6 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 /**
  * Created by rorlig on 5/31/15.

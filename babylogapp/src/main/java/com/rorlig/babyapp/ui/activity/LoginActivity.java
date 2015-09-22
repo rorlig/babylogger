@@ -30,9 +30,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import bolts.Continuation;
-import bolts.Task;
-
 /**
  * @author gaurav gupta
  */

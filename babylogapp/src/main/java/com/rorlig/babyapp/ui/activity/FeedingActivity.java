@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.feed.FeedType;
 import com.rorlig.babyapp.otto.FeedItemClickedEvent;
+import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.scheduler.TypeFaceManager;
@@ -217,6 +218,7 @@ public class FeedingActivity extends InjectableActivity {
         }
 
 
+
         /*
          * event called when an feed item is saved/deleted/edited
          */
@@ -242,8 +244,9 @@ public class FeedingActivity extends InjectableActivity {
             }
 //            DiaperChangeFragment fragment = new DiaperChangeFragment();
             Bundle args = new Bundle();
-            args.putString("feed_id", event.getFeedDao().getObjectId());
+            args.putString("id", event.getFeedDao().getObjectId());
             args.putString("uuid", event.getFeedDao().getUuidString());
+            args.putInt("position", event.getPosition());
             fragment.setArguments(args);
 
             Log.d(TAG, "adding to back stack ");
@@ -256,14 +259,14 @@ public class FeedingActivity extends InjectableActivity {
                     .commit();
         }
 
-//        @Subscribe
-//        public void updateActionBar(UpdateActionBarEvent event){
-//            Log.d(TAG, "updating action bar");
-//            profileImageIcon.setImageDrawable(event.getDrawable());
-//        }
 
 
-
+        @Subscribe
+        public void onItemDeletedEvent(ItemDeleted event) {
+            Log.d(TAG, "onItemDeletedEvent");
+            closeSoftKeyBoard();
+            getSupportFragmentManager().popBackStackImmediate();
+        }
 
 
     }

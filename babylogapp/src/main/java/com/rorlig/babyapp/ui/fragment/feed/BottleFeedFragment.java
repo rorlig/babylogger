@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Button;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -38,7 +37,6 @@ import com.rorlig.babyapp.parse_dao.Feed;
 import com.rorlig.babyapp.ui.fragment.BaseCreateLogFragment;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -127,6 +125,7 @@ public class BottleFeedFragment extends BaseCreateLogFragment
         if (getArguments()!=null) {
             Log.d(TAG, "arguments are not null");
             uuid = getArguments().getString("uuid");
+            position = getArguments().getInt("position");
             initViews(uuid);
         }
 
@@ -399,7 +398,7 @@ public class BottleFeedFragment extends BaseCreateLogFragment
      */
     @OnClick(R.id.delete_btn)
     public void onDeleteBtnClicked(){
-        Log.d(TAG, "deleting id " + id);
+        Log.d(TAG, "deleting id " + uuid);
         delete(feed);
     }
 

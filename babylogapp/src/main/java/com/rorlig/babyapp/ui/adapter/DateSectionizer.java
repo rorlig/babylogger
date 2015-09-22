@@ -1,6 +1,8 @@
 package com.rorlig.babyapp.ui.adapter;
 
-import com.mobsandgeeks.adapters.Sectionizer;
+import android.util.Log;
+
+import com.github.androflo.sectionedrecyclerviewadapter.Sectionizer;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 
@@ -24,7 +26,7 @@ public class DateSectionizer implements Sectionizer<BabyLogBaseParseObject> {
     private final long LENGTH_DAY = 24 * 60 * 60 * 1000;
 
     private final long LENGTH_MONTH = 24 * 60 * 60;
-    private String TAG = "DiaperChangeSectionizer";
+    private String TAG = "DateSectionizer";
 
 
     /**
@@ -33,12 +35,14 @@ public class DateSectionizer implements Sectionizer<BabyLogBaseParseObject> {
      * @param instance The instance obtained from the data source of the decorated list adapter.
      * @return section title for the given instance.
      */
+
+
     @Override
-    public String getSectionTitleForItem(BabyLogBaseParseObject instance) {
+    public String getSectionTitle(BabyLogBaseParseObject instance) {
         PrettyTime prettyTime = new PrettyTime();
 
         Long currentTime = System.currentTimeMillis();
-//        Log.d(TAG, " currentTime " + currentTime + " diaper change time " + instance.getDate());
+        Log.d(TAG, " currentTime " + currentTime + " time " + instance.getLogCreationDate());
         Long diff = currentTime - instance.getLogCreationDate().getTime();
 //        Log.d(TAG, "diff " + diff);
         if (diff < LENGTH_DAY) {
@@ -60,5 +64,5 @@ public class DateSectionizer implements Sectionizer<BabyLogBaseParseObject> {
         } else if (diff < LENGTH_DAY * 7 * 4 * 12) {
             return SIX_MONTH;
         } else
-            return YEAR;    }
+            return YEAR;     }
 }

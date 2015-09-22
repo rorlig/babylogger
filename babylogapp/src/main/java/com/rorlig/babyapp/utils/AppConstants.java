@@ -22,4 +22,10 @@ public class AppConstants {
 
     public static final String SHOWCASE_ID_DATE_TIME = "showcase_id_date_time";
     public static final String SHOWCASE_ID_PROFILE = "showcase_id_profile";
+    public static final String PARSE_CLASS_DIAPER = "Diaper";
+    public static final String PARSE_CLASS_MILESTONE = "Milestone";
+    public static final String PARSE_CLASS_SLEEP = "Sleep";
+    public static final String PARSE_CLASS_GROWTH = "Growth";
+    public static final String PARSE_CLASS_FEED = "Feed";
+    public static final String PARSE_CLASS_BABY = "Baby";
 }

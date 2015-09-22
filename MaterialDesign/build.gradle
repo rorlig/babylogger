@@ -51,12 +51,12 @@ android {
 //        publicDownloadNumbers = true
 //    }
 //}
-
+//
 dependencies {
     compile 'com.nineoldandroids:library:2.4.+'
     compile 'com.android.support:support-v4:21.+'
 }
-
+//
 //install {
 //    repositories.mavenInstaller {
 //        pom {
@@ -86,7 +86,7 @@ dependencies {
 //        }
 //    }
 //}
-
+//
 //task sourcesJar(type: Jar) {
 //    from android.sourceSets.main.java.srcDirs
 //    classifier = 'sources'
@@ -101,7 +101,7 @@ dependencies {
 //    classifier = 'javadoc'
 //    from javadoc.destinationDir
 //}
-
+//
 //artifacts {
 //    archives javadocJar
 //    archives sourcesJar

@@ -9,11 +9,17 @@ public class GrowthItemClicked {
 
     private final Growth growthDao;
 
-    public GrowthItemClicked(Growth growthDao) {
+    private final int position;
+    public GrowthItemClicked(Growth growthDao, int position) {
         this.growthDao = growthDao;
+        this.position = position;
     }
 
     public Growth getGrowthDao() {
         return growthDao;
+    }
+
+    public int getPosition() {
+        return position;
     }
 }

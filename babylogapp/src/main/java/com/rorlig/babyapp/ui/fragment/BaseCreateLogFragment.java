@@ -12,10 +12,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForApplication;
+import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.ui.widget.DateTimeHeaderFragment;
 import com.rorlig.babyapp.utils.AppConstants;
-import com.rorlig.babyapp.utils.AppUtils;
 
 import javax.inject.Inject;
 
@@ -35,6 +35,9 @@ public abstract class BaseCreateLogFragment extends InjectableFragment{
     private String TAG = "BaseCreateLogFragment";
 
     protected DateTimeHeaderFragment dateTimeHeader;
+
+    protected int position=-1;
+
 
     public BaseCreateLogFragment(String parseClassName) {
         this.parseClassName = parseClassName;
@@ -99,7 +102,7 @@ public abstract class BaseCreateLogFragment extends InjectableFragment{
 
             }
         });
-        scopedBus.post(new ItemCreatedOrChanged(parseClassName));
+        scopedBus.post(new ItemDeleted(parseClassName, position));
 
     }
 }

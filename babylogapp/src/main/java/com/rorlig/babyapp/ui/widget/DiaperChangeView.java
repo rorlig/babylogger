@@ -2,14 +2,12 @@ package com.rorlig.babyapp.ui.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.model.diaper.DiaperChangeEnum;
 import com.rorlig.babyapp.parse_dao.DiaperChange;
@@ -53,7 +51,7 @@ public class DiaperChangeView extends RelativeLayout {
     private String TAG = "DiaperChangeView";
 
 
-//    public ViewHolder(View view){
+//    public BottleFeedViewHolder(View view){
 //
 //    }
 
@@ -116,12 +114,12 @@ public class DiaperChangeView extends RelativeLayout {
 
     public void setModel(DiaperChange diaperChange) {
         this.diaperChange = diaperChange;
-        Log.d(TAG, new Gson().toJson(diaperChange));
+//        Log.d(TAG, new Gson().toJson(diaperChange));
         bindModel();
     }
 
     private void bindModel() {
-        Log.d(TAG, diaperChange.toString());
+//        Log.d(TAG, diaperChange.toString());
         textViewTime.setText(simpleDateFormat.format(diaperChange.getLogCreationDate()));
         setPoopColor();
         setPoopTexture();
@@ -148,7 +146,7 @@ public class DiaperChangeView extends RelativeLayout {
 //            }
 //        } else {
 
-        Log.d(TAG, "diaperChange Type " + diaperChange.getDiaperChangeEventType());
+//        Log.d(TAG, "diaperChange Type " + diaperChange.getDiaperChangeEventType());
             if (diaperChange.getDiaperChangeEventType().equals(DiaperChangeEnum.BOTH.toString())) {
                 diaperWetChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));
                 diaperPoopChecked.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_tick_selected));

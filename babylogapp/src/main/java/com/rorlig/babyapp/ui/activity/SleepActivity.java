@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
+import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.SleepItemClicked;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
@@ -176,8 +177,9 @@ public class SleepActivity extends InjectableActivity {
             Log.d(TAG, "onSleepItemClicked");
             SleepFragment fragment = new SleepFragment();
             Bundle args = new Bundle();
-            args.putString("sleep_id", event.getSleepDao().getObjectId());
+            args.putString("id", event.getSleepDao().getObjectId());
             args.putString("uuid", event.getSleepDao().getUuidString());
+            args.putInt("position", event.getPosition());
             fragment.setArguments(args);
 
             Log.d(TAG, "adding to back stack ");
@@ -197,6 +199,13 @@ public class SleepActivity extends InjectableActivity {
 //            Log.d(TAG, "updating action bar");
 //            profileImageIcon.setImageDrawable(event.getDrawable());
 //        }
+
+        @Subscribe
+        public void onItemDeletedEvent(ItemDeleted event) {
+            Log.d(TAG, "onItemDeletedEvent");
+            closeSoftKeyBoard();
+            getSupportFragmentManager().popBackStackImmediate();
+        }
 
     }
 

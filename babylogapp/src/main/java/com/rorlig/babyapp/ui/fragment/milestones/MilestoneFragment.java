@@ -30,7 +30,6 @@ import com.android.camera.CropImageIntentBuilder;
 import com.desmond.squarecamera.CameraActivity;
 import com.gc.materialdesign.views.Button;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -51,7 +50,6 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -146,7 +144,9 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
         //initialize views if not creating new feed item
         if (getArguments() != null) {
             Log.d(TAG, "arguments are not null");
+            id = getArguments().getString("id");
             uuid = getArguments().getString("uuid");
+            position = getArguments().getInt("position");
             initViews(uuid);
         }
 //        mileStoneImageView.setBackgroundColor(Color.CYAN);
@@ -188,53 +188,6 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
             }
         });
 
-//        query.getInBackground(id, new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(ParseObject object, ParseException e) {
-//                milestone = (Milestones) object;
-//                Log.d(TAG, milestone.toString());
-//                notes.setText(milestone.getNotes());
-//                dateTimeHeader.setDateTime(milestone.getLogCreationDate());
-//                customMilestonesTextView.setText(milestone.getTitle());
-//                if (milestone.getParseFile()!=null && milestone.getParseFile().getUrl()!=null){
-//                    picasso.with(context).load(milestone.getParseFile().getUrl()).into(mileStoneImageView);
-//                }
-//                imageUri = Uri.parse(milestone.getImagePath());
-////                Log.d(TAG, "imagePath: " + milestone.getImagePath());
-////                updateImageUri(milestone.getImagePath());
-//                showEditDelete = true;
-//
-//                milestoneEmpty = false;
-//
-//
-//                setSaveEnabled();
-//            }
-//        });
-
-//        try {
-//            MilestonesDao milestonesDao = babyLoggerORMLiteHelper.getMilestonesDao().queryForId(id);
-//            Log.d(TAG, milestonesDao.toString());
-//            editDeleteBtn.setVisibility(View.VISIBLE);
-//            saveBtn.setVisibility(View.GONE);
-//
-//            notes.setText(milestonesDao.getNotes());
-//            dateTimeHeader.setDateTime(milestonesDao.getDate());
-//            customMilestonesTextView.setText(milestonesDao.getTitle());
-//
-//            Log.d(TAG, "imagePath: " + milestonesDao.getImagePath());
-//            updateImageUri(milestonesDao.getImagePath());
-//            showEditDelete = true;
-//
-//            milestoneEmpty = false;
-//
-//
-//
-//            setSaveEnabled();
-//
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
@@ -399,8 +352,8 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
         ParseFile file=null;
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Milestone");
         query.fromLocalDatastore();
-
-        if (imageUri != null) {
+        Log.d(TAG, "imageUri " + imageUri);
+        if (imageUri != null&& !imageUri.getPath().equals("")) {
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             FileInputStream fis;
@@ -414,15 +367,13 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
                 byte[] bbytes = baos.toByteArray();
 
                 file = new ParseFile(imageUri.getLastPathSegment(), bbytes);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-
-        if (id != null) {
+        //new object
+        if (uuid != null) {
             if (file!=null) {
                 final ParseFile finalFile = file;
                 file.saveInBackground().onSuccess(new Continuation<Void, Object>() {
@@ -462,7 +413,9 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
                     }
                 });
             }
-        } else {
+        }
+        //update it...
+        else {
             if (file != null) {
                 final ParseFile finalFile1 = file;
                 file.saveInBackground().onSuccess(new Continuation<Void, Object>() {
@@ -493,7 +446,7 @@ public class MilestoneFragment extends BaseCreateLogFragment implements PictureI
                     @Override
                     public void done(ParseException e) {
                         Log.d(TAG, "saving locally");
-                        scopedBus.post(new ItemCreatedOrChanged("Milestone"));
+                        scopedBus.post(new ItemCreatedOrChanged("Milestone", position));
                     }
                 });
             }

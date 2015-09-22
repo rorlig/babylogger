@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.GrowthItemClicked;
+import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
@@ -179,11 +180,12 @@ public class GrowthActivity extends InjectableActivity {
 
         @Subscribe
         public void onGrowthItemClicked(GrowthItemClicked event) {
-            Log.d(TAG, "diaperChangeItemClicked");
+            Log.d(TAG, "onGrowthItemClicked");
             GrowthFragment fragment = new GrowthFragment();
             Bundle args = new Bundle();
-            args.putString("growth_id", event.getGrowthDao().getObjectId());
+            args.putString("id", event.getGrowthDao().getObjectId());
             args.putString("uuid" , event.getGrowthDao().getUuidString());
+            args.putInt("position", event.getPosition());
 
             fragment.setArguments(args);
             Log.d(TAG, "adding to back stack ");
@@ -192,6 +194,13 @@ public class GrowthActivity extends InjectableActivity {
                     .addToBackStack("main_screen_stack")
                     .commit();
 
+        }
+
+        @Subscribe
+        public void onItemDeletedEvent(ItemDeleted event) {
+            Log.d(TAG, "onItemDeletedEvent");
+            closeSoftKeyBoard();
+            getSupportFragmentManager().popBackStackImmediate();
         }
 //
 //        @Subscribe

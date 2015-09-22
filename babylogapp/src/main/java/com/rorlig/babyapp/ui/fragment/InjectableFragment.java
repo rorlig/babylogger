@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.IntentCompat;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -29,6 +29,8 @@ import com.rorlig.babyapp.utils.AppUtils;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.Optional;
 
 /**
  * Created by admin on 12/15/13.
@@ -40,6 +42,10 @@ public class InjectableFragment extends Fragment {
     public SharedPreferences preferences;
     @Inject
     public ScopedBus scopedBus;
+
+    @Optional
+    @InjectView(R.id.snackbar)
+    View snackbarLayout;
 
     public InjectableFragment() {
     }
@@ -106,16 +112,18 @@ public class InjectableFragment extends Fragment {
                 return true;
 
             case R.id.action_logout:
-                ParseUser.logOutInBackground(new LogOutCallback() {
-                    @Override
-                    public void done(ParseException e) {
+                ParseUser.logOutInBackground();
+//                new LogOutCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
                         Log.d(TAG, "logging out from parse");
                         clearUserInfo();
                         Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
                         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                    }
-                });
+                        return true;
+//                    }
+//                });
         }
         return super.onOptionsItemSelected(item);
     }
@@ -132,6 +140,8 @@ public class InjectableFragment extends Fragment {
         preferences.edit().putString("dob", "").apply();
         AppUtils.invalidateDiaperChangeCaches(getActivity().getApplicationContext());
         AppUtils.invalidateSleepChangeCaches(getActivity().getApplicationContext());
+        AppUtils.invalidateAllParseCache(getActivity().getApplicationContext());
+//        AppUtils.invalidateSleepChangeCaches(getActivity().getApplicationContext());
 //        AppUtils.invalidateParseCache("Baby", getActivity().getApplicationContext());
 //        preferences.edit().putString(DiaperChangeStatsType.WEEKLY.getValue(), "").apply();
 //        preferences.edit().putString(DiaperChangeStatsType.MONTHLY.getValue(), "").apply();
@@ -175,4 +185,7 @@ public class InjectableFragment extends Fragment {
     }
 
 
+    protected void showErrorIfNotConnected(){
+        Snackbar.make(snackbarLayout, "No internet connection", Snackbar.LENGTH_LONG).show();
+    }
 }

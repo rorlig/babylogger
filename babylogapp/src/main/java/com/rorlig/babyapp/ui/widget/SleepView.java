@@ -32,7 +32,7 @@ public class SleepView extends RelativeLayout {
     private Sleep model;
 
 
-//    public ViewHolder(View view){
+//    public BottleFeedViewHolder(View view){
 //
 //    }
 
