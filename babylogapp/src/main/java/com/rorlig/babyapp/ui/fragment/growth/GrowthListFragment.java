@@ -1,29 +1,20 @@
 package com.rorlig.babyapp.ui.fragment.growth;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.parse.FindCallback;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.otto.ItemDeleted;
-import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
-import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.ui.adapter.parse.GrowthAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.rorlig.babyapp.utils.AppConstants;
-import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -105,19 +96,19 @@ public class GrowthListFragment extends BaseInjectableListFragment {
         ultimateRecyclerView.setAdapter(baseParseAdapter2);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle item selection
-        switch (item.getItemId()) {
-//            case R.id.action_add:
-//                scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
-//                return true;
-            case R.id.action_stats:
-                scopedBus.post(new StatsItemEvent());
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // handle item selection
+//        switch (item.getItemId()) {
+////            case R.id.action_add:
+////                scopedBus.post(new AddItemEvent(AddItemTypes.GROWTH_LOG));
+////                return true;
+//            case R.id.action_stats:
+//                scopedBus.post(new StatsItemEvent());
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
 
 

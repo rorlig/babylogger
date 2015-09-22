@@ -1,6 +1,5 @@
 package com.rorlig.babyapp.ui.adapter.parse;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +11,8 @@ import android.widget.TextView;
 
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.otto.GrowthItemClicked;
 import com.rorlig.babyapp.otto.MilestoneItemClicked;
-import com.rorlig.babyapp.parse_dao.Growth;
 import com.rorlig.babyapp.parse_dao.Milestones;
-import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;

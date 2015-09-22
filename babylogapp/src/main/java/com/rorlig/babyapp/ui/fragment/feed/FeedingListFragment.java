@@ -1,50 +1,25 @@
 package com.rorlig.babyapp.ui.fragment.feed;
 
-import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.mobsandgeeks.adapters.SimpleSectionAdapter;
-import com.parse.FindCallback;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
-import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.otto.FeedItemClickedEvent;
-import com.rorlig.babyapp.otto.ItemDeleted;
-import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
 import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
-import com.rorlig.babyapp.parse_dao.Feed;
-import com.rorlig.babyapp.ui.adapter.DateSectionizer;
-import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
-import com.rorlig.babyapp.ui.adapter.parse.FeedAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.FeedAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.rorlig.babyapp.utils.AppConstants;
-import com.squareup.otto.Subscribe;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

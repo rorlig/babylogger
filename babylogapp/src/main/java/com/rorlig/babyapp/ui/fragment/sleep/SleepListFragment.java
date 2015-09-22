@@ -2,41 +2,20 @@ package com.rorlig.babyapp.ui.fragment.sleep;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.dagger.ForActivity;
-import com.rorlig.babyapp.otto.SleepItemClicked;
-import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.otto.events.other.AddItemTypes;
-import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
-import com.rorlig.babyapp.otto.events.ui.FragmentCreated;
-import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
-import com.rorlig.babyapp.parse_dao.Sleep;
-import com.rorlig.babyapp.ui.adapter.parse.MilestonesItemAdapter2;
-import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter;
-import com.rorlig.babyapp.ui.adapter.parse.SleepAdapter2;
 import com.rorlig.babyapp.ui.fragment.BaseInjectableListFragment;
 import com.rorlig.babyapp.utils.AppConstants;
-import com.squareup.otto.Subscribe;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 
 import java.util.List;
 
@@ -117,20 +96,20 @@ public class SleepListFragment extends BaseInjectableListFragment {
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle item selection
-        switch (item.getItemId()) {
-//            case R.id.action_add:
-//                scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // handle item selection
+//        switch (item.getItemId()) {
+////            case R.id.action_add:
+////                scopedBus.post(new AddItemEvent(AddItemTypes.DIAPER_CHANGE));
+////                return true;
+//            case R.id.action_stats:
+//                scopedBus.post(new StatsItemEvent());
 //                return true;
-            case R.id.action_stats:
-                scopedBus.post(new StatsItemEvent());
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
 
 

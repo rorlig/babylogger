@@ -99,7 +99,7 @@ public class InjectableActivity extends AppCompatActivity implements ObjectGraph
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate");
         setContentView(R.layout.activity_base);
-
+        getWindow().setBackgroundDrawable(null);
 
         activityGraph = ObjectGraphUtils.getApplicationGraph(this).plus(getModules().toArray());
         activityGraph.inject(this);

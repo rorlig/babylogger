@@ -19,7 +19,6 @@ import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
 import com.rorlig.babyapp.otto.events.other.AddItemEvent;
 import com.rorlig.babyapp.scheduler.TypeFaceManager;
 import com.rorlig.babyapp.ui.fragment.InjectableFragment;
-import com.rorlig.babyapp.ui.fragment.diaper.DiaperChangeFragment;
 import com.rorlig.babyapp.ui.fragment.feed.BottleFeedFragment;
 import com.rorlig.babyapp.ui.fragment.feed.FeedingListFragment;
 import com.rorlig.babyapp.ui.fragment.feed.NursingFeedFragment;

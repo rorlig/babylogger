@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.parse.ParseObject;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.GrowthItemClicked;
-import com.rorlig.babyapp.otto.ScopedBus;
 import com.rorlig.babyapp.parse_dao.Growth;
 
 import java.text.SimpleDateFormat;

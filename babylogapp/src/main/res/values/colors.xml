@@ -130,7 +130,7 @@
     <color name="default_title_indicator_text_color">#bbffffff</color>
     <color name="default_underline_indicator_selected_color">#ff33b5e5</color>
     <color name="divider_color">#ffcacaca</color>
-    <color name="drawer_filter_background">#ffffffff</color>
+    <color name="drawer_filter_background">#ffffff</color>
     <color name="drawer_menu_background">#ff3f4046</color>
     <color name="header_background_color">#7c94a6</color>
     <color name="overlay_color">#aa000000</color>

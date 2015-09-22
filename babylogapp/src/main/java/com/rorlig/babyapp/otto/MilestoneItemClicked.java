@@ -1,7 +1,6 @@
 package com.rorlig.babyapp.otto;
 
 import com.rorlig.babyapp.parse_dao.Milestones;
-import com.rorlig.babyapp.parse_dao.Sleep;
 
 /**
  * @author gaurav gupta

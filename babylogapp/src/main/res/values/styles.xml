@@ -348,7 +348,7 @@
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:textColor">@color/text_color_header</item>
         <item name="android:gravity">left</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@null</item>
         <item name="android:clickable">false</item>
         <item name="android:minHeight">0.0px</item>
         <item name="android:paddingBottom">2.0dip</item>
@@ -358,6 +358,8 @@
     </style>
     <style name="ListItemHeader.Purple" parent="ListItemHeader">
         <item name="android:textColor">@color/primary_purple</item>
+        <item name="android:background">@null</item>
+
     </style>
 
     <style name="ListItemHeader.Blue" parent="ListItemHeader">

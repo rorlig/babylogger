@@ -6,8 +6,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -20,11 +20,10 @@ import com.parse.ParseQuery;
 import com.rorlig.babyapp.R;
 import com.rorlig.babyapp.otto.ItemDeleted;
 import com.rorlig.babyapp.otto.events.growth.ItemCreatedOrChanged;
+import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.ui.adapter.parse.ArrayAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.ArrayAdapterFactory;
-import com.rorlig.babyapp.ui.adapter.parse.DiaperChangeAdapter2;
-import com.rorlig.babyapp.ui.adapter.parse.DividerItemDecoration;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -126,6 +125,18 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         scopedBus.unregister(eventListener);
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_stats:
+                scopedBus.post(new StatsItemEvent());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private void setupRecyclerView() {
         if (ultimateRecyclerView!=null) {

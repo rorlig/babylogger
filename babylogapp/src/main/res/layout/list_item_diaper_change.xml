@@ -93,7 +93,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:id="@+id/poopColor"
-                    android:background="@drawable/poop_color_background"
                     android:layout_marginRight="10dp"
                     />
 

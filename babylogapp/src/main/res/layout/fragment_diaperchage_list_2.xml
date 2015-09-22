@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:background="@color/drawer_filter_background"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"
