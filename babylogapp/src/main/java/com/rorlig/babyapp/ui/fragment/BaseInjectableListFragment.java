@@ -24,6 +24,7 @@ import com.rorlig.babyapp.otto.events.stats.StatsItemEvent;
 import com.rorlig.babyapp.parse_dao.BabyLogBaseParseObject;
 import com.rorlig.babyapp.ui.adapter.parse.ArrayAdapter;
 import com.rorlig.babyapp.ui.adapter.parse.ArrayAdapterFactory;
+import com.rorlig.babyapp.utils.AppUtils;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -243,59 +244,70 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         Log.d(TAG, "populateFromNetwork");
 //        final ParseQuery<ParseObject> query = ParseQuery.getQuery(parseClassName);
 //        query.orderByDescending("createdAt");
-
-        getBaseQuery().findInBackground(
-                new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(final List<ParseObject> objects, com.parse.ParseException e) {
-                        Log.d(TAG, "got list from the network");
-                        if (e == null) {
-                            Log.d(TAG, "number of items " + objects.size());
+        if (!AppUtils.isNetworkAvailable(getActivity())){
+            showErrorIfNotConnected();
+            setListResults(data);
+        } else {
+            getBaseQuery().findInBackground(
+                    new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(final List<ParseObject> objects, com.parse.ParseException e) {
+                            Log.d(TAG, "got list from the network");
+                            if (e == null) {
+                                Log.d(TAG, "number of items " + objects.size());
 //                            if(objects.size()==0) {
 //                                populateFromNetwork();
 //                            } else {
-                            if (data != null) {
-                                ParseObject.unpinAllInBackground(parseClassName, data, new DeleteCallback() {
-                                    @Override
-                                    public void done(com.parse.ParseException e) {
-                                        Log.d(TAG, "deleted " + parseClassName + " pin " + e);
-                                        ParseObject.pinAllInBackground(parseClassName, objects);
+                                if (data != null) {
+                                    ParseObject.unpinAllInBackground(parseClassName, data, new DeleteCallback() {
+                                        @Override
+                                        public void done(com.parse.ParseException e) {
+                                            Log.d(TAG, "deleted " + parseClassName + " pin " + e);
+                                            ParseObject.pinAllInBackground(parseClassName, objects);
 
-                                    }
+                                        }
 
-                                });
+                                    });
+                                } else {
+                                    ParseObject.pinAllInBackground(parseClassName, objects);
+                                }
+
+                                setListResults(objects);
                             } else {
-                                ParseObject.pinAllInBackground(parseClassName, objects);
+                                Log.d(TAG, "exception " + e);
+                                setError(e);
                             }
-
-                            setListResults(objects);
-                        } else {
-                            Log.d(TAG, "exception " + e);
-                            setError(e);
                         }
                     }
-                }
-        );
+            );
+        }
+
     }
 
     protected void populateLatestFromNetwork(Date lastLogCreationDate){
-        getSyncQuery(lastLogCreationDate).findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                Log.d(TAG, "new items got from the network " + objects + "e " + e);
+        if (!AppUtils.isNetworkAvailable(getActivity())) {
+            showErrorIfNotConnected();
+            swipeRefreshLayout.setRefreshing(false);
+        } else {
+            getSyncQuery(lastLogCreationDate).findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    Log.d(TAG, "new items got from the network " + objects + "e " + e);
 
-                if (e == null) {
+                    if (e == null) {
                         if (objects != null) {
                             ParseObject.pinAllInBackground(parseClassName, objects);
                             appendListResults(objects);
-//                            setListResults(objects);
+    //                            setListResults(objects);
                         }
-                } else {
-                    Log.d(TAG, "exception " + e);
-                    setError(e);
+                    } else {
+                        Log.d(TAG, "exception " + e);
+                        setError(e);
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 
 

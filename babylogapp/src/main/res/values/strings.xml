@@ -316,9 +316,9 @@
     <string name="export">Export</string>
     <string name="text_toast_no_items_selected_for_export">Please Select at least one item to export</string>
     <string name="sleep_header">Track Sleep</string>
-    <string name="sleep_start_time">Sleep Start Time: </string>
-    <string name="sleep_end_time">Sleep End Time: </string>
-    <string name="sleep_duration">Sleep Duration: </string>
+    <string name="sleep_start_time">Start Time: </string>
+    <string name="sleep_end_time">End Time: </string>
+    <string name="sleep_duration">Duration: </string>
 
     <string name="diaper_log_description_text">Diaper Changes</string>
 
