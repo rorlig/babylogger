@@ -6,4 +6,5 @@
 /build
 /MaterialDesign/build
 /.idea/libraries
+/babylogapp/src/main/res/values/config.xml
 /.idea

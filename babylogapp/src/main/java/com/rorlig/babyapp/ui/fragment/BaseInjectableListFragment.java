@@ -96,10 +96,11 @@ public abstract class BaseInjectableListFragment extends InjectableFragment {
         super.onViewCreated(view, savedInstanceState);
 
         baseParseAdapter2 = ArrayAdapterFactory.getAdapter(parseClassName, parseObjectList);
+        if (ultimateRecyclerView!=null) {
+            ultimateRecyclerView.setAdapter(baseParseAdapter2);
+            ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
 
-        ultimateRecyclerView.setAdapter(baseParseAdapter2);
-
-        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
