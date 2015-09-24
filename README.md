@@ -19,12 +19,9 @@
 
 
 ## Todo
++ US Vaccination Schedule
++ Timers for breast feeding and sleep. 
 
-
-+ Move to RecylerView if needed ?...
-+ Fix minor UI issues..
-+ Add Secondary provider, enable push and sync on changes from one party to another...
-+ Read more on parse.com push service.
 
 
 ## Stretch Goals 
