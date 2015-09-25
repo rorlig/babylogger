@@ -42,10 +42,6 @@ public class BabyLoggerApplication extends Application implements ObjectGraphApp
     private ObjectGraph objectGraph;
     private final String TAG = "BabyLoggerApplication";
 
-//    public String APPLICATION_ID = "g0bRVs758HB3brdGBQaar9o6VxvReNPENWBwhQPY";
-//
-//    public String CLIENT_KEY = "7O6De7cnIwoNo57UZZ6hxE9SiGgk24ESnuTY42LM";
-//    private JobManager jobManager;
 
     @Override
     public ObjectGraph getApplicationGraph() {

@@ -50,7 +50,7 @@
     <!--android:inputType="textPassword"-->
     <!--/>-->
 
-    <Button
+    <com.gc.materialdesign.views.ButtonRectangle
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txt_login"
